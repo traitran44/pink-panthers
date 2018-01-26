@@ -59,7 +59,6 @@ public class AntLabMain {
      * out to the console
      */
     public void printOutMessage() {
-
         String toPrint =
                 ant11.getMessage() + ant12.getMessage() + ant21.getMessage()
                         + ant22.getMessage() + ant31.getMessage();
