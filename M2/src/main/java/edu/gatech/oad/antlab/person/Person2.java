@@ -29,7 +29,7 @@ public class Person2 {
 	 * @param input the string to be modified
 	 * @return the modified string
 	 */
-	public String calc(String input) {
+	private String calc(String input) {
 		char[] calc = input.toCharArray();
 		for (int i = 0; i < input.length(); i++) {
 			int randomNumber = int(Math.random() * (input.length() + 1));
@@ -49,11 +49,5 @@ public class Person2 {
 	 */
 	public String toString(String input) {
 	  return name + calc(input);
-	}
-
-	public static void main(String[] args) {
-		String a = new String("gtg123b");
-		calc(a);
-		System.out.println(a);
 	}
 }
