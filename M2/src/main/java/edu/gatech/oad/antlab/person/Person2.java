@@ -3,7 +3,7 @@ package edu.gatech.oad.antlab.person;
 /**
  *  A simple class for person 2
  *  returns their name and a
- *  modified string 
+ *  modified string
  *
  * @author Bob
  * @version 1.1
@@ -29,19 +29,35 @@ public class Person2 {
 	 * @param input the string to be modified
 	 * @return the modified string
 	 */
+<<<<<<< HEAD
+	public String calc(String input) {
+=======
 	private String calc(String input) {
-	  //Person 2 put your implementation here
-	  return null;
+>>>>>>> 6f40e21d3d818ce7e613e829edc81b71787f4b3e
+		char[] calc = input.toCharArray();
+		for (int i = 0; i < input.length(); i++) {
+			int randomNumber = int(Math.random() * (input.length() + 1));
+			char temp = char[i];
+			char[i] = char[randomNumber];
+			char[randomNumber] = temp;
+		}
+		return calc.toString();
 	}
 	/**
 	 * Return a string rep of this object
 	 * that varies with an input string
 	 *
 	 * @param input the varying string
-	 * @return the string representing the 
+	 * @return the string representing the
 	 *         object
 	 */
 	public String toString(String input) {
 	  return name + calc(input);
+	}
+
+	public static void main(String[] args) {
+		String a = new String("gtg123b");
+		calc(a);
+		System.out.println(a);
 	}
 }
