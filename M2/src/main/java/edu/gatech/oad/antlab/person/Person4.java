@@ -27,11 +27,15 @@ public class Person4 {
      * "bcd234".
      *
      * @param input the string to be modified
-     * @return the modified string
+     * @return newName the modified string
      */
     private String calc(String input) {
       //Person 4 put your implementation here
-      return null;
+        String newName = "";
+        for (int i = 0; i < input.length(); i++) {
+            newName = newName + (char)("" + input.charAt(i) + 1);
+        }
+        return newName;
     }
     
     /**
