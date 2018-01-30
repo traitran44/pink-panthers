@@ -91,6 +91,8 @@ public class AntLabMain {
 
     /**
      * entry point for the program
+     *
+     * @param args CLI arguments
      */
     public static void main(String[] args) {
 

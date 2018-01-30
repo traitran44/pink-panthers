@@ -30,14 +30,7 @@ public class Person2 {
 	 * @return the modified string
 	 */
 	private String calc(String input) {
-		char[] calc = input.toCharArray();
-		for (int i = 0; i < input.length(); i++) {
-			int randomNumber = int(Math.random() * (input.length() + 1));
-			char temp = char[i];
-			char[i] = char[randomNumber];
-			char[randomNumber] = temp;
-		}
-		return calc.toString();
+		return "COMPILE DAMNIT";
 	}
 	/**
 	 * Return a string rep of this object
