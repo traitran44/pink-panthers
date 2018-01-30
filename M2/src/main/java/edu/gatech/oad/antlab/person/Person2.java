@@ -29,11 +29,7 @@ public class Person2 {
 	 * @param input the string to be modified
 	 * @return the modified string
 	 */
-<<<<<<< HEAD
-	public String calc(String input) {
-=======
 	private String calc(String input) {
->>>>>>> 6f40e21d3d818ce7e613e829edc81b71787f4b3e
 		char[] calc = input.toCharArray();
 		for (int i = 0; i < input.length(); i++) {
 			int randomNumber = int(Math.random() * (input.length() + 1));
