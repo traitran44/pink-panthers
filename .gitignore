@@ -58,3 +58,4 @@ fabric.properties
 *.class
 .DS_STORE
 build/
+.gradle/
