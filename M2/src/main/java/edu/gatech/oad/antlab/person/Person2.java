@@ -43,10 +43,4 @@ public class Person2 {
 	public String toString(String input) {
 	  return name + calc(input);
 	}
-
-	public static void main(String[] args) {
-		String a = new String("gtg123b");
-		calc(a);
-		System.out.println(a);
-	}
 }
