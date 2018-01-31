@@ -1,4 +1,6 @@
 package edu.gatech.oad.antlab.person;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *  A simple class for person 2
@@ -30,14 +32,23 @@ public class Person2 {
 	 * @return the modified string
 	 */
 	private String calc(String input) {
-		char[] calc = input.toCharArray();
-		for (int i = 0; i < input.length(); i++) {
-			int randomNumber = int(Math.random() * (input.length() + 1));
-			char temp = char[i];
-			char[i] = char[randomNumber];
-			char[randomNumber] = temp;
-		}
-		return calc.toString();
+		//Person 2 put your implementation here
+		char[] array = input.toCharArray();
+		int random;
+     	List<Character> charList = new ArrayList<Character>();
+
+       	for(char c: array){
+            charList.add(c);
+       	}
+
+        StringBuilder result = new StringBuilder(input.length());
+
+        while(!charList.isEmpty()) {
+            random = (int) (Math.random() * charList.size());
+            result.append(charList.remove(random));
+        }
+
+	  return result.toString();
 	}
 	/**
 	 * Return a string rep of this object
@@ -51,9 +62,4 @@ public class Person2 {
 	  return name + calc(input);
 	}
 
-	public static void main(String[] args) {
-		String a = new String("gtg123b");
-		calc(a);
-		System.out.println(a);
-	}
 }
