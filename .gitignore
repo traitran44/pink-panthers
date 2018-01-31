@@ -56,6 +56,6 @@ crashlytics-build.properties
 fabric.properties
 
 *.class
-.DS_STORE
+.DS_Store
 build/
 .gradle/
