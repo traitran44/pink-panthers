@@ -7,14 +7,16 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Button;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     private EditText username;
     private EditText password;
     private Spinner userTypes;
+    private Button cancel_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +31,10 @@ public class LoginActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, legalUsers);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         userTypes.setAdapter(adapter);
+
+        // set up Cancel button
+        Button cancel_btn = (Button) findViewById(R.id.cancel_button);
+        cancel_btn.setOnClickListener(this);
     }
 
 
@@ -42,6 +48,10 @@ public class LoginActivity extends AppCompatActivity {
         
 
         }
+    }
 
+    public void onClick(View v) {
+        Intent i=new Intent(LoginActivity.this, HomePageActivity.class);
+        startActivity(i);
     }
 }
