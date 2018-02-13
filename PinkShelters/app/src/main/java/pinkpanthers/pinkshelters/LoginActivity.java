@@ -4,11 +4,17 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText email;
     private EditText password;
+    private Spinner userTypes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,6 +22,13 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         email = (EditText)findViewById(R.id.username);
         password = (EditText)findViewById(R.id.password);
+
+        // set up the spinner
+        List<String> legalUsers = Arrays.asList(" ", "Homeless", "Shelter Volunteer", "Shelter Owner", "Admin");
+        userTypes = (Spinner) findViewById(R.id.user_type_spinner);
+        ArrayAdapter<String> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, legalUsers);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        userTypes.setAdapter(adapter);
     }
 
 
