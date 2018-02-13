@@ -13,7 +13,7 @@ public class WelcomePageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_page);
     }
-    public void login(View view) {
+    public void loginButton(View view) {
         Intent loginPageIntent = new Intent(this, LoginActivity.class);
         startActivity(loginPageIntent);
     }
