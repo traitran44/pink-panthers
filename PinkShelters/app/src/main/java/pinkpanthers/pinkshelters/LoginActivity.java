@@ -26,12 +26,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         username = (EditText) findViewById(R.id.username);
         password = (EditText) findViewById(R.id.password);
 
-        // set up the spinner
-        List<String> legalUsers = Arrays.asList(" ", "Homeless", "Shelter Volunteer", "Admin");
-        userTypes = (Spinner) findViewById(R.id.user_type_spinner);
-        ArrayAdapter<String> adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, legalUsers);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        userTypes.setAdapter(adapter);
+//        // set up the spinner
+//        List<String> legalUsers = Arrays.asList(" ", "Homeless", "Shelter Volunteer", "Admin");
+//        userTypes = (Spinner) findViewById(R.id.user_type_spinner);
+//        ArrayAdapter<String> adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, legalUsers);
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        userTypes.setAdapter(adapter);
 
         // set up Cancel button
         Button cancel_btn = (Button) findViewById(R.id.cancel_button);
