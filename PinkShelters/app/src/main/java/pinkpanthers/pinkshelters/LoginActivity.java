@@ -51,7 +51,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     public void onClick(View v) {
-        Intent i=new Intent(LoginActivity.this, HomePageActivity.class);
+        Intent i=new Intent(LoginActivity.this, WelcomePageActivity.class);
         startActivity(i);
     }
 }
