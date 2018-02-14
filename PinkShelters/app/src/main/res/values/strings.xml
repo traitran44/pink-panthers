@@ -15,4 +15,5 @@
     </string>
     <string name="action_register">Register</string>
     <string name="prompt_username">Username</string>
+    <string name="log_out">Log Out</string>
 </resources>
