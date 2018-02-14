@@ -7,16 +7,13 @@ import android.widget.Button;
 import android.view.View;
 
 public class HomePageActivity extends AppCompatActivity {
-    private Button log_out_button;
 
     public void buttonOnClick(View v) {
-        Intent startMain = new Intent(Intent.ACTION_MAIN);
-        startMain.addCategory(Intent.CATEGORY_HOME);
-        startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        Intent startMain = new Intent(this, WelcomePageActivity.class);
+//        startMain.addCategory(Intent.CATEGORY_HOME);
+//        startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(startMain);
         finish();
-        Button log_out_button=(Button) v;
-
     }
 
     @Override
