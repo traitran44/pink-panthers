@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
-    private EditText email;
+    private EditText username;
     private EditText password;
     private Spinner userTypes;
 
@@ -20,7 +20,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        email = (EditText)findViewById(R.id.username);
+        username = (EditText)findViewById(R.id.username);
         password = (EditText)findViewById(R.id.password);
 
         // set up the spinner
@@ -34,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
     public void logIn(View view) {
-        if (email.getText().toString().equals("user") //correct username
+        if (username.getText().toString().equals("user") //correct username
                 && password.getText().toString().equals("pass")) { //correct password
             Intent homePageIntent = new Intent(this, HomePageActivity.class);
             startActivity(homePageIntent);
