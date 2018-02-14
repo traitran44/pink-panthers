@@ -39,6 +39,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
 
+
     public void logIn(View view) {
         TextView txtView = (TextView) findViewById(R.id.validationWarn);
         if (username.getText().toString().equals("user") //correct username
