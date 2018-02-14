@@ -35,7 +35,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="@color/colorAccent"
-        android:onClick="logIn"
+        android:onClick="onClick"
         android:text="@android:string/cancel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -106,6 +106,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="8dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_weight="1"
@@ -132,5 +134,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
         app:layout_constraintVertical_bias="0.428" />
+
+    <TextView
+        android:id="@+id/validationWarn"
+        android:layout_width="368dp"
+        android:layout_height="25dp"
+        android:text="Wrong user name or password"
+        android:visibility="invisible"
+        tools:layout_editor_absoluteX="8dp"
+        android:layout_marginTop="38dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/user_type_spinner"
+        tools:layout_editor_absoluteY="284dp" />
 
 </android.support.constraint.ConstraintLayout>
