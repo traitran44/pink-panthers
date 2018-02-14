@@ -24,7 +24,7 @@ public class LoginActivity extends AppCompatActivity {
         password = (EditText)findViewById(R.id.password);
 
         // set up the spinner
-        List<String> legalUsers = Arrays.asList(" ", "Homeless", "Shelter Volunteer", "Shelter Owner");
+        List<String> legalUsers = Arrays.asList(" ", "Homeless", "Shelter Volunteer", "Admin");
         userTypes = (Spinner) findViewById(R.id.user_type_spinner);
         ArrayAdapter<String> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, legalUsers);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
