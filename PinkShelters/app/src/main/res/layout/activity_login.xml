@@ -60,7 +60,7 @@
         app:layout_constraintVertical_bias="0.047">
 
         <AutoCompleteTextView
-            android:id="@+id/username"
+            android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/prompt_username"
@@ -99,41 +99,6 @@
             android:visibility="visible" />
 
     </android.support.design.widget.TextInputLayout>
-
-    <!--<TextView-->
-        <!--android:id="@+id/user_type"-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginBottom="8dp"-->
-        <!--android:layout_marginEnd="8dp"-->
-        <!--android:layout_marginLeft="16dp"-->
-        <!--android:layout_marginRight="8dp"-->
-        <!--android:layout_marginStart="16dp"-->
-        <!--android:layout_marginTop="8dp"-->
-        <!--android:layout_weight="1"-->
-        <!--android:text="You are:"-->
-        <!--android:textSize="18sp"-->
-        <!--android:textStyle="bold"-->
-        <!--app:layout_constraintBottom_toTopOf="@+id/user_type_spinner"-->
-        <!--app:layout_constraintEnd_toEndOf="@+id/login_button"-->
-        <!--app:layout_constraintStart_toStartOf="parent"-->
-        <!--app:layout_constraintTop_toBottomOf="@+id/textInputLayout"-->
-        <!--app:layout_constraintVertical_bias="0.523" />-->
-
-    <!--<Spinner-->
-        <!--android:id="@+id/user_type_spinner"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginBottom="8dp"-->
-        <!--android:layout_marginEnd="16dp"-->
-        <!--android:layout_marginStart="16dp"-->
-        <!--android:layout_marginTop="8dp"-->
-        <!--app:layout_constraintBottom_toTopOf="@+id/cancel_button"-->
-        <!--app:layout_constraintEnd_toEndOf="parent"-->
-        <!--app:layout_constraintHorizontal_bias="0.0"-->
-        <!--app:layout_constraintStart_toStartOf="parent"-->
-        <!--app:layout_constraintTop_toBottomOf="@+id/textInputLayout"-->
-        <!--app:layout_constraintVertical_bias="0.428" />-->
 
     <TextView
         android:id="@+id/validationWarn"

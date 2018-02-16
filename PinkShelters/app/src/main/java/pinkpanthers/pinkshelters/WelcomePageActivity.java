@@ -17,4 +17,9 @@ public class WelcomePageActivity extends AppCompatActivity {
         Intent loginPageIntent = new Intent(this, LoginActivity.class);
         startActivity(loginPageIntent);
     }
+
+    public void registerButton(View view) {
+        Intent registerPageIntent = new Intent(this, Registration.class);
+        startActivity(registerPageIntent);
+    }
 }

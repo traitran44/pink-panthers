@@ -4,14 +4,10 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Button;
 import android.widget.TextView;
-
-import java.util.Arrays;
-import java.util.List;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     private EditText username;
@@ -23,15 +19,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        username = (EditText) findViewById(R.id.username);
+        username = (EditText) findViewById(R.id.name);
         password = (EditText) findViewById(R.id.password);
-
-//        // set up the spinner
-//        List<String> legalUsers = Arrays.asList(" ", "Homeless", "Shelter Volunteer", "Admin");
-//        userTypes = (Spinner) findViewById(R.id.user_type_spinner);
-//        ArrayAdapter<String> adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, legalUsers);
-//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        userTypes.setAdapter(adapter);
 
         // set up Cancel button
         Button cancel_btn = (Button) findViewById(R.id.cancel_button);
