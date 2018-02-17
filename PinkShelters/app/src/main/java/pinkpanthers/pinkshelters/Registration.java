@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -17,13 +18,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Registration extends AppCompatActivity {
+public class Registration extends AppCompatActivity implements View.OnClickListener{
     private Spinner userTypes;
     private EditText name;
     private EditText email;
     private EditText username;
     private EditText password;
     private EditText ssn;
+    private Button cancel_btn;
     public static Map<String, Account> accounts = new HashMap<>(); //stores username and account
 
 
@@ -49,6 +51,10 @@ public class Registration extends AppCompatActivity {
         username = findViewById(R.id.username);
         password = findViewById(R.id.pw);
         ssn = findViewById(R.id.ssn);
+
+        // set up Cancel button
+        Button cancel_btn = (Button) findViewById(R.id.cancel_button);
+        cancel_btn.setOnClickListener(this);
     }
 
     public static Map getAccounts() {
@@ -102,5 +108,9 @@ public class Registration extends AppCompatActivity {
         } else { //username is not available or missing a requirement
 
         }
+    }
+    public void onClick(View v) { //cancel button
+        Intent welcomeIntent = new Intent(Registration.this, WelcomePageActivity.class);
+        startActivity(welcomeIntent);
     }
 }
