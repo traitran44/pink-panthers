@@ -15,6 +15,14 @@ public class Account {
 //code
     }
 
+    public Account(){
+        Username=null;
+        Password=null;
+        AccountState=null;
+        Email=null;
+        userID=null;
+        SSN=0;
+    }
 
     public Account(String username, String password, String accountState, String email, String userID, int SSN){
         Username = username;
