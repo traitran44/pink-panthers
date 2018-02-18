@@ -23,7 +23,10 @@ public class Registration extends AppCompatActivity {
     private EditText username;
     private EditText password;
     private EditText ssn;
-    private Map<String, String> accounts = new HashMap<>(); //make in account class instead???
+    public static Map<String, Account> accounts = new HashMap<>(); //stores username and account
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +42,7 @@ public class Registration extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         userTypes.setAdapter(adapter);
 
-        //grabbing the information: name, email, username, password, and ssn
+        //grabbing user inputs: name, email, username, password, and ssn
         name = findViewById(R.id.name);
         email = findViewById(R.id.email);
         username = findViewById(R.id.username);
@@ -47,11 +50,18 @@ public class Registration extends AppCompatActivity {
         ssn = findViewById(R.id.ssn);
     }
 
+    public static Map getAccounts() {
+        return accounts;
+    }
+
     public void registerButton(View view) {
         if (!accounts.containsKey(username.getText().toString())) {
-            //create account object?
-
+            Account acc = new Account(username.getText().toString(), password.getText().toString(),
+                    "unlocked", email.getText().toString(),
+                    Integer.parseInt(ssn.getText().toString()));
+            accounts.put(acc.getUsername(), acc);
             Intent loginPageIntent = new Intent(this, LoginActivity.class);
+            startActivity(loginPageIntent);
         } else { //username is not available
 
         }
