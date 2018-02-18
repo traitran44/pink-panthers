@@ -6,15 +6,16 @@ package pinkpanthers.pinkshelters;
 
 public class Volunteer extends Account {
     private String volunteerId;
-    private String shelterId;
     private String adminId;
+    private String assignment;
 
     public Volunteer (String userName, String password, String accountState, String email,
-                      String name, String volunteerId, String ShelterId, String adminId) {
+                      String name, String volunteerId, String ShelterId, String adminId,
+                      String assignment) {
         super(userName, password, accountState, email, name, ShelterId);
         this.volunteerId = volunteerId;
-        this.shelterId = ShelterId;
         this.adminId = adminId;
+        this.assignment = assignment;
     }
 
     //getter for Volunteer ID
@@ -26,15 +27,6 @@ public class Volunteer extends Account {
         this.volunteerId = volunteerId;
     }
 
-    //getter for Shelter ID
-    public String getShelterId() {
-        return shelterId;
-    }
-    //setter for Shelter ID
-    public void setShelterId(String shelterId) {
-        this.shelterId = shelterId;
-    }
-
     //getter for Admin ID
     public String getAdminId() {
         return adminId;
@@ -42,6 +34,16 @@ public class Volunteer extends Account {
     //setter for Admin ID
     public void setAdminId(String adminId) {
         this.adminId = adminId;
+    }
+
+    //getter for Assignment
+    public String getAssignment() {
+        return assignment;
+    }
+
+    //setter for Assignment
+    public void setAssignment(String assignment) {
+        this.assignment = assignment;
     }
 
     public String toString() {
