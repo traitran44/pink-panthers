@@ -19,8 +19,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        username = (EditText) findViewById(R.id.name);
-        password = (EditText) findViewById(R.id.password);
+        username = findViewById(R.id.name);
+        password = findViewById(R.id.password);
 
         // set up Cancel button
         Button cancel_btn = (Button) findViewById(R.id.cancel_button);
@@ -41,7 +41,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    public void onClick(View v) {
+    public void onClick(View v) { //cancel button
         Intent welcomeIntent = new Intent(LoginActivity.this, WelcomePageActivity.class);
         startActivity(welcomeIntent);
     }
