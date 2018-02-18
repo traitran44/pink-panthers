@@ -1,19 +1,14 @@
 package pinkpanthers.pinkshelters;
-import pinkpanthers.pinkshelters.Account;
+import pinkpanthers.pinkshelters.accountClass;
 
 public class Homeless extends Account {
     //fields for homeless people
-    private String NameOftHomeless;
-    private String ShelterID;
+    private String shelterID;
 
-    // THIS IS WRONG
+
     //overriding Account method with information from the homeless people class
-    public void Account(String username, String password, String accountState, String email, String userID){
-        username="homelessUsername";
-        password="homelessPassword";
-        accountState="homelessAccountstate";
-        email="homelessEmail";
-        userID="homelessUserID";
+    public void Homeless (String username, String password, String accountState, String email, String userID){
+        super(String username, String password, String accountState, String email, String userID);
     }
 
 
@@ -24,20 +19,20 @@ public class Homeless extends Account {
     }
     //getter for name of homeless people
     public String getNameOftHomeless() {
-        return NameOftHomeless;
+        return super.getName();
     }
 
     //setter for name of homeless people
-    public void setNameOftHomeless(String nameOftHomeless) {
-        NameOftHomeless = nameOftHomeless;
+    public void setNameOftHomeless(String newName) {
+        super.setName(newName);
     }
     //getter for shelterID
     public String getShelterID() {
-        return ShelterID;
+        return this.shelterID;
     }
     //setter for shelterID
     public void setShelterID(String shelterID) {
-        ShelterID = shelterID;
+        this.shelterID = shelterID;
     }
 }
 

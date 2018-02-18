@@ -1,70 +1,70 @@
 package pinkpanthers.pinkshelters;
 
-
-
+// Parent class of Homeless, Volunteer , Administrator
 public class Account {
+    private String userName;
+    private String password;
+    private String accountState;
+    private String email;
+    private String name;
+    private int userID;
 
-    private String Username;
-    private String Password;
-    private String AccountState;
-    private String Email;
-    private static int userID;
+    private static int currentMaxID = 0;
 
-    // should not have Account() that puts in null.
-    public Account() {
-        this(null, null, null, null);
+    public Account(String userName, String password, String accountState, String email) {
+        this.userName = userName;
+        this.password = password;
+        this.accountState=accountState;
+        this.email=email;
+        this.name=name;
+        currentMaxID++;
+        this.userID = currentMaxID;
+
     }
 
-    public Account(String username, String password, String accountState, String email){
-        Username = username;
-        Password = password;
-        AccountState = accountState;
-        Email = email;
-        userID++;
+
+    public void setUsername (String username) {
+        this.userName = username;
     }
 
-    public void setUsername (String username){
-
-        Username = username;
+    public void setPassword (String password) {
+        this.password = password;
     }
 
-    public void setPassword (String password){
-
-        Password = password;
+    public String setName(String name) {
+        this.name = name;
     }
 
-    public void setAccountState (String accountState){
-
-        AccountState = accountState;
+    public void setAccountState (String accountState) {
+        this.accountState = accountState;
     }
 
-    public void setEmail (String email){
-
-        Email = email;
+    public void setEmail (String email) {
+        this.email = email;
     }
 
     public int getUserID () {
-
-        return userID;
+        return this.getUserID();
     }
 
     public String getUsername () {
-
-        return Username;
+        return this.userName;
     }
 
     public String getPassword () {
+        return this.password;
+    }
 
-        return Password;
+    public String getName() {
+        return this.name;
     }
 
     public String getAccountState () {
-        return AccountState;
+        return this.accountState;
     }
 
-    public String getEmail () {
-
-        return Email;
+    public String getEmail() {
+        return this.email;
     }
 
 }
