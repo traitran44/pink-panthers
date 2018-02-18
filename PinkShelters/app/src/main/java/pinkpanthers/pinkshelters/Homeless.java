@@ -1,12 +1,11 @@
 package pinkpanthers.pinkshelters;
-import pinkpanthers.pinkshelters.accountClass;
+import pinkpanthers.pinkshelters.Account;
 
 public class Homeless extends Account {
-    //fields for homeless people
     private String shelterID;
 
 
-    //overriding Account method with information from the homeless people class
+
     public void Homeless (String username, String password, String accountState, String email, String userID){
         super(String username, String password, String accountState, String email, String userID);
     }

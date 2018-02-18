@@ -1,7 +1,7 @@
 package pinkpanthers.pinkshelters;
 
 // Parent class of Homeless, Volunteer , Administrator
-public class Account {
+public abstract class Account {
     private String userName;
     private String password;
     private String accountState;

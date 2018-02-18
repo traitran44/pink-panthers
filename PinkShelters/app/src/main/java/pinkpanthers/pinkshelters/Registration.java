@@ -95,9 +95,10 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
 
         if (!accounts.containsKey(username.getText().toString()) && !missingAnything) {
-            Account acc = new Account(isValidUsername, isValidPassword, "unlocked",
+            //fix this
+            /* Account acc = new Account(isValidUsername, isValidPassword, "unlocked",
                     isValidEmail);
-            accounts.put(acc.getUsername(), acc);
+            accounts.put(acc.getUsername(), acc);*/
             Intent loginPageIntent = new Intent(this, LoginActivity.class);
             startActivity(loginPageIntent);
         } else { //username is not available or missing a requirement
