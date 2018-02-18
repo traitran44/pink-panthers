@@ -8,7 +8,7 @@ public class Account {
     private String Password;
     private String AccountState;
     private String Email;
-    private String userID;
+    private static int userID;
     private int SSN;
 
     public static void main(String[] args) {
@@ -16,21 +16,16 @@ public class Account {
     }
 
     public Account(){
-        Username=null;
-        Password=null;
-        AccountState=null;
-        Email=null;
-        userID=null;
-        SSN=0;
+        this(null, null, null, null, 0);
     }
 
-    public Account(String username, String password, String accountState, String email, String userID, int SSN){
+    public Account(String username, String password, String accountState, String email, int SSN){
         Username = username;
         Password = password;
         AccountState = accountState;
         Email = email;
-        this.userID = userID;
         this.SSN = SSN;
+        userID++;
     }
 
     public void setUsername (String username){
@@ -53,14 +48,9 @@ public class Account {
         Email = email;
     }
 
-    public String getUserID () {
+    public int getUserID () {
 
         return userID;
-    }
-
-    public void setUserID (String userID){
-
-        this.userID = userID;
     }
 
     public void setSSN ( int SSN){

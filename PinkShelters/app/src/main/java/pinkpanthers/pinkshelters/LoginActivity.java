@@ -9,6 +9,8 @@ import android.widget.Spinner;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.Map;
+
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     private EditText username;
     private EditText password;
@@ -31,8 +33,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     public void logIn(View view) {
         TextView txtView = (TextView) findViewById(R.id.validationWarn);
-        if (username.getText().toString().equals("user") //correct username
-                && password.getText().toString().equals("pass")) { //correct password
+        Map <String, Account> accounts = Registration.getAccounts();
+        String user = username.getText().toString();
+        String pass = password.getText().toString();
+        if (accounts.containsKey(user) //correct username
+                && accounts.get(user).getPassword().equals(pass)) { //correct password
             txtView.setVisibility(View.INVISIBLE);
             Intent homePageIntent = new Intent(this, HomePageActivity.class);
             startActivity(homePageIntent);
