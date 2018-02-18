@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -32,7 +33,7 @@ public class Registration extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.titleBar);
+        Toolbar toolbar = findViewById(R.id.titleBar);
         setSupportActionBar(toolbar);
 
         // set up the spinner (user type)
@@ -55,17 +56,51 @@ public class Registration extends AppCompatActivity {
     }
 
     public void registerButton(View view) {
-        if (!accounts.containsKey(username.getText().toString())) {
-            Account acc = new Account(username.getText().toString(), password.getText().toString(),
-                    "unlocked", email.getText().toString(),
-                    Integer.parseInt(ssn.getText().toString()));
+        Boolean missingAnything = false;
+
+        String isValidName = name.getText().toString();
+        TextView missingName = findViewById(R.id.missingName);
+        if (isValidName.equals("")) { //missing name
+            missingName.setVisibility(View.VISIBLE);
+            missingAnything = true;
+        }
+
+        String isValidEmail = email.getText().toString();
+        TextView missingEmail = findViewById(R.id.missingEmail);
+        if (isValidEmail.equals("")) { //missing email
+            missingEmail.setVisibility(View.VISIBLE);
+            missingAnything = true;
+        }
+
+        String isValidUsername = username.getText().toString();
+        TextView missingUsername = findViewById(R.id.missingUsername);
+        if (isValidUsername.equals("")) { //missing username
+            missingUsername.setVisibility(View.VISIBLE);
+            missingAnything = true;
+        }
+
+        String isValidPassword = password.getText().toString();
+        TextView missingPassword = findViewById(R.id.missingPassword);
+        if (isValidPassword.equals("")) { //missing password
+            missingPassword.setVisibility(View.VISIBLE);
+            missingAnything = true;
+        }
+
+        String isValidSSN = ssn.getText().toString();
+        TextView missingSSN = findViewById(R.id.missingSSN);
+        if (isValidSSN.equals("")) { //missing ssn
+            missingSSN.setVisibility(View.VISIBLE);
+            missingAnything = true;
+        }
+
+        if (!accounts.containsKey(username.getText().toString()) && !missingAnything) {
+            Account acc = new Account(isValidUsername, isValidPassword, "unlocked",
+                    isValidEmail, Integer.parseInt(isValidSSN));
             accounts.put(acc.getUsername(), acc);
             Intent loginPageIntent = new Intent(this, LoginActivity.class);
             startActivity(loginPageIntent);
-        } else { //username is not available
+        } else { //username is not available or missing a requirement
 
         }
     }
-
-
 }
