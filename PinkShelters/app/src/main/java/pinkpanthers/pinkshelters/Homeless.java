@@ -6,15 +6,17 @@ public class Homeless extends Account {
     private String NameOftHomeless;
     private String ShelterID;
 
+    // THIS IS WRONG
     //overriding Account method with information from the homeless people class
-    public void Account(String username, String password, String accountState, String email, String userID, int SSN){
+    public void Account(String username, String password, String accountState, String email, String userID){
         username="homelessUsername";
         password="homelessPassword";
         accountState="homelessAccountstate";
         email="homelessEmail";
         userID="homelessUserID";
-        SSN=0;
     }
+
+
     //constructor for homeless people class
     public Homeless(String nameOftHomeless, String shelterID) {
         NameOftHomeless = nameOftHomeless;

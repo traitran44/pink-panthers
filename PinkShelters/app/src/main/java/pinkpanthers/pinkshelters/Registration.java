@@ -50,7 +50,6 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         email = findViewById(R.id.email);
         username = findViewById(R.id.username);
         password = findViewById(R.id.pw);
-        ssn = findViewById(R.id.ssn);
 
         // set up Cancel button
         Button cancel_btn = (Button) findViewById(R.id.cancel_button);
@@ -71,6 +70,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
             missingAnything = true;
         }
 
+        // should check if the email contain '@'
         String isValidEmail = email.getText().toString();
         TextView missingEmail = findViewById(R.id.missingEmail);
         if (isValidEmail.equals("")) { //missing email
@@ -78,6 +78,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
             missingAnything = true;
         }
 
+        // check if the username is at least a certain length
         String isValidUsername = username.getText().toString();
         TextView missingUsername = findViewById(R.id.missingUsername);
         if (isValidUsername.equals("")) { //missing username
@@ -92,22 +93,18 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
             missingAnything = true;
         }
 
-        String isValidSSN = ssn.getText().toString();
-        TextView missingSSN = findViewById(R.id.missingSSN);
-        if (isValidSSN.equals("")) { //missing ssn
-            missingSSN.setVisibility(View.VISIBLE);
-            missingAnything = true;
-        }
 
         if (!accounts.containsKey(username.getText().toString()) && !missingAnything) {
             Account acc = new Account(isValidUsername, isValidPassword, "unlocked",
-                    isValidEmail, Integer.parseInt(isValidSSN));
+                    isValidEmail);
             accounts.put(acc.getUsername(), acc);
             Intent loginPageIntent = new Intent(this, LoginActivity.class);
             startActivity(loginPageIntent);
         } else { //username is not available or missing a requirement
 
         }
+
+        // should include usertype too
     }
     public void onClick(View v) { //cancel button
         Intent welcomeIntent = new Intent(Registration.this, WelcomePageActivity.class);

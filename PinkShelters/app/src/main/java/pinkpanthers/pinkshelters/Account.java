@@ -9,22 +9,17 @@ public class Account {
     private String AccountState;
     private String Email;
     private static int userID;
-    private int SSN;
 
-    public static void main(String[] args) {
-//code
+    // should not have Account() that puts in null.
+    public Account() {
+        this(null, null, null, null);
     }
 
-    public Account(){
-        this(null, null, null, null, 0);
-    }
-
-    public Account(String username, String password, String accountState, String email, int SSN){
+    public Account(String username, String password, String accountState, String email){
         Username = username;
         Password = password;
         AccountState = accountState;
         Email = email;
-        this.SSN = SSN;
         userID++;
     }
 
@@ -53,11 +48,6 @@ public class Account {
         return userID;
     }
 
-    public void setSSN ( int SSN){
-
-        this.SSN = SSN;
-    }
-
     public String getUsername () {
 
         return Username;
@@ -77,9 +67,5 @@ public class Account {
         return Email;
     }
 
-    public int getSSN () {
-
-        return SSN;
-    }
 }
 
