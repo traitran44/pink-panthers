@@ -42,9 +42,8 @@ public abstract class Account {
         this.password = password;
     }
 
-    public String setName(String name) {
+    public void setName(String name) {
         this.name = name;
-        return name;
     }
 
     public void setAccountState (String accountState) {
@@ -54,6 +53,9 @@ public abstract class Account {
     public void setEmail (String email) {
         this.email = email;
     }
+    public void setShelterID(String ShelterId) {
+        this.ShelterId = ShelterId;
+    }
 
     public int getUserID () {
         return this.getUserID();
@@ -62,6 +64,7 @@ public abstract class Account {
     public String getUsername () {
         return this.userName;
     }
+
 
     public String getPassword () {
         return this.password;
@@ -81,9 +84,6 @@ public abstract class Account {
     public String getShelterID() {
         return this.ShelterId;
     }
-    //setter for shelterID
-    public void setShelterID(String ShelterId) {
-        this.ShelterId = ShelterId;
-    }
+
 }
 
