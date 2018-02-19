@@ -25,10 +25,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     private EditText username;
     private EditText password;
     private Button cancel_btn;
-    public static Map<String, Account> accounts = new HashMap<>(); //stores username and account
-
-
-
+    private MockDB accounts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +52,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         cancel_btn.setOnClickListener(this);
     }
 
-    public static Map getAccounts() {
+    public MockDB getAccounts() {
         return accounts;
     }
 
@@ -93,6 +90,12 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         }
 
         // should include usertype too
+        String isValidType = (String) userTypes.getSelectedItem();
+        TextView missingUserType = findViewById(R.id.missingUserType);
+        if (isValidType.equals("")) { // missing user type
+            missingUserType.setVisibility(View.VISIBLE);
+            missingAnything = true;
+        }
 
         if (!accounts.containsKey(username.getText().toString()) && !missingAnything) {
             //fix this
