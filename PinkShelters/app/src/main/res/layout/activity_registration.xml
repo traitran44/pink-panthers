@@ -102,7 +102,8 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/user_type_spinner"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/pw" />
+            app:layout_constraintTop_toBottomOf="@+id/pw"
+            app:layout_constraintVertical_bias="0.189" />
 
         <Spinner
             android:id="@+id/user_type_spinner"
@@ -159,6 +160,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:text="Missing username"
+            android:textColor="@android:color/holo_red_dark"
             android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@+id/name"
             app:layout_constraintEnd_toEndOf="parent"
@@ -175,6 +177,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:text="@string/error_invalid_email"
+            android:textColor="@android:color/holo_red_dark"
             android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@+id/email"
             app:layout_constraintEnd_toEndOf="parent"
@@ -190,6 +193,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:text="Missing username"
+            android:textColor="@android:color/holo_red_dark"
             android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@+id/username"
             app:layout_constraintEnd_toEndOf="parent"
@@ -201,10 +205,11 @@
         <TextView
             android:id="@+id/missingPassword"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="16dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:text="@string/error_invalid_password"
+            android:textColor="@android:color/holo_red_dark"
             android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@+id/pw"
             app:layout_constraintEnd_toEndOf="parent"
@@ -212,6 +217,23 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/username"
             app:layout_constraintVertical_bias="0.666" />
+
+        <TextView
+            android:id="@+id/missingUserType"
+            android:layout_width="wrap_content"
+            android:layout_height="15dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="132dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="Need to choose one of the followings:"
+            android:textColor="@android:color/holo_red_dark"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/user_type_spinner"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/user_type" />
 
 
     </android.support.constraint.ConstraintLayout>

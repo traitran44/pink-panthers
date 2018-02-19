@@ -97,7 +97,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
             missingAnything = true;
         }
 
-        if (!accounts.containsKey(username.getText().toString()) && !missingAnything) {
+        if (!missingAnything) {
             //fix this
             /*
             if (selection == 'Homeless') {
