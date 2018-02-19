@@ -37,6 +37,7 @@ public abstract class Account {
 
     public String setName(String name) {
         this.name = name;
+        return name;
     }
 
     public void setAccountState (String accountState) {

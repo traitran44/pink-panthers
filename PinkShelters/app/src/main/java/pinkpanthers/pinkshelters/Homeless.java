@@ -4,14 +4,13 @@ import pinkpanthers.pinkshelters.Account;
 public class Homeless extends Account {
     private String shelterID;
 
-    public void Homeless (String username,
+    public Homeless (String userName,
                           String password,
                           String name,
                           String accountState,
                           String email,
-                          String userID,
                           String shelterID){
-        super(String username, password, name, accountState,email,userID);
+        super(userName, password, name, accountState, email);
         this.shelterID = shelterID;
     }
 
