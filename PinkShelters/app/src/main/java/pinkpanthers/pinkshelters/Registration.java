@@ -96,6 +96,11 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
         if (!accounts.containsKey(username.getText().toString()) && !missingAnything) {
             //fix this
+            /*
+            if (selection == 'Homeless') {
+                Homeless hl = new Homeless(isValidUsername
+            }
+            */
             /* Account acc = new Account(isValidUsername, isValidPassword, "unlocked",
                     isValidEmail);
             accounts.put(acc.getUsername(), acc);*/
