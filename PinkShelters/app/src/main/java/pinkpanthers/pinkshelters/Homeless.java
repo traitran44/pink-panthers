@@ -5,11 +5,11 @@ public class Homeless extends Account {
     private String assignmentId;
 
     public Homeless (String userName,
-                          String password,
-                          String name,
-                          String accountState,
-                          String email,
-                          String userId){
+                     String password,
+                     String name,
+                     String accountState,
+                     String email,
+                     String userId){
         super(userName, password, name, accountState, email, userId);
     }
 
@@ -30,7 +30,3 @@ public class Homeless extends Account {
     }
 
 }
-
-
-
-
