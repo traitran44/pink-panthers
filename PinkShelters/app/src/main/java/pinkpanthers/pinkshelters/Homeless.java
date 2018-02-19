@@ -2,7 +2,6 @@ package pinkpanthers.pinkshelters;
 import pinkpanthers.pinkshelters.Account;
 
 public class Homeless extends Account {
-    private String shelterID;
 
     public Homeless (String userName,
                           String password,
@@ -23,14 +22,7 @@ public class Homeless extends Account {
     public void setNameOftHomeless(String newName) {
         super.setName(newName);
     }
-    //getter for shelterID
-    public String getShelterID() {
-        return this.shelterID;
-    }
-    //setter for shelterID
-    public void setShelterID(String shelterID) {
-        this.shelterID = shelterID;
-    }
+
 }
 
 

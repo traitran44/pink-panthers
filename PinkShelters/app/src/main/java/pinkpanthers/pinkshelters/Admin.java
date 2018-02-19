@@ -17,7 +17,7 @@ public class Admin extends Account {
 
         //getter for AdminId
         public String getAdminId() {
-            return super.getName();
+            return this.getAdminId();
         }
 
         //setter for AdminId
