@@ -33,7 +33,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     public void logIn(View view) {
         TextView txtView = (TextView) findViewById(R.id.validationWarn);
-        Map <String, Account> accounts = Registration.getAccounts();
+        Map <String, Account> accounts = MockDB.getAccounts();
         String user = username.getText().toString();
         String pass = password.getText().toString();
         if (accounts.containsKey(user) //correct username

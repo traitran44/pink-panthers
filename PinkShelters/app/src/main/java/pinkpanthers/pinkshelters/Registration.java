@@ -25,7 +25,6 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     private EditText username;
     private EditText password;
     private Button cancel_btn;
-    private DBI account;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,10 +51,6 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         cancel_btn.setOnClickListener(this);
     }
 
-    public MockDB getAccounts() {
-        return accounts;
-    }
-
     public void registerButton(View view) {
         Boolean missingAnything = false;
 
@@ -64,6 +59,9 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         if (isValidName.equals("")) { //missing name
             missingName.setVisibility(View.VISIBLE);
             missingAnything = true;
+        } else {
+            missingName.setVisibility(View.INVISIBLE);
+            missingAnything = false;
         }
 
         // should check if the email contain '@'
@@ -72,6 +70,9 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         if (isValidEmail.equals("")) { //missing email
             missingEmail.setVisibility(View.VISIBLE);
             missingAnything = true;
+        } else {
+            missingEmail.setVisibility(View.INVISIBLE);
+            missingAnything = false;
         }
 
         // check if the username is at least a certain length
@@ -80,6 +81,9 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         if (isValidUsername.equals("")) { //missing username
             missingUsername.setVisibility(View.VISIBLE);
             missingAnything = true;
+        } else {
+            missingUsername.setVisibility(View.INVISIBLE);
+            missingAnything = false;
         }
 
         String isValidPassword = password.getText().toString();
@@ -87,6 +91,9 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         if (isValidPassword.equals("")) { //missing password
             missingPassword.setVisibility(View.VISIBLE);
             missingAnything = true;
+        } else {
+            missingPassword.setVisibility(View.INVISIBLE);
+            missingAnything = false;
         }
 
         String isValidType = (String) userTypes.getSelectedItem();
@@ -94,24 +101,20 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         if (isValidType.equals("")) { // missing user type
             missingUserType.setVisibility(View.VISIBLE);
             missingAnything = true;
+        } else {
+            missingUserType.setVisibility(View.INVISIBLE);
+            missingAnything = false;
         }
 
         if (!missingAnything) {
-            account = new MockDB(isValidName, isValidEmail, isValidUsername, isValidPassword, isValidType);
-            account.create();
-            //fix this
-            /*
-            if (selection == 'Homeless') {
-                Homeless hl = new Homeless(isValidUsername
+            DBI account = new MockDB(isValidName, isValidEmail, isValidUsername, isValidPassword, isValidType);
+            if (account.create()){ //if username is available or not
+                Intent loginPageIntent = new Intent(this, LoginActivity.class);
+                startActivity(loginPageIntent);
+            } else {
+                TextView duplicate = findViewById(R.id.duplicate);
+                duplicate.setVisibility(View.VISIBLE);
             }
-            */
-            /* Account acc = new Account(isValidUsername, isValidPassword, "unlocked",
-                    isValidEmail);
-            accounts.put(acc.getUsername(), acc);*/
-            Intent loginPageIntent = new Intent(this, LoginActivity.class);
-            startActivity(loginPageIntent);
-        } else { //username is not available or missing a requirement
-
         }
 
     }

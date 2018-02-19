@@ -10,17 +10,16 @@ public abstract class Account {
     private String userId;
 
     Account(String userName,
-                   String password,
-                   String name,
-                   String accountState,
-                   String email,
-                   String userId) {
+            String password,
+            String name,
+            String accountState,
+            String email,
+            String userId) {
         this.userName = userName;
         this.password = password;
         this.name = name;
         this.accountState = accountState;
         this.email = email;
-        this.name = name;
         this.userId = userId;
     }
 
@@ -74,5 +73,4 @@ public abstract class Account {
 }
 
 
-}
 

@@ -30,27 +30,32 @@ public class MockDB implements DBI {
 
     @Override
     public boolean create() {
-
         // validate
-        if (userType.equals("Homeless")) {
-            newUser = Homeless();
-        } else if (userType.equals("Volunteer")) {
-            newUser = Volunteer();
-        } else {
-            newUser = Admin();
+        if (accounts.containsKey(userName)) { //available username or not
+            return false;
         }
-        //String userId = idGenerator();
+        String userId = idGenerator();
+        if (userType.equals("Homeless")) {
+            newUser = new Homeless(userName, password, name, "unlocked", email, userId);
+        } else if (userType.equals("Volunteer")) {
+            newUser = new Volunteer(userName, password, name, "unlocked", email, userId);
+        } else {
+            newUser = new Admin(userName, password, name, "unlocked", email, userId);
+        }
+        accounts.put(userName, newUser);
+        return true;
+
 
 
     }
 
     @Override
     public boolean update() {
-
+        return false;
     }
 
     @Override
-    public void get(){
+    public void get() {
 
     }
 
@@ -60,13 +65,17 @@ public class MockDB implements DBI {
     }
 
     private String idGenerator() {
+        id++;
         if (userType.equals("Homeless")) { // user is homeless
             return "HL" + id;
         } else if (userType.equals("Volunteer")) { // user is volunteer
             return "VLT" + id;
         } else { // user is admin
-            return "AD"+ id;
+            return "AD" + id;
         }
-        id++;
+    }
+
+    public static Map getAccounts() {
+        return accounts;
     }
 }

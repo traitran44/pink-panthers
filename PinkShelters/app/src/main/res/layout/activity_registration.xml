@@ -235,6 +235,21 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/user_type" />
 
+        <TextView
+            android:id="@+id/duplicate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Username is not available. Please try again."
+            android:textColor="?attr/colorError"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/username"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.052"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/email"
+            app:layout_constraintVertical_bias="0.0"
+            tools:layout_editor_absoluteY="129dp" />
+
 
     </android.support.constraint.ConstraintLayout>
 
