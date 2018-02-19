@@ -42,9 +42,8 @@ public abstract class Account {
         this.password = password;
     }
 
-    public String setName(String name) {
+    public void setName(String name) {
         this.name = name;
-        return name;
     }
 
     public void setAccountState (String accountState) {
