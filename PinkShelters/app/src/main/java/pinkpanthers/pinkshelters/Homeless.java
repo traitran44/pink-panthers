@@ -11,6 +11,9 @@ public class Homeless extends Account {
                           String ShelterId){
         super(userName, password, name, accountState, email, ShelterId);
 
+
+        
+
     }
 
     //getter for name of homeless people
