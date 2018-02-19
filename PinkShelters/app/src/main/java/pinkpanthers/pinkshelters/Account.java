@@ -7,83 +7,72 @@ public abstract class Account {
     private String accountState;
     private String email;
     private String name;
-    private String ShelterId;
-    private int userID;
+    private String userId;
 
-    private static int currentMaxID = 0;
-
-    public Account() {
-        this("", "", "", "", "", "");
-    }
-
-    public Account(String userName,
+    Account(String userName,
                    String password,
                    String name,
                    String accountState,
                    String email,
-                   String ShelterId) {
+                   String userId) {
         this.userName = userName;
         this.password = password;
         this.name = name;
-        this.accountState=accountState;
-        this.email=email;
-        this.name=name;
-        this.ShelterId=ShelterId;
-        currentMaxID++;
-        this.userID = currentMaxID;
-
+        this.accountState = accountState;
+        this.email = email;
+        this.name = name;
+        this.userId = userId;
     }
 
-    public void setUsername (String username) {
+    public void setUsername(String username) {
         this.userName = username;
     }
 
-    public void setPassword (String password) {
+    public String getUsername() {
+        return this.userName;
+    }
+
+    public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getPassword() {
+        return this.password;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setAccountState (String accountState) {
-        this.accountState = accountState;
-    }
-
-    public void setEmail (String email) {
-        this.email = email;
-    }
-    public void setShelterID(String ShelterId) {
-        this.ShelterId = ShelterId;
-    }
-
-    public int getUserID () {
-        return this.getUserID();
-    }
-
-    public String getUsername () {
-        return this.userName;
-    }
-
-
-    public String getPassword () {
-        return this.password;
-    }
-
     public String getName() {
         return this.name;
     }
 
-    public String getAccountState () {
+    public void setAccountState(String accountState) {
+        this.accountState = accountState;
+    }
+
+    public String getAccountState() {
         return this.accountState;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getEmail() {
         return this.email;
     }
-    public String getShelterID() {
-        return this.ShelterId;
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
+
+    public String getUserId() {
+        return this.userId;
+    }
+}
+
 
 }
 
