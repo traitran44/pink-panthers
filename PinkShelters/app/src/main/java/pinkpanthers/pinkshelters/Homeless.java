@@ -5,21 +5,12 @@ public class Homeless extends Account {
     private String assignmentId;
 
     public Homeless (String userName,
-                          String password,
-                          String name,
-                          String accountState,
-                          String email,
-<<<<<<< HEAD
-                          String ShelterId){
-        super(userName, password, name, accountState, email, ShelterId);
-
-
-        
-
-=======
-                          String userId){
+                     String password,
+                     String name,
+                     String accountState,
+                     String email,
+                     String userId){
         super(userName, password, name, accountState, email, userId);
->>>>>>> 259fd15498276be3c53419c22dcf99dad34db960
     }
 
     // setter/getter deals with homeless check-in/out a shelter
@@ -39,7 +30,3 @@ public class Homeless extends Account {
     }
 
 }
-
-
-
-
