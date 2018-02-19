@@ -25,7 +25,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     private EditText username;
     private EditText password;
     private Button cancel_btn;
-    private MockDB accounts;
+    private DBI account;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,7 +89,6 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
             missingAnything = true;
         }
 
-        // should include usertype too
         String isValidType = (String) userTypes.getSelectedItem();
         TextView missingUserType = findViewById(R.id.missingUserType);
         if (isValidType.equals("")) { // missing user type
@@ -98,6 +97,8 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         }
 
         if (!missingAnything) {
+            account = new MockDB(isValidName, isValidEmail, isValidUsername, isValidPassword, isValidType);
+            account.create();
             //fix this
             /*
             if (selection == 'Homeless') {
