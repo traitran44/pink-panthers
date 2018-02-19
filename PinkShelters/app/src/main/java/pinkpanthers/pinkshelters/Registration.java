@@ -24,7 +24,6 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     private EditText email;
     private EditText username;
     private EditText password;
-    private EditText ssn;
     private Button cancel_btn;
     public static Map<String, Account> accounts = new HashMap<>(); //stores username and account
 
@@ -93,6 +92,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
             missingAnything = true;
         }
 
+        // should include usertype too
 
         if (!accounts.containsKey(username.getText().toString()) && !missingAnything) {
             //fix this
@@ -110,7 +110,6 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
         }
 
-        // should include usertype too
     }
     public void onClick(View v) { //cancel button
         Intent welcomeIntent = new Intent(Registration.this, WelcomePageActivity.class);
