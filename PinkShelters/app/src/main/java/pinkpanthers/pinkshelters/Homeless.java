@@ -9,9 +9,9 @@ public class Homeless extends Account {
                           String name,
                           String accountState,
                           String email,
-                          String shelterID){
-        super(userName, password, name, accountState, email);
-        this.shelterID = shelterID;
+                          String ShelterId){
+        super(userName, password, name, accountState, email, ShelterId);
+
     }
 
     //getter for name of homeless people

@@ -7,21 +7,28 @@ public abstract class Account {
     private String accountState;
     private String email;
     private String name;
+    private String ShelterId;
     private int userID;
 
     private static int currentMaxID = 0;
 
     public Account() {
-        this("", "", "", "", "");
+        this("", "", "", "", "", "");
     }
 
-    public Account(String userName, String password, String name, String accountState, String email) {
+    public Account(String userName,
+                   String password,
+                   String name,
+                   String accountState,
+                   String email,
+                   String ShelterId) {
         this.userName = userName;
         this.password = password;
         this.name = name;
         this.accountState=accountState;
         this.email=email;
         this.name=name;
+        this.ShelterId=ShelterId;
         currentMaxID++;
         this.userID = currentMaxID;
 
@@ -70,6 +77,13 @@ public abstract class Account {
 
     public String getEmail() {
         return this.email;
+    }
+    public String getShelterID() {
+        return this.ShelterId;
+    }
+    //setter for shelterID
+    public void setShelterID(String ShelterId) {
+        this.ShelterId = ShelterId;
     }
 }
 
