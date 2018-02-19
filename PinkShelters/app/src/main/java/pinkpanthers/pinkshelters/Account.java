@@ -11,9 +11,14 @@ public abstract class Account {
 
     private static int currentMaxID = 0;
 
-    public Account(String userName, String password, String accountState, String email) {
+    public Account() {
+        this("", "", "", "", "");
+    }
+
+    public Account(String userName, String password, String name, String accountState, String email) {
         this.userName = userName;
         this.password = password;
+        this.name = name;
         this.accountState=accountState;
         this.email=email;
         this.name=name;
@@ -21,7 +26,6 @@ public abstract class Account {
         this.userID = currentMaxID;
 
     }
-
 
     public void setUsername (String username) {
         this.userName = username;
@@ -66,6 +70,5 @@ public abstract class Account {
     public String getEmail() {
         return this.email;
     }
-
 }
 

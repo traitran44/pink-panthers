@@ -4,20 +4,19 @@ import pinkpanthers.pinkshelters.Account;
 public class Homeless extends Account {
     private String shelterID;
 
-
-
-    public void Homeless (String username, String password, String accountState, String email, String userID){
-        super(String username, String password, String accountState, String email, String userID);
+    public void Homeless (String username,
+                          String password,
+                          String name,
+                          String accountState,
+                          String email,
+                          String userID,
+                          String shelterID){
+        super(String username, password, name, accountState,email,userID);
+        this.shelterID = shelterID;
     }
 
-
-    //constructor for homeless people class
-    public Homeless(String nameOftHomeless, String shelterID) {
-        NameOftHomeless = nameOftHomeless;
-        ShelterID = shelterID;
-    }
     //getter for name of homeless people
-    public String getNameOftHomeless() {
+    public String getNameOfHomeless() {
         return super.getName();
     }
 
