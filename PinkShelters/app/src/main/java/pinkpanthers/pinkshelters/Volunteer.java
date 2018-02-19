@@ -5,53 +5,32 @@ package pinkpanthers.pinkshelters;
  */
 
 public class Volunteer extends Account {
-    private String volunteerId;
-    private String adminId;
-    private String assignment;
+    private String shelterID;
+    private String assignmentId;
 
-    public Volunteer (String userName, String password, String accountState, String email,
-                      String name, String volunteerId, String ShelterId, String adminId,
-                      String assignment) {
-        super(userName, password, accountState, email, name, ShelterId);
-        this.volunteerId = volunteerId;
-        this.adminId = adminId;
-        this.assignment = assignment;
-    }
-
-    //getter for Volunteer ID
-    public String getVolunteerId() {
-        return volunteerId;
-    }
-    //setter for Volunteer ID
-    public void setVolunteerId(String volunteerId) {
-        this.volunteerId = volunteerId;
+    public Volunteer (String userName,
+                      String password,
+                      String name,
+                      String accountState,
+                      String email,
+                      String userId) {
+        super(userName, password, name, accountState, email, userId);
     }
 
-    //getter for Admin ID
-    public String getAdminId() {
-        return adminId;
+    // setter/getter deals with Volunteer working at a specific shelter
+    public String getShelterID() {
+        return shelterID;
     }
-    //setter for Admin ID
-    public void setAdminId(String adminId) {
-        this.adminId = adminId;
+    public void setShelterID(String shelterID) {
+        this.shelterID = shelterID;
     }
 
-    //getter for Assignment
+    // setter/getter deals with volunteer getting assignment from Admin or homeless
     public String getAssignment() {
-        return assignment;
+        return assignmentId;
     }
-
-    //setter for Assignment
-    public void setAssignment(String assignment) {
-        this.assignment = assignment;
-    }
-
-    public String toString() {
-        return volunteerId;
-    }
-
-    public boolean isDuplicate(String volunteerId) {
-        return this.volunteerId.equals(volunteerId);
+    public void setAssignment(String assignmentId) {
+        this.assignmentId = assignmentId;
     }
 }
 
