@@ -52,12 +52,8 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     }
 
     public void registerButton(View view) {
-        Boolean noName;
-        Boolean noUsername;
-        Boolean noPass;
-        Boolean noEmail;
-        Boolean noType;
-
+        Boolean noName, noUsername, noPass, noEmail, noType;
+        
         String isValidName = name.getText().toString();
         TextView missingName = findViewById(R.id.missingName);
         if (isValidName.equals("")) { //missing name
