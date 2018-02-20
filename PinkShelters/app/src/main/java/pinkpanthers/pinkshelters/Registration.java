@@ -35,7 +35,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
         // set up the spinner (user type)
         List<String> legalUsers = Arrays.asList("", "Homeless", "Shelter Volunteer", "Admin");
-        userTypes = (Spinner) findViewById(R.id.user_type_spinner);
+        userTypes = findViewById(R.id.user_type_spinner);
         ArrayAdapter<String> adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, legalUsers);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         userTypes.setAdapter(adapter);
@@ -47,66 +47,71 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         password = findViewById(R.id.pw);
 
         // set up Cancel button
-        Button cancel_btn = (Button) findViewById(R.id.cancel_button);
+        Button cancel_btn = findViewById(R.id.cancel_button);
         cancel_btn.setOnClickListener(this);
     }
 
     public void registerButton(View view) {
-        Boolean missingAnything = false;
+        Boolean noName;
+        Boolean noUsername;
+        Boolean noPass;
+        Boolean noEmail;
+        Boolean noType;
 
         String isValidName = name.getText().toString();
         TextView missingName = findViewById(R.id.missingName);
         if (isValidName.equals("")) { //missing name
             missingName.setVisibility(View.VISIBLE);
-            missingAnything = true;
+            noName = false;
         } else {
             missingName.setVisibility(View.INVISIBLE);
-            missingAnything = false;
+            noName = true;
         }
 
         // should check if the email contain '@'
-        String isValidEmail = email.getText().toString();
+        String isValidEmail = email.getText().toString().toLowerCase();
         TextView missingEmail = findViewById(R.id.missingEmail);
         if (isValidEmail.equals("")) { //missing email
             missingEmail.setVisibility(View.VISIBLE);
-            missingAnything = true;
+            noEmail = false;
         } else {
             missingEmail.setVisibility(View.INVISIBLE);
-            missingAnything = false;
+            noEmail = true;
         }
 
         // check if the username is at least a certain length
-        String isValidUsername = username.getText().toString();
+        String isValidUsername = username.getText().toString().toLowerCase();
         TextView missingUsername = findViewById(R.id.missingUsername);
         if (isValidUsername.equals("")) { //missing username
             missingUsername.setVisibility(View.VISIBLE);
-            missingAnything = true;
+            noUsername = false;
         } else {
             missingUsername.setVisibility(View.INVISIBLE);
-            missingAnything = false;
+            noUsername = true;
         }
 
         String isValidPassword = password.getText().toString();
         TextView missingPassword = findViewById(R.id.missingPassword);
         if (isValidPassword.equals("")) { //missing password
             missingPassword.setVisibility(View.VISIBLE);
-            missingAnything = true;
+            noPass = false;
         } else {
             missingPassword.setVisibility(View.INVISIBLE);
-            missingAnything = false;
+            noPass = true;
         }
 
         String isValidType = (String) userTypes.getSelectedItem();
         TextView missingUserType = findViewById(R.id.missingUserType);
         if (isValidType.equals("")) { // missing user type
             missingUserType.setVisibility(View.VISIBLE);
-            missingAnything = true;
+            noType = false;
         } else {
             missingUserType.setVisibility(View.INVISIBLE);
-            missingAnything = false;
+            noType = true;
         }
 
-        if (!missingAnything) {
+        Boolean missingAnything = noName && noEmail && noPass && noUsername && noType;
+        if (missingAnything) {
             DBI account = new MockDB(isValidName, isValidEmail, isValidUsername, isValidPassword, isValidType);
             if (account.create()){ //if username is available or not
                 Intent loginPageIntent = new Intent(this, LoginActivity.class);

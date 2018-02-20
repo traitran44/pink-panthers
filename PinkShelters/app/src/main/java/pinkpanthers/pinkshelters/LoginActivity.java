@@ -25,16 +25,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         password = findViewById(R.id.password);
 
         // set up Cancel button
-        Button cancel_btn = (Button) findViewById(R.id.cancel_button);
+        Button cancel_btn = findViewById(R.id.cancel_button);
         cancel_btn.setOnClickListener(this);
     }
 
 
 
     public void logIn(View view) {
-        TextView txtView = (TextView) findViewById(R.id.validationWarn);
+        TextView txtView = findViewById(R.id.validationWarn);
         Map <String, Account> accounts = MockDB.getAccounts();
-        String user = username.getText().toString();
+        String user = username.getText().toString().toLowerCase();
         String pass = password.getText().toString();
         if (accounts.containsKey(user) //correct username
                 && accounts.get(user).getPassword().equals(pass)) { //correct password
