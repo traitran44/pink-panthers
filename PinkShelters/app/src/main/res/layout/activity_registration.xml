@@ -95,6 +95,7 @@
             android:layout_height="22dp"
             android:layout_marginBottom="8dp"
             android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
             android:layout_marginTop="8dp"
             android:layout_weight="1"
             android:text="You are:"
@@ -118,7 +119,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/pw"
-            app:layout_constraintVertical_bias="0.837" />
+            app:layout_constraintVertical_bias="0.49" />
 
         <Button
             android:id="@+id/cancel_button"
@@ -126,6 +127,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="60dp"
+            android:layout_marginRight="60dp"
             android:layout_marginTop="8dp"
             android:background="@color/colorAccent"
             android:onClick="onClick"
@@ -141,7 +143,9 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
             android:layout_marginStart="40dp"
+            android:layout_marginLeft="40dp"
             android:layout_marginTop="8dp"
             android:onClick="registerButton"
             android:text="@string/action_register"
@@ -159,15 +163,15 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="Missing username"
+            android:text="Missing name"
             android:textColor="@android:color/holo_red_dark"
             android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@+id/name"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.062"
+            app:layout_constraintHorizontal_bias="0.08"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="1.0" />
 
         <TextView
             android:id="@+id/missingEmail"
@@ -192,12 +196,12 @@
             android:layout_height="18dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:text="Missing username"
+            android:text="Invalid username. Needs to be at least 6 characters"
             android:textColor="@android:color/holo_red_dark"
             android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@+id/username"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.052"
+            app:layout_constraintHorizontal_bias="0.27"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/email"
             app:layout_constraintVertical_bias="0.0" />
@@ -213,7 +217,7 @@
             android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@+id/pw"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.078"
+            app:layout_constraintHorizontal_bias="0.09"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/username"
             app:layout_constraintVertical_bias="0.666" />
@@ -224,7 +228,9 @@
             android:layout_height="15dp"
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="132dp"
+            android:layout_marginRight="132dp"
             android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
             android:layout_marginTop="8dp"
             android:text="Need to choose one of the followings:"
             android:textColor="@android:color/holo_red_dark"
@@ -233,7 +239,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/user_type" />
+            app:layout_constraintTop_toBottomOf="@+id/user_type"
+            app:layout_constraintVertical_bias="0.51" />
 
         <TextView
             android:id="@+id/duplicate"
@@ -244,11 +251,10 @@
             android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@+id/username"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.052"
+            app:layout_constraintHorizontal_bias="0.22"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/email"
-            app:layout_constraintVertical_bias="0.0"
-            tools:layout_editor_absoluteY="129dp" />
+            app:layout_constraintVertical_bias="0.0" />
 
 
     </android.support.constraint.ConstraintLayout>
