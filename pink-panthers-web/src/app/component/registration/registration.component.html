@@ -1,0 +1,38 @@
+<div style="position: absolute; top: 28%; left: 35%; border-left: #455A64 solid 5px">
+  <mat-card>
+    <pp-title></pp-title>
+    <mat-divider></mat-divider>
+
+    <div class="row">
+      <mat-form-field style="width: 100%;">
+        <input matInput placeholder="User Name" [(ngModel)]="user.name" required>
+      </mat-form-field>
+
+      <mat-form-field style="width: 100%;">
+        <input matInput placeholder="Email" [(ngModel)]="user.email" type="email" required>
+      </mat-form-field>
+
+      <mat-form-field style="width: 100%;">
+        <input matInput placeholder="Password" [(ngModel)]="user.pass" type="password" required>
+      </mat-form-field>
+    </div>
+
+    <div class="row text-center">
+      <div class="col-md-6">
+        <button mat-button mat-raised-button (click)="onRegisterClick()">
+          <strong>
+            Register
+          </strong>
+        </button>
+      </div>
+      <div class="col-md-6">
+        <button mat-button mat-raised-button routerLink="/Welcome">
+          <strong>
+            Cancel
+          </strong>
+        </button>
+      </div>
+    </div>
+  </mat-card>
+</div>
+

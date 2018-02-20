@@ -1,0 +1,33 @@
+<div style="position: absolute; top: 32%; left: 38%; border-left: #F48FB1 solid 5px">
+  <mat-card>
+    <pp-title></pp-title>
+    <mat-divider></mat-divider>
+
+    <div class="row">
+      <mat-form-field style="width: 100%;">
+        <input matInput placeholder="User Name" [(ngModel)]="user.name">
+      </mat-form-field>
+
+      <mat-form-field style="width: 100%;">
+        <input matInput placeholder="Password" [(ngModel)]="user.pass" type="password">
+      </mat-form-field>
+    </div>
+
+    <div class="row text-center">
+      <div class="col-md-6">
+        <button mat-button mat-raised-button (click)="onLoginClick()">
+          <strong>
+            Login
+          </strong>
+        </button>
+      </div>
+      <div class="col-md-6">
+        <button mat-button mat-raised-button routerLink="/Welcome">
+          <strong>
+            Cancel
+          </strong>
+        </button>
+      </div>
+    </div>
+  </mat-card>
+</div>
