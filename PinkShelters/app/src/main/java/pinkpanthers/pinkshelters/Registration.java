@@ -24,7 +24,6 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     private EditText email;
     private EditText username;
     private EditText password;
-    private Button cancel_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +39,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         userTypes.setAdapter(adapter);
 
-        //grabbing user inputs: name, email, username, password, and ssn
+        //grabbing user inputs: name, email, username, password
         name = findViewById(R.id.name);
         email = findViewById(R.id.email);
         username = findViewById(R.id.username);
@@ -53,7 +52,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
     public void registerButton(View view) {
         Boolean noName, noUsername, noPass, noEmail, noType;
-        
+
         String isValidName = name.getText().toString();
         TextView missingName = findViewById(R.id.missingName);
         if (isValidName.equals("")) { //missing name
@@ -64,10 +63,9 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
             noName = true;
         }
 
-        // should check if the email contain '@'
         String isValidEmail = email.getText().toString().toLowerCase();
         TextView missingEmail = findViewById(R.id.missingEmail);
-        if (isValidEmail.equals("")) { //missing email
+        if (isValidEmail.equals("") || !isValidEmail.contains("@")) {  //missing email or "@" sign
             missingEmail.setVisibility(View.VISIBLE);
             noEmail = false;
         } else {
@@ -75,10 +73,9 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
             noEmail = true;
         }
 
-        // check if the username is at least a certain length
         String isValidUsername = username.getText().toString().toLowerCase();
         TextView missingUsername = findViewById(R.id.missingUsername);
-        if (isValidUsername.equals("")) { //missing username
+        if (isValidUsername.length() < 6) { //username cannot be less than 6 characters
             missingUsername.setVisibility(View.VISIBLE);
             noUsername = false;
         } else {
@@ -88,7 +85,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
         String isValidPassword = password.getText().toString();
         TextView missingPassword = findViewById(R.id.missingPassword);
-        if (isValidPassword.equals("")) { //missing password
+        if (isValidPassword.length() < 6) { //password cannot be less than 6 characters
             missingPassword.setVisibility(View.VISIBLE);
             noPass = false;
         } else {
