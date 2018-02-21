@@ -4,12 +4,12 @@ public class Homeless extends Account {
     private String shelterId; // might change to int depends on the type parsed in csv file
     private String assignmentId;
 
-    public Homeless (String userName,
-                     String password,
-                     String name,
-                     String accountState,
-                     String email,
-                     String userId){
+    public Homeless(String userName,
+                    String password,
+                    String name,
+                    String accountState,
+                    String email,
+                    int userId) {
         super(userName, password, name, accountState, email, userId);
     }
 
@@ -17,6 +17,7 @@ public class Homeless extends Account {
     public void setShelterIdByHomeless(String shelterId) {
         this.shelterId = shelterId;
     }
+
     public String getShelterIdByHomeless() {
         return this.shelterId;
     }
@@ -25,6 +26,7 @@ public class Homeless extends Account {
     public void setAssignmentId(String assignmentId) {
         this.assignmentId = assignmentId;
     }
+
     public String getAssignmentId() {
         return this.assignmentId;
     }

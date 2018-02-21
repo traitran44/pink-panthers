@@ -9,13 +9,6 @@ public interface DBI {
      * create a new account/assignment
      * @return if an account is added to the database
      */
-    boolean create();
-
-    /**
-     * update the database when something is added or removed
-     * @return true if the database has been updated
-     */
-    boolean update();
-    void get();
-    void delete();
+    Account create(String type, String username, String password, String name, String email) throws UniqueKeyError;
+    Account getAccountByUsername(String username) throws NoSuchUserException;
 }

@@ -9,13 +9,12 @@ import android.widget.Spinner;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.util.Map;
-
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     private EditText username;
     private EditText password;
     private Spinner userTypes;
     private Button cancel_btn;
+    private DBI db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,21 +26,27 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         // set up Cancel button
         Button cancel_btn = findViewById(R.id.cancel_button);
         cancel_btn.setOnClickListener(this);
+
+        db = new MockDB("db_username", "db_password", "db_database");
     }
 
 
 
     public void logIn(View view) {
         TextView txtView = findViewById(R.id.validationWarn);
-        Map <String, Account> accounts = MockDB.getAccounts();
         String user = username.getText().toString().toLowerCase();
         String pass = password.getText().toString();
-        if (accounts.containsKey(user) //correct username
-                && accounts.get(user).getPassword().equals(pass)) { //correct password
-            txtView.setVisibility(View.INVISIBLE);
-            Intent homePageIntent = new Intent(this, HomePageActivity.class);
-            startActivity(homePageIntent);
-        } else { // incorrect password or username
+        try {
+            Account account = db.getAccountByUsername(user);
+            if (account.getPassword().equals(pass)) { // correct password
+                txtView.setVisibility(View.INVISIBLE);
+                Intent homePageIntent = new Intent(this, HomePageActivity.class);
+                startActivity(homePageIntent);
+            } else { // incorrect password
+                txtView.setVisibility(View.VISIBLE);
+            }
+        } catch (NoSuchUserException e) {
+            // User doesn't exist
             txtView.setVisibility(View.VISIBLE);
         }
     }

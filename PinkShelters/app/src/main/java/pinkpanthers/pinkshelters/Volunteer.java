@@ -13,7 +13,7 @@ public class Volunteer extends Account {
                       String name,
                       String accountState,
                       String email,
-                      String userId) {
+                      int userId) {
         super(userName, password, name, accountState, email, userId);
     }
 

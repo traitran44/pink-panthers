@@ -24,6 +24,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     private EditText email;
     private EditText username;
     private EditText password;
+    private DBI db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +49,8 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         // set up Cancel button
         Button cancel_btn = findViewById(R.id.cancel_button);
         cancel_btn.setOnClickListener(this);
+
+        db = new MockDB("db_username", "db_password", "db_database");
     }
 
     public void registerButton(View view) {
@@ -105,11 +108,11 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
         Boolean missingAnything = noName && noEmail && noPass && noUsername && noType;
         if (missingAnything) {
-            DBI account = new MockDB(isValidName, isValidEmail, isValidUsername, isValidPassword, isValidType);
-            if (account.create()){ //if username is available or not
+            try {
+                db.create(isValidType, isValidUsername, isValidPassword, isValidName, isValidEmail);
                 Intent loginPageIntent = new Intent(this, LoginActivity.class);
                 startActivity(loginPageIntent);
-            } else {
+            } catch (UniqueKeyError e) {
                 TextView duplicate = findViewById(R.id.duplicate);
                 duplicate.setVisibility(View.VISIBLE);
             }
