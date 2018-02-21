@@ -35,7 +35,7 @@ public class MockDB implements DBI {
     @Override
     public Account create(String userType, String username, String password, String name, String email) throws UniqueKeyError {
         if (accounts.keySet().contains(username)) {
-            throw new UniqueKeyError("Username already exists!");
+            throw new UniqueKeyError("Username already exists: " + username);
         }
         int id = this.idGenerator();
         Account newUser;
