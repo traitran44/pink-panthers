@@ -5,6 +5,7 @@ import android.os.StrictMode;
 import android.util.Log;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
@@ -122,7 +123,7 @@ public class Db implements DBI {
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
+            if (rs.next()) {
                 String userType = rs.getString("type");
                 int id = rs.getInt("id");
                 String userName = rs.getString("username");
@@ -150,6 +151,8 @@ public class Db implements DBI {
                         throw new NoSuchUserException("Failed to select an account by username, " +
                                 "this should never happen");
                 }
+            } else {
+                throw new NoSuchUserException("Account with " + username + " doesn't exist");
             }
 
         } catch (SQLException e) {
@@ -163,8 +166,8 @@ public class Db implements DBI {
 
     @Override
     public List<Account> getAllAccounts() {
-        List<Account> accountList;
-        Account newUser;
+        List<Account> accountList = new ArrayList<>();
+        Account newUser = null;
         String sql = "SELECT id, type, username, password, name, email, account_state, shelter_id " +
                 "FROM accounts";
 
