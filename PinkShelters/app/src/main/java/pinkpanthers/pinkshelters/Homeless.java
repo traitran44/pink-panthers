@@ -1,7 +1,7 @@
 package pinkpanthers.pinkshelters;
 
 public class Homeless extends Account {
-    private String shelterId; // might change to int depends on the type parsed in csv file
+    private int shelterId; // might change to int depends on the type parsed in csv file
     private String assignmentId;
 
     public Homeless(String username,
@@ -14,11 +14,11 @@ public class Homeless extends Account {
     }
 
     // setter/getter deals with homeless check-in/out a shelter
-    public void setShelterIdByHomeless(String shelterId) {
+    public void setShelterId(int shelterId) {
         this.shelterId = shelterId;
     }
 
-    public String getShelterIdByHomeless() {
+    public int getShelterId() {
         return this.shelterId;
     }
 

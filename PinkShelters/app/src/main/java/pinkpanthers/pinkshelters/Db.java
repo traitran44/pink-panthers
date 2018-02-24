@@ -1,5 +1,6 @@
 package pinkpanthers.pinkshelters;
 
+import android.app.ActivityManager;
 import android.os.StrictMode;
 import android.util.Log;
 
@@ -114,11 +115,95 @@ public class Db implements DBI {
 
     @Override
     public Account getAccountByUsername(String username) throws NoSuchUserException {
-        return null;
+        Account newUser;
+        String sql = "SELECT id, type, username, password, name, email, account_state, shelter_id " +
+                "FROM accounts " +
+                "WHERE username = ?";
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                String userType = rs.getString("type");
+                int id = rs.getInt("id");
+                String userName = rs.getString("username");
+                String password = rs.getString("password");
+                String name = rs.getString("name");
+                String email = rs.getString("email");
+                String accountState = rs.getString("account_state");
+                int shelter_id = rs.getInt("shelter_id");
+
+                switch(userType) {
+                    case("Homeless"):
+                        newUser = new Homeless(userName, password, name, accountState, email, id);
+                        ((Homeless) newUser).setShelterId(shelter_id);
+                        // need to check if assignment is set (if professor wants to keep it)
+                        break;
+                    case("Shelter Volunteer"):
+                        newUser = new Volunteer(userName, password, name, accountState, email, id);
+                        ((Volunteer) newUser).setShelterID(shelter_id);
+                        break;
+                    case("Admin"):
+                        newUser = new Admin(userName, password, name, accountState, email, id);
+                        // admin doesn't need any shelter id
+                        break;
+                    default:
+                        throw new NoSuchUserException("Failed to select an account by username, " +
+                                "this should never happen");
+                }
+            }
+
+        } catch (SQLException e) {
+            logSqlException(e);
+            throw new RuntimeException("Selecting account by username failed: " +
+                    e.toString()); // so we can log sql message too
+        }
+
+        return newUser;
     }
 
     @Override
     public List<Account> getAllAccounts() {
-        return null;
+        List<Account> accountList;
+        Account newUser;
+        String sql = "SELECT id, type, username, password, name, email, account_state, shelter_id " +
+                "FROM accounts";
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                String userType = rs.getString("type");
+                int id = rs.getInt("id");
+                String userName = rs.getString("username");
+                String password = rs.getString("password");
+                String name = rs.getString("name");
+                String email = rs.getString("email");
+                String accountState = rs.getString("account_state");
+                int shelter_id = rs.getInt("shelter_id");
+
+                switch (userType) {
+                    case ("Homeless"):
+                        newUser = new Homeless(userName, password, name, accountState, email, id);
+                        ((Homeless) newUser).setShelterId(shelter_id);
+                        // need to check if assignment is set (if professor wants to keep it)
+                        break;
+                    case ("Shelter Volunteer"):
+                        newUser = new Volunteer(userName, password, name, accountState, email, id);
+                        ((Volunteer) newUser).setShelterID(shelter_id);
+                        break;
+                    case ("Admin"):
+                        newUser = new Admin(userName, password, name, accountState, email, id);
+                        // admin doesn't need any shelter id
+                        break;
+                }
+                accountList.add(newUser);
+            }
+            return accountList;
+
+        } catch (SQLException e) {
+            logSqlException(e);
+            throw new RuntimeException("Select all accounts failed: " +
+                    e.toString()); // so we can log sql message too
+        }
     }
 }
