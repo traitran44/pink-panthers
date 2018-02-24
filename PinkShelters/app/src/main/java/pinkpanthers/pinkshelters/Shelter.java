@@ -1,13 +1,12 @@
 package pinkpanthers.pinkshelters;
-public abstract class Shelter {
 
-
+public class Shelter {
     private String shelterName;
     private String gender;
     private String address;
     private int capacity;
-    private int latitude;
-    private int longitude;
+    private double latitude;
+    private double longitude;
     private int phoneNumber;
 
     Shelter(String shelterName,
@@ -16,35 +15,36 @@ public abstract class Shelter {
             int capacity,
             int latitude,
             int longitude,
-            int phoneNumber)
-    {
+            int phoneNumber) {
         this.shelterName = shelterName;
-        this.gender= gender;
-        this.address =address;
-        this.capacity= capacity;
-        this.latitude= latitude;
+        this.gender = gender;
+        this.address = address;
+        this.capacity = capacity;
+        this.latitude = latitude;
         this.longitude = longitude;
-        this.phoneNumber=phoneNumber;
+        this.phoneNumber = phoneNumber;
     }
 
     public void setshelterName(String shelterName) {
-        this.shelterName= shelterName;
+        this.shelterName = shelterName;
     }
 
     public String getshelterName() {
         return this.shelterName;
     }
 
-    public void setgender(String gender){
+    public void setgender(String gender) {
 
         this.gender = gender;
     }
+
     public String getgender() {
 
         return this.gender;
     }
+
     public void setaddress(String address) {
-        this.address=address;
+        this.address = address;
     }
 
     public String getaddress() {
@@ -52,30 +52,36 @@ public abstract class Shelter {
         return this.address;
     }
 
-    public void setcapacity(int capacity){
+    public void setcapacity(int capacity) {
         this.capacity = capacity;
     }
 
     public int getcapacity() {
-        return this.capacity;};
-
-    public void setlatitude(int latitude){
-        this.latitude=latitude;
+        return this.capacity;
     }
 
-    public int getlatitude() {
+    ;
+
+    public void setlatitude(int latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getlatitude() {
         return this.latitude;
     }
 
-    public void setlongitude(int longitude){
-        this.longitude=longitude;
+    public void setlongitude(double longitude) {
+        this.longitude = longitude;
     }
-    public int getLongitude(){
+
+    public double getLongitude() {
         return this.longitude;
     }
-    public void setPhoneNumber(int phoneNumber){
-        this.phoneNumber=phoneNumber;
+
+    public void setPhoneNumber(int phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
+
     public int getPhoneNumber() {
         return this.phoneNumber;
     }
