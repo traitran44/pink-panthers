@@ -2,27 +2,28 @@ package pinkpanthers.pinkshelters;
 
 public class Shelter {
     private String shelterName;
-    private String gender;
-    private String address;
     private int capacity;
     private double latitude;
     private double longitude;
     private int phoneNumber;
+    private String specialNotes;
+    private String restrictions;
+    private String gender;
 
     Shelter(String shelterName,
-            String gender,
-            String address,
             int capacity,
+            String specialNotes,
             int latitude,
             int longitude,
-            int phoneNumber) {
+            int phoneNumber,
+            String restrictions) {
         this.shelterName = shelterName;
-        this.gender = gender;
-        this.address = address;
+        this.specialNotes = specialNotes;
         this.capacity = capacity;
         this.latitude = latitude;
         this.longitude = longitude;
         this.phoneNumber = phoneNumber;
+        this.restrictions = restrictions;
     }
 
     public void setshelterName(String shelterName) {
@@ -43,18 +44,10 @@ public class Shelter {
         return this.gender;
     }
 
-    public void setaddress(String address) {
-        this.address = address;
-    }
-
-    public String getaddress() {
-
-        return this.address;
-    }
-
     public void setcapacity(int capacity) {
         this.capacity = capacity;
     }
+
 
     public int getcapacity() {
         return this.capacity;
@@ -84,6 +77,30 @@ public class Shelter {
 
     public int getPhoneNumber() {
         return this.phoneNumber;
+    }
+
+    public String getSpecialNotes() {
+        return specialNotes;
+    }
+
+    public void setSpecialNotes(String specialNotes) {
+        this.specialNotes = specialNotes;
+    }
+
+    public String getRestrictions() {
+        return restrictions;
+    }
+
+    public void setRestrictions(String restrictions) {
+        this.restrictions = restrictions;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
 }
