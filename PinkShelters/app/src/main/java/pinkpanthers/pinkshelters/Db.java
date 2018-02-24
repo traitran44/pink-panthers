@@ -53,7 +53,7 @@ public class Db implements DBI {
         switch (type) {
             case "Homeless":
                 break;
-            case "Volunteer":
+            case "Shelter Volunteer":
                 break;
             case "Admin":
                 break;
@@ -99,7 +99,7 @@ public class Db implements DBI {
             case "Homeless":
                 newUser = new Homeless(username, password, name, "active", email, id);
                 break;
-            case "Volunteer":
+            case "Shelter Volunteer":
                 newUser = new Volunteer(username, password, name, "active", email, id);
                 break;
             case "Admin":
