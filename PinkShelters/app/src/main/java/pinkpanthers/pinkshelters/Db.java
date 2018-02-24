@@ -122,6 +122,7 @@ public class Db implements DBI {
                 "WHERE username = ?";
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, username);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 String userType = rs.getString("type");

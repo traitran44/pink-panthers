@@ -27,7 +27,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         Button cancel_btn = findViewById(R.id.cancel_button);
         cancel_btn.setOnClickListener(this);
 
-        db = new MockDB("db_username", "db_password", "db_database");
+        db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
     }
 
 
