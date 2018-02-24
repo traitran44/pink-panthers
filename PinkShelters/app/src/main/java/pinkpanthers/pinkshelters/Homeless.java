@@ -4,13 +4,13 @@ public class Homeless extends Account {
     private String shelterId; // might change to int depends on the type parsed in csv file
     private String assignmentId;
 
-    public Homeless(String userName,
+    public Homeless(String username,
                     String password,
                     String name,
                     String accountState,
                     String email,
                     int userId) {
-        super(userName, password, name, accountState, email, userId);
+        super(username, password, name, accountState, email, userId);
     }
 
     // setter/getter deals with homeless check-in/out a shelter

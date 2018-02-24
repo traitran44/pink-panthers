@@ -2,8 +2,6 @@ package pinkpanthers.pinkshelters;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -14,9 +12,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Registration extends AppCompatActivity implements View.OnClickListener{
     private Spinner userTypes;
@@ -50,7 +46,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         Button cancel_btn = findViewById(R.id.cancel_button);
         cancel_btn.setOnClickListener(this);
 
-        db = new MockDB("db_username", "db_password", "db_database");
+        db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
     }
 
     public void registerButton(View view) {
@@ -109,7 +105,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         Boolean missingAnything = noName && noEmail && noPass && noUsername && noType;
         if (missingAnything) {
             try {
-                db.create(isValidType, isValidUsername, isValidPassword, isValidName, isValidEmail);
+                db.createAccount(isValidType, isValidUsername, isValidPassword, isValidName, isValidEmail);
                 Intent loginPageIntent = new Intent(this, LoginActivity.class);
                 startActivity(loginPageIntent);
             } catch (UniqueKeyError e) {

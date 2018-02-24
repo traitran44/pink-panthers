@@ -8,13 +8,13 @@ public class Volunteer extends Account {
     private String shelterID;
     private String assignmentId;
 
-    public Volunteer (String userName,
+    public Volunteer (String username,
                       String password,
                       String name,
                       String accountState,
                       String email,
                       int userId) {
-        super(userName, password, name, accountState, email, userId);
+        super(username, password, name, accountState, email, userId);
     }
 
     // setter/getter deals with Volunteer working at a specific shelter

@@ -8,10 +8,10 @@ import java.util.List;
 
 public interface DBI {
     /**
-     * create a new account/assignment
+     * createAccount a new account/assignment
      * @return if an account is added to the database
      */
-    Account create(String type, String username, String password, String name, String email) throws UniqueKeyError;
+    Account createAccount(String type, String username, String password, String name, String email) throws UniqueKeyError;
     Account getAccountByUsername(String username) throws NoSuchUserException;
     List<Account> getAllAccounts();
 }

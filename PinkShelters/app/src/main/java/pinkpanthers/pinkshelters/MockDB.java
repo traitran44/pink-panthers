@@ -33,7 +33,7 @@ public class MockDB implements DBI {
     }
 
     @Override
-    public Account create(String userType, String username, String password, String name, String email) throws UniqueKeyError {
+    public Account createAccount(String userType, String username, String password, String name, String email) throws UniqueKeyError {
         if (accounts.keySet().contains(username)) {
             throw new UniqueKeyError("Username already exists: " + username);
         }
@@ -43,14 +43,14 @@ public class MockDB implements DBI {
             case "Homeless":
                 newUser = new Homeless(username, password, name, "active", email, id);
                 break;
-            case "Volunteer":
+            case "Shelter Volunteer":
                 newUser = new Volunteer(username, password, name, "active", email, id);
                 break;
             case "Admin":
                 newUser = new Admin(username, password, name, "active", email, id);
                 break;
             default:
-                throw new RuntimeException("You have attempted to create an invalid user type. " +
+                throw new RuntimeException("You have attempted to createAccount an invalid user type. " +
                         "This should not be possible if the UI is designed correctly.");
         }
         accounts.put(username, newUser);
