@@ -4,60 +4,57 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="pinkpanthers.pinkshelters.WelcomePageActivity">
+    tools:context="pinkpanthers.pinkshelters.WelcomePageActivity"
+    tools:layout_editor_absoluteY="81dp">
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:text="WELCOME TO PINK SHELTER"
         android:textColor="@color/colorAccent"
         android:textColorLink="@color/colorAccent"
         android:textSize="24sp"
         android:textStyle="bold"
+<<<<<<< Updated upstream
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.51"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.323" />
+=======
+        tools:layout_editor_absoluteX="33dp"
+        tools:layout_editor_absoluteY="69dp" />
+>>>>>>> Stashed changes
 
     <Button
         android:id="@+id/register_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:onClick="registerButton"
         android:text="Register"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.463"
-        app:layout_constraintStart_toEndOf="@+id/login_button"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.713" />
+        tools:layout_editor_absoluteX="224dp"
+        tools:layout_editor_absoluteY="327dp" />
 
     <Button
         android:id="@+id/login_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:onClick="loginButton"
         android:text="Login"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.232"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.713" />
+        tools:layout_editor_absoluteX="73dp"
+        tools:layout_editor_absoluteY="327dp" />
 
+<<<<<<< Updated upstream
+=======
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="238dp"
+        android:layout_height="318dp"
+        app:srcCompat="@drawable/pinkpanther"
+        tools:layout_editor_absoluteX="73dp"
+        tools:layout_editor_absoluteY="48dp" />
+
+>>>>>>> Stashed changes
 </android.support.constraint.ConstraintLayout>
