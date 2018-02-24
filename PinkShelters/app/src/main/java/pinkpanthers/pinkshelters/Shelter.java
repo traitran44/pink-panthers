@@ -1,84 +1,85 @@
 package pinkpanthers.pinkshelters;
-public abstract class Shelter {
+public class Shelter {
 
 
     private String shelterName;
-    private String gender;
+    private String restrictions;
     private String address;
     private int capacity;
-    private int latitude;
-    private int longitude;
-    private int phoneNumber;
+    private double latitude;
+    private double longitude;
+    private String phoneNumber;
+    private String specialNote;
 
     Shelter(String shelterName,
-            String gender,
+            String restrictions,
             String address,
             int capacity,
-            int latitude,
-            int longitude,
-            int phoneNumber)
+            double latitude,
+            double longitude,
+            String phoneNumber,
+            String specialNote)
     {
         this.shelterName = shelterName;
-        this.gender= gender;
+        this.restrictions= restrictions;
         this.address =address;
         this.capacity= capacity;
         this.latitude= latitude;
         this.longitude = longitude;
         this.phoneNumber=phoneNumber;
+        this.specialNote = specialNote;
     }
 
-    public void setshelterName(String shelterName) {
+    public void setShelterName(String shelterName) {
         this.shelterName= shelterName;
     }
 
-    public String getshelterName() {
+    public String getShelterName() {
         return this.shelterName;
     }
 
-    public void setgender(String gender){
-
-        this.gender = gender;
+    public void setRestrictions(String restrictions){
+        this.restrictions = restrictions;
     }
-    public String getgender() {
-
-        return this.gender;
+    public String getRestrictions() {
+        return this.restrictions;
     }
-    public void setaddress(String address) {
+    public void setAddress(String address) {
         this.address=address;
     }
 
-    public String getaddress() {
-
+    public String getAddress() {
         return this.address;
     }
 
-    public void setcapacity(int capacity){
+    public void setCapacity(int capacity){
         this.capacity = capacity;
     }
+    public int getCapacity() {return this.capacity;}
 
-    public int getcapacity() {
-        return this.capacity;};
-
-    public void setlatitude(int latitude){
+    public void setLatitude(double latitude){
         this.latitude=latitude;
     }
-
-    public int getlatitude() {
+    public double getLatitude() {
         return this.latitude;
     }
 
-    public void setlongitude(int longitude){
+    public void setLongitude(double longitude){
         this.longitude=longitude;
     }
-    public int getLongitude(){
+    public double getLongitude(){
         return this.longitude;
     }
-    public void setPhoneNumber(int phoneNumber){
+
+    public void setPhoneNumber(String phoneNumber){
         this.phoneNumber=phoneNumber;
     }
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return this.phoneNumber;
     }
+
+    public void setSpecialNote(String specialNote) {this.specialNote = specialNote;}
+    public String getSpecialNote() {return  specialNote;}
 
 }
 
