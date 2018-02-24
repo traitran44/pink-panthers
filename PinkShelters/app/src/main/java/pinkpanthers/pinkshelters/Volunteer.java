@@ -6,7 +6,6 @@ package pinkpanthers.pinkshelters;
 
 public class Volunteer extends Account {
     private int shelterID;
-    private String assignmentId;
 
     public Volunteer (String username,
                       String password,
@@ -23,14 +22,6 @@ public class Volunteer extends Account {
     }
     public void setShelterID(int shelterID) {
         this.shelterID = shelterID;
-    }
-
-    // setter/getter deals with volunteer getting assignment from Admin or homeless
-    public String getAssignment() {
-        return assignmentId;
-    }
-    public void setAssignment(String assignmentId) {
-        this.assignmentId = assignmentId;
     }
 }
 

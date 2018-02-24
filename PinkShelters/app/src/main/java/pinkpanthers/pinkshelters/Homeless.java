@@ -2,7 +2,6 @@ package pinkpanthers.pinkshelters;
 
 public class Homeless extends Account {
     private int shelterId; // might change to int depends on the type parsed in csv file
-    private String assignmentId;
 
     public Homeless(String username,
                     String password,
@@ -20,15 +19,6 @@ public class Homeless extends Account {
 
     public int getShelterId() {
         return this.shelterId;
-    }
-
-    // setter/getter deals with homeless request service to volunteers
-    public void setAssignmentId(String assignmentId) {
-        this.assignmentId = assignmentId;
-    }
-
-    public String getAssignmentId() {
-        return this.assignmentId;
     }
 
 }
