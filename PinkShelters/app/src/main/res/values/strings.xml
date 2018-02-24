@@ -17,4 +17,5 @@
     <string name="prompt_username">Username</string>
     <string name="log_out">Log Out</string>
     <string name="title_activity_registration">Register</string>
+    <string name="title_activity_shelter_details">Shelter Details</string>
 </resources>
