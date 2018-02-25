@@ -6,7 +6,7 @@ import java.util.*;
  * Created by hdang on 2/19/18.
  */
 
-public class MockDB implements DBI {
+abstract class MockDB implements DBI {
     private static int id = 0;
     private static Map<String, Account> accounts = new HashMap<>(); //stores username and account
     private String username;

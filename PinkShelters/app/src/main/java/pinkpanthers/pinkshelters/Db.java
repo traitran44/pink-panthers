@@ -210,4 +210,46 @@ public class Db implements DBI {
                     e.toString()); // so we can log sql message too
         }
     }
+
+    @Override
+    public Shelter createShelter(String shelterName,
+                                 String capacity,
+                                 String specialNotes,
+                                 double latitude,
+                                 double longitude,
+                                 String phoneNumber,
+                                 String restrictions,
+                                 String address) {
+        String sql = "INSERT INTO shelters " +
+                "(`shelter_name`, `capacity`, `special_notes`, `latitude`, `longitude`, `phone_number`, `restrictions`, `address`)" +
+                " VALUES " +
+                "(?, ?, ?, ?, ?, ?, ?, ?)";
+
+        int id;
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            stmt.setString(1, shelterName);
+            stmt.setString(2, capacity);
+            stmt.setString(3, specialNotes);
+            stmt.setDouble(4, latitude);
+            stmt.setDouble(5, longitude);
+            stmt.setString(6, phoneNumber);
+            stmt.setString(7, restrictions);
+            stmt.setString(8, address);
+
+            stmt.executeUpdate();
+
+            ResultSet rs = stmt.getGeneratedKeys();
+            if (!rs.next()) {
+                throw new RuntimeException("Failed to retried user id from DB. This should never occur.");
+            }
+            id = rs.getInt(1);
+        } catch (SQLException e) {
+            String errMsg = logSqlException(e);
+            throw new RuntimeException(errMsg);
+        }
+
+
+        return new Shelter(id, shelterName, capacity, specialNotes, latitude, longitude, phoneNumber, restrictions, address);
+    }
 }

@@ -34,35 +34,16 @@
             android:layout_width="91dp"
             android:layout_height="47dp"
             android:layout_marginBottom="168dp"
-            android:layout_marginEnd="65dp"
-            android:layout_marginRight="65dp"
-            android:layout_marginStart="60dp"
-            android:layout_marginLeft="60dp"
-            android:layout_marginTop="91dp"
+            android:layout_marginEnd="232dp"
+            android:layout_marginStart="232dp"
+            android:layout_marginTop="150dp"
             android:onClick="onClick"
             android:text="Search"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/viewDetail_button"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/rvShelters"
-            app:layout_constraintVertical_bias="0.364" />
-
-        <Button
-            android:id="@+id/viewDetail_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="154dp"
-            android:layout_marginEnd="80dp"
-            android:layout_marginRight="80dp"
-            android:layout_marginStart="65dp"
-            android:layout_marginLeft="65dp"
-            android:layout_marginTop="91dp"
-            android:text="View"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/search_button"
-            app:layout_constraintTop_toBottomOf="@+id/rvShelters"
-            app:layout_constraintVertical_bias="0.388" />
+            app:layout_constraintVertical_bias="0.378" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rvShelters"

@@ -10,6 +10,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.content.SharedPreferences;
+import android.widget.EditText;
+
+
 
 import java.util.Arrays;
 import java.util.List;
@@ -41,6 +45,8 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         email = findViewById(R.id.email);
         username = findViewById(R.id.username);
         password = findViewById(R.id.pw);
+
+
 
         // set up Cancel button
         Button cancel_btn = findViewById(R.id.cancel_button);

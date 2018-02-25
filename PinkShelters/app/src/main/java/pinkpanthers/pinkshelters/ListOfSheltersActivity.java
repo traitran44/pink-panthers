@@ -59,9 +59,8 @@ public class ListOfSheltersActivity extends AppCompatActivity implements Recycle
 
     @Override
     public void onItemClick(View view, int position) { //clicked on one shelter
-//        Toast.makeText(this, "Click on" + adapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
         selectedShelter = position;
-        Intent detail = new Intent(this, ShelterDetails.class);
+        Intent detail = new Intent(this, WelcomePageActivity.class);
         detail.putExtra("shelterId", selectedShelter);
         startActivity(detail);
     }
