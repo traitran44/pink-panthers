@@ -21,12 +21,17 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+                //
+                <action android:name="com.example.package_path.HomepageActivity"/>
+                <category android:name="android.intent.category.DEFAULT" />
+                //
             </intent-filter>
         </activity>
         <activity
             android:name=".Registration"
             android:label="@string/title_activity_registration"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+
     </application>
 
 </manifest>

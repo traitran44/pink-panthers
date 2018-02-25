@@ -12,6 +12,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.content.SharedPreferences;
+import android.widget.EditText;
+
+
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -44,6 +48,25 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         email = findViewById(R.id.email);
         username = findViewById(R.id.username);
         password = findViewById(R.id.pw);
+
+
+        //grab the user to pass to the Home page
+        /*TextView textView = (TextView)findViewById(R.id.name);
+        Intent intent = new Intent( this, HomePageActivity.class );
+        intent.putExtra( "userName",textView.getText().toString());
+        startActivity(intent);*/
+        //Grab the name to pass to Homepage
+        /*Intent i = new Intent(this, HomePageActivity.class);
+        TextView textView = (TextView) findViewById(R.id.name);
+        textView.setText("Welcome" + name);
+        String name=textView.getText().toString();
+        i.putString("key1", var1);// if its string type
+        startActivity(i);*/
+
+
+
+
+
 
         // set up Cancel button
         Button cancel_btn = findViewById(R.id.cancel_button);
