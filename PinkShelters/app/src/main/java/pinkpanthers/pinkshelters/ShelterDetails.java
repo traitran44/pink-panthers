@@ -14,7 +14,7 @@ public class ShelterDetails extends AppCompatActivity {
 //        in shelter list class, add:
 //        getIntent().putExtra("shelterId", shelterId);
 
-        
+
 //        int shelterId = getIntent().getExtras().getInt("shelterId");
         int shelterId = 0;
         Shelter s = findShelterById(shelterId);

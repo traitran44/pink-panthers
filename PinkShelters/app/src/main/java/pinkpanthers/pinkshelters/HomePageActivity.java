@@ -8,13 +8,16 @@ import android.view.View;
 
 public class HomePageActivity extends AppCompatActivity {
 
-    public void buttonOnClick(View v) {
+    public void buttonOnClick(View v) { //logout button
         Intent startMain = new Intent(this, WelcomePageActivity.class);
-//        startMain.addCategory(Intent.CATEGORY_HOME);
-//        startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(startMain);
-        finish();
     }
+
+    public void shelterListButton(View v) {
+        Intent shelterListIntent = new Intent(this, ListOfSheltersActivity.class);
+//        detailPageIntent.putExtra("shelterId", 0);
+        startActivity(shelterListIntent);
+     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
