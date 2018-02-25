@@ -1,0 +1,40 @@
+plugins {
+    // Apply the java plugin to add support for Java
+    id 'java'
+
+    // Apply the application plugin to add support for building an application
+    id 'application'
+}
+
+group 'com.pinkpanthers'
+version '1.0-SNAPSHOT'
+
+//apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+mainClassName = 'com.pinkpanthers.Runner'
+
+defaultTasks 'jar'
+
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+dependencies {
+    compile 'com.google.guava:guava:23.0'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    implementation 'org.mariadb.jdbc:mariadb-java-client:2.2.2'
+    compile 'org.apache.commons:commons-csv:1.5'
+}
+
+jar {
+    manifest {
+        attributes("Implementation-Title": "csvParser",
+                   "Implementation-Version": "1.0.0",
+                   "Main-Class": mainClassName,
+                   "Class-Path": configurations.compile.collect { it.getName() }.join(' '))
+    }
+}
