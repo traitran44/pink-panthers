@@ -53,8 +53,6 @@ public class Shelter {
         return this.capacity;
     }
 
-    ;
-
     public void setlatitude(int latitude) {
         this.latitude = latitude;
     }
