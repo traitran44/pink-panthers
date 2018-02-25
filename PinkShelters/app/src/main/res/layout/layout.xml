@@ -26,7 +26,7 @@
     <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
-        android:layout_height="573dp"
+        android:layout_height="729dp"
         android:animateLayoutChanges="false">
 
         <Button
@@ -48,9 +48,9 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rvShelters"
             android:layout_width="368dp"
-            android:layout_height="429dp"
-            android:layout_marginStart="8dp"
+            android:layout_height="568dp"
             android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="52dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintStart_toStartOf="parent"

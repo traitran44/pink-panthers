@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import pinkpanthers.pinkshelters.R;
 import pinkpanthers.pinkshelters.RecyclerAdapter;
@@ -19,6 +20,7 @@ public class ListOfSheltersActivity extends AppCompatActivity implements Recycle
     RecyclerAdapter adapter;
     private Button search_button;
     private int selectedShelter;
+    private Db db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,21 +29,13 @@ public class ListOfSheltersActivity extends AppCompatActivity implements Recycle
 
         // data to populate the RecyclerView with
         ArrayList<String> shelterNames = new ArrayList<>();
-        shelterNames.add("My Sister's House");
-        shelterNames.add("The Atlanta Day Center for Women & Children");
-        shelterNames.add("The Shepherd's Inn");
-        shelterNames.add("Fuqua Hall");
-        shelterNames.add("Atlanta's Children Center");
-        shelterNames.add("Eden Village ");
-        shelterNames.add("Our House");
-        shelterNames.add("Covenant House Georgia ");
-        shelterNames.add("Nicholas House");
-        shelterNames.add("Hope Atlanta ");
-        shelterNames.add("Gateway Center");
-        shelterNames.add("Young Adult Guidance Center");
-        shelterNames.add("Homes of Light ");
 
+        db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
 
+        List<Shelter> shelters = db.getAllShelters();
+        for (int i = 0; i < shelters.size(); i++) {
+            shelterNames.add(shelters.get(i).getShelterName());
+        }
 
         // set up the RecyclerView
         RecyclerView recyclerView = findViewById(R.id.rvShelters);
@@ -54,22 +48,30 @@ public class ListOfSheltersActivity extends AppCompatActivity implements Recycle
         Button search_button = findViewById(R.id.search_button);
         search_button.setOnClickListener(this);
 
-
     }
 
     @Override
     public void onItemClick(View view, int position) { //clicked on one shelter
         selectedShelter = position;
-        Intent detail = new Intent(this, WelcomePageActivity.class);
-        detail.putExtra("shelterId", selectedShelter);
-        startActivity(detail);
+        //TODO: make on item click go to shelter detail list.
+//        Intent detail = new Intent(this, WelcomePageActivity.class);
+//        detail.putExtra("shelterId", selectedShelter);
+//        startActivity(detail);
+        toastMessage("Shelter name was clicked.");
     }
-
+        //TODO: fix Intent to link to Search Page when we create one for M7
     @Override
     public void onClick(View v) { //search button
-        Intent shelterIntent = new Intent(ListOfSheltersActivity.this, WelcomePageActivity.class);
+        Intent shelterIntent = new Intent(ListOfSheltersActivity.this, HomePageActivity.class);
         startActivity(shelterIntent);
     }
 
+    /**
+     * customizable toast message
+     * @param message message to display
+     */
+    private void toastMessage(String message){
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
 
 }

@@ -19,7 +19,7 @@ public class HomePageActivity extends AppCompatActivity {
         startActivity(startMain);
     }
 
-    public void shelterListButton(View v) {
+    public void shelterListButton(View v) { //View Shelter button
         Intent shelterListIntent = new Intent(this, ListOfSheltersActivity.class);
 //        detailPageIntent.putExtra("shelterId", 0);
         startActivity(shelterListIntent);
@@ -39,7 +39,7 @@ public class HomePageActivity extends AppCompatActivity {
                 // Intent code for open view shelter details
                 //replace welcome activity with shelter activity
 
-                Intent intent = new Intent(HomePageActivity.this, WelcomePageActivity.class);
+                Intent intent = new Intent(HomePageActivity.this, ListOfSheltersActivity.class);
                 startActivity(intent);
 
             }
