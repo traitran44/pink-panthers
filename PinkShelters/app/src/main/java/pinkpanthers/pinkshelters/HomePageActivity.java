@@ -30,7 +30,6 @@ public class HomePageActivity extends AppCompatActivity {
 
         tv.setText("Hello " +getIntent().getStringExtra("NAME") + "!");
         tv1.setText("Welcome to Pink Shelter");
-        //getIntent or get HomepageIntent
         tv2.setText(getIntent().getStringExtra("DESCRIPTION"));
 
     }

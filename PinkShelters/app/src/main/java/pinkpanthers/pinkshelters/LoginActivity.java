@@ -15,17 +15,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Spinner userTypes;
     private Button cancel_btn;
     private DBI db;
-    String description="";
-    EditText name;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        username = findViewById(R.id.name);
+        username = findViewById(R.id.username);
         password = findViewById(R.id.password);
 
-        name=(EditText) findViewById(R.id.name);
+        //name=(EditText) findViewById(R.id.name);
 
         // set up Cancel button
         Button cancel_btn = findViewById(R.id.cancel_button);
@@ -40,7 +39,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         TextView txtView = findViewById(R.id.validationWarn);
         String user = username.getText().toString().toLowerCase();
         String pass = password.getText().toString();
-        String nameValue=name.getText().toString();
 
         try {
             Account account = db.getAccountByUsername(user);
@@ -48,8 +46,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 txtView.setVisibility(View.INVISIBLE);
                 //String nameValue=name.getText().toString();
                 Intent homePageIntent = new Intent(this, HomePageActivity.class);
-                homePageIntent.putExtra("NAME", nameValue);
-                homePageIntent.putExtra("DESCRIPTION", description);
+                //homePageIntent.putExtra("NAME", nameValue);
+                //homePageIntent.putExtra("DESCRIPTION", description);
                 startActivity(homePageIntent);
             } else { // incorrect password
                 txtView.setVisibility(View.VISIBLE);
