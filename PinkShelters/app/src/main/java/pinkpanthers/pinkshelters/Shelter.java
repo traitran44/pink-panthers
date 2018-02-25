@@ -118,4 +118,3 @@ public class Shelter {
         this.address = address;
     }
 }
-

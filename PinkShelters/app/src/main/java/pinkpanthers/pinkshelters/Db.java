@@ -211,8 +211,8 @@ public class Db implements DBI {
         }
     }
 
-        @Override
-        public Shelter createShelter(String shelterName,
+    @Override
+    public Shelter createShelter(String shelterName,
                                  String capacity,
                                  String specialNotes,
                                  double latitude,

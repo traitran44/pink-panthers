@@ -10,6 +10,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.content.SharedPreferences;
+import android.widget.EditText;
+
 
 
 import java.util.Arrays;
@@ -43,9 +46,6 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         username = findViewById(R.id.username);
         password = findViewById(R.id.pw);
 
-        //grab name to display after login
-        name=(EditText)findViewById(R.id.name);
-
 
 
         // set up Cancel button
@@ -57,9 +57,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
     public void registerButton(View view) {
         Boolean noName, noUsername, noPass, noEmail, noType;
-         //send name to home page
-        String description="";
-        String nameValue=name.getText().toString();
+
         String isValidName = name.getText().toString();
         TextView missingName = findViewById(R.id.missingName);
         if (isValidName.equals("")) { //missing name
@@ -115,8 +113,6 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
             try {
                 db.createAccount(isValidType, isValidUsername, isValidPassword, isValidName, isValidEmail);
                 Intent loginPageIntent = new Intent(this, LoginActivity.class);
-                loginPageIntent.putExtra("NAME", nameValue);
-                loginPageIntent.putExtra("DESCRIPTION", description);
                 startActivity(loginPageIntent);
             } catch (UniqueKeyError e) {
                 TextView duplicate = findViewById(R.id.duplicate);
