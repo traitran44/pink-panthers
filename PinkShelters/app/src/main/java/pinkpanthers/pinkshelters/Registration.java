@@ -2,8 +2,6 @@ package pinkpanthers.pinkshelters;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -14,9 +12,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Registration extends AppCompatActivity implements View.OnClickListener{
     private Spinner userTypes;
@@ -24,6 +20,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     private EditText email;
     private EditText username;
     private EditText password;
+    private DBI db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +45,8 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         // set up Cancel button
         Button cancel_btn = findViewById(R.id.cancel_button);
         cancel_btn.setOnClickListener(this);
+
+        db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
     }
 
     public void registerButton(View view) {
@@ -105,11 +104,11 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
         Boolean missingAnything = noName && noEmail && noPass && noUsername && noType;
         if (missingAnything) {
-            DBI account = new MockDB(isValidName, isValidEmail, isValidUsername, isValidPassword, isValidType);
-            if (account.create()){ //if username is available or not
+            try {
+                db.createAccount(isValidType, isValidUsername, isValidPassword, isValidName, isValidEmail);
                 Intent loginPageIntent = new Intent(this, LoginActivity.class);
                 startActivity(loginPageIntent);
-            } else {
+            } catch (UniqueKeyError e) {
                 TextView duplicate = findViewById(R.id.duplicate);
                 duplicate.setVisibility(View.VISIBLE);
             }

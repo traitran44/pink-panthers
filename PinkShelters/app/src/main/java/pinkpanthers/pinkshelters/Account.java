@@ -2,20 +2,20 @@ package pinkpanthers.pinkshelters;
 
 // Parent class of Homeless, Volunteer , Administrator
 public abstract class Account {
-    private String userName;
+    private String username;
     private String password;
     private String accountState;
     private String email;
     private String name;
-    private String userId;
+    private int userId;
 
-    Account(String userName,
+    Account(String username,
             String password,
             String name,
             String accountState,
             String email,
-            String userId) {
-        this.userName = userName;
+            int userId) {
+        this.username = username;
         this.password = password;
         this.name = name;
         this.accountState = accountState;
@@ -24,11 +24,11 @@ public abstract class Account {
     }
 
     public void setUsername(String username) {
-        this.userName = username;
+        this.username = username;
     }
 
     public String getUsername() {
-        return this.userName;
+        return this.username;
     }
 
     public void setPassword(String password) {
@@ -63,11 +63,11 @@ public abstract class Account {
         return this.email;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 
-    public String getUserId() {
+    public int getUserId() {
         return this.userId;
     }
 }

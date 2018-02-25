@@ -3,83 +3,99 @@ public class Shelter {
 
 
     private String shelterName;
-    private String restrictions;
     private String address;
     private int capacity;
     private double latitude;
     private double longitude;
     private String phoneNumber;
-    private String specialNote;
+    private String specialNotes;
+    private String restrictions;
+    private String gender;
 
     Shelter(String shelterName,
-            String restrictions,
             String address,
             int capacity,
-            double latitude,
-            double longitude,
+            String specialNotes,
+            int latitude,
+            int longitude,
             String phoneNumber,
-            String specialNote)
-    {
+            String restrictions) {
         this.shelterName = shelterName;
-        this.restrictions= restrictions;
-        this.address =address;
-        this.capacity= capacity;
-        this.latitude= latitude;
+        this.address = address;
+        this.specialNotes = specialNotes;
+        this.latitude = latitude;
         this.longitude = longitude;
-        this.phoneNumber=phoneNumber;
-        this.specialNote = specialNote;
+        this.capacity = capacity;
+        this.phoneNumber = phoneNumber;
+        this.restrictions = restrictions;
+
+
+
+
     }
 
     public void setShelterName(String shelterName) {
         this.shelterName= shelterName;
     }
-
     public String getShelterName() {
         return this.shelterName;
     }
 
-    public void setRestrictions(String restrictions){
-        this.restrictions = restrictions;
+    public void setGender(String gender) {
+        this.gender = gender;
     }
-    public String getRestrictions() {
-        return this.restrictions;
-    }
-    public void setAddress(String address) {
-        this.address=address;
+    public String getGender() {
+        return this.gender;
     }
 
+    public void setAddress(String address) {
+        this.address = address;
+    }
     public String getAddress() {
         return this.address;
     }
 
-    public void setCapacity(int capacity){
+    public void setCapacity(int capacity) {
         this.capacity = capacity;
     }
-    public int getCapacity() {return this.capacity;}
+    public int getCapacity() {
+        return this.capacity;
+    }
 
-    public void setLatitude(double latitude){
-        this.latitude=latitude;
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
     }
     public double getLatitude() {
         return this.latitude;
     }
 
-    public void setLongitude(double longitude){
-        this.longitude=longitude;
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
-    public double getLongitude(){
+    public double getLongitude() {
         return this.longitude;
     }
 
-    public void setPhoneNumber(String phoneNumber){
-        this.phoneNumber=phoneNumber;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
     public String getPhoneNumber() {
         return this.phoneNumber;
     }
 
-    public void setSpecialNote(String specialNote) {this.specialNote = specialNote;}
-    public String getSpecialNote() {return  specialNote;}
+    public String getSpecialNotes() {
+        return specialNotes;
+    }
+    public void setSpecialNotes(String specialNotes) {
+        this.specialNotes = specialNotes;
+    }
+
+    public String getRestrictions() {
+        return restrictions;
+    }
+    public void setRestrictions(String restrictions) {
+        this.restrictions = restrictions;
+    }
 
 }
 

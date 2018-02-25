@@ -11,12 +11,8 @@ public class ShelterDetails extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shelter_details);
-//        in shelter list class, add:
-//        getIntent().putExtra("shelterId", shelterId);
 
-
-//        int shelterId = getIntent().getExtras().getInt("shelterId");
-        int shelterId = 0;
+        int shelterId = getIntent().getExtras().getInt("shelterId");
         Shelter s = findShelterById(shelterId);
         updateView(s);
 
@@ -26,10 +22,9 @@ public class ShelterDetails extends AppCompatActivity {
     //wont need later if already made in other classes or database?
     private Shelter findShelterById(int shelterId) {
         //find shelter with shelter id
-        Shelter s = new Shelter("My Sister's House", "Women/Children",
-                "921 Howell Mill Road, Atlanta, Georgia 30318", 264,
-                33.78017, -84, "(404) 367-2465",
-                "Temporary, Emergency, Residential Recovery");
+        Shelter s = new Shelter("My Sister's House", "921 Howell Mill Road, Atlanta, Georgia 30318",
+                264, "Temporary, Emergency, Residential Recovery",
+                33.78017, -84, "(404) 367-2465", "Women/Children");
         //above - first shelter -- for testing
         return s;
     }
@@ -64,7 +59,7 @@ public class ShelterDetails extends AppCompatActivity {
         phoneNum.setText(forPhoneNum);
 
         TextView specialNote = findViewById(R.id.specialNote);
-        String forSpecialNote = "Special Note:\t " +s.getSpecialNote();
+        String forSpecialNote = "Special Note:\t " +s.getSpecialNotes();
         specialNote.setText(forSpecialNote);
     }
 
