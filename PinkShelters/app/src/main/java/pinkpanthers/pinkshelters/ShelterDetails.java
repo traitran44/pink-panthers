@@ -31,35 +31,35 @@ public class ShelterDetails extends AppCompatActivity {
 
     private void updateView (Shelter s) {
         TextView name = findViewById(R.id.name);
-        String forName = "Name: \t" +s.getShelterName();
+        String forName = "Name: \t" + s.getShelterName();
         name.setText(forName);
 
         TextView capacity = findViewById(R.id.capacity);
-        String forCapacity = "Capacity: \t" +s.getCapacity();
+        String forCapacity = "Capacity: \t" + s.getCapacity();
         capacity.setText(forCapacity);
 
         TextView longitude = findViewById(R.id.longitude);
-        String forLongitude = "Longitude: \t" +s.getLongitude();
+        String forLongitude = "Longitude: \t" + s.getLongitude();
         longitude.setText(forLongitude);
 
         TextView latitude = findViewById(R.id.latitude);
-        String forLatitude = "Latitude: \t" +s.getLatitude();
+        String forLatitude = "Latitude: \t" + s.getLatitude();
         latitude.setText(forLatitude);
 
         TextView restrictions = findViewById(R.id.restrictions);
-        String forRestrictions = "Restrictions: \t" +s.getRestrictions();
+        String forRestrictions = "Restrictions: \t" + s.getRestrictions();
         restrictions.setText(forRestrictions);
 
         TextView address = findViewById(R.id.address);
-        String forAddress = "Address: \t" +s.getAddress();
+        String forAddress = "Address: \t" + s.getAddress();
         address.setText(forAddress);
 
         TextView phoneNum = findViewById(R.id.phoneNum);
-        String forPhoneNum = "Phone Number: \t" +s.getPhoneNumber();
+        String forPhoneNum = "Phone Number: \t" + s.getPhoneNumber();
         phoneNum.setText(forPhoneNum);
 
         TextView specialNote = findViewById(R.id.specialNote);
-        String forSpecialNote = "Special Note:\t " +s.getSpecialNotes();
+        String forSpecialNote = "Special Note: \t " + s.getSpecialNotes();
         specialNote.setText(forSpecialNote);
     }
 
