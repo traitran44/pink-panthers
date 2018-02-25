@@ -1,22 +1,26 @@
 package pinkpanthers.pinkshelters;
 
 public class Shelter {
+    private int id;
     private String shelterName;
-    private int capacity;
+    private String capacity;
     private double latitude;
     private double longitude;
-    private int phoneNumber;
+    private String phoneNumber;
     private String specialNotes;
     private String restrictions;
-    private String gender;
+    private String address;
 
-    Shelter(String shelterName,
-            int capacity,
+    Shelter(int id,
+            String shelterName,
+            String capacity,
             String specialNotes,
-            int latitude,
-            int longitude,
-            int phoneNumber,
-            String restrictions) {
+            double latitude,
+            double longitude,
+            String phoneNumber,
+            String restrictions,
+            String address) {
+        this.id = id;
         this.shelterName = shelterName;
         this.specialNotes = specialNotes;
         this.capacity = capacity;
@@ -24,57 +28,70 @@ public class Shelter {
         this.longitude = longitude;
         this.phoneNumber = phoneNumber;
         this.restrictions = restrictions;
+        this.address = address;
     }
 
-    public void setshelterName(String shelterName) {
+    @Override
+    public String toString() {
+        return "Shelter{" +
+                "id=" + id +
+                ", shelterName='" + shelterName + '\'' +
+                ", capacity='" + capacity + '\'' +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", specialNotes='" + specialNotes + '\'' +
+                ", restrictions='" + restrictions + '\'' +
+                ", address='" + address + '\'' +
+                '}';
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getShelterName() {
+        return shelterName;
+    }
+
+    public void setShelterName(String shelterName) {
         this.shelterName = shelterName;
     }
 
-    public String getshelterName() {
-        return this.shelterName;
+    public String getCapacity() {
+        return capacity;
     }
 
-    public void setgender(String gender) {
-
-        this.gender = gender;
-    }
-
-    public String getgender() {
-
-        return this.gender;
-    }
-
-    public void setcapacity(int capacity) {
+    public void setCapacity(String capacity) {
         this.capacity = capacity;
     }
 
-
-    public int getcapacity() {
-        return this.capacity;
+    public double getLatitude() {
+        return latitude;
     }
 
-    public void setlatitude(int latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
-    public double getlatitude() {
-        return this.latitude;
+    public double getLongitude() {
+        return longitude;
     }
 
-    public void setlongitude(double longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 
-    public double getLongitude() {
-        return this.longitude;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
-    }
-
-    public int getPhoneNumber() {
-        return this.phoneNumber;
     }
 
     public String getSpecialNotes() {
@@ -93,17 +110,12 @@ public class Shelter {
         this.restrictions = restrictions;
     }
 
-    public String getGender() {
-        return gender;
+    public String getAddress() {
+        return address;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
+    public void setAddress(String address) {
+        this.address = address;
     }
-
 }
-
-
-
-
 

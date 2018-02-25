@@ -1,6 +1,7 @@
 package com.pinkpanthers;
 
 public class Shelter {
+    private int id;
     private String shelterName;
     private String capacity;
     private double latitude;
@@ -8,15 +9,18 @@ public class Shelter {
     private String phoneNumber;
     private String specialNotes;
     private String restrictions;
-    private String gender;
+    private String address;
 
-    Shelter(String shelterName,
+    Shelter(int id,
+            String shelterName,
             String capacity,
             String specialNotes,
             double latitude,
             double longitude,
             String phoneNumber,
-            String restrictions) {
+            String restrictions,
+            String address) {
+        this.id = id;
         this.shelterName = shelterName;
         this.specialNotes = specialNotes;
         this.capacity = capacity;
@@ -24,20 +28,30 @@ public class Shelter {
         this.longitude = longitude;
         this.phoneNumber = phoneNumber;
         this.restrictions = restrictions;
+        this.address = address;
     }
 
     @Override
     public String toString() {
         return "Shelter{" +
-                "shelterName='" + shelterName + '\'' +
+                "id=" + id +
+                ", shelterName='" + shelterName + '\'' +
                 ", capacity='" + capacity + '\'' +
                 ", latitude=" + latitude +
                 ", longitude=" + longitude +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", specialNotes='" + specialNotes + '\'' +
                 ", restrictions='" + restrictions + '\'' +
-                ", gender='" + gender + '\'' +
+                ", address='" + address + '\'' +
                 '}';
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getShelterName() {
@@ -96,11 +110,11 @@ public class Shelter {
         this.restrictions = restrictions;
     }
 
-    public String getGender() {
-        return gender;
+    public String getAddress() {
+        return address;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

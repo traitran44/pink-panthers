@@ -22,7 +22,7 @@ public class Parser {
         }
     }
 
-    public List<Shelter> getShelters() {
+    public List<Shelter> createShelters() {
         CSVParser reader = null;
         try {
             reader = new CSVParser(file, CSVFormat.DEFAULT.withHeader());
@@ -31,15 +31,17 @@ public class Parser {
             System.exit(1);
         }
         List<Shelter> shelters = new ArrayList<>();
+        Db db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
         for (CSVRecord record: reader) {
-            Shelter shelter = new Shelter(
+            Shelter shelter = db.createShelter(
                     record.get("Shelter Name"),
                     record.get("Capacity"),
                     record.get("Special Notes"),
                     Double.valueOf(record.get("Latitude")),
                     Double.valueOf(record.get("Longitude")),
                     record.get("Phone Number"),
-                    record.get("Restrictions")
+                    record.get("Restrictions"),
+                    record.get("Address")
             );
             shelters.add(shelter);
         }
