@@ -2,8 +2,6 @@ package pinkpanthers.pinkshelters;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -18,9 +16,7 @@ import android.widget.EditText;
 
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Registration extends AppCompatActivity implements View.OnClickListener{
     private Spinner userTypes;
@@ -28,6 +24,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     private EditText email;
     private EditText username;
     private EditText password;
+    private DBI db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,27 +47,12 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         password = findViewById(R.id.pw);
 
 
-        //grab the user to pass to the Home page
-        /*TextView textView = (TextView)findViewById(R.id.name);
-        Intent intent = new Intent( this, HomePageActivity.class );
-        intent.putExtra( "userName",textView.getText().toString());
-        startActivity(intent);*/
-        //Grab the name to pass to Homepage
-        /*Intent i = new Intent(this, HomePageActivity.class);
-        TextView textView = (TextView) findViewById(R.id.name);
-        textView.setText("Welcome" + name);
-        String name=textView.getText().toString();
-        i.putString("key1", var1);// if its string type
-        startActivity(i);*/
-
-
-
-
-
 
         // set up Cancel button
         Button cancel_btn = findViewById(R.id.cancel_button);
         cancel_btn.setOnClickListener(this);
+
+        db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
     }
 
     public void registerButton(View view) {
@@ -128,11 +110,11 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
         Boolean missingAnything = noName && noEmail && noPass && noUsername && noType;
         if (missingAnything) {
-            DBI account = new MockDB(isValidName, isValidEmail, isValidUsername, isValidPassword, isValidType);
-            if (account.create()){ //if username is available or not
+            try {
+                db.createAccount(isValidType, isValidUsername, isValidPassword, isValidName, isValidEmail);
                 Intent loginPageIntent = new Intent(this, LoginActivity.class);
                 startActivity(loginPageIntent);
-            } else {
+            } catch (UniqueKeyError e) {
                 TextView duplicate = findViewById(R.id.duplicate);
                 duplicate.setVisibility(View.VISIBLE);
             }

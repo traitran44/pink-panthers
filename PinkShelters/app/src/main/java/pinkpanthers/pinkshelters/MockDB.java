@@ -1,81 +1,64 @@
 package pinkpanthers.pinkshelters;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by hdang on 2/19/18.
  */
 
 public class MockDB implements DBI {
-    private static int id = 2018;
+    private static int id = 0;
     private static Map<String, Account> accounts = new HashMap<>(); //stores username and account
-    private String userType;
-    private Account newUser;
-    private String userName;
+    private String username;
     private String password;
-    private String accountState;
-    private String email;
-    private String name;
+    private String database;
 
-
-    public MockDB(String name, String email, String userName, String password, String userType) {
-        this.name = name;
-        this.email = email;
-        this.userName = userName;
+    public MockDB(String username, String password, String database) {
+        this.username = username;
         this.password = password;
-        this.userType = userType;
+        this.database = database;
+    }
 
+    private int idGenerator() {
+        return id++;
     }
 
     @Override
-    public boolean create() {
-        // validate
-        if (accounts.containsKey(userName)) { //available username or not
-            return false;
+    public Account getAccountByUsername(String username) throws NoSuchUserException {
+        Account user = accounts.get(username);
+        if (user == null) {
+            throw new NoSuchUserException("User " + username + " does not exist.");
         }
-        String userId = idGenerator();
-        if (userType.equals("Homeless")) {
-            newUser = new Homeless(userName, password, name, "unlocked", email, userId);
-        } else if (userType.equals("Volunteer")) {
-            newUser = new Volunteer(userName, password, name, "unlocked", email, userId);
-        } else {
-            newUser = new Admin(userName, password, name, "unlocked", email, userId);
+        return user;
+    }
+
+    @Override
+    public Account createAccount(String userType, String username, String password, String name, String email) throws UniqueKeyError {
+        if (accounts.keySet().contains(username)) {
+            throw new UniqueKeyError("Username already exists: " + username);
         }
-        accounts.put(userName, newUser);
-        return true;
-
-
-
-    }
-
-    @Override
-    public boolean update() {
-        return false;
-    }
-
-    @Override
-    public void get() {
-
-    }
-
-    @Override
-    public void delete() {
-
-    }
-
-    private String idGenerator() {
-        id++;
-        if (userType.equals("Homeless")) { // user is homeless
-            return "HL" + id;
-        } else if (userType.equals("Volunteer")) { // user is volunteer
-            return "VLT" + id;
-        } else { // user is admin
-            return "AD" + id;
+        int id = this.idGenerator();
+        Account newUser;
+        switch (userType) {
+            case "Homeless":
+                newUser = new Homeless(username, password, name, "active", email, id);
+                break;
+            case "Shelter Volunteer":
+                newUser = new Volunteer(username, password, name, "active", email, id);
+                break;
+            case "Admin":
+                newUser = new Admin(username, password, name, "active", email, id);
+                break;
+            default:
+                throw new RuntimeException("You have attempted to createAccount an invalid user type. " +
+                        "This should not be possible if the UI is designed correctly.");
         }
+        accounts.put(username, newUser);
+        return newUser;
     }
 
-    public static Map getAccounts() {
-        return accounts;
+    @Override
+    public List<Account> getAllAccounts() {
+        return new ArrayList<>(accounts.values());
     }
 }

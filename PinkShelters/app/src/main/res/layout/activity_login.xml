@@ -13,7 +13,7 @@
         android:id="@+id/login_button"
         android:layout_width="116dp"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/textView1"
+        android:layout_alignTop="@+id/textView2"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
         android:onClick="logIn"
