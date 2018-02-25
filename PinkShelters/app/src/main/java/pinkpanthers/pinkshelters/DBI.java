@@ -14,4 +14,13 @@ public interface DBI {
     Account createAccount(String type, String username, String password, String name, String email) throws UniqueKeyError;
     Account getAccountByUsername(String username) throws NoSuchUserException;
     List<Account> getAllAccounts();
+
+    Shelter createShelter(String shelterName,
+                          String capacity,
+                          String specialNotes,
+                          double latitude,
+                          double longitude,
+                          String phoneNumber,
+                          String restrictions,
+                          String address);
 }

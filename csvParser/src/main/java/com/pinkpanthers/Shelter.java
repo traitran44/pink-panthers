@@ -1,4 +1,4 @@
-package pinkpanthers.pinkshelters;
+package com.pinkpanthers;
 
 public class Shelter {
     private int id;
@@ -118,4 +118,3 @@ public class Shelter {
         this.address = address;
     }
 }
-
