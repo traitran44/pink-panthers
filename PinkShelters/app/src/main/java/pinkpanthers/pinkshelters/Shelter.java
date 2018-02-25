@@ -16,8 +16,8 @@ public class Shelter {
             String address,
             int capacity,
             String specialNotes,
-            int latitude,
-            int longitude,
+            double latitude,
+            double longitude,
             String phoneNumber,
             String restrictions) {
         this.shelterName = shelterName;

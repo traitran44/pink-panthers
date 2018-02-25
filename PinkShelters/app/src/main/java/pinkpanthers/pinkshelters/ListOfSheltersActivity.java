@@ -18,6 +18,7 @@ public class ListOfSheltersActivity extends AppCompatActivity implements Recycle
 
     RecyclerAdapter adapter;
     private Button search_button;
+    private int selectedShelter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,8 +58,12 @@ public class ListOfSheltersActivity extends AppCompatActivity implements Recycle
     }
 
     @Override
-    public void onItemClick(View view, int position) {
-        Toast.makeText(this, "Click View " + adapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
+    public void onItemClick(View view, int position) { //clicked on one shelter
+//        Toast.makeText(this, "Click on" + adapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
+        selectedShelter = position;
+        Intent detail = new Intent(this, ShelterDetails.class);
+        detail.putExtra("shelterId", selectedShelter);
+        startActivity(detail);
     }
 
     @Override
