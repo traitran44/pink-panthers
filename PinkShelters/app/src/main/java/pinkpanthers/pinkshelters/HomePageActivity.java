@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
+import android.util.Log;
 import android.view.Menu;
 import android.widget.Button;
 import android.view.View;
@@ -13,7 +14,7 @@ import android.widget.TextView;
 public class HomePageActivity extends AppCompatActivity {
     TextView textName, textWelcome, textUserType;
     SharedPreferences preferences ;
-    String PREFS_NAME = "com.example.sp.LoginPrefs";
+    public static final String PREFS_NAME = "com.example.sp.LoginPrefs";
     //button to view Shelter details
     Button GoToShelterDetails;
 
@@ -34,23 +35,20 @@ public class HomePageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
         //Grab name and user type to show in homepage
-        preferences = getSharedPreferences(PREFS_NAME, Registration.MODE_PRIVATE);
+        preferences = getApplicationContext().getSharedPreferences(PREFS_NAME, Registration.MODE_PRIVATE);
         textUserType = (TextView) findViewById(R.id.textView3);
         textName = (TextView) findViewById(R.id.textView1);
         textWelcome = (TextView) findViewById(R.id.textView2);
-        //Get name and user type
-        String prefName=preferences.getString("NAME", null);
-        String prefUserName=preferences.getString("USER_TYPE", null);
 
+
+        //Get name and user type
+        String prefName=preferences.getString("NAME", "");
+        String prefUserType=preferences.getString("USER_TYPE", "");
 
 
         textName.setText("Hello " + prefName + "!");
         textWelcome.setText("Welcome to Pink Shelter");
-        textUserType.setText("User type:" +prefUserName);
-
-
-
-
+        textUserType.setText(prefUserType);
 
         //button to go to Shelter Details
         GoToShelterDetails=(Button) findViewById(R.id.viewshelter_btn);
@@ -67,7 +65,6 @@ public class HomePageActivity extends AppCompatActivity {
 
             }
         });
-
 
     }
 }

@@ -1,8 +1,10 @@
 package pinkpanthers.pinkshelters;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -45,7 +47,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             Account account = db.getAccountByUsername(user);
             if (account.getPassword().equals(pass)) { // correct password
                 txtView.setVisibility(View.INVISIBLE);
-                //String nameValue=name.getText().toString();
+
+
+                SharedPreferences preferences = getApplicationContext().getSharedPreferences("com.example.sp.LoginPrefs", MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                if (account instanceof Homeless) {
+                    editor.putString("USER_TYPE", "Homeless");
+                } else if (account instanceof Admin) {
+                    editor.putString("USER_TYPE", "Admin");
+                } else if (account instanceof  Volunteer) {
+                    editor.putString("USER_TYPE", "Volunteer");
+                }
+
+                editor.putString("NAME", account.getName());
+                editor.commit();
+
                 Intent homePageIntent = new Intent(this, HomePageActivity.class);
                 startActivity(homePageIntent);
             } else { // incorrect password

@@ -77,11 +77,11 @@
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="85dp"
-        android:layout_height="24dp"
+        android:layout_width="90dp"
+        android:layout_height="33dp"
         android:text="UserType"
-        tools:layout_editor_absoluteX="6dp"
-        tools:layout_editor_absoluteY="4dp" />
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="16dp" />
 
 
 </android.support.constraint.ConstraintLayout>

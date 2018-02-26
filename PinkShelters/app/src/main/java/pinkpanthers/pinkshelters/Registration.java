@@ -23,16 +23,16 @@ import java.util.List;
 
 public class Registration extends AppCompatActivity implements View.OnClickListener{
     private Spinner userTypes;
-    private EditText name1;
+    private EditText name;
     private EditText email;
     private EditText username;
     private EditText password;
     private DBI db;
 
     public SharedPreferences preferences;
-    String PREFS_NAME = "com.example.sp.LoginPrefs";
+    public static final String PREFS_NAME = "com.example.sp.LoginPrefs";
     public static Editor editor;
-    EditText name , userType ;
+    EditText userType ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,16 +54,6 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         username = findViewById(R.id.username);
         password = findViewById(R.id.pw);
 
-        //grab the usertype to homepage
-        Spinner spinner = (Spinner)findViewById(R.id.user_type_spinner);
-        String userType = spinner.getSelectedItem().toString();
-        name1=(EditText) findViewById(R.id.name);
-        preferences = getSharedPreferences(PREFS_NAME, Registration.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        System.out.print(name1.getText().toString());
-        editor.putString("NAME", name1.getText().toString());
-        editor.putString("USER_TYPE", userType);
-        editor.commit();
 
 
 
