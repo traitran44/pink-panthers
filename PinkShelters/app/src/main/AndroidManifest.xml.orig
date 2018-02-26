@@ -23,17 +23,23 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+                //
                 <action android:name="com.example.package_path.HomepageActivity"/>
                 <category android:name="android.intent.category.DEFAULT" />
+                //
             </intent-filter>
         </activity>
 
         <activity
             android:name=".Registration"
             android:label="@string/title_activity_registration"
+<<<<<<< HEAD
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ShelterDetails"></activity>
+=======
+            android:theme="@style/AppTheme.NoActionBar"></activity>
 
+>>>>>>> 9f701d984ded7b5e8f5d1fd44b0a4f0acab8b9ac
     </application>
 
 </manifest>

@@ -1,38 +1,58 @@
 package pinkpanthers.pinkshelters;
 
+import android.content.Context;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
 import android.view.Menu;
 import android.widget.Button;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 
 public class HomePageActivity extends AppCompatActivity {
-    TextView tv, tv1, tv2;
+    TextView textName, textWelcome, textUserType;
+    SharedPreferences preferences ;
+    String PREFS_NAME = "com.example.sp.LoginPrefs";
     //button to view Shelter details
     Button GoToShelterDetails;
 
 
-
-
-
-    public void buttonOnClick(View v) {
+    public void buttonOnClick(View v) { //logout button
         Intent startMain = new Intent(this, WelcomePageActivity.class);
-//        startMain.addCategory(Intent.CATEGORY_HOME);
-//        startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(startMain);
-        finish();
+    }
+
+    public void shelterListButton(View v) { //View Shelter button
+        Intent shelterListIntent = new Intent(this, ListOfSheltersActivity.class);
+//        detailPageIntent.putExtra("shelterId", 0);
+        startActivity(shelterListIntent);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
-         //button to go to Shelter Details
+        //Grab name and user type to show in homepage
+        preferences = getSharedPreferences(PREFS_NAME, Registration.MODE_PRIVATE);
+        textUserType = (TextView) findViewById(R.id.textView3);
+        textName = (TextView) findViewById(R.id.textView1);
+        textWelcome = (TextView) findViewById(R.id.textView2);
+        //Get name and user type
+        String prefName=preferences.getString("NAME", null);
+        String prefUserName=preferences.getString("USER_TYPE", null);
+
+
+
+        textName.setText("Hello " + prefName + "!");
+        textWelcome.setText("Welcome to Pink Shelter");
+        textUserType.setText("User type:" +prefUserName);
+
+
+
+
+
+        //button to go to Shelter Details
         GoToShelterDetails=(Button) findViewById(R.id.viewshelter_btn);
         GoToShelterDetails.setOnClickListener(new View.OnClickListener() {
 
@@ -42,24 +62,12 @@ public class HomePageActivity extends AppCompatActivity {
                 // Intent code for open view shelter details
                 //replace welcome activity with shelter activity
 
-                Intent intent = new Intent(HomePageActivity.this, WelcomePageActivity.class);
+                Intent intent = new Intent(HomePageActivity.this, ListOfSheltersActivity.class);
                 startActivity(intent);
 
             }
         });
 
-        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(HomePageActivity.this);
-        String desiredPreference =  pref.getString("USER_NAME", "user type");
-
-        tv = (TextView) findViewById(R.id.textView1);
-        tv1 = (TextView) findViewById(R.id.textView2);
-        tv2 = (TextView) findViewById(R.id.textView4);
-
-        tv.setText("Hello " + getIntent().getStringExtra("NAME") + "!");
-        tv1.setText("Welcome to Pink Shelter");
-        //getIntent or get HomepageIntent
-        tv2.setText(getIntent().getStringExtra("DESCRIPTION"));
 
     }
 }
-

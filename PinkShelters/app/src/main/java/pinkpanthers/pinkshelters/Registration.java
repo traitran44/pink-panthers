@@ -23,14 +23,16 @@ import java.util.List;
 
 public class Registration extends AppCompatActivity implements View.OnClickListener{
     private Spinner userTypes;
-    private EditText name;
+    private EditText name1;
     private EditText email;
     private EditText username;
     private EditText password;
     private DBI db;
-    //public SharedPreferences pref;
-   // public static final String USER_TYPE = "USER_TYPE";
-    //EditText editText;
+
+    public SharedPreferences preferences;
+    String PREFS_NAME = "com.example.sp.LoginPrefs";
+    public static Editor editor;
+    EditText name , userType ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,13 +55,15 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         password = findViewById(R.id.pw);
 
         //grab the usertype to homepage
-        //Spinner spinner = (Spinner)findViewById(R.id.user_type_spinner);
-        //String text = spinner.getSelectedItem().toString();
-        //pref = getApplicationContext().getSharedPreferences("MyPref", 0);
-        //Editor editor = pref.edit();
-        //editor.putString("USER_TYPE", text);
-        //editText.setText(text);
-        //editor.commit();
+        Spinner spinner = (Spinner)findViewById(R.id.user_type_spinner);
+        String userType = spinner.getSelectedItem().toString();
+        name1=(EditText) findViewById(R.id.name);
+        preferences = getSharedPreferences(PREFS_NAME, Registration.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        System.out.print(name1.getText().toString());
+        editor.putString("NAME", name1.getText().toString());
+        editor.putString("USER_TYPE", userType);
+        editor.commit();
 
 
 
@@ -69,17 +73,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
         db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
     }
-       //hash map
-    /*
-       public HashMap<String, String> getUserDetails(){
-           HashMap<String, String> user = new HashMap<String, String>();
-           // user type
-           user.put(USER_TYPE, pref.getString("USER_NAME", null));
 
-
-           // return user
-           return user;
-       }*/
 
 
     public void registerButton(View view) {
