@@ -14,6 +14,8 @@ public interface DBI {
     Account createAccount(String type, String username, String password, String name, String email) throws UniqueKeyError;
     Account getAccountByUsername(String username) throws NoSuchUserException;
     List<Account> getAllAccounts();
+    List<Shelter> getAllShelters();
+    Shelter getShelterById(int id) throws NoSuchUserException;
 
     Shelter createShelter(String shelterName,
                           String capacity,
