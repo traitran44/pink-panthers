@@ -53,11 +53,9 @@ public class ListOfSheltersActivity extends AppCompatActivity implements Recycle
     @Override
     public void onItemClick(View view, int position) { //clicked on one shelter
         selectedShelter = position;
-        //TODO: make on item click go to shelter detail list.
-//        Intent detail = new Intent(this, WelcomePageActivity.class);
-//        detail.putExtra("shelterId", selectedShelter);
-//        startActivity(detail);
-        toastMessage("Shelter name was clicked.");
+        Intent detail = new Intent(this, ShelterDetails.class);
+        detail.putExtra("shelterId", selectedShelter);
+        startActivity(detail);
     }
         //TODO: fix Intent to link to Search Page when we create one for M7
     @Override
@@ -66,12 +64,12 @@ public class ListOfSheltersActivity extends AppCompatActivity implements Recycle
         startActivity(shelterIntent);
     }
 
-    /**
-     * customizable toast message
-     * @param message message to display
-     */
-    private void toastMessage(String message){
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-    }
+//    /**
+//     * customizable toast message
+//     * @param message message to display
+//     */
+//    private void toastMessage(String message){
+//        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+//    }
 
 }
