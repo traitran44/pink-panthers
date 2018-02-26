@@ -61,4 +61,20 @@ public class MockDB implements DBI {
     public List<Account> getAllAccounts() {
         return new ArrayList<>(accounts.values());
     }
+
+    // haven't implement yet, can implement later for testing out the UI
+    @Override
+    public List<Shelter> getAllShelters() {
+        return null;
+    }
+
+    @Override
+    public Shelter getShelterById(int id) throws NoSuchUserException{
+        return null;
+    }
+
+    @Override
+    public Shelter createShelter(String shelterName, String capacity, String specialNotes, double latitude, double longitude, String phoneNumber, String restrictions, String address) {
+        return null;
+    }
 }

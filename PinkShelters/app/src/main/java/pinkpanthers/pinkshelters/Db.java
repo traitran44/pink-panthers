@@ -258,7 +258,7 @@ public class Db implements DBI {
         List<Shelter> sheltersList = new ArrayList<>();
         Shelter newShelter = null;
         String sql = "SELECT id, shelter_name, capacity, special_notes, latitude, longitude, phone_number, restrictions, address" +
-                "FROM shelter";
+                " FROM shelters";
 
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -277,21 +277,22 @@ public class Db implements DBI {
                 newShelter = new Shelter(id, shelterName, capacity, specialNotes, latitude, longitude, phoneNumber, restrictions, address);
                 sheltersList.add(newShelter);
             }
-            return sheltersList;
 
         } catch (SQLException e) {
             logSqlException(e);
             throw new RuntimeException("Select all shelters failed: " +
                     e.toString()); // so we can log sql message too
         }
+
+        return sheltersList;
     }
 
     @Override
     public Shelter getShelterById(int id) throws NoSuchUserException {
         Shelter newShelter = null;
         String sql = "SELECT id, shelter_name, capacity, special_notes, latitude, longitude, phone_number, restrictions, address" +
-                "FROM shelter" +
-                "WHERE id = ?";
+                " FROM shelters" +
+                " WHERE id = ?";
 
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
