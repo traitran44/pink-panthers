@@ -1,17 +1,23 @@
 package pinkpanthers.pinkshelters;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
 import android.view.Menu;
 import android.widget.Button;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class HomePageActivity extends AppCompatActivity {
     TextView tv, tv1, tv2;
     //button to view Shelter details
     Button GoToShelterDetails;
+
+
+
 
 
     public void buttonOnClick(View v) {
@@ -41,6 +47,9 @@ public class HomePageActivity extends AppCompatActivity {
 
             }
         });
+
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(HomePageActivity.this);
+        String desiredPreference =  pref.getString("USER_NAME", "user type");
 
         tv = (TextView) findViewById(R.id.textView1);
         tv1 = (TextView) findViewById(R.id.textView2);

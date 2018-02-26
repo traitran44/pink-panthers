@@ -1,5 +1,6 @@
 package pinkpanthers.pinkshelters;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,11 +12,13 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.widget.EditText;
 
 
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 public class Registration extends AppCompatActivity implements View.OnClickListener{
@@ -25,6 +28,9 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     private EditText username;
     private EditText password;
     private DBI db;
+    //public SharedPreferences pref;
+   // public static final String USER_TYPE = "USER_TYPE";
+    //EditText editText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +52,15 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         username = findViewById(R.id.username);
         password = findViewById(R.id.pw);
 
+        //grab the usertype to homepage
+        //Spinner spinner = (Spinner)findViewById(R.id.user_type_spinner);
+        //String text = spinner.getSelectedItem().toString();
+        //pref = getApplicationContext().getSharedPreferences("MyPref", 0);
+        //Editor editor = pref.edit();
+        //editor.putString("USER_TYPE", text);
+        //editText.setText(text);
+        //editor.commit();
+
 
 
         // set up Cancel button
@@ -54,6 +69,18 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
         db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
     }
+       //hash map
+    /*
+       public HashMap<String, String> getUserDetails(){
+           HashMap<String, String> user = new HashMap<String, String>();
+           // user type
+           user.put(USER_TYPE, pref.getString("USER_NAME", null));
+
+
+           // return user
+           return user;
+       }*/
+
 
     public void registerButton(View view) {
         Boolean noName, noUsername, noPass, noEmail, noType;
