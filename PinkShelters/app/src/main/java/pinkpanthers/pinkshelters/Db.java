@@ -14,7 +14,7 @@ public class Db implements DBI {
 
     /**
      * Create connection to DB.
-     *
+     * <p>
      * In the event of a connection error
      * it will retry 10 times and blow up
      * the application after that.
@@ -134,17 +134,17 @@ public class Db implements DBI {
                 String accountState = rs.getString("account_state");
                 int shelter_id = rs.getInt("shelter_id");
 
-                switch(userType) {
-                    case("Homeless"):
+                switch (userType) {
+                    case ("Homeless"):
                         newUser = new Homeless(userName, password, name, accountState, email, id);
                         ((Homeless) newUser).setShelterId(shelter_id);
                         // need to check if assignment is set (if professor wants to keep it)
                         break;
-                    case("Shelter Volunteer"):
+                    case ("Shelter Volunteer"):
                         newUser = new Volunteer(userName, password, name, accountState, email, id);
                         ((Volunteer) newUser).setShelterID(shelter_id);
                         break;
-                    case("Admin"):
+                    case ("Admin"):
                         newUser = new Admin(userName, password, name, accountState, email, id);
                         // admin doesn't need any shelter id
                         break;
@@ -211,8 +211,8 @@ public class Db implements DBI {
         }
     }
 
-        @Override
-        public Shelter createShelter(String shelterName,
+    @Override
+    public Shelter createShelter(String shelterName,
                                  String capacity,
                                  String specialNotes,
                                  double latitude,
@@ -252,4 +252,74 @@ public class Db implements DBI {
 
         return new Shelter(id, shelterName, capacity, specialNotes, latitude, longitude, phoneNumber, restrictions, address);
     }
+
+    @Override
+    public List<Shelter> getAllShelters() {
+        List<Shelter> sheltersList = new ArrayList<>();
+        Shelter newShelter = null;
+        String sql = "SELECT id, shelter_name, capacity, special_notes, latitude, longitude, phone_number, restrictions, address" +
+                "FROM shelter";
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String shelterName = rs.getString("shelter_name");
+                String capacity = rs.getString("capacity");
+                double latitude = rs.getDouble("latitude");
+                double longitude = rs.getDouble("longitude");
+                String phoneNumber = rs.getString("phone_number");
+                String specialNotes = rs.getString("special_notes");
+                String restrictions = rs.getString("restrictions");
+                String address = rs.getString("address");
+
+                newShelter = new Shelter(id, shelterName, capacity, specialNotes, latitude, longitude, phoneNumber, restrictions, address);
+                sheltersList.add(newShelter);
+            }
+            return sheltersList;
+
+        } catch (SQLException e) {
+            logSqlException(e);
+            throw new RuntimeException("Select all shelters failed: " +
+                    e.toString()); // so we can log sql message too
+        }
+    }
+
+    @Override
+    public Shelter getShelterById(int id) throws NoSuchUserException {
+        Shelter newShelter = null;
+        String sql = "SELECT id, shelter_name, capacity, special_notes, latitude, longitude, phone_number, restrictions, address" +
+                "FROM shelter" +
+                "WHERE id = ?";
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                String shelterName = rs.getString("shelter_name");
+                String capacity = rs.getString("capacity");
+                double latitude = rs.getDouble("latitude");
+                double longitude = rs.getDouble("longitude");
+                String phoneNumber = rs.getString("phone_number");
+                String specialNotes = rs.getString("special_notes");
+                String restrictions = rs.getString("restrictions");
+                String address = rs.getString("address");
+
+                newShelter = new Shelter(id, shelterName, capacity, specialNotes, latitude, longitude, phoneNumber, restrictions, address);
+            } else {
+                throw new NoSuchUserException("Shelter with this " + id + " doesn't exist");
+            }
+
+        } catch (SQLException e) {
+            logSqlException(e);
+            throw new RuntimeException("Selecting account by username failed: " +
+                    e.toString()); // so we can log sql message too
+        }
+
+        return newShelter;
+    }
+
+
 }

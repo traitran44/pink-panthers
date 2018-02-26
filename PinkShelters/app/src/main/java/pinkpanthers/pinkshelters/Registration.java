@@ -47,6 +47,8 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         cancel_btn.setOnClickListener(this);
 
         db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
+        List<Shelter> sheltersList = db.getAllShelters();
+        System.out.println("");
     }
 
     public void registerButton(View view) {
