@@ -14,6 +14,7 @@ public class ShelterDetails extends AppCompatActivity {
         setContentView(R.layout.activity_shelter_details);
 
         int shelterId = getIntent().getExtras().getInt("shelterId");
+        shelterId++;
         try {
             db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
             Shelter s = db.getShelterById(shelterId);
