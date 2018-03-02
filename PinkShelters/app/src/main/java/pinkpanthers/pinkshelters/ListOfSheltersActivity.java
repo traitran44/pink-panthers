@@ -60,8 +60,8 @@ public class ListOfSheltersActivity extends AppCompatActivity implements Recycle
         //TODO: fix Intent to link to Search Page when we create one for M7
     @Override
     public void onClick(View v) { //search button
-        Intent shelterIntent = new Intent(ListOfSheltersActivity.this, HomePageActivity.class);
-        startActivity(shelterIntent);
+        Intent intent = new Intent(ListOfSheltersActivity.this, SearchActivity.class);
+        startActivity(intent);
     }
 
 //    /**

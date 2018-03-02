@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -17,23 +17,24 @@
         android:theme="@style/AppTheme">
         <activity android:name=".LoginActivity" />
         <activity android:name=".HomePageActivity" />
-        <activity android:name=".ListOfSheltersActivity"/>
+        <activity android:name=".ListOfSheltersActivity" />
         <activity android:name=".WelcomePageActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-                <action android:name="com.example.package_path.HomepageActivity"/>
+
+                <action android:name="com.example.package_path.HomepageActivity" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".Registration"
             android:label="@string/title_activity_registration"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ShelterDetails"></activity>
-
+        <activity android:name=".ShelterDetails" />
+        <activity android:name=".SearchActivity"></activity>
     </application>
 
 </manifest>
