@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -27,6 +28,10 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
 
     RecyclerAdapter recycler_adapter;
 
+    RecyclerView search_recycler_view;
+
+    ArrayList<String> shelterNames;
+
     private Db db;
 
     @Override
@@ -38,9 +43,11 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
         choices.add("age range");
         choices.add("name");
 
+        genders.add("none");
         genders.add("male");
         genders.add("female");
 
+        ageRanges.add("none");
         ageRanges.add("family w/ newborns");
         ageRanges.add("children");
         ageRanges.add("young adults");
@@ -66,6 +73,45 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
         // sets selection to male
         age_range_gender_spinner.setSelection(0);
 
+        age_range_gender_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String mainSelection = choices_spinner.getSelectedItem().toString();
+
+                if ("gender".equals(mainSelection)) {
+                    String searchBy = genders.get(i);
+                    if ("none".equals(searchBy)) {
+                        shelterNames.clear();
+                        recycler_adapter.notifyDataSetChanged();
+                    } else {
+                        shelterNames.add(searchBy + " was selected");
+                        if ("male".equals(searchBy)) {
+                            //shelterNames = results from database
+                        } else if ("female".equals(searchBy)) {
+                            //shelterNames = results from database
+                        }
+                        recycler_adapter.notifyDataSetChanged();
+                    }
+                } else if ("age range".equals(mainSelection)) {
+                    String searchBy = ageRanges.get(i);
+                    if ("none".equals(searchBy)) {
+                        shelterNames.clear();
+                        recycler_adapter.notifyDataSetChanged();
+                    } else {
+                        shelterNames.add(searchBy + " was selected");
+                        // TODO: do something if age range is not "none"
+                        //shelterNames = results from database
+                        recycler_adapter.notifyDataSetChanged();
+                    }
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
         choices_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -79,9 +125,13 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
                     age_range_gender_spinner.setAdapter(age_range_adapter);
                     age_range_gender_spinner.setVisibility(View.VISIBLE);
                     shelter_name_edit_text.setVisibility(View.INVISIBLE);
-                } else {
+                } else if ("name".equals(searchBy)) {
                     age_range_gender_spinner.setVisibility(View.INVISIBLE);
                     shelter_name_edit_text.setVisibility(View.VISIBLE);
+
+                    // clear the list of shelter names and update recycler view with notify data set changed
+                    shelterNames.clear();
+                    recycler_adapter.notifyDataSetChanged();
                 }
             }
 
@@ -92,21 +142,22 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
         });
 
         // data to populate the RecyclerView with
-        ArrayList<String> shelterNames = new ArrayList<>();
+        shelterNames = new ArrayList<>();
 
         db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
 
-        List<Shelter> shelters = db.getAllShelters();
-        for (int i = 0; i < shelters.size(); i++) {
-            shelterNames.add(shelters.get(i).getShelterName());
-        }
+        // loads all the shelter names
+//        List<Shelter> shelters = db.getAllShelters();
+//        for (int i = 0; i < shelters.size(); i++) {
+//            shelterNames.add(shelters.get(i).getShelterName());
+//        }
 
         // set up the RecyclerView
-        RecyclerView recyclerView = findViewById(R.id.search_recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        search_recycler_view = findViewById(R.id.search_recycler_view);
+        search_recycler_view.setLayoutManager(new LinearLayoutManager(this));
         recycler_adapter = new RecyclerAdapter(this, shelterNames);
         recycler_adapter.setClickListener(this);
-        recyclerView.setAdapter(recycler_adapter);
+        search_recycler_view.setAdapter(recycler_adapter);
     }
 
     /**
