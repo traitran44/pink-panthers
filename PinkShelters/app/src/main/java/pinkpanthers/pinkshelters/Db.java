@@ -322,5 +322,82 @@ public class Db implements DBI {
         return newShelter;
     }
 
+    @Override
+    public List<Shelter> getShelterByRestriction(String restriction) throws NoSuchUserException {
+        restriction = String.format("%%%s%%", restriction.toLowerCase());
+        List<Shelter> shelterList = new ArrayList<>();
+        String sql = "SELECT id, shelter_name, capacity, special_notes, latitude, longitude, phone_number, restrictions, address" +
+                " FROM shelters" +
+                " WHERE LOWER(restrictions)" +
+                " LIKE ?";
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, restriction);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                int id = rs.getInt("id");
+                String shelterName = rs.getString("shelter_name");
+                String capacity = rs.getString("capacity");
+                double latitude = rs.getDouble("latitude");
+                double longitude = rs.getDouble("longitude");
+                String phoneNumber = rs.getString("phone_number");
+                String specialNotes = rs.getString("special_notes");
+                String restrictions = rs.getString("restrictions");
+                String address = rs.getString("address");
+
+                shelterList.add(new Shelter(id, shelterName, capacity, specialNotes,
+                        latitude, longitude, phoneNumber, restrictions, address));
+            } else {
+                throw new NoSuchUserException("There is no shelter that has this restriction: " + restriction);
+            }
+
+        } catch (SQLException e) {
+            logSqlException(e);
+            throw new RuntimeException("Selecting shelter by restrictions failed: " +
+                    e.toString()); // so we can log sql message too
+        }
+
+        return shelterList;
+    }
+
+    @Override
+    public List<Shelter> getShelterByName(String shelterName) throws NoSuchUserException {
+        shelterName = String.format("%%%s%%", shelterName.toLowerCase());
+        List<Shelter> shelterList = new ArrayList<>();
+        String sql = "SELECT id, shelter_name, capacity, special_notes, latitude, longitude, phone_number, restrictions, address" +
+                " FROM shelters" +
+                " WHERE LOWER(shelter_name)" +
+                " LIKE ?";
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, shelterName);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                int id = rs.getInt("id");
+                shelterName = rs.getString("shelter_name");
+                String capacity = rs.getString("capacity");
+                double latitude = rs.getDouble("latitude");
+                double longitude = rs.getDouble("longitude");
+                String phoneNumber = rs.getString("phone_number");
+                String specialNotes = rs.getString("special_notes");
+                String restrictions = rs.getString("restrictions");
+                String address = rs.getString("address");
+
+                shelterList.add(new Shelter(id, shelterName, capacity, specialNotes,
+                        latitude, longitude, phoneNumber, restrictions, address));
+            } else {
+                throw new NoSuchUserException("There is no shelter that has this restriction: " + shelterName);
+            }
+
+        } catch (SQLException e) {
+            logSqlException(e);
+            throw new RuntimeException("Selecting shelter by name failed: " +
+                    e.toString()); // so we can log sql message too
+        }
+
+        return shelterList;
+    }
 
 }
