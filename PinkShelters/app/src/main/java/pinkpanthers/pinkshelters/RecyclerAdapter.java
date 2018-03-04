@@ -5,8 +5,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
 import android.widget.TextView;
 
+import java.io.FilterReader;
+import java.util.ArrayList;
 import java.util.List;
 
 import pinkpanthers.pinkshelters.R;
@@ -16,6 +19,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     private List<String> mData;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
+    private List<Shelter> shelters;
+    private List<String> filtered;
+    private Db db;
 
     // data is passed into the constructor
     RecyclerAdapter(Context context, List<String> data) {
@@ -58,6 +64,33 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         public void onClick(View view) {
             if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
         }
+    }
+
+    public void setUpForFilter() {
+        db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
+        shelters = db.getAllShelters();
+        mData = new ArrayList<>();
+        System.out.print(shelters.size());
+        for (int i = 0; i < shelters.size(); i++) {
+            mData.add(shelters.get(i).getShelterName());
+        }
+        filtered = mData;
+    }
+
+    public void filter(CharSequence charSequence) {
+        setUpForFilter();
+        String filter = charSequence.toString().toLowerCase();
+        if (filter == null || filter.length() == 0) {
+            filtered = mData;
+        } else {
+            filtered.clear();
+            for (Shelter s: shelters) {
+                if (s.getShelterName().toLowerCase().contains(filter)) {
+                    filtered.add(s.getShelterName());
+                }
+            }
+        }
+        notifyDataSetChanged();
     }
 
     // convenience method for getting data at click position

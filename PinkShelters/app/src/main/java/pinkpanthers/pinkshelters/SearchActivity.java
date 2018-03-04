@@ -4,7 +4,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -129,9 +130,29 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
                     age_range_gender_spinner.setVisibility(View.INVISIBLE);
                     shelter_name_edit_text.setVisibility(View.VISIBLE);
 
-                    // clear the list of shelter names and update recycler view with notify data set changed
-                    shelterNames.clear();
-                    recycler_adapter.notifyDataSetChanged();
+                    List<Shelter> shelters = db.getAllShelters();
+                    for (int j = 0; j < shelters.size(); j++) {
+                        shelterNames.add(shelters.get(j).getShelterName());
+                    }
+                    recycler_adapter = new RecyclerAdapter(SearchActivity.this, shelterNames);
+                    search_recycler_view.setAdapter(recycler_adapter);
+                    shelter_name_edit_text.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                            recycler_adapter.filter(charSequence);
+
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable editable) {
+
+                        }
+                    });
                 }
             }
 
