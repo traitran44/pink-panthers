@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -45,13 +46,14 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
         choices.add("name");
 
         genders.add("none");
-        genders.add("male");
-        genders.add("female");
+        genders.add("Men");
+        genders.add("Women");
 
         ageRanges.add("none");
-        ageRanges.add("family w/ newborns");
+        ageRanges.add("Families");
         ageRanges.add("children");
         ageRanges.add("young adults");
+        ageRanges.add("Veterans");
         ageRanges.add("anyone");
 
         choices_spinner = findViewById(R.id.choices_spinner);
@@ -68,10 +70,10 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
         age_range_adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, ageRanges);
         age_range_gender_spinner.setAdapter(gender_adapter);
 
-        // sets selection to gender
+
         choices_spinner.setSelection(0);
 
-        // sets selection to male
+
         age_range_gender_spinner.setSelection(0);
 
         age_range_gender_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -85,11 +87,14 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
                         shelterNames.clear();
                         recycler_adapter.notifyDataSetChanged();
                     } else {
-                        shelterNames.add(searchBy + " was selected");
-                        if ("male".equals(searchBy)) {
-                            //shelterNames = results from database
-                        } else if ("female".equals(searchBy)) {
-                            //shelterNames = results from database
+                        shelterNames.clear();
+                        try {
+                            List<Shelter> myShelters =  db.getShelterByRestriction(searchBy);
+                            for (Shelter sh: myShelters) {
+                                shelterNames.add(sh.getShelterName());
+                            }
+                        } catch (NoSuchUserException e) {
+                            // skip
                         }
                         recycler_adapter.notifyDataSetChanged();
                     }
@@ -99,9 +104,15 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
                         shelterNames.clear();
                         recycler_adapter.notifyDataSetChanged();
                     } else {
-                        shelterNames.add(searchBy + " was selected");
-                        // TODO: do something if age range is not "none"
-                        //shelterNames = results from database
+                        shelterNames.clear();
+                        try {
+                            List<Shelter> myShelters =  db.getShelterByRestriction(searchBy);
+                            for (Shelter sh: myShelters) {
+                                shelterNames.add(sh.getShelterName());
+                            }
+                        } catch (NoSuchUserException e) {
+                            // skip
+                        }
                         recycler_adapter.notifyDataSetChanged();
                     }
                 }
@@ -122,6 +133,7 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
                     age_range_gender_spinner.setAdapter(gender_adapter);
                     age_range_gender_spinner.setVisibility(View.VISIBLE);
                     shelter_name_edit_text.setVisibility(View.INVISIBLE);
+
                 } else if ("age range".equals(searchBy)) {
                     age_range_gender_spinner.setAdapter(age_range_adapter);
                     age_range_gender_spinner.setVisibility(View.VISIBLE);

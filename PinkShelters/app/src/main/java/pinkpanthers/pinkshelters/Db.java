@@ -335,7 +335,12 @@ public class Db implements DBI {
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, restriction);
             ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
+
+            if (rs.next() == false) {
+                throw new NoSuchUserException("There is no shelter that has this restriction: " + restriction);
+            }
+
+            while (rs.next()) {
                 int id = rs.getInt("id");
                 String shelterName = rs.getString("shelter_name");
                 String capacity = rs.getString("capacity");
@@ -348,8 +353,6 @@ public class Db implements DBI {
 
                 shelterList.add(new Shelter(id, shelterName, capacity, specialNotes,
                         latitude, longitude, phoneNumber, restrictions, address));
-            } else {
-                throw new NoSuchUserException("There is no shelter that has this restriction: " + restriction);
             }
 
         } catch (SQLException e) {
