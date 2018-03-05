@@ -89,6 +89,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                     filtered.add(s.getShelterName());
                 }
             }
+            if (filtered.size() == 0) {
+                filtered.add("No results found");
+            }
         }
         notifyDataSetChanged();
     }
