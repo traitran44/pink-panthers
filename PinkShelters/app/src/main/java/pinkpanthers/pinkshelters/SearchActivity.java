@@ -41,20 +41,21 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        choices.add("gender");
-        choices.add("age range");
-        choices.add("name");
+        choices.add("Gender");
+        choices.add("Age range");
+        choices.add("Name");
 
-        genders.add("none");
+        genders.add("None");
         genders.add("Men");
         genders.add("Women");
+        genders.add("Not Identified"); // for extra credit purposes
 
-        ageRanges.add("none");
+        ageRanges.add("None");
         ageRanges.add("Families");
-        ageRanges.add("children");
-        ageRanges.add("young adults");
+        ageRanges.add("Children");
+        ageRanges.add("Young adults");
         ageRanges.add("Veterans");
-        ageRanges.add("anyone");
+        ageRanges.add("Anyone");
 
         choices_spinner = findViewById(R.id.choices_spinner);
         age_range_gender_spinner = findViewById(R.id.age_range_gender_spinner);
@@ -63,11 +64,11 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
         age_range_gender_spinner.setVisibility(View.INVISIBLE);
 
 
-        ArrayAdapter<String> choices_adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, choices);
+        ArrayAdapter<String> choices_adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, choices);
         choices_spinner.setAdapter(choices_adapter);
 
-        gender_adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, genders);
-        age_range_adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, ageRanges);
+        gender_adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, genders);
+        age_range_adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, ageRanges);
         age_range_gender_spinner.setAdapter(gender_adapter);
 
 
@@ -79,7 +80,7 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
         age_range_gender_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String mainSelection = choices_spinner.getSelectedItem().toString();
+                String mainSelection = choices_spinner.getSelectedItem().toString().toLowerCase();
 
                 if ("gender".equals(mainSelection)) {
                     String searchBy = genders.get(i);

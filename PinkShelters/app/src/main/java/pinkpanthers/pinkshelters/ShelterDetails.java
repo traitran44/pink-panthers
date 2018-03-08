@@ -12,16 +12,17 @@ public class ShelterDetails extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shelter_details);
+        db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
 
-        int shelterId = getIntent().getExtras().getInt("shelterId");
-        shelterId++;
         try {
-            db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
+            int shelterId = getIntent().getExtras().getInt("shelterId");
             Shelter s = db.getShelterById(shelterId);
             updateView(s);
 
         } catch (NoSuchUserException e) {
             throw new RuntimeException("This is not how it works " + e.toString());
+        } catch (NullPointerException e) {
+            throw new RuntimeException("NullPointerException is raised: getExtras() returns null in ListOfShelter");
         }
 
     }

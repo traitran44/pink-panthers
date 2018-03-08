@@ -323,57 +323,6 @@ public class Db implements DBI {
     }
 
     @Override
-    public List<Shelter> getShelterByRestriction(String restriction) throws NoSuchUserException {
-        List<Shelter> shelterList = new ArrayList<>();
-        restriction = restriction.toLowerCase();
-        String sql;
-
-        if (restriction.equals("men")) {
-            sql = "SELECT id, shelter_name, capacity, special_notes, latitude, longitude, phone_number, restrictions, address" +
-                    " FROM shelters" +
-                    " WHERE LOWER(restrictions) = ?";
-        } else {
-            restriction = String.format("%%%s%%", restriction);
-            sql = "SELECT id, shelter_name, capacity, special_notes, latitude, longitude, phone_number, restrictions, address" +
-                    " FROM shelters" +
-                    " WHERE LOWER(restrictions)" +
-                    " LIKE ?";
-        }
-
-        try {
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, restriction);
-            ResultSet rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                do {
-                    int id = rs.getInt("id");
-                    String shelterName = rs.getString("shelter_name");
-                    String capacity = rs.getString("capacity");
-                    double latitude = rs.getDouble("latitude");
-                    double longitude = rs.getDouble("longitude");
-                    String phoneNumber = rs.getString("phone_number");
-                    String specialNotes = rs.getString("special_notes");
-                    String restrictions = rs.getString("restrictions");
-                    String address = rs.getString("address");
-
-                    shelterList.add(new Shelter(id, shelterName, capacity, specialNotes,
-                            latitude, longitude, phoneNumber, restrictions, address));
-                } while (rs.next());
-            } else {
-                throw new NoSuchUserException("There is no shelter that has this restriction: " + restriction);
-            }
-
-        } catch (SQLException e) {
-            logSqlException(e);
-            throw new RuntimeException("Selecting shelter by restrictions failed: " +
-                    e.toString()); // so we can log sql message too
-        }
-
-        return shelterList;
-    }
-
-    @Override
     public List<Shelter> getShelterByName(String shelterName) throws NoSuchUserException {
         shelterName = String.format("%%%s%%", shelterName.toLowerCase());
         List<Shelter> shelterList = new ArrayList<>();
@@ -387,7 +336,7 @@ public class Db implements DBI {
             stmt.setString(1, shelterName);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                 do {
+                do {
                     int id = rs.getInt("id");
                     shelterName = rs.getString("shelter_name");
                     String capacity = rs.getString("capacity");
@@ -414,4 +363,52 @@ public class Db implements DBI {
         return shelterList;
     }
 
+    @Override
+    public List<Shelter> getShelterByRestriction(String restriction) throws NoSuchUserException {
+        List<Shelter> shelterList = new ArrayList<>();
+        String sql_column;
+        switch (restriction.toLowerCase()) {
+            case ("men"):
+            case ("women"):
+                sql_column = "gender_restrictions";
+                break;
+            default:
+                sql_column = "age_restrictions";
+                break;
+        }
+
+        String sql = "SELECT id, shelter_name, capacity, special_notes, latitude, longitude, phone_number, restrictions, address" +
+                " FROM shelters" +
+                " WHERE " + sql_column + " = ? ";
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, restriction.toLowerCase());
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                do {
+                    int id = rs.getInt("id");
+                    String shelterName = rs.getString("shelter_name");
+                    String capacity = rs.getString("capacity");
+                    double latitude = rs.getDouble("latitude");
+                    double longitude = rs.getDouble("longitude");
+                    String phoneNumber = rs.getString("phone_number");
+                    String specialNotes = rs.getString("special_notes");
+                    String restrictions = rs.getString("restrictions");
+                    String address = rs.getString("address");
+
+                    shelterList.add(new Shelter(id, shelterName, capacity, specialNotes,
+                            latitude, longitude, phoneNumber, restrictions, address));
+                } while (rs.next());
+            } else {
+                throw new NoSuchUserException("There is no shelter that has this " + sql_column+ ": " + restriction);
+            }
+
+        } catch (SQLException e) {
+            logSqlException(e);
+            throw new RuntimeException("Selecting shelter by restriction failed: " +
+                    e.toString()); // so we can log sql message too
+        }
+
+        return shelterList;
+    }
 }

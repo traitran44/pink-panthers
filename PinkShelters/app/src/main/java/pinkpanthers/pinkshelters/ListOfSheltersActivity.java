@@ -20,7 +20,8 @@ public class ListOfSheltersActivity extends AppCompatActivity implements Recycle
     RecyclerAdapter adapter;
     private Button search_button;
     private int selectedShelter;
-    private Db db;
+    private DBI db;
+    private List<Shelter> shelters;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +33,7 @@ public class ListOfSheltersActivity extends AppCompatActivity implements Recycle
 
         db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
 
-        List<Shelter> shelters = db.getAllShelters();
+        shelters = db.getAllShelters();
         for (int i = 0; i < shelters.size(); i++) {
             shelterNames.add(shelters.get(i).getShelterName());
         }
@@ -54,7 +55,7 @@ public class ListOfSheltersActivity extends AppCompatActivity implements Recycle
     public void onItemClick(View view, int position) { //clicked on one shelter
         selectedShelter = position;
         Intent detail = new Intent(this, ShelterDetails.class);
-        detail.putExtra("shelterId", selectedShelter);
+        detail.putExtra("shelterId", shelters.get(selectedShelter).getId());
         startActivity(detail);
     }
         //TODO: fix Intent to link to Search Page when we create one for M7

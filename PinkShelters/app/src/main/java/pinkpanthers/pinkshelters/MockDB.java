@@ -77,4 +77,9 @@ abstract class MockDB implements DBI {
     public Shelter createShelter(String shelterName, String capacity, String specialNotes, double latitude, double longitude, String phoneNumber, String restrictions, String address) {
         return null;
     }
+
+    @Override
+    public List<Shelter> getShelterByRestriction(String restriction) throws NoSuchUserException {
+        return new ArrayList<>();
+    }
 }
