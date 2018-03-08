@@ -147,7 +147,7 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
                 } else if ("Name".equals(searchBy)) {
                     age_range_gender_spinner.setVisibility(View.INVISIBLE);
                     shelter_name_edit_text.setVisibility(View.VISIBLE);
-                    shelterNames.clear();
+                    shelterNames.clear(); // clear out old results found by different categories
                     List<Shelter> shelters = db.getAllShelters();
                     for (int j = 0; j < shelters.size(); j++) {
                         shelterNames.add(shelters.get(j).getShelterName());
