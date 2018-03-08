@@ -54,7 +54,7 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
         genders.add("None");
         genders.add("Men");
         genders.add("Women");
-        genders.add("Not Identified"); // for extra credit purposes
+        genders.add("Non-Binary"); // for extra credit purposes
 
         ageRanges.add("None");
         ageRanges.add("Families with Newborns");
