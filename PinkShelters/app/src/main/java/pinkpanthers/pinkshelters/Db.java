@@ -367,6 +367,7 @@ public class Db implements DBI {
     public List<Shelter> getShelterByRestriction(String restriction) throws NoSuchUserException {
         List<Shelter> shelterList = new ArrayList<>();
         String sql_column;
+        String sql;
         switch (restriction.toLowerCase()) {
             case ("men"):
             case ("women"):
@@ -377,9 +378,17 @@ public class Db implements DBI {
                 break;
         }
 
-        String sql = "SELECT id, shelter_name, capacity, special_notes, latitude, longitude, phone_number, restrictions, address" +
-                " FROM shelters" +
-                " WHERE " + sql_column + " = ? ";
+        if (sql_column.equals("age_restrictions")) {
+            restriction = String.format("%%%s%%", restriction);
+            sql = "SELECT id, shelter_name, capacity, special_notes, latitude, longitude, phone_number, restrictions, address" +
+                    " FROM shelters" +
+                    " WHERE " + sql_column +
+                    " LIKE ? ";
+        } else {
+            sql = "SELECT id, shelter_name, capacity, special_notes, latitude, longitude, phone_number, restrictions, address" +
+                    " FROM shelters" +
+                    " WHERE " + sql_column + " = ? ";
+        }
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, restriction.toLowerCase());

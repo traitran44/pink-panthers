@@ -48,7 +48,7 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
 
 
         choices.add("Gender");
-        choices.add("Age range");
+        choices.add("Age Range");
         choices.add("Name");
 
         genders.add("None");
@@ -57,10 +57,9 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
         genders.add("Not Identified"); // for extra credit purposes
 
         ageRanges.add("None");
-        ageRanges.add("Families");
+        ageRanges.add("Families with Newborns");
         ageRanges.add("Children");
-        ageRanges.add("Young adults");
-        ageRanges.add("Veterans");
+        ageRanges.add("Young Adults");
         ageRanges.add("Anyone");
 
         choices_spinner = findViewById(R.id.choices_spinner);
@@ -148,7 +147,7 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
                 } else if ("Name".equals(searchBy)) {
                     age_range_gender_spinner.setVisibility(View.INVISIBLE);
                     shelter_name_edit_text.setVisibility(View.VISIBLE);
-
+                    shelterNames.clear();
                     List<Shelter> shelters = db.getAllShelters();
                     for (int j = 0; j < shelters.size(); j++) {
                         shelterNames.add(shelters.get(j).getShelterName());
@@ -225,7 +224,7 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
                 return Restrictions.CHILDREN.toString();
             case ("Young Adults"):
                 return Restrictions.YOUNG_ADULTS.toString();
-            case ("Families"):
+            case ("Families with Newborns"):
                 return Restrictions.FAMILIES_W_NEWBORNS.toString();
             case ("Anyone"):
                 return Restrictions.ANYONE.toString();
