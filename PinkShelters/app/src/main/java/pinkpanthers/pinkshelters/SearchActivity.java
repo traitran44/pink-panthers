@@ -41,6 +41,12 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
+        db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
+
+        // data to populate the RecyclerView with
+        shelterNames = new ArrayList<>();
+
+
         choices.add("Gender");
         choices.add("Age range");
         choices.add("Name");
@@ -80,11 +86,11 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
         age_range_gender_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String mainSelection = choices_spinner.getSelectedItem().toString().toLowerCase();
+                String mainSelection = choices_spinner.getSelectedItem().toString();
 
-                if ("gender".equals(mainSelection)) {
-                    String searchBy = genders.get(i);
-                    if ("none".equals(searchBy)) {
+                if ("Gender".equals(mainSelection)) {
+                    String searchBy = sqlConverter(genders.get(i));
+                    if ("None".equals(searchBy)) {
                         shelterNames.clear();
                         recycler_adapter.notifyDataSetChanged();
                     } else {
@@ -95,13 +101,13 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
                                 shelterNames.add(sh.getShelterName());
                             }
                         } catch (NoSuchUserException e) {
-                            // skip
+                            // Don't skip, gotta raise No Result Found
                         }
                         recycler_adapter.notifyDataSetChanged();
                     }
-                } else if ("age range".equals(mainSelection)) {
-                    String searchBy = ageRanges.get(i);
-                    if ("none".equals(searchBy)) {
+                } else if ("Age Range".equals(mainSelection)) {
+                    String searchBy = sqlConverter(ageRanges.get(i));
+                    if ("None".equals(searchBy)) {
                         shelterNames.clear();
                         recycler_adapter.notifyDataSetChanged();
                     } else {
@@ -112,7 +118,7 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
                                 shelterNames.add(sh.getShelterName());
                             }
                         } catch (NoSuchUserException e) {
-                            // skip
+                            // Don't skip, gotta raise No Result Found
                         }
                         recycler_adapter.notifyDataSetChanged();
                     }
@@ -130,16 +136,16 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String searchBy = choices.get(i);
 
-                if ("gender".equals(searchBy)) {
+                if ("Gender".equals(searchBy)) {
                     age_range_gender_spinner.setAdapter(gender_adapter);
                     age_range_gender_spinner.setVisibility(View.VISIBLE);
                     shelter_name_edit_text.setVisibility(View.INVISIBLE);
 
-                } else if ("age range".equals(searchBy)) {
+                } else if ("Age Range".equals(searchBy)) {
                     age_range_gender_spinner.setAdapter(age_range_adapter);
                     age_range_gender_spinner.setVisibility(View.VISIBLE);
                     shelter_name_edit_text.setVisibility(View.INVISIBLE);
-                } else if ("name".equals(searchBy)) {
+                } else if ("Name".equals(searchBy)) {
                     age_range_gender_spinner.setVisibility(View.INVISIBLE);
                     shelter_name_edit_text.setVisibility(View.VISIBLE);
 
@@ -175,10 +181,7 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
             }
         });
 
-        // data to populate the RecyclerView with
-        shelterNames = new ArrayList<>();
 
-        db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
 
         // loads all the shelter names
 //        List<Shelter> shelters = db.getAllShelters();
@@ -210,5 +213,24 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
     @Override
     public void onItemClick(View view, int position) {
 
+    }
+
+    private String sqlConverter(String chosenItem) {
+        switch (chosenItem) {
+            case ("Men"):
+                return Restrictions.MEN.toString();
+            case ("Women"):
+                return Restrictions.WOMEN.toString();
+            case ("Children"):
+                return Restrictions.CHILDREN.toString();
+            case ("Young Adults"):
+                return Restrictions.YOUNG_ADULTS.toString();
+            case ("Families"):
+                return Restrictions.FAMILIES_W_NEWBORNS.toString();
+            case ("Anyone"):
+                return Restrictions.ANYONE.toString();
+            default:
+                return "None";
+        }
     }
 }
