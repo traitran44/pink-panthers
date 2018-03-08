@@ -1,0 +1,12 @@
+UPDATE `pinkpanther`.`shelters` SET `age_restrictions`='young_adults,children' WHERE `id`='8';
+UPDATE `pinkpanther`.`shelters` SET `gender_restrictions`='women ', `age_restrictions`='children' WHERE `id`='1';
+UPDATE `pinkpanther`.`shelters` SET `gender_restrictions`='women', `age_restrictions`='children' WHERE `id`='2';
+UPDATE `pinkpanther`.`shelters` SET `gender_restrictions`='men' WHERE `id`='3';
+UPDATE `pinkpanther`.`shelters` SET `gender_restrictions`='men' WHERE `id`='4';
+UPDATE `pinkpanther`.`shelters` SET `age_restrictions`='families_w_children_under_5' WHERE `id`='5';
+UPDATE `pinkpanther`.`shelters` SET `gender_restrictions`='women', `age_restrictions`='children' WHERE `id`='6';
+UPDATE `pinkpanther`.`shelters` SET `age_restrictions`='families_w_newborns' WHERE `id`='7';
+UPDATE `pinkpanther`.`shelters` SET `age_restrictions`='families' WHERE `id`='9';
+UPDATE `pinkpanther`.`shelters` SET `gender_restrictions`='men' WHERE `id`='11';
+UPDATE `pinkpanther`.`shelters` SET `age_restrictions`='young_adults' WHERE `id`='12';
+UPDATE `pinkpanther`.`shelters` SET `age_restrictions`='veterans' WHERE `id`='13';
