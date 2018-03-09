@@ -433,7 +433,7 @@ public class Db implements DBI {
 
 
     @Override
-    public void updateShelterOccupancy(int shelterId, int occupancy) throws SQLException {
+    public void updateShelterOccupancy(int shelterId, int occupancy) throws SQLException, NoSuchUserException {
         String sql = "UPDATE shelters " +
                 "SET occupancy = ? " +
                 "WHERE id = ?";
@@ -443,8 +443,13 @@ public class Db implements DBI {
             updatedOccupancy = conn.prepareStatement(sql);
             updatedOccupancy.setInt(1, occupancy);
             updatedOccupancy.setInt(2, shelterId);
-            updatedOccupancy.executeUpdate();
-            conn.commit();
+            int rowUpdated = updatedOccupancy.executeUpdate();
+
+            if (rowUpdated == 1) {// only one row is supposed to be updated
+                conn.commit();
+            } else {
+                throw new NoSuchUserException("The shelter with id: " + shelterId + " doesn't exist");
+            }
 
         } catch (SQLException e) {
             logSqlException(e);
@@ -459,7 +464,7 @@ public class Db implements DBI {
     }
 
     @Override
-    public void updateAccountInformationById(int accountId, int familyMemberNumber) throws SQLException {
+    public void updateAccountInformationById(int accountId, int familyMemberNumber) throws SQLException, NoSuchUserException {
         String sql = "UPDATE accounts " +
                 "SET family_members = ? " +
                 "WHERE id = ?";
@@ -469,8 +474,12 @@ public class Db implements DBI {
             updatedFamily = conn.prepareStatement(sql);
             updatedFamily.setInt(1, familyMemberNumber);
             updatedFamily.setInt(2, accountId);
-            updatedFamily.executeUpdate();
-            conn.commit();
+            int updatedrow = updatedFamily.executeUpdate();
+            if (updatedrow == 1) {
+                conn.commit();
+            } else {
+                throw new NoSuchUserException("The account with id: " + accountId + " doesn't exist");
+            }
 
         } catch (SQLException e) {
             logSqlException(e);
@@ -486,7 +495,7 @@ public class Db implements DBI {
     }
 
     @Override
-    public void updateAccountInformationById(int accountId, String restrictionsMatch) throws SQLException {
+    public void updateAccountInformationById(int accountId, String restrictionsMatch) throws SQLException, NoSuchUserException {
         String sql = "UPDATE accounts " +
                 "SET restriction_match = ? " +
                 "WHERE id = ?";
@@ -496,8 +505,12 @@ public class Db implements DBI {
             updatedRestrictionMatch = conn.prepareStatement(sql);
             updatedRestrictionMatch.setString(1, restrictionsMatch);
             updatedRestrictionMatch.setInt(2, accountId);
-            updatedRestrictionMatch.executeUpdate();
-            conn.commit();
+            int rowUpdated = updatedRestrictionMatch.executeUpdate();
+            if (rowUpdated == 1) {
+                conn.commit();
+            } else {
+                throw new NoSuchUserException("The account with id: " + accountId + " doesn't exist");
+            }
 
         } catch (SQLException e) {
             logSqlException(e);

@@ -40,16 +40,18 @@ public interface DBI {
      * @param shelterId a unique id created by the database
      * @param occupancy the updated occupancy (incremented by number of beds requested)
      * @throws SQLException in case something with database connection goes wrong
+     * @throws NoSuchUserException when the id pass in the doesn't exist, no rows get updated
      */
-    public void updateShelterOccupancy(int shelterId, int occupancy) throws SQLException;
+    public void updateShelterOccupancy(int shelterId, int occupancy) throws SQLException, NoSuchUserException;
 
     /**
      * method that update user's family members for M8
      * @param accountId user id that is created by the database, retrieved when invoke getAllAccounts()
      * @param familyMemberNumber the total amount of family members that go with the user, default number is 0
      * @throws SQLException in case something with database connection goes wrong
+     * @throws NoSuchUserException when the id pass in the doesn't exist, no rows get updated
      */
-    public void updateAccountInformationById(int accountId, int familyMemberNumber) throws SQLException;
+    public void updateAccountInformationById(int accountId, int familyMemberNumber) throws SQLException, NoSuchUserException;
 
     /**
      * Overload method to update account information by user's id (that is created by the database)
@@ -60,6 +62,7 @@ public interface DBI {
      *                          {@code restrictionsMatch} should be "all_women all_children"
      *                          {@code restrictionsMatch} default = 'none'
      * @throws SQLException in case something with database connection goes wrong
+     * @throws NoSuchUserException when the id pass in the doesn't exist, no rows get updated
      */
-    public void updateAccountInformationById(int accountId, String restrictionsMatch) throws SQLException;
+    public void updateAccountInformationById(int accountId, String restrictionsMatch) throws SQLException, NoSuchUserException;
 }
