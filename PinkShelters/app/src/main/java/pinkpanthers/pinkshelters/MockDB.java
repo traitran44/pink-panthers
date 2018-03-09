@@ -82,4 +82,8 @@ abstract class MockDB implements DBI {
     public List<Shelter> getShelterByRestriction(String restriction) throws NoSuchUserException {
         return new ArrayList<>();
     }
+    @Override
+    public int[] getShelterVacancyById(int shelterId) throws NoSuchUserException {
+        return new int[2];
+    }
 }

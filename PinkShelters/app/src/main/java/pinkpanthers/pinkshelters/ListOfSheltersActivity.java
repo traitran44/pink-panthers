@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,7 +49,6 @@ public class ListOfSheltersActivity extends AppCompatActivity implements Recycle
         // set up search button
         Button search_button = findViewById(R.id.search_button);
         search_button.setOnClickListener(this);
-
     }
 
     @Override

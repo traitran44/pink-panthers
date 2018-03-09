@@ -7,6 +7,7 @@ import android.util.Log;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 public class Db implements DBI {
@@ -409,7 +410,7 @@ public class Db implements DBI {
                             latitude, longitude, phoneNumber, restrictions, address));
                 } while (rs.next());
             } else {
-                throw new NoSuchUserException("There is no shelter that has this " + sql_column+ ": " + restriction);
+                throw new NoSuchUserException("There is no shelter that has this " + sql_column + ": " + restriction);
             }
 
         } catch (SQLException e) {
@@ -419,5 +420,31 @@ public class Db implements DBI {
         }
 
         return shelterList;
+    }
+
+    @Override
+    public int[] getShelterVacancyById(int shelterId) throws NoSuchUserException {
+        String sql = "SELECT family_capacity, single_capacity, family_occupied, single_occupied " +
+                "FROM shelters " +
+                "WHERE id = ?";
+        int[] vacancy = new int[2]; // [family vacancy, single vacancy]
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, shelterId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                vacancy[0] = (rs.getInt("family_capacity") - rs.getInt("family_occupied"));
+                vacancy[1] = (rs.getInt("single_capacity") - rs.getInt("single_occupied"));
+            } else {
+                throw new NoSuchUserException("There is no shelter with this id ( " + shelterId + " ) " +
+                        "to return vacancy data");
+            }
+
+        } catch (SQLException e) {
+            logSqlException(e);
+            throw new RuntimeException("Selecting shelter vacancy by id failed: " +
+                    e.toString()); // so we can log sql message too
+        }
+        return vacancy;
     }
 }

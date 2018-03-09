@@ -26,6 +26,8 @@ public interface DBI {
 
     List<Shelter> getShelterByName(String shelterName) throws NoSuchUserException;
 
+    int[] getShelterVacancyById(int shelterId) throws NoSuchUserException;
+
     Shelter createShelter(String shelterName,
                           String capacity,
                           String specialNotes,
