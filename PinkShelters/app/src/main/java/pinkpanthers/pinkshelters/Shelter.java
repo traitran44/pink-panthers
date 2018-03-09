@@ -10,6 +10,9 @@ public class Shelter {
     private String specialNotes;
     private String restrictions;
     private String address;
+    private int occupancy;
+    private int update_capacity;
+    private int vacancy;
 
     Shelter(int id,
             String shelterName,
@@ -117,4 +120,25 @@ public class Shelter {
     public void setAddress(String address) {
         this.address = address;
     }
+
+    public int getOccupancy() {
+        return occupancy;
+    }
+
+    public void setOccupancy(int occupancy) {
+        this.occupancy = occupancy;
+    }
+
+    public int getUpdate_capacity() {
+        return update_capacity;
+    }
+
+    public void setUpdate_capacity(int update_capacity) {
+        this.update_capacity = update_capacity;
+    }
+
+    public int getVacancy() {
+        return update_capacity - occupancy;
+    }
+
 }

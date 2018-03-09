@@ -1,13 +1,11 @@
 package pinkpanthers.pinkshelters;
 
-import android.app.ActivityManager;
 import android.os.StrictMode;
 import android.util.Log;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
 
 public class Db implements DBI {
@@ -276,6 +274,8 @@ public class Db implements DBI {
                 String address = rs.getString("address");
 
                 newShelter = new Shelter(id, shelterName, capacity, specialNotes, latitude, longitude, phoneNumber, restrictions, address);
+                newShelter.setOccupancy(rs.getInt("occupancy"));
+                newShelter.setUpdate_capacity(rs.getInt("update_capacity"));
                 sheltersList.add(newShelter);
             }
 
@@ -291,7 +291,8 @@ public class Db implements DBI {
     @Override
     public Shelter getShelterById(int id) throws NoSuchUserException {
         Shelter newShelter = null;
-        String sql = "SELECT id, shelter_name, capacity, special_notes, latitude, longitude, phone_number, restrictions, address" +
+        String sql = "SELECT id, shelter_name, capacity, special_notes, latitude, longitude, " +
+                "phone_number, restrictions, address, update_capacity, occupancy" +
                 " FROM shelters" +
                 " WHERE id = ?";
 
@@ -310,6 +311,8 @@ public class Db implements DBI {
                 String address = rs.getString("address");
 
                 newShelter = new Shelter(id, shelterName, capacity, specialNotes, latitude, longitude, phoneNumber, restrictions, address);
+                newShelter.setOccupancy(rs.getInt("occupancy"));
+                newShelter.setUpdate_capacity(rs.getInt("update_capacity"));
             } else {
                 throw new NoSuchUserException("Shelter with this " + id + " doesn't exist");
             }
@@ -348,8 +351,11 @@ public class Db implements DBI {
                     String restrictions = rs.getString("restrictions");
                     String address = rs.getString("address");
 
-                    shelterList.add(new Shelter(id, shelterName, capacity, specialNotes,
-                            latitude, longitude, phoneNumber, restrictions, address));
+                    Shelter shelter = new Shelter(id, shelterName, capacity, specialNotes,
+                            latitude, longitude, phoneNumber, restrictions, address);
+                    shelter.setOccupancy(rs.getInt("occupancy"));
+                    shelter.setUpdate_capacity(rs.getInt("update_capacity"));
+                    shelterList.add(shelter);
                 } while (rs.next());
             } else {
                 throw new NoSuchUserException("There is no shelter that has this restriction: " + shelterName);
@@ -406,8 +412,11 @@ public class Db implements DBI {
                     String restrictions = rs.getString("restrictions");
                     String address = rs.getString("address");
 
-                    shelterList.add(new Shelter(id, shelterName, capacity, specialNotes,
-                            latitude, longitude, phoneNumber, restrictions, address));
+                    Shelter shelter = new Shelter(id, shelterName, capacity, specialNotes,
+                            latitude, longitude, phoneNumber, restrictions, address);
+                    shelter.setOccupancy(rs.getInt("occupancy"));
+                    shelter.setUpdate_capacity(rs.getInt("update_capacity"));
+                    shelterList.add(shelter);
                 } while (rs.next());
             } else {
                 throw new NoSuchUserException("There is no shelter that has this " + sql_column + ": " + restriction);
@@ -422,29 +431,84 @@ public class Db implements DBI {
         return shelterList;
     }
 
+
     @Override
-    public int[] getShelterVacancyById(int shelterId) throws NoSuchUserException {
-        String sql = "SELECT family_capacity, single_capacity, family_occupied, single_occupied " +
-                "FROM shelters " +
+    public void updateShelterOccupancy(int shelterId, int occupancy) throws SQLException {
+        String sql = "UPDATE shelters " +
+                "SET occupancy = ? " +
                 "WHERE id = ?";
-        int[] vacancy = new int[2]; // [family vacancy, single vacancy]
+        PreparedStatement updatedOccupancy = null;
         try {
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, shelterId);
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                vacancy[0] = (rs.getInt("family_capacity") - rs.getInt("family_occupied"));
-                vacancy[1] = (rs.getInt("single_capacity") - rs.getInt("single_occupied"));
-            } else {
-                throw new NoSuchUserException("There is no shelter with this id ( " + shelterId + " ) " +
-                        "to return vacancy data");
-            }
+            conn.setAutoCommit(false);
+            updatedOccupancy = conn.prepareStatement(sql);
+            updatedOccupancy.setInt(1, occupancy);
+            updatedOccupancy.setInt(2, shelterId);
+            updatedOccupancy.executeUpdate();
+            conn.commit();
 
         } catch (SQLException e) {
             logSqlException(e);
-            throw new RuntimeException("Selecting shelter vacancy by id failed: " +
+            throw new RuntimeException("Updating shelter\'s occupancy failed: " +
                     e.toString()); // so we can log sql message too
+        } finally {
+            if (updatedOccupancy != null) {
+                updatedOccupancy.close();
+            }
+            conn.setAutoCommit(true);
         }
-        return vacancy;
+    }
+
+    @Override
+    public void updateAccountInformationById(int accountId, int familyMemberNumber) throws SQLException {
+        String sql = "UPDATE accounts " +
+                "SET family_members = ? " +
+                "WHERE id = ?";
+        PreparedStatement updatedFamily = null;
+        try {
+            conn.setAutoCommit(false);
+            updatedFamily = conn.prepareStatement(sql);
+            updatedFamily.setInt(1, familyMemberNumber);
+            updatedFamily.setInt(2, accountId);
+            updatedFamily.executeUpdate();
+            conn.commit();
+
+        } catch (SQLException e) {
+            logSqlException(e);
+            throw new RuntimeException("Updating account information by account id (" + accountId +
+                    ") updated field: family_members (" + familyMemberNumber + ") failed: " +
+                    e.toString()); // so we can log sql message too
+        } finally {
+            if (updatedFamily != null) {
+                updatedFamily.close();
+            }
+            conn.setAutoCommit(true);
+        }
+    }
+
+    @Override
+    public void updateAccountInformationById(int accountId, String restrictionsMatch) throws SQLException {
+        String sql = "UPDATE accounts " +
+                "SET restriction_match = ? " +
+                "WHERE id = ?";
+        PreparedStatement updatedRestrictionMatch = null;
+        try {
+            conn.setAutoCommit(false);
+            updatedRestrictionMatch = conn.prepareStatement(sql);
+            updatedRestrictionMatch.setString(1, restrictionsMatch);
+            updatedRestrictionMatch.setInt(2, accountId);
+            updatedRestrictionMatch.executeUpdate();
+            conn.commit();
+
+        } catch (SQLException e) {
+            logSqlException(e);
+            throw new RuntimeException("Updating account information by account id (" + accountId + ") " +
+                    ", updated field: restriction_match (" + restrictionsMatch + ") failed: " +
+                    e.toString()); // so we can log sql message too
+        } finally {
+            if (updatedRestrictionMatch != null) {
+                updatedRestrictionMatch.close();
+            }
+            conn.setAutoCommit(true);
+        }
     }
 }

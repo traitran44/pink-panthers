@@ -1,5 +1,6 @@
 package pinkpanthers.pinkshelters;
 
+import java.sql.SQLException;
 import java.util.*;
 
 /**
@@ -82,8 +83,15 @@ abstract class MockDB implements DBI {
     public List<Shelter> getShelterByRestriction(String restriction) throws NoSuchUserException {
         return new ArrayList<>();
     }
-    @Override
-    public int[] getShelterVacancyById(int shelterId) throws NoSuchUserException {
-        return new int[2];
+    public void updateShelterOccupancy(int shelterId, int occupancy) throws SQLException {
+        // do nothing
+    }
+
+    public void updateAccountInformationById(int accountId, int familyMemberNumber) throws SQLException {
+        // do nothing
+    }
+
+    public void updateAccountInformationById(int accountId, String restrictionsMatch) throws SQLException {
+        // do nothing
     }
 }
