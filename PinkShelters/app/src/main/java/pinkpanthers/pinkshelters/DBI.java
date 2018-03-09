@@ -65,4 +65,13 @@ public interface DBI {
      * @throws NoSuchUserException when the id pass in the doesn't exist, no rows get updated
      */
     public void updateAccountInformationById(int accountId, String restrictionsMatch) throws SQLException, NoSuchUserException;
+
+    /**
+     * update the shelter that this account checks in
+     * @param accountId userId that is retrieved by the database when called getAllAccounts()
+     * @param shelterId the id of shelter (created by the database) that this accounts successfully checks in
+     * @throws SQLException in case something with database connection goes wrong
+     * @throws NoSuchUserException when the id pass in the doesn't exist, no rows get updated
+     */
+    public void updateShelterIdInAccountsTable(int accountId, int shelterId) throws SQLException, NoSuchUserException;
 }

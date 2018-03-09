@@ -256,7 +256,8 @@ public class Db implements DBI {
     public List<Shelter> getAllShelters() {
         List<Shelter> sheltersList = new ArrayList<>();
         Shelter newShelter = null;
-        String sql = "SELECT id, shelter_name, capacity, special_notes, latitude, longitude, phone_number, restrictions, address" +
+        String sql = "SELECT id, shelter_name, capacity, special_notes, latitude, " +
+                "longitude, phone_number, restrictions, address, occupancy, update_capacity" +
                 " FROM shelters";
 
         try {
@@ -330,7 +331,8 @@ public class Db implements DBI {
     public List<Shelter> getShelterByName(String shelterName) throws NoSuchUserException {
         shelterName = String.format("%%%s%%", shelterName.toLowerCase());
         List<Shelter> shelterList = new ArrayList<>();
-        String sql = "SELECT id, shelter_name, capacity, special_notes, latitude, longitude, phone_number, restrictions, address" +
+        String sql = "SELECT id, shelter_name, capacity, special_notes, latitude, longitude, " +
+                "phone_number, restrictions, address, occupancy, update_capacity" +
                 " FROM shelters" +
                 " WHERE LOWER(shelter_name)" +
                 " LIKE ?";
@@ -387,12 +389,14 @@ public class Db implements DBI {
 
         if (sql_column.equals("age_restrictions")) {
             restriction = String.format("%%%s%%", restriction);
-            sql = "SELECT id, shelter_name, capacity, special_notes, latitude, longitude, phone_number, restrictions, address" +
+            sql = "SELECT id, shelter_name, capacity, special_notes, latitude, longitude, " +
+                    "phone_number, restrictions, address, occupancy, update_capacity" +
                     " FROM shelters" +
                     " WHERE " + sql_column +
                     " LIKE ? ";
         } else {
-            sql = "SELECT id, shelter_name, capacity, special_notes, latitude, longitude, phone_number, restrictions, address" +
+            sql = "SELECT id, shelter_name, capacity, special_notes, latitude, longitude, " +
+                    "phone_number, restrictions, address, occupancy, update_capacity" +
                     " FROM shelters" +
                     " WHERE " + sql_column + " = ? ";
         }
@@ -516,6 +520,37 @@ public class Db implements DBI {
             logSqlException(e);
             throw new RuntimeException("Updating account information by account id (" + accountId + ") " +
                     ", updated field: restriction_match (" + restrictionsMatch + ") failed: " +
+                    e.toString()); // so we can log sql message too
+        } finally {
+            if (updatedRestrictionMatch != null) {
+                updatedRestrictionMatch.close();
+            }
+            conn.setAutoCommit(true);
+        }
+    }
+
+    @Override
+    public void updateShelterIdInAccountsTable(int accountId, int shelterId) throws SQLException, NoSuchUserException {
+        String sql = "UPDATE accounts " +
+                "SET shelter_id = ? " +
+                "WHERE id = ?";
+        PreparedStatement updatedRestrictionMatch = null;
+        try {
+            conn.setAutoCommit(false);
+            updatedRestrictionMatch = conn.prepareStatement(sql);
+            updatedRestrictionMatch.setInt(1, shelterId);
+            updatedRestrictionMatch.setInt(2, accountId);
+            int rowUpdated = updatedRestrictionMatch.executeUpdate();
+            if (rowUpdated == 1) {
+                conn.commit();
+            } else {
+                throw new NoSuchUserException("The account with id: " + accountId + " doesn't exist");
+            }
+
+        } catch (SQLException e) {
+            logSqlException(e);
+            throw new RuntimeException("Updating account information by account id (" + accountId + ") " +
+                    ", updated field: shelter_id (" + shelterId + ") failed: " +
                     e.toString()); // so we can log sql message too
         } finally {
             if (updatedRestrictionMatch != null) {
