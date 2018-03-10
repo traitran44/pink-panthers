@@ -18,6 +18,10 @@ public enum Restrictions {
     Restrictions(String restriction) {
         this.sqlRestriction = restriction;
     }
+    public void setSqlRestriction(String restriction) {
+        this.sqlRestriction = restriction;
+    }
+    public String getSqlRestriction() { return this.sqlRestriction;}
 
     public String toString() {
         return sqlRestriction;
