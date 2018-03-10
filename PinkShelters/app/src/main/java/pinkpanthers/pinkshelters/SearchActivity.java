@@ -161,9 +161,6 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
                         shelterNames.add(shelters.get(j).getShelterName());
                     }
 
-//                    recycler_adapter = new RecyclerAdapter(SearchActivity.this, shelterNames);
-//                    search_recycler_view.setAdapter(recycler_adapter);
-
                     shelter_name_edit_text.addTextChangedListener(new TextWatcher() {
                         @Override
                         public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -179,8 +176,22 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
                                 for (Shelter s : myShelters) {
                                     shelterNames.add(s.getShelterName());
                                 }
+
+                                // set interaction between the suggestions and shelter details
                                 recycler_adapter = new RecyclerAdapter(SearchActivity.this, shelterNames);
-                                recycler_adapter.setClickListener(SearchActivity.this::onItemClick);
+                                recycler_adapter.setClickListener(new RecyclerAdapter.ItemClickListener() {
+                                    // RecyclerAdapter passed in shelterNames only, SearchActivity.this::onItemClick
+                                    // didn't work properly, so I use anonymous inner class to amend the method
+                                    // by passing the list of shelter objects
+                                    // tho the performance is not very great - Hao
+                                    @Override
+                                    public void onItemClick(View view, int position) {
+                                        Intent detail = new Intent(SearchActivity.this, ShelterDetails.class);
+                                        detail.putExtra("shelterId", myShelters.get(position).getId());
+                                        startActivity(detail);
+                                    }
+                                });
+
                                 search_recycler_view.setAdapter(recycler_adapter);
                             } catch (NoSuchUserException e) {
                                 shelterNames.add("No results found");
