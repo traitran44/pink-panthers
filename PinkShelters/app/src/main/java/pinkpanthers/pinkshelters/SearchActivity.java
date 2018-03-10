@@ -208,9 +208,8 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
     // when user clicks on a shelter in the search, should go to ShelterDetails activity
     @Override
     public void onItemClick(View view, int position) {
-        int selectedShelter = position;
         Intent detail = new Intent(this, ShelterDetails.class);
-        detail.putExtra("shelterId", shelters.get(selectedShelter).getId());
+        detail.putExtra("shelterId", shelters.get(position).getId());
         startActivity(detail);
     }
 
