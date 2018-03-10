@@ -66,44 +66,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         }
     }
 
-    public void setUpForFilter() {
-        db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
-        shelters = db.getAllShelters();
-        mData = new ArrayList<>();
-        System.out.print(shelters.size());
-        for (int i = 0; i < shelters.size(); i++) {
-            mData.add(shelters.get(i).getShelterName());
-        }
-        filtered = mData;
-    }
-
-    public void filter(CharSequence charSequence) {
-        setUpForFilter();
-        String filter = charSequence.toString().toLowerCase();
-        if (filter == null || filter.length() == 0) {
-            filtered = mData;
-        } else {
-            filtered.clear();
-            for (Shelter s: shelters) {
-                if (s.getShelterName().toLowerCase().contains(filter)) {
-                    filtered.add(s.getShelterName());
-                }
-            }
-            if (filtered.size() == 0) {
-                filtered.add("No results found");
-            }
-        }
-        notifyDataSetChanged();
-    }
-
-
-
-
-
-
-
-
-
     // convenience method for getting data at click position
     String getItem(int id) {
         return mData.get(id);

@@ -1,5 +1,6 @@
 package pinkpanthers.pinkshelters;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,20 +20,20 @@ import java.util.List;
 
 public class SearchActivity extends AppCompatActivity implements RecyclerAdapter.ItemClickListener, View.OnClickListener {
 
-    List<String> choices = new ArrayList<>();
-    List<String> genders = new ArrayList<>();
-    List<String> ageRanges = new ArrayList<>();
-    Spinner choices_spinner;
-    Spinner age_range_gender_spinner;
-    ArrayAdapter<String> age_range_adapter;
-    ArrayAdapter<String> gender_adapter;
-    EditText shelter_name_edit_text;
+    private List<String> choices = new ArrayList<>();
+    private List<String> genders = new ArrayList<>();
+    private List<String> ageRanges = new ArrayList<>();
+    private Spinner choices_spinner;
+    private Spinner age_range_gender_spinner;
+    private ArrayAdapter<String> age_range_adapter;
+    private  ArrayAdapter<String> gender_adapter;
+    private EditText shelter_name_edit_text;
 
-    RecyclerAdapter recycler_adapter;
+    private RecyclerAdapter recycler_adapter;
+    private RecyclerView search_recycler_view;
 
-    RecyclerView search_recycler_view;
-
-    ArrayList<String> shelterNames;
+    private ArrayList<String> shelterNames;
+    private List<Shelter> shelters;
 
     private Db db;
 
@@ -45,7 +46,7 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
 
         // data to populate the RecyclerView with
         shelterNames = new ArrayList<>();
-
+        shelters = db.getAllShelters(); // contain all shelters
 
         choices.add("Gender");
         choices.add("Age Range");
@@ -78,8 +79,6 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
 
 
         choices_spinner.setSelection(0);
-
-
         age_range_gender_spinner.setSelection(0);
 
         age_range_gender_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -126,7 +125,7 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
+                // nothing happens when nothing is selected
             }
         });
 
@@ -135,40 +134,54 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String searchBy = choices.get(i);
 
-                if ("Gender".equals(searchBy)) {
+                if ("Gender".equals(searchBy)) { // search by gender was selected
                     age_range_gender_spinner.setAdapter(gender_adapter);
                     age_range_gender_spinner.setVisibility(View.VISIBLE);
                     shelter_name_edit_text.setVisibility(View.INVISIBLE);
 
-                } else if ("Age Range".equals(searchBy)) {
+                } else if ("Age Range".equals(searchBy)) { // search by age range was selected
                     age_range_gender_spinner.setAdapter(age_range_adapter);
                     age_range_gender_spinner.setVisibility(View.VISIBLE);
                     shelter_name_edit_text.setVisibility(View.INVISIBLE);
-                } else if ("Name".equals(searchBy)) {
+                } else if ("Name".equals(searchBy)) { // search by name was selected
                     age_range_gender_spinner.setVisibility(View.INVISIBLE);
                     shelter_name_edit_text.setVisibility(View.VISIBLE);
+
                     shelterNames.clear(); // clear out old results found by different categories
-                    List<Shelter> shelters = db.getAllShelters();
+
+                    //fill recyclerView with all shelters
                     for (int j = 0; j < shelters.size(); j++) {
                         shelterNames.add(shelters.get(j).getShelterName());
                     }
+
                     recycler_adapter = new RecyclerAdapter(SearchActivity.this, shelterNames);
                     search_recycler_view.setAdapter(recycler_adapter);
+
                     shelter_name_edit_text.addTextChangedListener(new TextWatcher() {
                         @Override
                         public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+                            // nothing changes before user types anything
                         }
 
                         @Override
                         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                            recycler_adapter.filter(charSequence);
+                            // grabs each new character that the user types into the textView
+                            shelterNames.clear();
+                            try {
+                                List<Shelter> myShelters = db.getShelterByName(charSequence.toString());
+                                for (Shelter s : myShelters) {
+                                    shelterNames.add(s.getShelterName());
+                                }
+                            } catch (NoSuchUserException e) {
+                                shelterNames.add("No results found");
 
+                            }
+                            recycler_adapter.notifyDataSetChanged();
                         }
 
                         @Override
                         public void afterTextChanged(Editable editable) {
-
+                            // changes occurred during onTextChanged so no changes after text changed
                         }
                     });
                 }
@@ -176,17 +189,9 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
+                // nothing changes when nothing is selected
             }
         });
-
-
-
-        // loads all the shelter names
-//        List<Shelter> shelters = db.getAllShelters();
-//        for (int i = 0; i < shelters.size(); i++) {
-//            shelterNames.add(shelters.get(i).getShelterName());
-//        }
 
         // set up the RecyclerView
         search_recycler_view = findViewById(R.id.search_recycler_view);
@@ -196,22 +201,17 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
         search_recycler_view.setAdapter(recycler_adapter);
     }
 
-    /**
-     * customizable toast message
-     * @param message message to display
-     */
-    private void toastMessage(String message){
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-    }
-
     @Override
     public void onClick(View view) {
 
     }
-
+    // when user clicks on a shelter in the search, should go to ShelterDetails activity
     @Override
     public void onItemClick(View view, int position) {
-
+        int selectedShelter = position;
+        Intent detail = new Intent(this, ShelterDetails.class);
+        detail.putExtra("shelterId", shelters.get(selectedShelter).getId());
+        startActivity(detail);
     }
 
     private String sqlConverter(String chosenItem) {
