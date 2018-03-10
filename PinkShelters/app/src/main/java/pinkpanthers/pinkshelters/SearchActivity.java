@@ -48,6 +48,13 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
         shelterNames = new ArrayList<>();
         shelters = db.getAllShelters(); // contain all shelters
 
+        // set up the RecyclerView
+        search_recycler_view = findViewById(R.id.search_recycler_view);
+        search_recycler_view.setLayoutManager(new LinearLayoutManager(this));
+        recycler_adapter = new RecyclerAdapter(this, shelterNames);
+        recycler_adapter.setClickListener(this);
+        search_recycler_view.setAdapter(recycler_adapter);
+
         choices.add("Gender");
         choices.add("Age Range");
         choices.add("Name");
@@ -154,8 +161,8 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
                         shelterNames.add(shelters.get(j).getShelterName());
                     }
 
-                    recycler_adapter = new RecyclerAdapter(SearchActivity.this, shelterNames);
-                    search_recycler_view.setAdapter(recycler_adapter);
+//                    recycler_adapter = new RecyclerAdapter(SearchActivity.this, shelterNames);
+//                    search_recycler_view.setAdapter(recycler_adapter);
 
                     shelter_name_edit_text.addTextChangedListener(new TextWatcher() {
                         @Override
@@ -172,6 +179,9 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
                                 for (Shelter s : myShelters) {
                                     shelterNames.add(s.getShelterName());
                                 }
+                                recycler_adapter = new RecyclerAdapter(SearchActivity.this, shelterNames);
+                                recycler_adapter.setClickListener(SearchActivity.this::onItemClick);
+                                search_recycler_view.setAdapter(recycler_adapter);
                             } catch (NoSuchUserException e) {
                                 shelterNames.add("No results found");
 
@@ -193,12 +203,7 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
             }
         });
 
-        // set up the RecyclerView
-        search_recycler_view = findViewById(R.id.search_recycler_view);
-        search_recycler_view.setLayoutManager(new LinearLayoutManager(this));
-        recycler_adapter = new RecyclerAdapter(this, shelterNames);
-        recycler_adapter.setClickListener(this);
-        search_recycler_view.setAdapter(recycler_adapter);
+
     }
 
     @Override
