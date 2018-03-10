@@ -34,6 +34,7 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
 
     private ArrayList<String> shelterNames;
     private List<Shelter> shelters;
+    private List<Shelter> myShelters;
 
     private Db db;
 
@@ -101,7 +102,7 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
                     } else {
                         shelterNames.clear();
                         try {
-                            List<Shelter> myShelters =  db.getShelterByRestriction(searchBy);
+                            myShelters =  db.getShelterByRestriction(searchBy);
                             for (Shelter sh: myShelters) {
                                 shelterNames.add(sh.getShelterName());
                             }
@@ -118,7 +119,7 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
                     } else {
                         shelterNames.clear();
                         try {
-                            List<Shelter> myShelters =  db.getShelterByRestriction(searchBy);
+                            myShelters =  db.getShelterByRestriction(searchBy);
                             for (Shelter sh: myShelters) {
                                 shelterNames.add(sh.getShelterName());
                             }
@@ -161,6 +162,10 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
                         shelterNames.add(shelters.get(j).getShelterName());
                     }
 
+                    // set interaction for the previewed list of shelter before starting the search
+                    recycler_adapter = new RecyclerAdapter(SearchActivity.this, shelterNames);
+                    recycler_adapter.setClickListener(SearchActivity.this::onItemClick);
+                    search_recycler_view.setAdapter(recycler_adapter);
                     shelter_name_edit_text.addTextChangedListener(new TextWatcher() {
                         @Override
                         public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -172,31 +177,25 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
                             // grabs each new character that the user types into the textView
                             shelterNames.clear();
                             try {
-                                List<Shelter> myShelters = db.getShelterByName(charSequence.toString());
+                                myShelters = db.getShelterByName(charSequence.toString());
                                 for (Shelter s : myShelters) {
                                     shelterNames.add(s.getShelterName());
                                 }
 
                                 // set interaction between the suggestions and shelter details
                                 recycler_adapter = new RecyclerAdapter(SearchActivity.this, shelterNames);
-                                recycler_adapter.setClickListener(new RecyclerAdapter.ItemClickListener() {
-                                    // RecyclerAdapter passed in shelterNames only, SearchActivity.this::onItemClick
-                                    // didn't work properly, so I use anonymous inner class to amend the method
-                                    // by passing the list of shelter objects
-                                    // tho the performance is not very great - Hao
-                                    @Override
-                                    public void onItemClick(View view, int position) {
-                                        Intent detail = new Intent(SearchActivity.this, ShelterDetails.class);
-                                        detail.putExtra("shelterId", myShelters.get(position).getId());
-                                        startActivity(detail);
-                                    }
-                                });
-
+                                recycler_adapter.setClickListener(SearchActivity.this::onItemClick);
                                 search_recycler_view.setAdapter(recycler_adapter);
                             } catch (NoSuchUserException e) {
                                 shelterNames.add("No results found");
-
+                                recycler_adapter.setClickListener(new RecyclerAdapter.ItemClickListener() {
+                                    @Override
+                                    public void onItemClick(View view, int position) {
+                                        // nothing happens, just shows the text
+                                    }
+                                });
                             }
+
                             recycler_adapter.notifyDataSetChanged();
                         }
 
@@ -225,7 +224,7 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
     @Override
     public void onItemClick(View view, int position) {
         Intent detail = new Intent(this, ShelterDetails.class);
-        detail.putExtra("shelterId", shelters.get(position).getId());
+        detail.putExtra("shelterId", myShelters.get(position).getId());
         startActivity(detail);
     }
 
