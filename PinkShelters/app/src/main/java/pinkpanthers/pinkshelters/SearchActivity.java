@@ -107,7 +107,7 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
                                 shelterNames.add(sh.getShelterName());
                             }
                         } catch (NoSuchUserException e) {
-                            shelterNames.add("No results found");
+                            shelterNames.add(e.getMessage());
                         } catch (Exception  e) {
 
                     }
@@ -126,7 +126,7 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
                                 shelterNames.add(sh.getShelterName());
                             }
                         } catch (NoSuchUserException e) {
-                            shelterNames.add("No results found");
+                            shelterNames.add(e.getMessage());
                         } catch (Exception  e) {
                         }
                         recycler_adapter.notifyDataSetChanged();
