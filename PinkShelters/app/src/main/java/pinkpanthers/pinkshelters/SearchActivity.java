@@ -48,6 +48,7 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
         // data to populate the RecyclerView with
         shelterNames = new ArrayList<>();
         shelters = db.getAllShelters(); // contain all shelters
+        myShelters = shelters;
 
         // set up the RecyclerView
         search_recycler_view = findViewById(R.id.search_recycler_view);
