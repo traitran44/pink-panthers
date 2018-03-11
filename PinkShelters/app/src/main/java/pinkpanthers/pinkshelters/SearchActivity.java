@@ -127,6 +127,7 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
                                 shelterNames.add(sh.getShelterName());
                             }
                         } catch (NoSuchUserException e) {
+                            shelterNames.clear();
                             shelterNames.add("No results found");
                             recycler_adapter.notifyDataSetChanged();
                         }
