@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/registration_page"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="pinkpanthers.pinkshelters.UserInfoActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/titleBar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            android:visibility="visible"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:title="My Info" />
+
+    </android.support.design.widget.AppBarLayout>
+
+
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="pinkpanthers.pinkshelters.ShelterDetails">
+
+        <LinearLayout
+            android:layout_width="378dp"
+            android:layout_height="491dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="48dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.116">
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+            <TextView
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+            <TextView
+                android:id="@+id/restrictionView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Select restriction that applies to your family"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+            <Spinner
+                android:id="@+id/identity_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="36dp" />
+
+            <TextView
+                android:id="@+id/number_family_member"
+                android:layout_width="match_parent"
+                android:layout_height="37dp"
+                android:text="Family Size (including yourself)"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+            <Spinner
+                android:id="@+id/family_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="39dp" />
+
+
+            <Button
+                android:id="@+id/update_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="updateOnClick"
+                android:text="Update"
+                tools:layout_editor_absoluteX="155dp"
+                tools:layout_editor_absoluteY="419dp" />
+
+            <TextView
+                android:id="@+id/buttonStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Update successfully!"
+                android:visibility="invisible"
+                tools:text="Update Successfully" />
+
+            <Button
+                android:id="@+id/back_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="backOnClick"
+                android:text="Back"
+                tools:layout_editor_absoluteX="75dp"
+                tools:layout_editor_absoluteY="472dp" />
+
+        </LinearLayout>
+
+
+    </android.support.constraint.ConstraintLayout>
+</android.support.design.widget.CoordinatorLayout>

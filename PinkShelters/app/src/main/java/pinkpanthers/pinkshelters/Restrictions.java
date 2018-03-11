@@ -13,7 +13,8 @@ public enum Restrictions {
     FAMILIES_W_NEWBORNS("families_w_newborns"),
     ANYONE("anyone"),
     FAMILY("families"),
-    VETERAN("veterans");
+    VETERAN("veterans"),
+    FAMILIES_W_CHILDREN_UNDER_5("family_w_children_under_5");
 
     private String sqlRestriction;
     Restrictions(String restriction) {
