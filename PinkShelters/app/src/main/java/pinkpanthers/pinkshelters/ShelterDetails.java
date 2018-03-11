@@ -1,22 +1,27 @@
 package pinkpanthers.pinkshelters;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 public class ShelterDetails extends AppCompatActivity {
     private DBI db;
+    private Shelter s;
+    private TextView errorMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shelter_details);
         db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
+        errorMessage = findViewById(R.id.errorMessage);
 
         try {
             int shelterId = getIntent().getExtras().getInt("shelterId");
-            Shelter s = db.getShelterById(shelterId);
+            s = db.getShelterById(shelterId);
             updateView(s);
 
         } catch (NoSuchUserException e) {
@@ -59,7 +64,31 @@ public class ShelterDetails extends AppCompatActivity {
         TextView specialNote = findViewById(R.id.specialNote);
         String forSpecialNote = "Special Note: " + s.getSpecialNotes();
         specialNote.setText(forSpecialNote);
+
+        TextView vacancy = findViewById(R.id.vacancy);
+        String forVacancy = "Vacancy: " + s.getVacancy();
+        vacancy.setText(forVacancy);
     }
 
+    // TODO: cancel reservation
+
+    public void claimBedButton(View view) {
+        // check to see if user has updated their information (single/with families and gender)
+//        if (user hasnt update info) {
+//          Intent updateInfoPege = new Intent (ShelterDetails.this, UpdateInfo.class);
+//          startActivity(updateInfoPage);
+//        }
+
+        // check available spots
+        if (s.getVacancy() <= 0) {
+            errorMessage.setText("Not enough beds");
+            errorMessage.setVisibility(View.VISIBLE);
+        } else {
+            // checks restrictions
+            // if fit restricitons, decrease vacancy and update vacancy
+            // if dont fit restrictions, display restriction error message -> errorMessage.setText("restriction");
+        }
+
+    }
 
 }

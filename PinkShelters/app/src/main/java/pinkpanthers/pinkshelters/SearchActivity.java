@@ -109,7 +109,6 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
                             }
                         } catch (NoSuchUserException e) {
                             shelterNames.add("No results found");
-                            recycler_adapter.notifyDataSetChanged();
                         }
                         recycler_adapter.notifyDataSetChanged();
                     }
@@ -190,14 +189,7 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
                                 search_recycler_view.setAdapter(recycler_adapter);
                             } catch (NoSuchUserException e) {
                                 shelterNames.add("No results found");
-//                                recycler_adapter.setClickListener(new RecyclerAdapter.ItemClickListener() {
-//                                    @Override
-//                                    public void onItemClick(View view, int position) {
-//                                        // nothing happens, just shows the text
-//                                    }
-//                                });
                             }
-
                             recycler_adapter.notifyDataSetChanged();
                         }
 
