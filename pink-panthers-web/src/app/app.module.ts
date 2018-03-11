@@ -22,6 +22,7 @@ import {HomelessService} from './service/homeless.service';
 import {VolunteerService} from './service/volunteer.service';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule} from '@angular/forms';
+import { ShelterVolunteerComponent } from './component/shelter-volunteer/shelter-volunteer.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import {FormsModule} from '@angular/forms';
     LoginComponent,
     RegistrationComponent,
     WelcomeComponent,
-    TitleComponent
+    TitleComponent,
+    ShelterVolunteerComponent
   ],
   imports: [
     BrowserModule,
