@@ -5,7 +5,7 @@ import {WelcomeComponent} from './component/welcome/welcome.component';
 import {LoginComponent} from './component/login/login.component';
 import {RegistrationComponent} from './component/registration/registration.component';
 import {AdminComponent} from './component/admin/admin.component';
-import {HomelessComponent} from "./component/homeless/homeless.component";
+import {HomelessComponent} from './component/homeless/homeless.component';
 
 const routes: Routes = [
   {
@@ -34,7 +34,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: '/Homeless',
+    redirectTo: '/Welcome',
     pathMatch: 'full'
   },
 ];
