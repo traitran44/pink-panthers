@@ -7,6 +7,7 @@ package pinkpanthers.pinkshelters;
 public enum Restrictions {
     MEN("men"),
     WOMEN("women"),
+    NON_BINARY("non_binary"),
     CHILDREN("children"),
     YOUNG_ADULTS("young_adults"),
     FAMILIES_W_NEWBORNS("families_w_newborns"),

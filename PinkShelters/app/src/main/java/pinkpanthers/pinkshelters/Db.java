@@ -380,6 +380,7 @@ public class Db implements DBI {
         switch (restriction.toLowerCase()) {
             case ("men"):
             case ("women"):
+            case("non_binary"):
                 sql_column = "gender_restrictions";
                 break;
             default:
