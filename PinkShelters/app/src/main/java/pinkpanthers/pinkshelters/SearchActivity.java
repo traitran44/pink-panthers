@@ -108,7 +108,6 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
                                 shelterNames.add(sh.getShelterName());
                             }
                         } catch (NoSuchUserException e) {
-                            shelterNames.clear();
                             shelterNames.add("No results found");
                             recycler_adapter.notifyDataSetChanged();
                         }
@@ -127,9 +126,7 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
                                 shelterNames.add(sh.getShelterName());
                             }
                         } catch (NoSuchUserException e) {
-                            shelterNames.clear();
                             shelterNames.add("No results found");
-                            recycler_adapter.notifyDataSetChanged();
                         }
                         recycler_adapter.notifyDataSetChanged();
                     }
@@ -187,18 +184,18 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
                                     shelterNames.add(s.getShelterName());
                                 }
 
-                                // set interaction between the suggestions and shelter details
+                                 //set interaction between the suggestions and shelter details
                                 recycler_adapter = new RecyclerAdapter(SearchActivity.this, shelterNames);
                                 recycler_adapter.setClickListener(SearchActivity.this::onItemClick);
                                 search_recycler_view.setAdapter(recycler_adapter);
                             } catch (NoSuchUserException e) {
                                 shelterNames.add("No results found");
-                                recycler_adapter.setClickListener(new RecyclerAdapter.ItemClickListener() {
-                                    @Override
-                                    public void onItemClick(View view, int position) {
-                                        // nothing happens, just shows the text
-                                    }
-                                });
+//                                recycler_adapter.setClickListener(new RecyclerAdapter.ItemClickListener() {
+//                                    @Override
+//                                    public void onItemClick(View view, int position) {
+//                                        // nothing happens, just shows the text
+//                                    }
+//                                });
                             }
 
                             recycler_adapter.notifyDataSetChanged();
@@ -237,6 +234,8 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
         switch (chosenItem) {
             case ("Men"):
                 return Restrictions.MEN.toString();
+            case ("Non-Binary"):
+                return Restrictions.NON_BINARY.toString();
             case ("Women"):
                 return Restrictions.WOMEN.toString();
             case ("Children"):

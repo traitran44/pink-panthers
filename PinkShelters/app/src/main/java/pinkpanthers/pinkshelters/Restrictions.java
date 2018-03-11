@@ -12,6 +12,7 @@ public enum Restrictions {
     FAMILIES_W_NEWBORNS("families_w_newborns"),
     ANYONE("anyone"),
     FAMILY("families"),
+    NON_BINARY("non_binary"),
     VETERAN("veterans");
 
     private String sqlRestriction;

@@ -378,6 +378,7 @@ public class Db implements DBI {
         String sql_column;
         String sql;
         switch (restriction.toLowerCase()) {
+            case ("Non-Binary"):
             case ("men"):
             case ("women"):
                 sql_column = "gender_restrictions";
