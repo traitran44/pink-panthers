@@ -107,10 +107,10 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
                                 shelterNames.add(sh.getShelterName());
                             }
                         } catch (NoSuchUserException e) {
-                            shelterNames.add(e.getMessage());
-                        } catch (Exception  e) {
-
-                    }
+                            shelterNames.clear();
+                            shelterNames.add("No results found");
+                            recycler_adapter.notifyDataSetChanged();
+                        }
                         recycler_adapter.notifyDataSetChanged();
                     }
                 } else if ("Age Range".equals(mainSelection)) {
@@ -121,13 +121,13 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
                     } else {
                         shelterNames.clear();
                         try {
-                            myShelters =  db.getShelterByRestriction(searchBy);
-                            for (Shelter sh: myShelters) {
+                            myShelters = db.getShelterByRestriction(searchBy);
+                            for (Shelter sh : myShelters) {
                                 shelterNames.add(sh.getShelterName());
                             }
                         } catch (NoSuchUserException e) {
-                            shelterNames.add(e.getMessage());
-                        } catch (Exception  e) {
+                            shelterNames.add("No results found");
+                            recycler_adapter.notifyDataSetChanged();
                         }
                         recycler_adapter.notifyDataSetChanged();
                     }
