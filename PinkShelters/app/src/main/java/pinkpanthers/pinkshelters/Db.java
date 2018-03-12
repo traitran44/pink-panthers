@@ -1,6 +1,7 @@
 package pinkpanthers.pinkshelters;
 
 import android.os.StrictMode;
+import android.text.TextUtils;
 import android.util.Log;
 
 import java.sql.*;
@@ -116,7 +117,8 @@ public class Db implements DBI {
     @Override
     public Account getAccountByUsername(String username) throws NoSuchUserException {
         Account newUser;
-        String sql = "SELECT id, type, username, password, name, email, account_state, shelter_id " +
+        String sql = "SELECT id, type, username, password, name, email, account_state," +
+                " shelter_id, family_members, restriction_match  " +
                 "FROM accounts " +
                 "WHERE username = ?";
         try {
@@ -137,6 +139,8 @@ public class Db implements DBI {
                     case ("Homeless"):
                         newUser = new Homeless(userName, password, name, accountState, email, id);
                         ((Homeless) newUser).setShelterId(shelter_id);
+                        newUser.setFamilyMemberNumber(rs.getInt("family_members"));
+                        newUser.setRestrictionsMatch(rs.getString("restriction_match").split(" "));
                         // need to check if assignment is set (if professor wants to keep it)
                         break;
                     case ("Shelter Volunteer"):
@@ -168,7 +172,8 @@ public class Db implements DBI {
     public List<Account> getAllAccounts() {
         List<Account> accountList = new ArrayList<>();
         Account newUser = null;
-        String sql = "SELECT id, type, username, password, name, email, account_state, shelter_id " +
+        String sql = "SELECT id, type, username, password, name, email, account_state," +
+                " shelter_id, family_members, restriction_match " +
                 "FROM accounts";
 
         try {
@@ -188,6 +193,8 @@ public class Db implements DBI {
                     case ("Homeless"):
                         newUser = new Homeless(userName, password, name, accountState, email, id);
                         ((Homeless) newUser).setShelterId(shelter_id);
+                        newUser.setFamilyMemberNumber(rs.getInt("family_members"));
+                        newUser.setRestrictionsMatch(rs.getString("restriction_match").split(" "));
                         // need to check if assignment is set (if professor wants to keep it)
                         break;
                     case ("Shelter Volunteer"):
@@ -500,15 +507,17 @@ public class Db implements DBI {
     }
 
     @Override
-    public void updateAccountInformationById(int accountId, String restrictionsMatch) throws SQLException, NoSuchUserException {
+    public void updateAccountInformationById(int accountId, List<String> restrictionsMatch) throws SQLException, NoSuchUserException {
         String sql = "UPDATE accounts " +
                 "SET restriction_match = ? " +
                 "WHERE id = ?";
         PreparedStatement updatedRestrictionMatch = null;
+        String match = TextUtils.join(" ", restrictionsMatch);
+
         try {
             conn.setAutoCommit(false);
             updatedRestrictionMatch = conn.prepareStatement(sql);
-            updatedRestrictionMatch.setString(1, restrictionsMatch);
+            updatedRestrictionMatch.setString(1, match);
             updatedRestrictionMatch.setInt(2, accountId);
             int rowUpdated = updatedRestrictionMatch.executeUpdate();
             if (rowUpdated == 1) {
