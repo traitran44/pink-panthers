@@ -512,7 +512,7 @@ public class Db implements DBI {
                 String match = TextUtils.join(" ", ((Homeless) user).getRestrictionsMatch());
                 updatedFamily.setString(7, match);
             }
-            updatedFamily.setInt(5, user.getUserId());
+            updatedFamily.setInt(8, user.getUserId());
             int updatedRow = updatedFamily.executeUpdate();
             if (updatedRow == 1) {
                 conn.commit();

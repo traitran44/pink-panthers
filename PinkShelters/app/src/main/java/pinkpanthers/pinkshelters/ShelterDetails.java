@@ -45,7 +45,7 @@ public class ShelterDetails extends AppCompatActivity {
 
     }
 
-    private void updateView (Shelter s) {
+    private void updateView(Shelter s) {
         TextView name = findViewById(R.id.name);
         String forName = "Name: " + s.getShelterName();
         name.setText(forName);
@@ -53,6 +53,10 @@ public class ShelterDetails extends AppCompatActivity {
         TextView capacity = findViewById(R.id.capacity);
         String forCapacity = "Capacity: " + s.getCapacity();
         capacity.setText(forCapacity);
+
+        String numCapacity = s.getCapacity();
+        String numberOnly = numCapacity.replaceAll("[^0-9]", "");
+
 
         TextView longitude = findViewById(R.id.longitude);
         String forLongitude = "Longitude: " + s.getLongitude();
@@ -84,70 +88,51 @@ public class ShelterDetails extends AppCompatActivity {
     }
 
     // TODO: cancel reservation
-
     public void claimBedButton(View view) {
         // check to see if user has updated their information (single/with families and gender)
-//      if (user hasnt update info) {
-//         Intent updateInfoPege = new Intent (ShelterDetails.this, UpdateInfo.class);
+//      if (user hasnt update info)
+//        Intent updateInfoPege = new Intent (ShelterDetails.this, UpdateInfo.class);
 //        startActivity(updateInfoPage);
 //     }
-//
-//        // check available spots
-//        // should check if vacancy is more than family member number.
-//        //if only check if larger than 0, then it is not enough.
 
-        //replace familyMemberNumber with familyMemberNumber of that specfic homeless account
-        if( a instanceof Homeless ){
-            int familyMemberNumber=((Homeless) a).getFamilyMemberNumber();
+//
+//       // check if account type of homeless, if homeless then getFamilyMemberNumber
+        if (a instanceof Homeless) {
+            int familyMemberNumber = ((Homeless) a).getFamilyMemberNumber();
             {
                 if (s.getVacancy() <= familyMemberNumber) {
-                    errorMessage.setText("Not enough beds");
-                    errorMessage.setVisibility(View.VISIBLE);}
-                else if(s.getRestrictions()=((Homeless) a).getRestrictionsMatch()){
+                    errorMessage.setText("Sorry, there are not enough beds");
+                    errorMessage.setVisibility(View.VISIBLE);
+                } else if (((Homeless) a).getRestrictionsMatch().contains(s.getRestrictions())) {
                     try {
-                        // TODO: Uncomment this line below when you fix updateAccountInformationById's param to take a list.
                         db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
+                        //update vacancy of shelter
+                        int vacancy = s.getVacancy()-familyMemberNumber;
+                        s.setVacancy(vacancy);
+                        //update shelter occupancy for Db
+                        int occupancy=s.getUpdate_capacity()-vacancy;
+                        s.setOccupancy(occupancy);
+                        db.updateShelterOccupancy(s.getId(),occupancy);
+                        //pass in account object to update account
                         db.updateAccount(this.a);
-                        errorMessage.setText("You have claim your bed successfullly");
+                        errorMessage.setText("You have claim your bed(s) successfully");
                         errorMessage.setVisibility(View.VISIBLE);
                     } catch (SQLException e) {
                         e.printStackTrace();
                     } catch (NoSuchUserException e) {
                         e.printStackTrace();
-                    }}
-                else{
+                    }
+                } else
                     errorMessage.setText("Restrictions error");
-                    errorMessage.setVisibility(View.VISIBLE);}
-
-
-                }
-
-
+                    errorMessage.setVisibility(View.VISIBLE);
             }
-
-
-
-//            //db.updateShelterIdInAccountsTable(accountId,shelterId);
-            // int vacancy=s.getVacancy-a.getfamilyMemberNumber;
-            // int occupancy=s.getCapacity-vacancy;
-            //db.updateShelterOccupancy(shelterid,occaupancy);
-//            // display message "claimed bed successfylly"
-            //errorMessage.setText("You have claimed your beds successfully");
-            //errorMessage.setVisibility(View.VISIBLE);
-//            //then by now, it should reflect the current amount of occupancy after updating with
-//            //the account and shelter table
-//
-//
-//            // if fit restricitons, decrease vacancy and update vacancy
-//            // if dont fit restrictions, display restriction error message -> errorMessage.setText("restriction");
         }
-
     }
-
-    // TODO need to check to see if user is checked into this shelter
-    // and make button visible in onCreate method
-    public void cancelReservationButton(View view) {
-        //int familyNumber = a.getFamilyMemberNumber();
-    }
+//
+//    // TODO need to check to see if user is checked into this shelter
+//    // and make button visible in onCreate method
+//    public void cancelReservationButton(View view) {
+//        //int familyNumber = a.getFamilyMemberNumber();
+//    }
 
 }
