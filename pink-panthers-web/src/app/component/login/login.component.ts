@@ -11,7 +11,8 @@ export class LoginComponent implements OnInit {
   user: {
     name: string,
     email: string,
-    pass: string
+    pass: string,
+    role: string
   };
 
   constructor(private fb$$: FirebaseService,
@@ -21,7 +22,8 @@ export class LoginComponent implements OnInit {
     this.user = {
       name: '',
       email: '',
-      pass: ''
+      pass: '',
+      role: ''
     };
   }
 
@@ -30,26 +32,37 @@ export class LoginComponent implements OnInit {
    this.fb$$.getUser(this.user.name).subscribe((data) => {
      if (data.length !== 0) {
        const user = data[0].payload.val();
-       this.user.email = user.email;
+       this.user = user;
        console.log(this.user);
        this.fb$$.signInUser(this.user.email, this.user.pass)
          .then((resp) => {
-           console.log('Sign in');
-           this.route.navigateByUrl('Admin');
+           switch (this.user.role) {
+             case 'Admin':
+               this.route.navigateByUrl('Admin');
+               break;
+             case 'Shelter Volunteer':
+               this.route.navigateByUrl('ShelterVolunteer');
+               break;
+             case 'Homeless':
+               this.route.navigateByUrl('Homeless');
+               break;
+           }
          })
          .catch((err) => {
            console.log(err);
            this.user = {
              name: '',
              email: '',
-             pass: ''
+             pass: '',
+             role: ''
            };
          });
      } else {
        this.user = {
          name: '',
          email: '',
-         pass: ''
+         pass: '',
+         role: ''
        };
      }
    });

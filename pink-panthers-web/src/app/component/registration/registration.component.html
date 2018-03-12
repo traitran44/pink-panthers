@@ -15,6 +15,15 @@
       <mat-form-field style="width: 100%;">
         <input matInput placeholder="Password" [(ngModel)]="user.pass" type="password" required>
       </mat-form-field>
+
+      <mat-form-field style="width: 100%;">
+        <mat-select placeholder="Select role" [(ngModel)]="user.role">
+          <mat-option *ngFor="let role of roleList" [value]="role">
+            {{ role }}
+          </mat-option>
+        </mat-select>
+
+      </mat-form-field>
     </div>
 
     <div class="row text-center">

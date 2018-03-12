@@ -65,7 +65,7 @@ public interface DBI {
      * @throws SQLException in case something with database connection goes wrong
      * @throws NoSuchUserException when the id pass in the doesn't exist, no rows get updated
      */
-    void updateAccountInformationById(int accountId, String restrictionsMatch) throws SQLException, NoSuchUserException;
+    void updateAccountInformationById(int accountId, List<String> restrictionsMatch) throws SQLException, NoSuchUserException;
 
     /**
      * update the shelter that this account checks in
