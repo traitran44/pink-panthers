@@ -35,7 +35,6 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
     private Spinner family_spinner;
     private ArrayAdapter<Integer> family_adapter;
 
-    private String restriction;
     private int familySize;
 
     private TextView name;
@@ -46,8 +45,6 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
     private Account account;
 
     private CheckBox ch1, ch2, ch3, ch4, ch5, ch6, ch7, ch8, ch9;
-
-    public static final String PREFS_NAME = "com.example.sp.LoginPrefs";
 
     //Create Back Button
     public void backOnClick(View v) {
