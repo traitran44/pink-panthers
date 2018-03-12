@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -20,7 +21,7 @@ import java.util.List;
 public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapter.ItemClickListener, View.OnClickListener {
     private DBI db;
 
-    private List<String> identityList = new ArrayList<>();
+    private List<String> restrictionList = new ArrayList<>();
     private List<String> familySizeList = new ArrayList<>();
 
     private Button back_btn;
@@ -42,11 +43,12 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
 
     private Account account;
 
+    private CheckBox ch1, ch2, ch3, ch4, ch5, ch6, ch7, ch8, ch9;
+
     public static final String PREFS_NAME = "com.example.sp.LoginPrefs";
 
     public void resetAllFields() {
         buttonStatus.setVisibility(View.INVISIBLE);
-        identity_spinner.setSelection(0);
         family_spinner.setSelection(0);
     }
 
@@ -60,10 +62,20 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
 
     //Create Update Info Button
     public void updateOnClick(View v) {
+        updateRestrictionList();
+
+        for (String s : restrictionList) {
+            System.out.println(s + ", ");
+        }
         try {
-            db.updateAccountInformationById(account.getUserId(), restriction);
+        // TODO: Uncomment this line below when you fix updateAccountInformationById's param to take a list.
+            //db.updateAccountInformationById(account.getUserId(), restrictionList);
+
+
+            //update family size
             db.updateAccountInformationById(account.getUserId(), familySize);
             buttonStatus.setVisibility(View.VISIBLE);
+            resetAllFields();
             System.out.println("Successfully");
         } catch (SQLException e) {
             e.printStackTrace();
@@ -72,36 +84,49 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
         }
     }
 
+    private void updateRestrictionList() {
+        if (ch1.isChecked())
+            restrictionList.add(Restrictions.MEN.toString());
+        if (ch2.isChecked())
+            restrictionList.add(Restrictions.WOMEN.toString());
+        if (ch3.isChecked())
+            restrictionList.add(Restrictions.YOUNG_ADULTS.toString());
+        if (ch4.isChecked())
+            restrictionList.add(Restrictions.CHILDREN.toString());
+        if (ch5.isChecked())
+            restrictionList.add(Restrictions.FAMILIES_W_CHILDREN_UNDER_5.toString());
+        if (ch6.isChecked())
+            restrictionList.add(Restrictions.NON_BINARY.toString());
+        if (ch7.isChecked())
+            restrictionList.add(Restrictions.FAMILY.toString());
+        if (ch8.isChecked())
+            restrictionList.add(Restrictions.VETERAN.toString());
+        if (ch9.isChecked())
+            restrictionList.add(Restrictions.FAMILIES_W_NEWBORNS.toString());
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_info_page);
+
+        //check box restrictions:
         buttonStatus = findViewById(R.id.buttonStatus);
+        ch1 =(CheckBox)findViewById(R.id.checkBox1);
+        ch2 =(CheckBox)findViewById(R.id.checkBox2);
+        ch3 =(CheckBox)findViewById(R.id.checkBox3);
+        ch4 =(CheckBox)findViewById(R.id.checkBox4);
+        ch5 =(CheckBox)findViewById(R.id.checkBox5);
+        ch6 =(CheckBox)findViewById(R.id.checkBox6);
+        ch7 =(CheckBox)findViewById(R.id.checkBox7);
+        ch8 =(CheckBox)findViewById(R.id.checkBox8);
+        ch9 =(CheckBox)findViewById(R.id.checkBox9);
 
         try {
             getUserAccount();
         } catch (NoSuchUserException e) {
             e.printStackTrace();
         }
-
-        identityList.add("No restriction");
-        identityList.add("Adult male only");
-        identityList.add("Adult female only");
-        identityList.add("Veterans only");
-        identityList.add("Non-Binary only");
-        identityList.add("Young adult only");
-        identityList.add("Children only (age 5 - 13)");
-        identityList.add("Family with children (age 5 - 13)");
-        identityList.add("Family with child(ren) under 5");
-        identityList.add("Family with newborn(s)");
-        identityList.add("Family");
-
-        identity_spinner = (Spinner)findViewById(R.id.identity_spinner);
-        identity_adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, identityList);
-        identity_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        identity_spinner.setAdapter(identity_adapter);
-        identity_spinner.setSelection(0);
-
 
         // add choices to family size
         for (int i = 0; i < 16; i++) {
@@ -114,66 +139,17 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
 
         family_spinner.setSelection(0);
 
-        // Spinner click listener
+        // Spinner click listener for family size
         family_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                familySize = identity_spinner.getSelectedItem().toString();
+                familySize = family_spinner.getSelectedItem().toString();
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
                 // nothing happens when nothing is selected
             }
         });
-
-        identity_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String selected = identity_spinner.getSelectedItem().toString();
-
-                switch(selected) {
-                    case "No restriction" :
-                        restriction = (Restrictions.ANYONE.toString());
-                        break;
-                    case "Adult male only" :
-                        restriction = (Restrictions.MEN.toString());
-                        break;
-                    case "Adult female only" :
-                        restriction = (Restrictions.WOMEN.toString());
-                        break;
-                    case "Non-binary adult only" :
-                        restriction = (Restrictions.NON_BINARY.toString());
-                        break;
-                    case "Young adult only (age 13 - 18)" :
-                        restriction = (Restrictions.YOUNG_ADULTS.toString());
-                        break;
-                    case "Children only (age under 13)" :
-                        restriction = (Restrictions.CHILDREN.toString());
-                        break;
-                    case "Family with child(ren) under 5" :
-                        restriction = (Restrictions.FAMILIES_W_CHILDREN_UNDER_5.toString());
-                        break;
-                    case "Family with newborn(s)" :
-                        restriction = (Restrictions.FAMILIES_W_NEWBORNS.toString());
-                        break;
-                    case "Family" :
-                        restriction = (Restrictions.FAMILY.toString());
-                        break;
-                    case "Veterans only" :
-                        restriction = (Restrictions.VETERAN.toString());
-                        break;
-                    default :
-                        restriction = (Restrictions.ANYONE.toString());
-                }
-
-
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                // nothing happens when nothing is selected
-            }
-        });
-
 
         //Grab name and user type to show in homepage
         name = (TextView) findViewById(R.id.name);
@@ -182,6 +158,11 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
         // Get name and user type
         name.setText("Name: " + account.getName());
         email.setText("Email: " + account.getEmail());
+
+
+
+        //check box restrictions:
+
 
     }
 

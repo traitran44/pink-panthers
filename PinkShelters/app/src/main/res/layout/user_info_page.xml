@@ -32,8 +32,8 @@
         tools:context="pinkpanthers.pinkshelters.ShelterDetails">
 
         <LinearLayout
-            android:layout_width="378dp"
-            android:layout_height="491dp"
+            android:layout_width="548dp"
+            android:layout_height="803dp"
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
@@ -83,15 +83,6 @@
                 android:layout_height="39dp" />
 
 
-            <Button
-                android:id="@+id/update_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="updateOnClick"
-                android:text="Update"
-                tools:layout_editor_absoluteX="155dp"
-                tools:layout_editor_absoluteY="419dp" />
-
             <TextView
                 android:id="@+id/buttonStatus"
                 android:layout_width="match_parent"
@@ -100,14 +91,97 @@
                 android:visibility="invisible"
                 tools:text="Update Successfully" />
 
-            <Button
-                android:id="@+id/back_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="backOnClick"
-                android:text="Back"
-                tools:layout_editor_absoluteX="75dp"
-                tools:layout_editor_absoluteY="472dp" />
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <Button
+                    android:id="@+id/update_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_column="1"
+                    android:layout_row="5"
+                    android:onClick="updateOnClick"
+                    android:text="Update" />
+
+                <Button
+                    android:id="@+id/back_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:layout_row="5"
+                    android:onClick="backOnClick"
+                    android:text="Back" />
+
+                <CheckBox
+                    android:id="@+id/checkBox1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:layout_row="0"
+                    android:text="Men" />
+
+                <CheckBox
+                    android:id="@+id/checkBox2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:layout_row="1"
+                    android:text="Women" />
+
+                <CheckBox
+                    android:id="@+id/checkBox3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:layout_row="2"
+                    android:text="Young Adult (age 13-18)" />
+                <CheckBox
+                    android:id="@+id/checkBox4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_column="1"
+                    android:layout_row="0"
+                    android:text="Children (age 5 - 12)" />
+
+                <CheckBox
+                    android:id="@+id/checkBox5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_column="1"
+                    android:layout_row="1"
+                    android:text="Children (under 5 y/o)" />
+
+                <CheckBox
+                    android:id="@+id/checkBox6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_column="1"
+                    android:layout_row="2"
+                    android:text="Non-Binary" />
+                <CheckBox
+                    android:id="@+id/checkBox7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:layout_row="3"
+                    android:text="Family" />
+                <CheckBox
+                    android:id="@+id/checkBox8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_column="1"
+                    android:layout_row="3"
+                    android:text="Veteran" />
+                <CheckBox
+                    android:id="@+id/checkBox9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:layout_row="4"
+                    android:text="Newborns" />
+
+            </GridLayout>
 
         </LinearLayout>
 
