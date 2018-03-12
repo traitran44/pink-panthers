@@ -140,7 +140,12 @@ public class Db implements DBI {
                         newUser = new Homeless(userName, password, name, accountState, email, id);
                         ((Homeless) newUser).setShelterId(shelter_id);
                         newUser.setFamilyMemberNumber(rs.getInt("family_members"));
-                        newUser.setRestrictionsMatch(rs.getString("restriction_match").split(" "));
+                        String match = rs.getString("restriction_match");
+                        if (match != null) {
+                            newUser.setRestrictionsMatch(match.split(" "));
+                        } else {
+                            newUser.setRestrictionsMatch(match);
+                        }
                         // need to check if assignment is set (if professor wants to keep it)
                         break;
                     case ("Shelter Volunteer"):
@@ -194,7 +199,12 @@ public class Db implements DBI {
                         newUser = new Homeless(userName, password, name, accountState, email, id);
                         ((Homeless) newUser).setShelterId(shelter_id);
                         newUser.setFamilyMemberNumber(rs.getInt("family_members"));
-                        newUser.setRestrictionsMatch(rs.getString("restriction_match").split(" "));
+                        String match = rs.getString("restriction_match");
+                        if (match != null) {
+                            newUser.setRestrictionsMatch(match.split(" "));
+                        } else {
+                            newUser.setRestrictionsMatch(match);
+                        }
                         // need to check if assignment is set (if professor wants to keep it)
                         break;
                     case ("Shelter Volunteer"):
