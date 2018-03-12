@@ -6,6 +6,7 @@ import android.util.Log;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
@@ -142,9 +143,10 @@ public class Db implements DBI {
                         ((Homeless) newUser).setFamilyMemberNumber(rs.getInt("family_members"));
                         String match = rs.getString("restriction_match");
                         if (match != null) {
-                            //((Homeless) newUser).setRestrictionsMatch(match.split(" "));
+                            List<String> newMatch = Arrays.asList(match.split(" "));
+                            ((Homeless) newUser).setRestrictionsMatch(newMatch);
                         } else {
-                            ((Homeless) newUser).setRestrictionsMatch(match);
+                            ((Homeless) newUser).setRestrictionsMatch(null);
                         }
                         // need to check if assignment is set (if professor wants to keep it)
                         break;
@@ -198,14 +200,14 @@ public class Db implements DBI {
                     case ("Homeless"):
                         newUser = new Homeless(userName, password, name, accountState, email, id);
                         ((Homeless) newUser).setShelterId(shelter_id);
-                        ((Homeless)newUser).setFamilyMemberNumber(rs.getInt("family_members"));
+                        ((Homeless) newUser).setFamilyMemberNumber(rs.getInt("family_members"));
                         String match = rs.getString("restriction_match");
                         if (match != null) {
-                            //((Homeless)newUser).setRestrictionsMatch(match.split(""));
+                            List<String> newMatch = Arrays.asList(match.split(" "));
+                            ((Homeless) newUser).setRestrictionsMatch(newMatch);
                         } else {
-                            ((Homeless)newUser).setRestrictionsMatch(match);
+                            ((Homeless) newUser).setRestrictionsMatch(null);
                         }
-                        // need to check if assignment is set (if professor wants to keep it)
                         break;
                     case ("Shelter Volunteer"):
                         newUser = new Volunteer(userName, password, name, accountState, email, id);
@@ -397,7 +399,7 @@ public class Db implements DBI {
         switch (restriction.toLowerCase()) {
             case ("men"):
             case ("women"):
-            case("non_binary"):
+            case ("non_binary"):
                 sql_column = "gender_restrictions";
                 break;
             default:
