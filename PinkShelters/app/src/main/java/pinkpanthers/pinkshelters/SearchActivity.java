@@ -1,6 +1,7 @@
 package pinkpanthers.pinkshelters;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -37,6 +38,7 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
     private List<Shelter> shelters;
     private List<Shelter> myShelters;
 
+
     private Db db;
 
     @Override
@@ -45,6 +47,7 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
         setContentView(R.layout.activity_search);
 
         db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
+
 
         // data to populate the RecyclerView with
         shelterNames = new ArrayList<>();
@@ -105,12 +108,16 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
                         shelterNames.clear();
                         try {
                             myShelters =  db.getShelterByRestriction(searchBy);
-                            for (Shelter sh: myShelters) {
+                            for (Shelter sh : myShelters) {
                                 shelterNames.add(sh.getShelterName());
                             }
+//                            for (Shelter sh: myShelters) {
+//                                shelterNames.add(sh.getRestrictions());
+//                               //Log.d("testtest", shelterNames.toString());
+//                            }
                         } catch (NoSuchUserException e) {
                             shelterNames.add("No results found");
-                            recycler_adapter.notifyDataSetChanged();
+
                         }
                         recycler_adapter.notifyDataSetChanged();
                     }
@@ -191,14 +198,7 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
                                 search_recycler_view.setAdapter(recycler_adapter);
                             } catch (NoSuchUserException e) {
                                 shelterNames.add("No results found");
-//                                recycler_adapter.setClickListener(new RecyclerAdapter.ItemClickListener() {
-//                                    @Override
-//                                    public void onItemClick(View view, int position) {
-//                                        // nothing happens, just shows the text
-//                                    }
-//                                });
                             }
-
                             recycler_adapter.notifyDataSetChanged();
                         }
 

@@ -22,7 +22,7 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
     private DBI db;
 
     private List<String> restrictionList = new ArrayList<>();
-    private List<String> familySizeList = new ArrayList<>();
+    private List<Integer> familySizeList = new ArrayList<>();
 
     private Button back_btn;
     private Button update_btn;
@@ -31,10 +31,10 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
     private ArrayAdapter<String> identity_adapter;
 
     private Spinner family_spinner;
-    private ArrayAdapter<String> family_adapter;
+    private ArrayAdapter<Integer> family_adapter;
 
     private String restriction;
-    private String familySize;
+    private int familySize;
 
     private TextView name;
     private TextView email;
@@ -64,19 +64,24 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
     public void updateOnClick(View v) {
         updateRestrictionList();
 
-        for (String s : restrictionList) {
-            System.out.println(s + ", ");
-        }
         try {
-        // TODO: Uncomment this line below when you fix updateAccountInformationById's param to take a list.
-            //db.updateAccountInformationById(account.getUserId(), restrictionList);
 
+            Homeless homeless = (Homeless) account;
+            homeless.setRestrictionsMatch(restrictionList);
+            homeless.setFamilyMemberNumber(familySize);
+            System.out.println(homeless.getFamilyMemberNumber());
 
-            //update family size
-            db.updateAccountInformationById(account.getUserId(), familySize);
+            List<String> a = homeless.getRestrictionsMatch();
+            for (String s : a) {
+                System.out.println(s);
+            }
+            //send that homeless to db.
+            db.updateAccount(homeless);
+
+            //show successfull text and reset everything( )
             buttonStatus.setVisibility(View.VISIBLE);
             resetAllFields();
-            System.out.println("Successfully");
+
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (NoSuchUserException e) {
@@ -130,10 +135,10 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
 
         // add choices to family size
         for (int i = 0; i < 16; i++) {
-            familySizeList.add(i + "");
+            familySizeList.add(i);
         }
         family_spinner = (Spinner)findViewById(R.id.family_spinner);
-        family_adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, familySizeList);
+        family_adapter = new ArrayAdapter<Integer>(this, android.R.layout.simple_spinner_item, familySizeList);
         family_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         family_spinner.setAdapter(family_adapter);
 
@@ -143,7 +148,7 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
         family_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                familySize = family_spinner.getSelectedItem().toString();
+                familySize = Integer.valueOf(family_spinner.getSelectedItem().toString());
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
@@ -158,7 +163,6 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
         // Get name and user type
         name.setText("Name: " + account.getName());
         email.setText("Email: " + account.getEmail());
-
 
 
         //check box restrictions:
@@ -180,7 +184,6 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
 
     @Override
     public void onItemClick(View view, int position) {
-
     }
 
     private String sqlConverter(String chosenItem) {

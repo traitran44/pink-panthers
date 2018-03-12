@@ -1,10 +1,12 @@
 package pinkpanthers.pinkshelters;
 
 import android.os.StrictMode;
+import android.text.TextUtils;
 import android.util.Log;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
@@ -116,7 +118,8 @@ public class Db implements DBI {
     @Override
     public Account getAccountByUsername(String username) throws NoSuchUserException {
         Account newUser;
-        String sql = "SELECT id, type, username, password, name, email, account_state, shelter_id " +
+        String sql = "SELECT id, type, username, password, name, email, account_state," +
+                " shelter_id, family_members, restriction_match  " +
                 "FROM accounts " +
                 "WHERE username = ?";
         try {
@@ -137,6 +140,14 @@ public class Db implements DBI {
                     case ("Homeless"):
                         newUser = new Homeless(userName, password, name, accountState, email, id);
                         ((Homeless) newUser).setShelterId(shelter_id);
+                        ((Homeless) newUser).setFamilyMemberNumber(rs.getInt("family_members"));
+                        String match = rs.getString("restriction_match");
+                        if (match != null) {
+                            List<String> newMatch = Arrays.asList(match.split(" "));
+                            ((Homeless) newUser).setRestrictionsMatch(newMatch);
+                        } else {
+                            ((Homeless) newUser).setRestrictionsMatch(null);
+                        }
                         // need to check if assignment is set (if professor wants to keep it)
                         break;
                     case ("Shelter Volunteer"):
@@ -168,7 +179,8 @@ public class Db implements DBI {
     public List<Account> getAllAccounts() {
         List<Account> accountList = new ArrayList<>();
         Account newUser = null;
-        String sql = "SELECT id, type, username, password, name, email, account_state, shelter_id " +
+        String sql = "SELECT id, type, username, password, name, email, account_state," +
+                " shelter_id, family_members, restriction_match " +
                 "FROM accounts";
 
         try {
@@ -188,7 +200,14 @@ public class Db implements DBI {
                     case ("Homeless"):
                         newUser = new Homeless(userName, password, name, accountState, email, id);
                         ((Homeless) newUser).setShelterId(shelter_id);
-                        // need to check if assignment is set (if professor wants to keep it)
+                        ((Homeless) newUser).setFamilyMemberNumber(rs.getInt("family_members"));
+                        String match = rs.getString("restriction_match");
+                        if (match != null) {
+                            List<String> newMatch = Arrays.asList(match.split(" "));
+                            ((Homeless) newUser).setRestrictionsMatch(newMatch);
+                        } else {
+                            ((Homeless) newUser).setRestrictionsMatch(null);
+                        }
                         break;
                     case ("Shelter Volunteer"):
                         newUser = new Volunteer(userName, password, name, accountState, email, id);
@@ -380,7 +399,7 @@ public class Db implements DBI {
         switch (restriction.toLowerCase()) {
             case ("men"):
             case ("women"):
-            case("non_binary"):
+            case ("non_binary"):
                 sql_column = "gender_restrictions";
                 break;
             default:
@@ -469,27 +488,42 @@ public class Db implements DBI {
     }
 
     @Override
-    public void updateAccountInformationById(int accountId, int familyMemberNumber) throws SQLException, NoSuchUserException {
+    public void updateAccount (Account user) throws SQLException, NoSuchUserException {
         String sql = "UPDATE accounts " +
-                "SET family_members = ? " +
+                "SET password = ?, " +
+                "name = ?, " +
+                "email = ?, " +
+                "account_state = ?, " +
+                "shelter_id = ?, " +
+                "family_members = ?, " +
+                "restriction_match = ? " +
                 "WHERE id = ?";
         PreparedStatement updatedFamily = null;
         try {
             conn.setAutoCommit(false);
             updatedFamily = conn.prepareStatement(sql);
-            updatedFamily.setInt(1, familyMemberNumber);
-            updatedFamily.setInt(2, accountId);
-            int updatedrow = updatedFamily.executeUpdate();
-            if (updatedrow == 1) {
+            updatedFamily.setString(1, user.getPassword());
+            updatedFamily.setString(2, user.getName());
+            updatedFamily.setString(3, user.getEmail());
+            updatedFamily.setString(4, user.getAccountState());
+            if (user instanceof Homeless) {
+                updatedFamily.setInt(5, ((Homeless) user).getShelterId());
+                updatedFamily.setInt(6, ((Homeless) user).getFamilyMemberNumber());
+                String match = TextUtils.join(" ", ((Homeless) user).getRestrictionsMatch());
+                updatedFamily.setString(7, match);
+            }
+            updatedFamily.setInt(8, user.getUserId());
+            int updatedRow = updatedFamily.executeUpdate();
+            if (updatedRow == 1) {
                 conn.commit();
             } else {
-                throw new NoSuchUserException("The account with id: " + accountId + " doesn't exist");
+                throw new NoSuchUserException("The account with id: " + user.getUserId() + " doesn't exist");
             }
 
         } catch (SQLException e) {
             logSqlException(e);
-            throw new RuntimeException("Updating account information by account id (" + accountId +
-                    ") updated field: family_members (" + familyMemberNumber + ") failed: " +
+            throw new RuntimeException("Updating account information by account id ("
+                    + user.getUserId() + "failed: " +
                     e.toString()); // so we can log sql message too
         } finally {
             if (updatedFamily != null) {
@@ -499,65 +533,4 @@ public class Db implements DBI {
         }
     }
 
-    @Override
-    public void updateAccountInformationById(int accountId, String restrictionsMatch) throws SQLException, NoSuchUserException {
-        String sql = "UPDATE accounts " +
-                "SET restriction_match = ? " +
-                "WHERE id = ?";
-        PreparedStatement updatedRestrictionMatch = null;
-        try {
-            conn.setAutoCommit(false);
-            updatedRestrictionMatch = conn.prepareStatement(sql);
-            updatedRestrictionMatch.setString(1, restrictionsMatch);
-            updatedRestrictionMatch.setInt(2, accountId);
-            int rowUpdated = updatedRestrictionMatch.executeUpdate();
-            if (rowUpdated == 1) {
-                conn.commit();
-            } else {
-                throw new NoSuchUserException("The account with id: " + accountId + " doesn't exist");
-            }
-
-        } catch (SQLException e) {
-            logSqlException(e);
-            throw new RuntimeException("Updating account information by account id (" + accountId + ") " +
-                    ", updated field: restriction_match (" + restrictionsMatch + ") failed: " +
-                    e.toString()); // so we can log sql message too
-        } finally {
-            if (updatedRestrictionMatch != null) {
-                updatedRestrictionMatch.close();
-            }
-            conn.setAutoCommit(true);
-        }
-    }
-
-    @Override
-    public void updateShelterIdInAccountsTable(int accountId, int shelterId) throws SQLException, NoSuchUserException {
-        String sql = "UPDATE accounts " +
-                "SET shelter_id = ? " +
-                "WHERE id = ?";
-        PreparedStatement updatedRestrictionMatch = null;
-        try {
-            conn.setAutoCommit(false);
-            updatedRestrictionMatch = conn.prepareStatement(sql);
-            updatedRestrictionMatch.setInt(1, shelterId);
-            updatedRestrictionMatch.setInt(2, accountId);
-            int rowUpdated = updatedRestrictionMatch.executeUpdate();
-            if (rowUpdated == 1) {
-                conn.commit();
-            } else {
-                throw new NoSuchUserException("The account with id: " + accountId + " doesn't exist");
-            }
-
-        } catch (SQLException e) {
-            logSqlException(e);
-            throw new RuntimeException("Updating account information by account id (" + accountId + ") " +
-                    ", updated field: shelter_id (" + shelterId + ") failed: " +
-                    e.toString()); // so we can log sql message too
-        } finally {
-            if (updatedRestrictionMatch != null) {
-                updatedRestrictionMatch.close();
-            }
-            conn.setAutoCommit(true);
-        }
-    }
 }

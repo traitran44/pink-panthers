@@ -1,7 +1,11 @@
 package pinkpanthers.pinkshelters;
 
+import java.util.List;
+
 public class Homeless extends Account {
     private int shelterId; // might change to int depends on the type parsed in csv file
+    private List<String> restrictionsMatch;
+    private int familyMemberNumber;
 
     public Homeless(String username,
                     String password,
@@ -20,5 +24,22 @@ public class Homeless extends Account {
     public int getShelterId() {
         return this.shelterId;
     }
+
+    public void setFamilyMemberNumber(int familyMemberNumber) {
+        this.familyMemberNumber = familyMemberNumber;
+    }
+
+    public int getFamilyMemberNumber() {
+        return this.familyMemberNumber;
+    }
+
+    public void setRestrictionsMatch(List<String> restrictionsMatch) {
+        this.restrictionsMatch = restrictionsMatch;
+    }
+
+    public List<String> getRestrictionsMatch() {
+        return this.restrictionsMatch;
+    }
+
 
 }
