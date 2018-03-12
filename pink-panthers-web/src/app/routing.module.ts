@@ -5,6 +5,8 @@ import {WelcomeComponent} from './component/welcome/welcome.component';
 import {LoginComponent} from './component/login/login.component';
 import {RegistrationComponent} from './component/registration/registration.component';
 import {AdminComponent} from './component/admin/admin.component';
+import {HomelessComponent} from './component/homeless/homeless.component';
+import {ShelterVolunteerComponent} from './component/shelter-volunteer/shelter-volunteer.component';
 
 const routes: Routes = [
   {
@@ -18,6 +20,14 @@ const routes: Routes = [
   {
     path: 'Admin',
     component: AdminComponent
+  },
+  {
+    path: 'Homeless',
+    component: HomelessComponent
+  },
+  {
+    path: 'ShelterVolunteer',
+    component: ShelterVolunteerComponent
   },
   {
     path: 'Register',

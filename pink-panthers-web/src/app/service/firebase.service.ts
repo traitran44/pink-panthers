@@ -19,6 +19,10 @@ export class FirebaseService {
       .signInWithEmailAndPassword(email, pass);
   }
 
+  getShelters() {
+    return this.db.list('data').snapshotChanges();
+  }
+
   getUser(name: string): any {
     return this.db.list('accounts', ref => {
       console.log(ref);
@@ -29,5 +33,6 @@ export class FirebaseService {
   pushData(table, data): any {
     return this.db.list(table).push(data);
   }
+
 
 }

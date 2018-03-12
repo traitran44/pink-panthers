@@ -12,20 +12,28 @@ export class RegistrationComponent implements OnInit {
   user: {
     name: string,
     pass: string,
-    email: string
+    email: string,
+    role: string
   };
+  roleList: string[];
 
 
   constructor(private fb$$: FirebaseService,
               private route: Router) {
-    this.user = {
-      name: '',
-      pass: '',
-      email: ''
-    };
   }
 
   ngOnInit() {
+    this.roleList = [
+      'Homeless',
+      'Shelter Volunteer',
+      'Admin'
+    ];
+    this.user = {
+      name: '',
+      pass: '',
+      email: '',
+      role: ''
+    };
   }
 
   onRegisterClick() {
