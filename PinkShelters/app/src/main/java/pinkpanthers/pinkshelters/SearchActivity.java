@@ -24,10 +24,11 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
     private List<String> choices = new ArrayList<>();
     private List<String> genders = new ArrayList<>();
     private List<String> ageRanges = new ArrayList<>();
+
     private Spinner choices_spinner;
     private Spinner age_range_gender_spinner;
     private ArrayAdapter<String> age_range_adapter;
-    private  ArrayAdapter<String> gender_adapter;
+    private ArrayAdapter<String> gender_adapter;
     private EditText shelter_name_edit_text;
 
     private RecyclerAdapter recycler_adapter;

@@ -18,6 +18,7 @@
         <activity android:name=".LoginActivity" />
         <activity android:name=".HomePageActivity" />
         <activity android:name=".ListOfSheltersActivity" />
+        <activity android:name=".UserInfoActivity" />
         <activity android:name=".WelcomePageActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

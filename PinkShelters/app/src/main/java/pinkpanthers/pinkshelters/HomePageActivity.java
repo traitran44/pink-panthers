@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.view.View;
 import android.widget.TextView;
 
+
 public class HomePageActivity extends AppCompatActivity {
     TextView textName, textWelcome, textUserType;
     SharedPreferences preferences ;
@@ -28,6 +29,13 @@ public class HomePageActivity extends AppCompatActivity {
         Intent shelterListIntent = new Intent(this, ListOfSheltersActivity.class);
 //        detailPageIntent.putExtra("shelterId", 0);
         startActivity(shelterListIntent);
+    }
+
+    public void infoOnClick(View v) { //View/Edit User Info button
+        Intent info = new Intent(this, UserInfoActivity.class);
+        String user = getIntent().getExtras().getString("username");
+        info.putExtra("username", user);
+        startActivity(info);
     }
 
     @Override

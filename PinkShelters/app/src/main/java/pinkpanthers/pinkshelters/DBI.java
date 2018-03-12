@@ -46,7 +46,7 @@ public interface DBI {
 
     /**
      * method that update user's family members for M8
-     * @param accountId user id that is created by the database, retrieved when invoke getAllAccounts()
+     * @param accountId user.
      * @param familyMemberNumber the total amount of family members that go with the user
      *                           {@code familyMemberNumber} default = 0;
      * @throws SQLException in case something with database connection goes wrong
@@ -56,7 +56,7 @@ public interface DBI {
 
     /**
      * Overload method to update account information by user's id (that is created by the database)
-     * @param accountId userId that is retrieved by the database when called getAllAccounts()
+     * @param accountId userId.
      * @param restrictionsMatch restrictions are stored as a string, if there are more than one
      *                          restrictions match, store all elements as space-separated string
      *                          Example: user matches 'all_women', 'all_children' restrictions
@@ -69,7 +69,7 @@ public interface DBI {
 
     /**
      * update the shelter that this account checks in
-     * @param accountId userId that is retrieved by the database when called getAllAccounts()
+     * @param accountId userId.
      * @param shelterId the id of shelter (created by the database) that this accounts successfully checks in
      * @throws SQLException in case something with database connection goes wrong
      * @throws NoSuchUserException when the id pass in the doesn't exist, no rows get updated
