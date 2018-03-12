@@ -1,5 +1,6 @@
 package pinkpanthers.pinkshelters;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -40,6 +41,7 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
     private TextView email;
     private TextView buttonStatus;
     private TextView restrictionView;
+    Context context = this;
 
     private Account account;
 
@@ -57,12 +59,17 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
         Intent startMain = new Intent(this, HomePageActivity.class);
         startMain.putExtra("username", account.getName());
         startActivity(startMain);
+
     }
 
 
     //Create Update Info Button
     public void updateOnClick(View v) {
         updateRestrictionList();
+        SharedPreferences prefs = getSharedPreferences("PREFS_NAME", MODE_PRIVATE);
+        SharedPreferences.Editor edit = prefs.edit();
+        edit.putString("USERNAME", account.getUsername());
+        edit.commit();
 
         for (String s : restrictionList) {
             System.out.println(s + ", ");
@@ -164,10 +171,11 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
     }
 
 
-    public void getUserAccount() throws NoSuchUserException {
+    public Account getUserAccount() throws NoSuchUserException {
         db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
         String username = getIntent().getExtras().getString("username");
         account = db.getAccountByUsername(username);
+        return account;
     }
 
 

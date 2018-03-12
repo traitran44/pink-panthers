@@ -24,11 +24,10 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
     private List<String> choices = new ArrayList<>();
     private List<String> genders = new ArrayList<>();
     private List<String> ageRanges = new ArrayList<>();
-
     private Spinner choices_spinner;
     private Spinner age_range_gender_spinner;
     private ArrayAdapter<String> age_range_adapter;
-    private ArrayAdapter<String> gender_adapter;
+    private  ArrayAdapter<String> gender_adapter;
     private EditText shelter_name_edit_text;
 
     private RecyclerAdapter recycler_adapter;
@@ -108,13 +107,8 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
                         shelterNames.clear();
                         try {
                             myShelters =  db.getShelterByRestriction(searchBy);
-<<<<<<< HEAD
-                            for (Shelter sh: myShelters) {
-                                shelterNames.add(sh.getRestrictions());
-=======
                             for (Shelter sh : myShelters) {
                                 shelterNames.add(sh.getShelterName());
->>>>>>> 18ce1e100a8cca9a623fb93df40c23b1d47522e0
                             }
 //                            for (Shelter sh: myShelters) {
 //                                shelterNames.add(sh.getRestrictions());
@@ -197,7 +191,7 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
                                     shelterNames.add(s.getShelterName());
                                 }
 
-                                 //set interaction between the suggestions and shelter details
+                                //set interaction between the suggestions and shelter details
                                 recycler_adapter = new RecyclerAdapter(SearchActivity.this, shelterNames);
                                 recycler_adapter.setClickListener(SearchActivity.this::onItemClick);
                                 search_recycler_view.setAdapter(recycler_adapter);

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.sql.SQLException;
 
@@ -14,13 +15,21 @@ public class ShelterDetails extends AppCompatActivity {
     private Shelter s;
     private Account a;
     private TextView errorMessage;
+    public static final String PREFS_NAME = "com.example.sp.LoginPrefs";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shelter_details);
+        try{
         db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
         errorMessage = findViewById(R.id.errorMessage);
+        SharedPreferences prefs_name = getSharedPreferences("PREFS_NAME", 0);
+        String username = prefs_name.getString("USERNAME", "");
+        a = db.getAccountByUsername(username);
+        } catch (NoSuchUserException e) {
+            throw new RuntimeException("This is not how it works " + e.toString());
+        }
 
         try {
             int shelterId = getIntent().getExtras().getInt("shelterId");
@@ -31,15 +40,6 @@ public class ShelterDetails extends AppCompatActivity {
             throw new RuntimeException("This is not how it works " + e.toString());
         } catch (NullPointerException e) {
             throw new RuntimeException("NullPointerException is raised: getExtras() returns null in ListOfShelter");
-        }
-
-        try {
-            String username = getIntent().getExtras().getString("username");
-            a = db.getAccountByUsername(username);
-        } catch (NoSuchUserException e) {
-            throw new RuntimeException("There is no user with that username");
-        } catch (NullPointerException e) {
-            throw new RuntimeException("getExtras() returns null username");
         }
 
 
@@ -82,17 +82,16 @@ public class ShelterDetails extends AppCompatActivity {
         String forVacancy = "Vacancy: " + s.getVacancy();
         vacancy.setText(forVacancy);
     }
-
-    // TODO: cancel reservation
+//
+//    // TODO: cancel reservation
     public void claimBedButton(View view) {
-        // check to see if user has updated their information (single/with families and gender)
+      // check to see if user has updated their information (single/with families and gender)
 //      if (user hasnt update info)
 //        Intent updateInfoPege = new Intent (ShelterDetails.this, UpdateInfo.class);
 //        startActivity(updateInfoPage);
 //     }
-
 //
-//       // check if account type of homeless, if homeless then getFamilyMemberNumber
+////     // check if account type of homeless, if homeless then getFamilyMemberNumber
         if (a instanceof Homeless) {
             int familyMemberNumber = ((Homeless) a).getFamilyMemberNumber();
             {
@@ -124,7 +123,7 @@ public class ShelterDetails extends AppCompatActivity {
             }
         }
     }
-//
+////
 //    // TODO need to check to see if user is checked into this shelter
 //    // and make button visible in onCreate method
 //    public void cancelReservationButton(View view) {
