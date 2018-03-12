@@ -5,23 +5,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
 import android.widget.TextView;
-
-import java.io.FilterReader;
-import java.util.ArrayList;
 import java.util.List;
-
-import pinkpanthers.pinkshelters.R;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
     private List<String> mData;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
-    private List<Shelter> shelters;
-    private List<String> filtered;
-    private Db db;
 
     // data is passed into the constructor
     RecyclerAdapter(Context context, List<String> data) {

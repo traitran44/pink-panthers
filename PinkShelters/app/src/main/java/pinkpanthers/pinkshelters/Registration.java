@@ -1,24 +1,16 @@
 package pinkpanthers.pinkshelters;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
-import android.widget.EditText;
-
-
-
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 
 public class Registration extends AppCompatActivity implements View.OnClickListener{
@@ -31,8 +23,6 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
     public SharedPreferences preferences;
     public static final String PREFS_NAME = "com.example.sp.LoginPrefs";
-    public static Editor editor;
-    EditText userType ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,17 +44,8 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         username = findViewById(R.id.username);
         password = findViewById(R.id.pw);
 
-
-
-
-        // set up Cancel button
-        Button cancel_btn = findViewById(R.id.cancel_button);
-        cancel_btn.setOnClickListener(this);
-
         db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
     }
-
-
 
     public void registerButton(View view) {
         Boolean noName, noUsername, noPass, noEmail, noType;

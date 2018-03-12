@@ -7,13 +7,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -206,8 +204,6 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
                 // nothing changes when nothing is selected
             }
         });
-
-
     }
 
     @Override
