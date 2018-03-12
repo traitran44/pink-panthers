@@ -1,6 +1,7 @@
 package pinkpanthers.pinkshelters;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -36,6 +37,7 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
     private List<Shelter> shelters;
     private List<Shelter> myShelters;
 
+
     private Db db;
 
     @Override
@@ -44,6 +46,7 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
         setContentView(R.layout.activity_search);
 
         db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
+
 
         // data to populate the RecyclerView with
         shelterNames = new ArrayList<>();
@@ -105,10 +108,12 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
                         try {
                             myShelters =  db.getShelterByRestriction(searchBy);
                             for (Shelter sh: myShelters) {
-                                shelterNames.add(sh.getShelterName());
+                                shelterNames.add(sh.getRestrictions());
+                               Log.d("testtest", shelterNames.toString());
                             }
                         } catch (NoSuchUserException e) {
                             shelterNames.add("No results found");
+
                         }
                         recycler_adapter.notifyDataSetChanged();
                     }

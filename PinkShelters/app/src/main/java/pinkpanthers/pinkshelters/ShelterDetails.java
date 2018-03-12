@@ -2,7 +2,9 @@ package pinkpanthers.pinkshelters;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -10,6 +12,7 @@ import android.widget.TextView;
 public class ShelterDetails extends AppCompatActivity {
     private DBI db;
     private Shelter s;
+    private Account a;
     private TextView errorMessage;
 
     @Override
@@ -18,6 +21,7 @@ public class ShelterDetails extends AppCompatActivity {
         setContentView(R.layout.activity_shelter_details);
         db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
         errorMessage = findViewById(R.id.errorMessage);
+
 
         try {
             int shelterId = getIntent().getExtras().getInt("shelterId");
@@ -31,6 +35,8 @@ public class ShelterDetails extends AppCompatActivity {
         }
 
     }
+
+
 
     private void updateView (Shelter s) {
         TextView name = findViewById(R.id.name);
@@ -68,26 +74,47 @@ public class ShelterDetails extends AppCompatActivity {
         TextView vacancy = findViewById(R.id.vacancy);
         String forVacancy = "Vacancy: " + s.getVacancy();
         vacancy.setText(forVacancy);
+
+
     }
 
     // TODO: cancel reservation
 
     public void claimBedButton(View view) {
-        // check to see if user has updated their information (single/with families and gender)
-//        if (user hasnt update info) {
-//          Intent updateInfoPege = new Intent (ShelterDetails.this, UpdateInfo.class);
-//          startActivity(updateInfoPage);
-//        }
-
-        // check available spots
-        if (s.getVacancy() <= 0) {
+      // check to see if user has updated their information (single/with families and gender)
+//      if (user hasnt update info) {
+//         Intent updateInfoPege = new Intent (ShelterDetails.this, UpdateInfo.class);
+//        startActivity(updateInfoPage);
+//     }
+//
+//        // check available spots
+//        // should check if vacancy is more than family member number.
+//        //if only check if larger than 0, then it is not enough.
+        int familyMemberNumber = 10; //replace familyMemberNumber with familyMemberNumber of that specfic homeless account
+         if (s.getVacancy() <= familyMemberNumber) {
             errorMessage.setText("Not enough beds");
             errorMessage.setVisibility(View.VISIBLE);
-        } else {
-            // checks restrictions
-            // if fit restricitons, decrease vacancy and update vacancy
-            // if dont fit restrictions, display restriction error message -> errorMessage.setText("restriction");
-        }
+       } else {
+//            // checks restrictios
+//
+//            /if(s.getRestrictions()=!a.getRestrictionMatch(){
+//            //errorMessage.setText("Restrictions error");
+             //errorMessage.setVisibility(View.VISIBLE);
+//            //{ else {
+//            //db.updateShelterIdInAccountsTable(accountId,shelterId);
+             // int vacancy=s.getVacancy-a.getfamilyMemberNumber;
+              // int occupancy=s.getCapacity-vacancy;
+              //db.updateShelterOccupancy(shelterid,occaupancy);
+//            // display message "claimed bed successfylly"
+              //errorMessage.setText("You have claimed your beds successfully");
+               //errorMessage.setVisibility(View.VISIBLE);
+//            //then by now, it should reflect the current amount of occupancy after updating with
+//            //the account and shelter table
+//
+//
+//            // if fit restricitons, decrease vacancy and update vacancy
+//            // if dont fit restrictions, display restriction error message -> errorMessage.setText("restriction");
+     }
 
     }
 
