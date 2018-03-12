@@ -13,8 +13,9 @@ import java.util.List;
 
 public class ListOfSheltersActivity extends AppCompatActivity implements RecyclerAdapter.ItemClickListener, View.OnClickListener {
 
-    RecyclerAdapter adapter;
+    private RecyclerAdapter adapter;
     private List<Shelter> shelters;
+    private String username; //used to get current logged in user
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,12 +42,15 @@ public class ListOfSheltersActivity extends AppCompatActivity implements Recycle
         // set up search button
         Button search_button = findViewById(R.id.search_button);
         search_button.setOnClickListener(this);
+
+        username = getIntent().getExtras().getString("username");
     }
 
     @Override
     public void onItemClick(View view, int position) { //clicked on one shelter
         Intent detail = new Intent(this, ShelterDetails.class);
         detail.putExtra("shelterId", shelters.get(position).getId());
+        detail.putExtra("username", username);
         startActivity(detail);
     }
 

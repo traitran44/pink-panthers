@@ -139,12 +139,12 @@ public class Db implements DBI {
                     case ("Homeless"):
                         newUser = new Homeless(userName, password, name, accountState, email, id);
                         ((Homeless) newUser).setShelterId(shelter_id);
-                        newUser.setFamilyMemberNumber(rs.getInt("family_members"));
+                        ((Homeless) newUser).setFamilyMemberNumber(rs.getInt("family_members"));
                         String match = rs.getString("restriction_match");
                         if (match != null) {
-                            newUser.setRestrictionsMatch(match.split(" "));
+                            //((Homeless) newUser).setRestrictionsMatch(match.split(" "));
                         } else {
-                            newUser.setRestrictionsMatch(match);
+                            ((Homeless) newUser).setRestrictionsMatch(match);
                         }
                         // need to check if assignment is set (if professor wants to keep it)
                         break;
@@ -198,12 +198,12 @@ public class Db implements DBI {
                     case ("Homeless"):
                         newUser = new Homeless(userName, password, name, accountState, email, id);
                         ((Homeless) newUser).setShelterId(shelter_id);
-                        newUser.setFamilyMemberNumber(rs.getInt("family_members"));
+                        ((Homeless)newUser).setFamilyMemberNumber(rs.getInt("family_members"));
                         String match = rs.getString("restriction_match");
                         if (match != null) {
-                            newUser.setRestrictionsMatch(match.split(" "));
+                            //((Homeless)newUser).setRestrictionsMatch(match.split(""));
                         } else {
-                            newUser.setRestrictionsMatch(match);
+                            ((Homeless)newUser).setRestrictionsMatch(match);
                         }
                         // need to check if assignment is set (if professor wants to keep it)
                         break;

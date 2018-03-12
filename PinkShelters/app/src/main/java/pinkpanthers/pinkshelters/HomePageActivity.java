@@ -11,6 +11,7 @@ public class HomePageActivity extends AppCompatActivity {
     private TextView textName, textWelcome, textUserType;
     private SharedPreferences preferences;
     public static final String PREFS_NAME = "com.example.sp.LoginPrefs";
+    private String username; //used to get current logged in user
 
 
     public void buttonOnClick(View v) { //logout button
@@ -20,6 +21,7 @@ public class HomePageActivity extends AppCompatActivity {
 
     public void shelterListButton(View v) { //View Shelter button
         Intent shelterListIntent = new Intent(this, ListOfSheltersActivity.class);
+        shelterListIntent.putExtra("username", username);
         startActivity(shelterListIntent);
     }
 
@@ -42,5 +44,7 @@ public class HomePageActivity extends AppCompatActivity {
         textName.setText("Hello " + prefName + "!");
         textWelcome.setText("Welcome to Pink Shelter");
         textUserType.setText(prefUserType);
+
+        username = getIntent().getExtras().getString("username");
     }
 }
