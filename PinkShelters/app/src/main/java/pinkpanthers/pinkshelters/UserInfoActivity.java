@@ -62,16 +62,16 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
         updateRestrictionList();
 
         try {
-
-            Homeless homeless = (Homeless) account;
-            homeless.setRestrictionsMatch(restrictionList);
-            homeless.setFamilyMemberNumber(familySize);
-            List<String> a = homeless.getRestrictionsMatch();
-            //send that homeless to db.
-            db.updateAccount(homeless);
-            buttonStatus.setVisibility(View.VISIBLE);
-            //show successfull text and reset everything( )
-
+            if (account instanceof Homeless) {
+                Homeless homeless = (Homeless) account;
+                homeless.setRestrictionsMatch(restrictionList);
+                homeless.setFamilyMemberNumber(familySize);
+                List<String> a = homeless.getRestrictionsMatch();
+                //send that homeless to db.
+                db.updateAccount(homeless);
+                buttonStatus.setVisibility(View.VISIBLE);
+                //show successfull text and reset everything( )
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (NoSuchUserException e) {
