@@ -54,10 +54,6 @@ public class ShelterDetails extends AppCompatActivity {
         String forCapacity = "Capacity: " + s.getCapacity();
         capacity.setText(forCapacity);
 
-        String numCapacity = s.getCapacity();
-        String numberOnly = numCapacity.replaceAll("[^0-9]", "");
-
-
         TextView longitude = findViewById(R.id.longitude);
         String forLongitude = "Longitude: " + s.getLongitude();
         longitude.setText(forLongitude);
