@@ -108,9 +108,18 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
                         shelterNames.clear();
                         try {
                             myShelters =  db.getShelterByRestriction(searchBy);
+<<<<<<< HEAD
                             for (Shelter sh: myShelters) {
                                 shelterNames.add(sh.getRestrictions());
+=======
+                            for (Shelter sh : myShelters) {
+                                shelterNames.add(sh.getShelterName());
+>>>>>>> 18ce1e100a8cca9a623fb93df40c23b1d47522e0
                             }
+//                            for (Shelter sh: myShelters) {
+//                                shelterNames.add(sh.getRestrictions());
+//                               //Log.d("testtest", shelterNames.toString());
+//                            }
                         } catch (NoSuchUserException e) {
                             shelterNames.add("No results found");
 

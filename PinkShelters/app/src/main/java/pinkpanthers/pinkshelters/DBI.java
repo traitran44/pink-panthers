@@ -52,4 +52,8 @@ public interface DBI {
      */
     void updateAccount (Account user) throws SQLException, NoSuchUserException;
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 18ce1e100a8cca9a623fb93df40c23b1d47522e0
