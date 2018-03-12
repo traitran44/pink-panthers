@@ -67,6 +67,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 editor.commit();
 
                 Intent homePageIntent = new Intent(this, HomePageActivity.class);
+
+                //passing username to intent
                 homePageIntent.putExtra("username", account.getUsername());
                 startActivity(homePageIntent);
             } else { // incorrect password

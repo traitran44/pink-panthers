@@ -48,6 +48,7 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
 
     //Create Back Button
     public void backOnClick(View v) {
+        //passing username to intent
         Intent startMain = new Intent(this, HomePageActivity.class);
         startMain.putExtra("username", account.getUsername());
         startActivity(startMain);
@@ -76,6 +77,9 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
         }
     }
 
+    /**
+     * When checkbox is clicked, add restriction to list.
+     */
     private void updateRestrictionList() {
         if (ch1.isChecked())
             restrictionList.add(Restrictions.MEN.toString());
@@ -102,7 +106,7 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_info_page);
 
-        //check box restrictions:
+        //set up check box restrictions
         buttonStatus = (TextView) findViewById(R.id.status);
         buttonStatus.setVisibility(View.INVISIBLE);
         ch1 =(CheckBox)findViewById(R.id.checkBox1);
@@ -148,21 +152,21 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
         name = (TextView) findViewById(R.id.name);
         email = (TextView) findViewById(R.id.email);
 
-        // Get name and user type
+        // Display name and email
         name.setText("Name: " + account.getName());
         email.setText("Email: " + account.getEmail());
 
 
-        //check box restrictions:
-
 
     }
 
-
+    /**
+     * Retrieving active account
+     * @throws NoSuchUserException
+     */
     public void getUserAccount() throws NoSuchUserException {
         db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
         String username = getIntent().getExtras().getString("username");
-        System.out.println(username + "  ====================123=======  a");
         account = db.getAccountByUsername(username);
     }
 
@@ -173,26 +177,5 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
 
     @Override
     public void onItemClick(View view, int position) {
-    }
-
-    private String sqlConverter(String chosenItem) {
-        switch (chosenItem) {
-            case ("Men"):
-                return Restrictions.MEN.toString();
-            case ("Non-Binary"):
-                return Restrictions.NON_BINARY.toString();
-            case ("Women"):
-                return Restrictions.WOMEN.toString();
-            case ("Children"):
-                return Restrictions.CHILDREN.toString();
-            case ("Young Adults"):
-                return Restrictions.YOUNG_ADULTS.toString();
-            case ("Families with Newborns"):
-                return Restrictions.FAMILIES_W_NEWBORNS.toString();
-            case ("Anyone"):
-                return Restrictions.ANYONE.toString();
-            default:
-                return "None";
-        }
     }
 }
