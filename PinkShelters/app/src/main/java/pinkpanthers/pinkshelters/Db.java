@@ -496,7 +496,7 @@ public class Db implements DBI {
                 "account_state = ?, " +
                 "shelter_id = ?, " +
                 "family_members = ?, " +
-                "restriction_match = ?, " +
+                "restriction_match = ? " +
                 "WHERE id = ?";
         PreparedStatement updatedFamily = null;
         try {
