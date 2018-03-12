@@ -14,6 +14,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,15 +49,10 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
 
     public static final String PREFS_NAME = "com.example.sp.LoginPrefs";
 
-    public void resetAllFields() {
-        buttonStatus.setVisibility(View.INVISIBLE);
-        family_spinner.setSelection(0);
-    }
-
     //Create Back Button
     public void backOnClick(View v) {
         Intent startMain = new Intent(this, HomePageActivity.class);
-        startMain.putExtra("username", account.getName());
+        startMain.putExtra("username", account.getUsername());
         startActivity(startMain);
     }
 
@@ -69,18 +66,11 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
             Homeless homeless = (Homeless) account;
             homeless.setRestrictionsMatch(restrictionList);
             homeless.setFamilyMemberNumber(familySize);
-            System.out.println(homeless.getFamilyMemberNumber());
-
             List<String> a = homeless.getRestrictionsMatch();
-            for (String s : a) {
-                System.out.println(s);
-            }
             //send that homeless to db.
             db.updateAccount(homeless);
-
-            //show successfull text and reset everything( )
             buttonStatus.setVisibility(View.VISIBLE);
-            resetAllFields();
+            //show successfull text and reset everything( )
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -116,7 +106,8 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
         setContentView(R.layout.user_info_page);
 
         //check box restrictions:
-        buttonStatus = findViewById(R.id.buttonStatus);
+        buttonStatus = (TextView) findViewById(R.id.status);
+        buttonStatus.setVisibility(View.INVISIBLE);
         ch1 =(CheckBox)findViewById(R.id.checkBox1);
         ch2 =(CheckBox)findViewById(R.id.checkBox2);
         ch3 =(CheckBox)findViewById(R.id.checkBox3);
@@ -174,6 +165,7 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
     public void getUserAccount() throws NoSuchUserException {
         db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
         String username = getIntent().getExtras().getString("username");
+        System.out.println(username + "  ====================123=======  a");
         account = db.getAccountByUsername(username);
     }
 

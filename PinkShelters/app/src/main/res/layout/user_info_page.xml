@@ -28,8 +28,9 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context="pinkpanthers.pinkshelters.ShelterDetails">
+        android:layout_height="1027dp"
+        tools:context="pinkpanthers.pinkshelters.ShelterDetails"
+        tools:layout_editor_absoluteY="-88dp">
 
         <LinearLayout
             android:layout_width="548dp"
@@ -59,18 +60,6 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
             <TextView
-                android:id="@+id/restrictionView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Select restriction that applies to your family"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
-
-            <Spinner
-                android:id="@+id/identity_spinner"
-                android:layout_width="match_parent"
-                android:layout_height="36dp" />
-
-            <TextView
                 android:id="@+id/number_family_member"
                 android:layout_width="match_parent"
                 android:layout_height="37dp"
@@ -79,21 +68,22 @@
 
             <Spinner
                 android:id="@+id/family_spinner"
-                android:layout_width="match_parent"
+                android:layout_width="486dp"
                 android:layout_height="39dp" />
 
 
             <TextView
-                android:id="@+id/buttonStatus"
+                android:id="@+id/restrictionView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Update successfully!"
-                android:visibility="invisible"
-                tools:text="Update Successfully" />
+                android:layout_height="41dp"
+                android:text="Select restriction that applies to your family"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
             <GridLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_width="548dp"
+                android:layout_height="302dp"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="577dp">
 
                 <Button
                     android:id="@+id/update_btn"
@@ -133,9 +123,10 @@
                     android:id="@+id/checkBox3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_column="0"
+                    android:layout_column="1"
                     android:layout_row="2"
                     android:text="Young Adult (age 13-18)" />
+
                 <CheckBox
                     android:id="@+id/checkBox4"
                     android:layout_width="wrap_content"
@@ -156,9 +147,10 @@
                     android:id="@+id/checkBox6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_column="1"
+                    android:layout_column="0"
                     android:layout_row="2"
                     android:text="Non-Binary" />
+
                 <CheckBox
                     android:id="@+id/checkBox7"
                     android:layout_width="wrap_content"
@@ -166,6 +158,7 @@
                     android:layout_column="0"
                     android:layout_row="3"
                     android:text="Family" />
+
                 <CheckBox
                     android:id="@+id/checkBox8"
                     android:layout_width="wrap_content"
@@ -173,6 +166,7 @@
                     android:layout_column="1"
                     android:layout_row="3"
                     android:text="Veteran" />
+
                 <CheckBox
                     android:id="@+id/checkBox9"
                     android:layout_width="wrap_content"
@@ -180,6 +174,18 @@
                     android:layout_column="0"
                     android:layout_row="4"
                     android:text="Newborns" />
+
+                <TextView
+                    android:id="@+id/status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_column="1"
+                    android:layout_row="6"
+                    android:text="Update succesfully!"
+                    android:textColor="@color/colorAccent"
+                    android:textStyle="bold"
+                    android:visibility="invisible"
+                    tools:text="Update succesfully!" />
 
             </GridLayout>
 
