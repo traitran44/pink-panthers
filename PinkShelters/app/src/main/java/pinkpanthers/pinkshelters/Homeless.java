@@ -25,7 +25,7 @@ public class Homeless extends Account {
     public void setFamilyMemberNumber(int familyMemberNumber) {this.familyMemberNumber =familyMemberNumber;}
     public int getFamilyMemberNumber() {return this.familyMemberNumber;}
 
-    public void getRestrictionsMatch(String restrictionsMatch) {this.restrictionsMatch =restrictionsMatch;}
+    public void setRestrictionsMatch(String restrictionsMatch) {this.restrictionsMatch =restrictionsMatch;}
     public String getRestrictionsMatch() {
         return this.restrictionsMatch;
     }
