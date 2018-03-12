@@ -63,7 +63,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 editor.putString("NAME", account.getName());
                 //get name to use for shelter details
                 editor.putString("USERNAME", account.getUsername());
-                Log.d("hihihihi",account.getUsername().toString());
                 editor.commit();
 
                 Intent homePageIntent = new Intent(this, HomePageActivity.class);

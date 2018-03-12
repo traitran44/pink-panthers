@@ -69,11 +69,8 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
         }
         try {
         // TODO: Uncomment this line below when you fix updateAccountInformationById's param to take a list.
-            //db.updateAccountInformationById(account.getUserId(), restrictionList);
-
-
-            //update family size
-            db.updateAccountInformationById(account.getUserId(), familySize);
+            db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
+            db.updateAccount(this.account);
             buttonStatus.setVisibility(View.VISIBLE);
             resetAllFields();
             System.out.println("Successfully");

@@ -40,39 +40,16 @@ public interface DBI {
      * @param shelterId a unique id created by the database
      * @param occupancy the updated occupancy (incremented by number of beds requested)
      * @throws SQLException in case something with database connection goes wrong
-     * @throws NoSuchUserException when the id pass in the doesn't exist, no rows get updated
+     * @throws NoSuchUserException when the id pass in the database doesn't exist, no rows get updated
      */
     void updateShelterOccupancy(int shelterId, int occupancy) throws SQLException, NoSuchUserException;
 
     /**
-     * method that update user's family members for M8
-     * @param accountId user.
-     * @param familyMemberNumber the total amount of family members that go with the user
-     *                           {@code familyMemberNumber} default = 0;
-     * @throws SQLException in case something with database connection goes wrong
-     * @throws NoSuchUserException when the id pass in the doesn't exist, no rows get updated
+     * update the the whole account's (whichever is editable, such as NOT username or userId) attributes
+     * @param user the user is currently logged in
+     * @throws SQLException in case the query interrupted
+     * @throws NoSuchUserException when the id pass in the database doesn't exist, no rows get updated
      */
-    void updateAccountInformationById(int accountId, int familyMemberNumber) throws SQLException, NoSuchUserException;
+    void updateAccount (Account user) throws SQLException, NoSuchUserException;
 
-    /**
-     * Overload method to update account information by user's id (that is created by the database)
-     * @param accountId userId.
-     * @param restrictionsMatch restrictions are stored as a string, if there are more than one
-     *                          restrictions match, store all elements as space-separated string
-     *                          Example: user matches 'all_women', 'all_children' restrictions
-     *                          {@code restrictionsMatch} should be "all_women all_children"
-     *                          {@code restrictionsMatch} default = NULL
-     * @throws SQLException in case something with database connection goes wrong
-     * @throws NoSuchUserException when the id pass in the doesn't exist, no rows get updated
-     */
-    void updateAccountInformationById(int accountId, List<String> restrictionsMatch) throws SQLException, NoSuchUserException;
-
-    /**
-     * update the shelter that this account checks in
-     * @param accountId userId.
-     * @param shelterId the id of shelter (created by the database) that this accounts successfully checks in
-     * @throws SQLException in case something with database connection goes wrong
-     * @throws NoSuchUserException when the id pass in the doesn't exist, no rows get updated
-     */
-    void updateShelterIdInAccountsTable(int accountId, int shelterId) throws SQLException, NoSuchUserException;
 }
