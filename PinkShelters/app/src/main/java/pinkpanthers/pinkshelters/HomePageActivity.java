@@ -27,8 +27,8 @@ public class HomePageActivity extends AppCompatActivity {
 
     public void infoOnClick(View v) { //View/Edit User Info button
         Intent info = new Intent(this, UserInfoActivity.class);
-        String username = getIntent().getExtras().getString("username");
-        System.out.println(username + "  ============================  a");
+//        String username = getIntent().getExtras().getString("username");
+//        System.out.println(username + "  ============================  a");
         info.putExtra("username", username);
         startActivity(info);
     }

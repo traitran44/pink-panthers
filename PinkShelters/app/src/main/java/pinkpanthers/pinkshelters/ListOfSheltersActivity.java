@@ -57,6 +57,7 @@ public class ListOfSheltersActivity extends AppCompatActivity implements Recycle
     @Override
     public void onClick(View v) { //search button
         Intent intent = new Intent(ListOfSheltersActivity.this, SearchActivity.class);
+        intent.putExtra("username", username);
         startActivity(intent);
     }
 }

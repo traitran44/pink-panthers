@@ -20,6 +20,7 @@ public class ShelterDetails extends AppCompatActivity {
     private Button claimBedButton;
     private Button updateInfoButton;
     private Button cancelBedButton;
+    private String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +44,7 @@ public class ShelterDetails extends AppCompatActivity {
         }
 
         try {
-            String username = getIntent().getExtras().getString("username");
+            username = getIntent().getExtras().getString("username");
             Account user = db.getAccountByUsername(username);
             if (user instanceof Homeless) { // user is a homeless person
                 a = (Homeless) user;
@@ -141,7 +142,7 @@ public class ShelterDetails extends AppCompatActivity {
                     e.printStackTrace();
                 }
             } else{
-                errorMessage.setText("Restrictions error");
+                errorMessage.setText("You do not fit the restrictions of this shelter");
                 errorMessage.setVisibility(View.VISIBLE);
             }
         }
@@ -151,6 +152,7 @@ public class ShelterDetails extends AppCompatActivity {
 
     public void updateInfoButton(View view) {
         Intent updateInfoPage = new Intent(ShelterDetails.this, UserInfoActivity.class);
+        updateInfoPage.putExtra("username", username);
         startActivity(updateInfoPage);
     }
 
