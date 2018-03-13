@@ -178,29 +178,4 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
     @Override
     public void onItemClick(View view, int position) {
     }
-<<<<<<< HEAD
-
-    private String sqlConverter(String chosenItem) {
-        switch (chosenItem) {
-            case ("Men"):
-                return Restrictions.MEN.toString();
-            case ("Non-Binary"):
-                return Restrictions.NON_BINARY.toString();
-            case ("Women"):
-                return Restrictions.WOMEN.toString();
-            case ("Children"):
-                return Restrictions.CHILDREN.toString();
-            case ("Young Adults"):
-                return Restrictions.YOUNG_ADULTS.toString();
-            case ("Families with Newborns"):
-                return Restrictions.FAMILIES_W_NEWBORNS.toString();
-            case ("Anyone"):
-                return Restrictions.ANYONE.toString();
-            default:
-                return "None";
-        }
-    }
 }
-=======
-}
->>>>>>> 5ea4fcd416012b18a1625cb098ef1201b94c3dc8

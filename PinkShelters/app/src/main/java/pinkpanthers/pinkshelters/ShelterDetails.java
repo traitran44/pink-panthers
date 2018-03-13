@@ -32,7 +32,7 @@ public class ShelterDetails extends AppCompatActivity {
                  int shelterId = getIntent().getExtras().getInt("shelterId");
                  s = db.getShelterById(shelterId);
                  updateView(s);
-            Log.d("HAHAHAHAH", a.getUsername());
+                 Log.d("HAHAHAHAH", a.getUsername());
 
             } catch (NoSuchUserException e) {
                 throw new RuntimeException("This is not how it works " + e.toString());
@@ -89,6 +89,7 @@ public class ShelterDetails extends AppCompatActivity {
 ////     // check if account type of homeless, if homeless then getFamilyMemberNumber
         if (a instanceof Homeless) {
             int familyMemberNumber = ((Homeless) a).getFamilyMemberNumber();
+            System.out.print(familyMemberNumber);
             {
                 if (s.getVacancy() <= familyMemberNumber) {
                     errorMessage.setText("Sorry, there are not enough beds");
