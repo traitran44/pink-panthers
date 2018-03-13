@@ -1,6 +1,5 @@
 package pinkpanthers.pinkshelters;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -43,7 +42,6 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
     private TextView email;
     private TextView buttonStatus;
     private TextView restrictionView;
-    Context context = this;
 
     private Account account;
 
@@ -56,27 +54,14 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
         Intent startMain = new Intent(this, HomePageActivity.class);
         startMain.putExtra("username", account.getUsername());
         startActivity(startMain);
-
     }
 
 
     //Create Update Info Button
     public void updateOnClick(View v) {
         updateRestrictionList();
-        SharedPreferences prefs = getSharedPreferences("PREFS_NAME", MODE_PRIVATE);
-        SharedPreferences.Editor edit = prefs.edit();
-        edit.putString("USERNAME", account.getUsername());
-        edit.commit();
 
         try {
-<<<<<<< HEAD
-        // TODO: Uncomment this line below when you fix updateAccountInformationById's param to take a list.
-            db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
-            db.updateAccount(this.account);
-            buttonStatus.setVisibility(View.VISIBLE);
-            resetAllFields();
-            System.out.println("Successfully");
-=======
             if (account instanceof Homeless) {
                 Homeless homeless = (Homeless) account;
                 homeless.setRestrictionsMatch(restrictionList);
@@ -87,7 +72,6 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
                 buttonStatus.setVisibility(View.VISIBLE);
                 //show successfull text and reset everything( )
             }
->>>>>>> c814617321da4bc51cd2abed4d6599add3a485bd
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (NoSuchUserException e) {
@@ -178,12 +162,11 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
     }
 
 
-    public Account getUserAccount() throws NoSuchUserException {
+    public void getUserAccount() throws NoSuchUserException {
         db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
         String username = getIntent().getExtras().getString("username");
         System.out.println(username + "  ====================123=======  a");
         account = db.getAccountByUsername(username);
-        return account;
     }
 
 

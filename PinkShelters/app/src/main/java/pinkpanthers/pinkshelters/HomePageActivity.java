@@ -53,6 +53,7 @@ public class HomePageActivity extends AppCompatActivity {
         //Get name and user type
         String prefName=preferences.getString("NAME", "");
         String prefUserType=preferences.getString("USER_TYPE", "");
+        String userName=preferences.getString("USERNAME", "");
 
 
         textName.setText("Hello " + prefName + "!");

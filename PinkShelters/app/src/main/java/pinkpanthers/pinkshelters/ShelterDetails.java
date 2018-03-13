@@ -21,30 +21,24 @@ public class ShelterDetails extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shelter_details);
-        try{
         db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
         errorMessage = findViewById(R.id.errorMessage);
-        SharedPreferences prefs_name = getSharedPreferences("PREFS_NAME", 0);
-        String username = prefs_name.getString("USERNAME", "");
-        a = db.getAccountByUsername(username);
-        } catch (NoSuchUserException e) {
-            throw new RuntimeException("This is not how it works " + e.toString());
-        }
-
-        try {
-            int shelterId = getIntent().getExtras().getInt("shelterId");
-            s = db.getShelterById(shelterId);
-            updateView(s);
-
-        } catch (NoSuchUserException e) {
-            throw new RuntimeException("This is not how it works " + e.toString());
-        } catch (NullPointerException e) {
-            throw new RuntimeException("NullPointerException is raised: getExtras() returns null in ListOfShelter");
-        }
+        SharedPreferences preferences = getApplicationContext().getSharedPreferences(PREFS_NAME, Registration.MODE_PRIVATE);
+        String userName=preferences.getString("USERNAME", "");
 
 
+        try {    a = db.getAccountByUsername(userName);
+                 //Log.d("HAHAHAHAH", a.getUsername());
+                 int shelterId = getIntent().getExtras().getInt("shelterId");
+                 s = db.getShelterById(shelterId);
+                updateView(s);
+
+            } catch (NoSuchUserException e) {
+                throw new RuntimeException("This is not how it works " + e.toString());
+            } catch (NullPointerException e) {
+                throw new RuntimeException("NullPointerException is raised: getExtras() returns null in ListOfShelter");
+            }
     }
-
     private void updateView(Shelter s) {
         TextView name = findViewById(R.id.name);
         String forName = "Name: " + s.getShelterName();

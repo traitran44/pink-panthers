@@ -51,9 +51,3 @@ public interface DBI {
      * @throws NoSuchUserException when the id pass in the database doesn't exist, no rows get updated
      */
     void updateAccount (Account user) throws SQLException, NoSuchUserException;}
-
-
-<<<<<<< HEAD
-=======
-}
->>>>>>> c814617321da4bc51cd2abed4d6599add3a485bd
