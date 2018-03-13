@@ -50,6 +50,4 @@ public interface DBI {
      * @throws SQLException in case the query interrupted
      * @throws NoSuchUserException when the id pass in the database doesn't exist, no rows get updated
      */
-    void updateAccount (Account user) throws SQLException, NoSuchUserException;
-
-}
+    void updateAccount (Account user) throws SQLException, NoSuchUserException;}

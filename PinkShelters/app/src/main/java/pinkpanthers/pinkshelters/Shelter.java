@@ -120,15 +120,6 @@ public class Shelter {
     public void setAddress(String address) {
         this.address = address;
     }
-
-    public int getOccupancy() {
-        return occupancy;
-    }
-
-    public void setOccupancy(int occupancy) {
-        this.occupancy = occupancy;
-    }
-
     public int getUpdate_capacity() {
         return update_capacity;
     }
@@ -137,8 +128,16 @@ public class Shelter {
         this.update_capacity = update_capacity;
     }
 
+    public int getOccupancy() {
+        return occupancy;
+    }
+    public void setOccupancy(int occupancy) {
+        this.occupancy=occupancy;
+    }
+
     public int getVacancy() {
         return update_capacity - occupancy;
     }
+    public void setVacancy(int vacancy) {this.vacancy = vacancy;}
 
 }

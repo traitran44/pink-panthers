@@ -189,7 +189,7 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
                                     shelterNames.add(s.getShelterName());
                                 }
 
-                                 //set interaction between the suggestions and shelter details
+                                //set interaction between the suggestions and shelter details
                                 recycler_adapter = new RecyclerAdapter(SearchActivity.this, shelterNames);
                                 recycler_adapter.setClickListener(SearchActivity.this::onItemClick);
                                 search_recycler_view.setAdapter(recycler_adapter);
