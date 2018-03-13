@@ -114,11 +114,12 @@ public class ShelterDetails extends AppCompatActivity {
             errorMessage.setVisibility(View.VISIBLE);
             updateInfoButton.setVisibility(View.VISIBLE);
         } else {
-            // check if account type of homeless, if homeless then getFamilyMemberNumber
+            // check if there are still available bed(s) for their families
             int familyMemberNumber = a.getFamilyMemberNumber();
             if (s.getVacancy() <= familyMemberNumber) {
                 errorMessage.setText("Sorry, there are not enough beds");
                 errorMessage.setVisibility(View.VISIBLE);
+                //homeless person cant claim bed(s) if they have already claimed bed(s) at a different shelter
             } else if (a.getShelterId()!=0) {
                 errorMessage.setText("Sorry, you have already claimed bed(s)");
                 errorMessage.setVisibility(View.VISIBLE);
