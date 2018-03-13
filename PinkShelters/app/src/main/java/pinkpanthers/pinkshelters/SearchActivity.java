@@ -8,13 +8,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +34,7 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
     private ArrayList<String> shelterNames;
     private List<Shelter> shelters;
     private List<Shelter> myShelters;
+    private String username;
 
 
     private Db db;
@@ -46,7 +45,7 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
         setContentView(R.layout.activity_search);
 
         db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
-
+        username = getIntent().getExtras().getString("username");
 
         // data to populate the RecyclerView with
         shelterNames = new ArrayList<>();
@@ -110,10 +109,6 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
                             for (Shelter sh : myShelters) {
                                 shelterNames.add(sh.getShelterName());
                             }
-//                            for (Shelter sh: myShelters) {
-//                                shelterNames.add(sh.getRestrictions());
-//                               //Log.d("testtest", shelterNames.toString());
-//                            }
                         } catch (NoSuchUserException e) {
                             shelterNames.add("No results found");
 
@@ -214,8 +209,6 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
                 // nothing changes when nothing is selected
             }
         });
-
-
     }
 
     @Override
@@ -227,6 +220,7 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
     public void onItemClick(View view, int position) {
         Intent detail = new Intent(this, ShelterDetails.class);
         detail.putExtra("shelterId", myShelters.get(position).getId());
+        detail.putExtra("username", username);
         startActivity(detail);
     }
 

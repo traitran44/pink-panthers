@@ -7,17 +7,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.Button;
 import android.widget.TextView;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     private EditText username;
     private EditText password;
-    private Spinner userTypes;
-    private Button cancel_btn;
     private DBI db;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,16 +22,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         username = findViewById(R.id.name);
         password = findViewById(R.id.password);
 
-
-
         // set up Cancel button
         Button cancel_btn = findViewById(R.id.cancel_button);
         cancel_btn.setOnClickListener(this);
 
         db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
     }
-
-
 
     public void logIn(View view) {
         TextView txtView = findViewById(R.id.validationWarn);
@@ -47,7 +39,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             Account account = db.getAccountByUsername(user);
             if (account.getPassword().equals(pass)) { // correct password
                 txtView.setVisibility(View.INVISIBLE);
-
 
                 SharedPreferences preferences = getApplicationContext().getSharedPreferences("com.example.sp.LoginPrefs", MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferences.edit();
@@ -63,12 +54,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 editor.putString("NAME", account.getName());
                 //get name to use for shelter details
                 editor.putString("USERNAME", account.getUsername());
-                editor.commit();
+//                Log.d("hihihihi",account.getUsername());
+                editor.apply();
 
                 Intent homePageIntent = new Intent(this, HomePageActivity.class);
-
-                //passing username to intent
-                homePageIntent.putExtra("username", account.getUsername());
+                homePageIntent.putExtra("username", user);
                 startActivity(homePageIntent);
             } else { // incorrect password
                 txtView.setVisibility(View.VISIBLE);
