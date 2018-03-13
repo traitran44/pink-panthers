@@ -23,15 +23,16 @@ public class ShelterDetails extends AppCompatActivity {
         setContentView(R.layout.activity_shelter_details);
         db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
         errorMessage = findViewById(R.id.errorMessage);
+        //get preferences to pass in username for account
         SharedPreferences preferences = getApplicationContext().getSharedPreferences(PREFS_NAME, Registration.MODE_PRIVATE);
         String userName=preferences.getString("USERNAME", "");
 
 
         try {    a = db.getAccountByUsername(userName);
-                 //Log.d("HAHAHAHAH", a.getUsername());
                  int shelterId = getIntent().getExtras().getInt("shelterId");
                  s = db.getShelterById(shelterId);
-                updateView(s);
+                 updateView(s);
+            Log.d("HAHAHAHAH", a.getUsername());
 
             } catch (NoSuchUserException e) {
                 throw new RuntimeException("This is not how it works " + e.toString());

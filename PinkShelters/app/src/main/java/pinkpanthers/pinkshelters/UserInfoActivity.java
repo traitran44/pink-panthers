@@ -35,7 +35,6 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
     private Spinner family_spinner;
     private ArrayAdapter<Integer> family_adapter;
 
-    private String restriction;
     private int familySize;
 
     private TextView name;
@@ -47,10 +46,9 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
 
     private CheckBox ch1, ch2, ch3, ch4, ch5, ch6, ch7, ch8, ch9;
 
-    public static final String PREFS_NAME = "com.example.sp.LoginPrefs";
-
     //Create Back Button
     public void backOnClick(View v) {
+        //passing username to intent
         Intent startMain = new Intent(this, HomePageActivity.class);
         startMain.putExtra("username", account.getUsername());
         startActivity(startMain);
@@ -79,6 +77,9 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
         }
     }
 
+    /**
+     * When checkbox is clicked, add restriction to list.
+     */
     private void updateRestrictionList() {
         if (ch1.isChecked())
             restrictionList.add(Restrictions.MEN.toString());
@@ -105,7 +106,7 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_info_page);
 
-        //check box restrictions:
+        //set up check box restrictions
         buttonStatus = (TextView) findViewById(R.id.status);
         buttonStatus.setVisibility(View.INVISIBLE);
         ch1 =(CheckBox)findViewById(R.id.checkBox1);
@@ -151,21 +152,21 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
         name = (TextView) findViewById(R.id.name);
         email = (TextView) findViewById(R.id.email);
 
-        // Get name and user type
+        // Display name and email
         name.setText("Name: " + account.getName());
         email.setText("Email: " + account.getEmail());
 
 
-        //check box restrictions:
-
 
     }
 
-
+    /**
+     * Retrieving active account
+     * @throws NoSuchUserException
+     */
     public void getUserAccount() throws NoSuchUserException {
         db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
         String username = getIntent().getExtras().getString("username");
-        System.out.println(username + "  ====================123=======  a");
         account = db.getAccountByUsername(username);
     }
 
@@ -177,6 +178,7 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
     @Override
     public void onItemClick(View view, int position) {
     }
+<<<<<<< HEAD
 
     private String sqlConverter(String chosenItem) {
         switch (chosenItem) {
@@ -199,3 +201,6 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
         }
     }
 }
+=======
+}
+>>>>>>> 5ea4fcd416012b18a1625cb098ef1201b94c3dc8
