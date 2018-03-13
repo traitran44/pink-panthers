@@ -129,7 +129,8 @@ public class ShelterDetails extends AppCompatActivity {
                     if ((s.getRestrictions().toLowerCase().contains(sh.toLowerCase())) ||
                             s.getRestrictions().toLowerCase().equals(anyone)) {
                         try {
-                            Log.d("restriction match ", sh.toLowerCase().toString());
+                            System.out.print(a.getShelterId());
+
                             Log.d("Shelterrestriction", s.getRestrictions().toLowerCase().toString());
                             db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
                             //update vacancy of shelter
