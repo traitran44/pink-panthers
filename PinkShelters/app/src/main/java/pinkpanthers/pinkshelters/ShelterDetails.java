@@ -120,15 +120,14 @@ public class ShelterDetails extends AppCompatActivity {
                 errorMessage.setText("Sorry, there are not enough beds");
                 errorMessage.setVisibility(View.VISIBLE);
                 //homeless person cant claim bed(s) if they have already claimed bed(s) at a different shelter
-            } else if (a.getShelterId()!=0) {
+            } else if (a.getShelterId() != 0) {
                 errorMessage.setText("Sorry, you have already claimed bed(s)");
                 errorMessage.setVisibility(View.VISIBLE);
             } else {
-                String anyone="anyone";
+                String anyone = "anyone";
                 for (String sh : a.getRestrictionsMatch())
                     if ((s.getRestrictions().toLowerCase().contains(sh.toLowerCase())) ||
-                            s.getRestrictions().toLowerCase().equals(anyone))
-                    {
+                            s.getRestrictions().toLowerCase().equals(anyone)) {
                         try {
                             Log.d("restriction match ", sh.toLowerCase().toString());
                             Log.d("Shelterrestriction", s.getRestrictions().toLowerCase().toString());
@@ -162,9 +161,8 @@ public class ShelterDetails extends AppCompatActivity {
                         errorMessage.setVisibility(View.VISIBLE);
                     }
             }
-        }}
-
-
+        }
+    }
 
 
     public void updateInfoButton(View view) {
