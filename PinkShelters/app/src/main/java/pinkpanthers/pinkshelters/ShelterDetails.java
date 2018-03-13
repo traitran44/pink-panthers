@@ -1,5 +1,7 @@
 package pinkpanthers.pinkshelters;
 
+
+
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +12,11 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class ShelterDetails extends AppCompatActivity {
     private DBI db;
@@ -109,11 +116,11 @@ public class ShelterDetails extends AppCompatActivity {
     public void claimBedButton(View view) {
         // check to see if user has updated their information
         if (a.getFamilyMemberNumber() == 0 || a.getRestrictionsMatch() == null) {
-            errorMessage.setText("You need to update your information before you can claim a bed or beds. "
-                    + "Please update your information");
+            errorMessage.setText("You need to update your information before you can claim a bed or beds. " +
+                    "Please update your information");
             errorMessage.setVisibility(View.VISIBLE);
             updateInfoButton.setVisibility(View.VISIBLE);
-        } else {//homeless person cant claim bed(s) if they have already claimed bed(s) at a different shelter
+        } else { //homeless person cant claim bed(s) if they have already claimed bed(s) at a different shelter
             int familyMemberNumber = a.getFamilyMemberNumber();
             if (a.getShelterId() != 0) {
                 errorMessage.setText("Sorry, you have already claimed " + familyMemberNumber + "bed(s)");
@@ -124,43 +131,53 @@ public class ShelterDetails extends AppCompatActivity {
                 errorMessage.setVisibility(View.VISIBLE);
 
             } else {
-                String anyone = "anyone";
-                for (String sh : a.getRestrictionsMatch())
-                    if ((s.getRestrictions().toLowerCase().contains(sh.toLowerCase())) ||
-                            s.getRestrictions().toLowerCase().equals(anyone)) {
-                        try {
-                            System.out.print(a.getShelterId());
-
-                            Log.d("Shelterrestriction", s.getRestrictions().toLowerCase().toString());
-                            db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
-                            //update vacancy of shelter
-                            int vacancy1 = s.getVacancy() - familyMemberNumber;
-                            s.setVacancy(vacancy1);
-                            //update current vacancy on screen
-                            String forVacancy = "Vacancy: " + s.getVacancy();
-                            vacancy.setText(forVacancy);
-                            //update shelter occupancy for Db
-                            int occupancy = s.getUpdate_capacity() - vacancy1;
-                            s.setOccupancy(occupancy);
-                            db.updateShelterOccupancy(s.getId(), occupancy);
-                            a.setShelterId(s.getId());
-                            //pass in account object to update account
-                            db.updateAccount(a);
-                            String success = "You have claimed " + familyMemberNumber + " bed(s) successfully";
-                            errorMessage.setText(success);
-                            errorMessage.setVisibility(View.VISIBLE);
-                            errorMessage.setTextColor(Color.GREEN);
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        } catch (NoSuchUserException e) {
-                            e.printStackTrace();
-                        }
-                    } else {
-                        Log.d("restriction match ", sh.toLowerCase().toString());
-                        Log.d("Shelterrestriction", s.getRestrictions().toLowerCase().toString());
-                        errorMessage.setText("You do not fit the restrictions of this shelter");
+                String anyone = new String("anyone ");
+                Boolean pass;
+                //set of restriction of shelter
+                Set < String > shelterRestrictionSet = new HashSet < > ();
+                //turn String of shelter restriction to List
+                List < String > shelterRestrictionList = Arrays.asList(s.getRestrictions().split((",")));
+                //add Strings of shelter restriction list to set
+                for (String s: shelterRestrictionList) {
+                    shelterRestrictionSet.add(s.toLowerCase());
+                }
+                //list of homeless restriction
+                List < String > homelessRestrictions = a.getRestrictionsMatch();
+                //turn list into set of homeless restriction
+                Set < String > homelessRestrictionsSet = new HashSet < > (homelessRestrictions);
+                Set < String > common = new HashSet < > (shelterRestrictionSet);
+                common.retainAll(homelessRestrictionsSet);
+                String anyone1 = s.getRestrictions().toLowerCase().toString();
+                if (anyone1.equals(anyone) || (common.equals(homelessRestrictionsSet))) {
+                    pass = true;
+                    try {
+                        db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
+                        //update vacancy of shelter
+                        int vacancy1 = s.getVacancy() - familyMemberNumber;
+                        s.setVacancy(vacancy1);
+                        //update current vacancy on screen
+                        String forVacancy = "Vacancy: " + s.getVacancy();
+                        vacancy.setText(forVacancy);
+                        //update shelter occupancy for Db
+                        int occupancy = s.getUpdate_capacity() - vacancy1;
+                        s.setOccupancy(occupancy);
+                        db.updateShelterOccupancy(s.getId(), occupancy);
+                        a.setShelterId(s.getId());
+                        //pass in account object to update account
+                        db.updateAccount(a);
+                        String success = "You have claimed " + familyMemberNumber + " bed(s) successfully";
+                        errorMessage.setText(success);
                         errorMessage.setVisibility(View.VISIBLE);
+                        errorMessage.setTextColor(Color.GREEN);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    } catch (NoSuchUserException e) {
+                        e.printStackTrace();
                     }
+                } else {
+                    errorMessage.setText("You do not fit the restrictions of this shelter");
+                    errorMessage.setVisibility(View.VISIBLE);
+                }
             }
         }
     }
