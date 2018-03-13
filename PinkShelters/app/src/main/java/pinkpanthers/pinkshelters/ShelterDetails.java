@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -28,18 +29,6 @@ public class ShelterDetails extends AppCompatActivity {
         setContentView(R.layout.activity_shelter_details);
         db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
         errorMessage = findViewById(R.id.errorMessage);
-<<<<<<< HEAD
-        //get preferences to pass in username for account
-        SharedPreferences preferences = getApplicationContext().getSharedPreferences(PREFS_NAME, Registration.MODE_PRIVATE);
-        String userName=preferences.getString("USERNAME", "");
-
-
-        try {    a = db.getAccountByUsername(userName);
-                 int shelterId = getIntent().getExtras().getInt("shelterId");
-                 s = db.getShelterById(shelterId);
-                 updateView(s);
-                 Log.d("HAHAHAHAH", a.getUsername());
-=======
         vacancy = findViewById(R.id.vacancy);
         claimBedButton = findViewById(R.id.claimBed);
         updateInfoButton = findViewById(R.id.updateAccountButton);
@@ -54,7 +43,6 @@ public class ShelterDetails extends AppCompatActivity {
         } catch (NullPointerException e) {
             throw new RuntimeException("NullPointerException is raised: getExtras() returns null in ListOfShelter");
         }
->>>>>>> bb649dc2b78d3722c614f1c212bcc04dc4b70add
 
         try {
             username = getIntent().getExtras().getString("username");
@@ -119,43 +107,6 @@ public class ShelterDetails extends AppCompatActivity {
     }
 
     public void claimBedButton(View view) {
-<<<<<<< HEAD
-      // check to see if user has updated their information (single/with families and gender)
-//      if (user hasnt update info)
-//        Intent updateInfoPege = new Intent (ShelterDetails.this, UpdateInfo.class);
-//        startActivity(updateInfoPage);
-//     }
-//
-////     // check if account type of homeless, if homeless then getFamilyMemberNumber
-        if (a instanceof Homeless) {
-            int familyMemberNumber = ((Homeless) a).getFamilyMemberNumber();
-            System.out.print(familyMemberNumber);
-            {
-                if (s.getVacancy() <= familyMemberNumber) {
-                    errorMessage.setText("Sorry, there are not enough beds");
-                    errorMessage.setVisibility(View.VISIBLE);
-                } else if (((Homeless) a).getRestrictionsMatch().contains(s.getRestrictions())) {
-                    try {
-                        db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
-                        //update vacancy of shelter
-                        int vacancy = s.getVacancy()-familyMemberNumber;
-                        s.setVacancy(vacancy);
-                        //update shelter occupancy for Db
-                        int occupancy=s.getUpdate_capacity()-vacancy;
-                        s.setOccupancy(occupancy);
-                        db.updateShelterOccupancy(s.getId(),occupancy);
-                        //pass in account object to update account
-                        db.updateAccount(this.a);
-                        errorMessage.setText("You have claim your bed(s) successfully");
-                        errorMessage.setVisibility(View.VISIBLE);
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    } catch (NoSuchUserException e) {
-                        e.printStackTrace();
-                    }
-                } else
-                    errorMessage.setText("Restrictions error");
-=======
         // check to see if user has updated their information
         if (a.getFamilyMemberNumber() == 0 || a.getRestrictionsMatch() == null) {
             errorMessage.setText("You need to update your information before you can claim a bed or beds. "
@@ -164,42 +115,48 @@ public class ShelterDetails extends AppCompatActivity {
             updateInfoButton.setVisibility(View.VISIBLE);
         } else {
             // check if account type of homeless, if homeless then getFamilyMemberNumber
-
             int familyMemberNumber = a.getFamilyMemberNumber();
+            Log.d("ahahahahaha", s.getRestrictions().toString());
             if (s.getVacancy() <= familyMemberNumber) {
                 errorMessage.setText("Sorry, there are not enough beds");
                 errorMessage.setVisibility(View.VISIBLE);
-            } else if (a.getRestrictionsMatch().contains(s.getRestrictions())) {
-                try {
-                    db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
-                    //update vacancy of shelter
-                    int vacancy = s.getVacancy() - familyMemberNumber;
-                    s.setVacancy(vacancy);
-                    //update shelter occupancy for Db
-                    int occupancy = s.getUpdate_capacity() - vacancy;
-                    s.setOccupancy(occupancy);
-                    db.updateShelterOccupancy(s.getId(), occupancy);
-                    a.setShelterId(s.getId());
-                    //pass in account object to update account
-                    db.updateAccount(a);
-                    String success = "You have claimed " + familyMemberNumber + " bed(s) successfully";
-                    errorMessage.setText(success);
->>>>>>> bb649dc2b78d3722c614f1c212bcc04dc4b70add
-                    errorMessage.setVisibility(View.VISIBLE);
-                    errorMessage.setTextColor(Color.GREEN);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                } catch (NoSuchUserException e) {
-                    e.printStackTrace();
-                }
-            } else{
-                errorMessage.setText("You do not fit the restrictions of this shelter");
-                errorMessage.setVisibility(View.VISIBLE);
+            } else {
+                for (String sh : a.getRestrictionsMatch())
+                    //Log.d("LEASEPRINTTHISOUTFORME", sh.toString());
+                    if ((!s.getRestrictions().contains(sh))){
+                        try {
+                            Log.d("LEASEPRINTTHISOUTFORME", sh.toString());
+                            db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
+                            //update vacancy of shelter
+                            int vacancy = s.getVacancy() - familyMemberNumber;
+                            s.setVacancy(vacancy);
+                            //update shelter occupancy for Db
+                            int occupancy = s.getUpdate_capacity() - vacancy;
+                            s.setOccupancy(occupancy);
+                            db.updateShelterOccupancy(s.getId(), occupancy);
+                            a.setShelterId(s.getId());
+                            //pass in account object to update account
+                            db.updateAccount(a);
+                            String success = "You have claimed " + familyMemberNumber + " bed(s) successfully";
+                            errorMessage.setText(success);
+                            errorMessage.setVisibility(View.VISIBLE);
+                            errorMessage.setTextColor(Color.GREEN);
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        } catch (NoSuchUserException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        Log.d("LEASEPRINTTHISOUTFORME", sh.toString());
+                        errorMessage.setText("You do not fit the restrictions of this shelter");
+                        errorMessage.setVisibility(View.VISIBLE);
+
+                    }
             }
-        }
+        }}
 
 
-    }
+
 
     public void updateInfoButton(View view) {
         Intent updateInfoPage = new Intent(ShelterDetails.this, UserInfoActivity.class);
