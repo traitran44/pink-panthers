@@ -116,22 +116,30 @@ public class ShelterDetails extends AppCompatActivity {
         } else {
             // check if account type of homeless, if homeless then getFamilyMemberNumber
             int familyMemberNumber = a.getFamilyMemberNumber();
-            Log.d("ahahahahaha", s.getRestrictions().toString());
             if (s.getVacancy() <= familyMemberNumber) {
                 errorMessage.setText("Sorry, there are not enough beds");
                 errorMessage.setVisibility(View.VISIBLE);
+            } else if (a.getShelterId()!=0) {
+                errorMessage.setText("Sorry, you have already claimed bed(s)");
+                errorMessage.setVisibility(View.VISIBLE);
             } else {
+                String anyone="anyone";
                 for (String sh : a.getRestrictionsMatch())
-                    //Log.d("LEASEPRINTTHISOUTFORME", sh.toString());
-                    if ((!s.getRestrictions().contains(sh))){
+                    if ((s.getRestrictions().toLowerCase().contains(sh.toLowerCase())) ||
+                            s.getRestrictions().toLowerCase().equals(anyone))
+                    {
                         try {
-                            Log.d("LEASEPRINTTHISOUTFORME", sh.toString());
+                            Log.d("restriction match ", sh.toLowerCase().toString());
+                            Log.d("Shelterrestriction", s.getRestrictions().toLowerCase().toString());
                             db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
                             //update vacancy of shelter
-                            int vacancy = s.getVacancy() - familyMemberNumber;
-                            s.setVacancy(vacancy);
+                            int vacancy1 = s.getVacancy() - familyMemberNumber;
+                            s.setVacancy(vacancy1);
+                            //update current vacancy on screen
+                            String forVacancy = "Vacancy: " + s.getVacancy();
+                            vacancy.setText(forVacancy);
                             //update shelter occupancy for Db
-                            int occupancy = s.getUpdate_capacity() - vacancy;
+                            int occupancy = s.getUpdate_capacity() - vacancy1;
                             s.setOccupancy(occupancy);
                             db.updateShelterOccupancy(s.getId(), occupancy);
                             a.setShelterId(s.getId());
@@ -147,10 +155,10 @@ public class ShelterDetails extends AppCompatActivity {
                             e.printStackTrace();
                         }
                     } else {
-                        Log.d("LEASEPRINTTHISOUTFORME", sh.toString());
+                        Log.d("restriction match ", sh.toLowerCase().toString());
+                        Log.d("Shelterrestriction", s.getRestrictions().toLowerCase().toString());
                         errorMessage.setText("You do not fit the restrictions of this shelter");
                         errorMessage.setVisibility(View.VISIBLE);
-
                     }
             }
         }}
