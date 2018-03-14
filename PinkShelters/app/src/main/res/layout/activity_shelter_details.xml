@@ -124,9 +124,10 @@
             android:text="Claim bed"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.403"
             app:layout_constraintStart_toEndOf="@+id/cancelReservation"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-            app:layout_constraintVertical_bias="0.578" />
+            app:layout_constraintTop_toBottomOf="@+id/errorMessage"
+            app:layout_constraintVertical_bias="0.151" />
 
         <TextView
             android:id="@+id/errorMessage"
@@ -152,7 +153,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:layout_marginStart="32dp"
+            android:layout_marginStart="48dp"
+            android:layout_marginLeft="48dp"
             android:layout_marginTop="8dp"
             android:onClick="cancelReservationButton"
             android:text="Cancel Reservation"
@@ -166,18 +168,15 @@
             android:id="@+id/updateAccountButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
+            android:layout_marginBottom="32dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
             android:layout_marginTop="8dp"
             android:onClick="updateInfoButton"
             android:text="Update Account Information"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/claimBed"
-            app:layout_constraintHorizontal_bias="0.448"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/errorMessage"
-            app:layout_constraintVertical_bias="0.48" />
+            app:layout_constraintTop_toBottomOf="@+id/errorMessage" />
     </android.support.constraint.ConstraintLayout>
 </android.support.design.widget.CoordinatorLayout>
