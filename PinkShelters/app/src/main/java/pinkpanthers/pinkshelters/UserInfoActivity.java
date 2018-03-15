@@ -39,7 +39,7 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
 
     private Account account;
 
-    private CheckBox ch1, ch2, ch3, ch4, ch5, ch6, ch7, ch8, ch9;
+    private CheckBox ch1, ch2, ch3, ch4, ch5, ch6, ch8, ch9;
 
     //Create Back Button
     public void backOnClick(View v) {
@@ -88,8 +88,9 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
             restrictionList.add(Restrictions.FAMILIES_W_CHILDREN_UNDER_5.toString());
         if (ch6.isChecked())
             restrictionList.add(Restrictions.NON_BINARY.toString());
-        if (ch7.isChecked())
-            restrictionList.add(Restrictions.FAMILY.toString());
+        // Remove FAMILY restriction.
+        //  if (ch7.isChecked())
+        //      restrictionList.add(Restrictions.FAMILY.toString());
         if (ch8.isChecked())
             restrictionList.add(Restrictions.VETERAN.toString());
         if (ch9.isChecked())
@@ -110,7 +111,7 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
         ch4 =(CheckBox)findViewById(R.id.checkBox4);
         ch5 =(CheckBox)findViewById(R.id.checkBox5);
         ch6 =(CheckBox)findViewById(R.id.checkBox6);
-        ch7 =(CheckBox)findViewById(R.id.checkBox7);
+        //ch7 =(CheckBox)findViewById(R.id.checkBox7);
         ch8 =(CheckBox)findViewById(R.id.checkBox8);
         ch9 =(CheckBox)findViewById(R.id.checkBox9);
 
