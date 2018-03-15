@@ -111,6 +111,7 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
         ch4 =(CheckBox)findViewById(R.id.checkBox4);
         ch5 =(CheckBox)findViewById(R.id.checkBox5);
         ch6 =(CheckBox)findViewById(R.id.checkBox6);
+        // remove family
         //ch7 =(CheckBox)findViewById(R.id.checkBox7);
         ch8 =(CheckBox)findViewById(R.id.checkBox8);
         ch9 =(CheckBox)findViewById(R.id.checkBox9);
