@@ -11,8 +11,8 @@
 
     <Button
         android:id="@+id/login_button"
-        android:layout_width="175dp"
-        android:layout_height="52dp"
+        android:layout_width="116dp"
+        android:layout_height="wrap_content"
         android:layout_alignTop="@+id/textView2"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
@@ -20,15 +20,15 @@
         android:text="Sign in"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.244"
+        app:layout_constraintHorizontal_bias="0.264"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.365" />
+        app:layout_constraintVertical_bias="0.627" />
 
     <Button
         android:id="@+id/cancel_button"
-        android:layout_width="158dp"
-        android:layout_height="40dp"
+        android:layout_width="109dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -38,10 +38,10 @@
         android:text="@android:string/cancel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.715"
+        app:layout_constraintHorizontal_bias="0.725"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.401" />
+        app:layout_constraintVertical_bias="0.673" />
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/textInputLayout2"
@@ -114,15 +114,14 @@
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
         app:layout_constraintVertical_bias="0.168" />
 
-<!--<<<<<<< HEAD-->
+    <!--<<<<<<< HEAD-->
     <!--<LinearLayout-->
-        <!--android:layout_width="24dp"-->
-        <!--android:layout_height="31dp"-->
-        <!--android:orientation="vertical"-->
-        <!--tools:layout_editor_absoluteX="113dp"-->
-        <!--tools:layout_editor_absoluteY="8dp"></LinearLayout>-->
+    <!--android:layout_width="24dp"-->
+    <!--android:layout_height="31dp"-->
+    <!--android:orientation="vertical"-->
+    <!--tools:layout_editor_absoluteX="113dp"-->
+    <!--tools:layout_editor_absoluteY="8dp"></LinearLayout>-->
 
-<!--</android.support.constraint.ConstraintLayout>-->
+    <!--</android.support.constraint.ConstraintLayout>-->
 
 </android.support.constraint.ConstraintLayout>
-
