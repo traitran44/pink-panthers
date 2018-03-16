@@ -89,7 +89,7 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
         if (ch6.isChecked())
             restrictionList.add(Restrictions.NON_BINARY.toString());
         if (ch7.isChecked())
-            restrictionList.add(Restrictions.FAMILY.toString());
+              restrictionList.add(Restrictions.FAMILY.toString());
         if (ch8.isChecked())
             restrictionList.add(Restrictions.VETERAN.toString());
         if (ch9.isChecked())
@@ -121,7 +121,7 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
         }
 
         // add choices to family size
-        for (int i = 0; i < 16; i++) {
+        for (int i = 1; i < 16; i++) {
             familySizeList.add(i);
         }
         family_spinner = (Spinner)findViewById(R.id.family_spinner);
