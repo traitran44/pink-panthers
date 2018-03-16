@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -158,14 +159,15 @@ public class ShelterDetails extends AppCompatActivity {
                 }
 
                 //list of homeless restriction
-                List < String > homelessRestrictions = a.getRestrictionsMatch();
+                List <String> homelessRestrictions = a.getRestrictionsMatch();
 
                 //turn list into set of homeless restriction
                 Set <String> homelessRestrictionsSet = new HashSet <> (homelessRestrictions);
                 Set <String> common = new HashSet <> (shelterRestrictionSet);
                 common.retainAll(homelessRestrictionsSet);
-                String anyone1 = s.getRestrictions().toLowerCase();
-                if (anyone1.equals("anyone") || (common.equals(homelessRestrictionsSet))) {
+                String anyone1 = s.getRestrictions().toLowerCase().toString();
+                Log.d("ahahahahaha", anyone1);
+                if (anyone1.equals(new String("anyone ")) || (common.equals(homelessRestrictionsSet))) {
                     try {
                         //update vacancy of shelter
                         int vacancy1 = s.getVacancy() - familyMemberNumber;
