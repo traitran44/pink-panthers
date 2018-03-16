@@ -28,7 +28,7 @@ public class ShelterDetails extends AppCompatActivity {
     private String message; //message for error message
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shelter_details);
         db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
@@ -150,7 +150,7 @@ public class ShelterDetails extends AppCompatActivity {
                 Set <String> shelterRestrictionSet = new HashSet <> ();
 
                 //turn String of shelter restriction to List
-                List <String> shelterRestrictionList = Arrays.asList(s.getRestrictions().split((",")));
+                List <String> shelterRestrictionList = Arrays.asList(s.getRestrictions().split((", ")));
 
                 //add Strings of shelter restriction list to set
                 for (String s: shelterRestrictionList) {
