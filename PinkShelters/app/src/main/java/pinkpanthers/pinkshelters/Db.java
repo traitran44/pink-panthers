@@ -12,6 +12,7 @@ import java.util.Properties;
 
 public class Db implements DBI {
     private Connection conn;
+    public static Account activeAccount;
 
     /**
      * Create connection to DB.

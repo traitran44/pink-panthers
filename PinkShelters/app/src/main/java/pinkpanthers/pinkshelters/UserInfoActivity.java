@@ -121,7 +121,7 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
         }
 
         // add choices to family size
-        for (int i = 0; i < 16; i++) {
+        for (int i = 1; i < 16; i++) {
             familySizeList.add(i);
         }
         family_spinner = (Spinner)findViewById(R.id.family_spinner);
