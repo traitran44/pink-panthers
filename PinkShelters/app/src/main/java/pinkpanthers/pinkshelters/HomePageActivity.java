@@ -1,5 +1,6 @@
 package pinkpanthers.pinkshelters;
 
+import android.app.ActivityManager;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ public class HomePageActivity extends AppCompatActivity {
     private SharedPreferences preferences;
     public static final String PREFS_NAME = "com.example.sp.LoginPrefs";
     private String username; //used to get current logged in user
+    private TextView message;
 
 
     public void buttonOnClick(View v) { //logout button
@@ -33,6 +35,22 @@ public class HomePageActivity extends AppCompatActivity {
         startActivity(info);
     }
 
+    public void setShelterText() throws NoSuchUserException {
+        message = findViewById(R.id.shelterMessage);
+        DBI db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
+        Account user = db.getAccountByUsername(username);
+        if (user instanceof Homeless) {
+            try {
+                Shelter shelter = db.getShelterById(((Homeless) user).getShelterId());
+                message.setText("You have claim " + ((Homeless) user).getFamilyMemberNumber() + " beds" +
+                        " at shelter: " + shelter.getShelterName());
+            } catch (NoSuchUserException e) {
+                message.setText("You have not claimed any bed yet");
+            }
+
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +60,7 @@ public class HomePageActivity extends AppCompatActivity {
         textUserType = findViewById(R.id.textView3);
         textName = findViewById(R.id.textView1);
         textWelcome = findViewById(R.id.textView2);
+
 
 
         //Get name and user type
@@ -54,5 +73,11 @@ public class HomePageActivity extends AppCompatActivity {
         textUserType.setText(prefUserType);
 
         username = getIntent().getExtras().getString("username");
+        try {
+            setShelterText();
+        } catch (NoSuchUserException e) {
+            throw new RuntimeException("Cannot set the proper String");
+        }
+
     }
 }
