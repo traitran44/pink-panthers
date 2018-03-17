@@ -37,6 +37,12 @@ public class HomePageActivity extends AppCompatActivity {
         startActivity(info);
     }
 
+    // id = shelterID
+    public void showMapButton(View view) {
+        Intent map = new Intent(this, MapsActivity.class);
+        startActivity(map);
+    }
+
     public void setShelterText() throws NoSuchUserException {
         message = findViewById(R.id.shelterMessage);
         if (user instanceof Homeless) {

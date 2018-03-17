@@ -245,10 +245,4 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
         }
     }
 
-    // id = shelterID
-    public void showMapButton(View view) {
-        int[] ids = new int[myShelters.size()];
-        Intent map = new Intent(this, MapsActivity.class);
-        startActivity(map);
-    }
 }
