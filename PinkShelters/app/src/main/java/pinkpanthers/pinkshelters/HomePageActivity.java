@@ -14,6 +14,8 @@ public class HomePageActivity extends AppCompatActivity {
     public static final String PREFS_NAME = "com.example.sp.LoginPrefs";
     private String username; //used to get current logged in user
     private TextView message;
+    private Account user;
+    private DBI db;
 
 
     public void buttonOnClick(View v) { //logout button
@@ -37,12 +39,11 @@ public class HomePageActivity extends AppCompatActivity {
 
     public void setShelterText() throws NoSuchUserException {
         message = findViewById(R.id.shelterMessage);
-        DBI db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
-        Account user = db.getAccountByUsername(username);
         if (user instanceof Homeless) {
             try {
                 Shelter shelter = db.getShelterById(((Homeless) user).getShelterId());
-                message.setText("You have claim " + ((Homeless) user).getFamilyMemberNumber() + " beds" +
+                String bed = ((Homeless) user).getFamilyMemberNumber() == 1 ? " bed" : " beds";
+                message.setText("You have claim " + ((Homeless) user).getFamilyMemberNumber() + bed +
                         " at shelter: " + shelter.getShelterName());
             } catch (NoSuchUserException e) {
                 message.setText("You have not claimed any bed yet");
@@ -62,7 +63,6 @@ public class HomePageActivity extends AppCompatActivity {
         textWelcome = findViewById(R.id.textView2);
 
 
-
         //Get name and user type
         String prefName = preferences.getString("NAME", "");
         String prefUserType = preferences.getString("USER_TYPE", "");
@@ -73,10 +73,18 @@ public class HomePageActivity extends AppCompatActivity {
         textUserType.setText(prefUserType);
 
         username = getIntent().getExtras().getString("username");
+        db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
         try {
-            setShelterText();
+            user = db.getAccountByUsername(username);
         } catch (NoSuchUserException e) {
-            throw new RuntimeException("Cannot set the proper String");
+            throw new RuntimeException("cannot find the account");
+        }
+        if (user instanceof Homeless) {
+            try {
+                setShelterText();
+            } catch (NoSuchUserException e) {
+                throw new RuntimeException("Cannot set the proper String");
+            }
         }
 
     }

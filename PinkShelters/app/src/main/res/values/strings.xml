@@ -25,6 +25,6 @@
     <string name="view_shelter">View Shelter</string>
     <string name="description">Description</string>
     <string name="hello">Hello</string>
-    <string name="title_activity_maps">Shelter Map</string>
+    <string name="title_activity_maps">Map</string>
 
 </resources>
