@@ -29,8 +29,6 @@ import java.util.List;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    private GoogleMap newMap;
-    private GoogleMap original;
     private List<String> choices = new ArrayList<>();
     private List<String> genders = new ArrayList<>();
     private List<String> ageRanges = new ArrayList<>();
@@ -40,7 +38,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private ArrayAdapter<String> gender_adapter;
     private EditText shelter_name_edit_text;
 
-    private ArrayList<String> shelterNames;
     private List<Shelter> shelters;
     private List<Shelter> myShelters;
     private DBI db;
@@ -115,6 +112,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         @Override
                         public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                             myShelters = shelters;
+                            setMarkersOnMap();
                             noResult.setText("");
                         }
 
@@ -190,6 +188,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 
+    /**
+     * Refresh the map with new results
+     */
     private void setMarkersOnMap() {
         mMap.clear();
         LatLng shelterLocation;
@@ -212,21 +213,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-//        LatLng myLocation = new LatLng(33.7756180,
-//                -84.3962850);
-//        mMap.addMarker(new MarkerOptions().position(myLocation).title("Georgia Tech is Here"));
-//        mMap.moveCamera(CameraUpdateFactory.newLatLng(myLocation));
-
         LatLng shelterLocation;
         for (Shelter shelter : myShelters) {
             shelterLocation = new LatLng(shelter.getLatitude(), shelter.getLongitude());
             mMap.addMarker(new MarkerOptions().position(shelterLocation).title(shelter.getShelterName()));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(shelterLocation));
         }
-    }
-
-    public void getMapAsync(OnMapReadyCallback callback) {
-
     }
 
     private String sqlConverter(String chosenItem) {
