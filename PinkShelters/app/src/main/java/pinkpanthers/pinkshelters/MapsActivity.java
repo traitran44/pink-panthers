@@ -29,13 +29,15 @@ import java.util.List;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    private GoogleMap newMap;
+    private GoogleMap original;
     private List<String> choices = new ArrayList<>();
     private List<String> genders = new ArrayList<>();
     private List<String> ageRanges = new ArrayList<>();
     private Spinner choices_spinner;
     private Spinner second_spinner;
     private ArrayAdapter<String> age_range_adapter;
-    private  ArrayAdapter<String> gender_adapter;
+    private ArrayAdapter<String> gender_adapter;
     private EditText shelter_name_edit_text;
 
     private ArrayList<String> shelterNames;
@@ -121,11 +123,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             // grabs each new character that the user types into the textView
                             try {
                                 myShelters = db.getShelterByName(charSequence.toString());
-                                for (Shelter s : myShelters) {
-                                    shelterNames.add(s.getShelterName());
-                                }
+                                setMarkersOnMap();
                             } catch (NoSuchUserException e) {
                                 noResult.setText("No Result Found");
+                                MapsActivity.this.mMap.clear();
                             }
                         }
 
@@ -154,23 +155,29 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     if (!("None".equals(searchBy))) {
                         try {
                             myShelters = db.getShelterByRestriction(searchBy);
+                            setMarkersOnMap();
                         } catch (NoSuchUserException e) {
                             noResult.setText("No Result Found");
+                            MapsActivity.this.mMap.clear();
                         }
                     } else {
                         myShelters = shelters;
+                        setMarkersOnMap();
                     }
                 } else if ("Age Range".equals(firstSelection)) {
                     String searchBy = sqlConverter(ageRanges.get(i));
-                    noResult.setText("No Result Found");
+                    noResult.setText("");
                     if (!("None".equals(searchBy))) {
                         try {
                             myShelters = db.getShelterByRestriction(searchBy);
+                            setMarkersOnMap();
                         } catch (NoSuchUserException e) {
                             noResult.setText("No Result Found");
+                            MapsActivity.this.mMap.clear();
                         }
                     } else {
                         myShelters = shelters;
+                        setMarkersOnMap();
                     }
                 }
             }
@@ -183,6 +190,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 
+    private void setMarkersOnMap() {
+        mMap.clear();
+        LatLng shelterLocation;
+        for (Shelter shelter : myShelters) {
+            shelterLocation = new LatLng(shelter.getLatitude(), shelter.getLongitude());
+            mMap.addMarker(new MarkerOptions().position(shelterLocation).title(shelter.getShelterName()));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(shelterLocation));
+        }
+    }
 
     /**
      * Manipulates the map once available.
@@ -196,19 +212,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
-        // Add a marker in Sydney and move the camera
-        LatLng myLocation = new LatLng(33.7756180,
-                -84.3962850);
-        mMap.addMarker(new MarkerOptions().position(myLocation).title("Georgia Tech is Here"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(myLocation));
+//        LatLng myLocation = new LatLng(33.7756180,
+//                -84.3962850);
+//        mMap.addMarker(new MarkerOptions().position(myLocation).title("Georgia Tech is Here"));
+//        mMap.moveCamera(CameraUpdateFactory.newLatLng(myLocation));
 
         LatLng shelterLocation;
-        for (Shelter shelter: myShelters) {
+        for (Shelter shelter : myShelters) {
             shelterLocation = new LatLng(shelter.getLatitude(), shelter.getLongitude());
             mMap.addMarker(new MarkerOptions().position(shelterLocation).title(shelter.getShelterName()));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(shelterLocation));
         }
+    }
+
+    public void getMapAsync(OnMapReadyCallback callback) {
+
     }
 
     private String sqlConverter(String chosenItem) {

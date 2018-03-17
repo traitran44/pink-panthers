@@ -54,6 +54,12 @@ public class ListOfSheltersActivity extends AppCompatActivity implements Recycle
         startActivity(detail);
     }
 
+    // id = shelterID
+    public void showMapButton(View view) {
+        Intent map = new Intent(this, MapsActivity.class);
+        startActivity(map);
+    }
+
     @Override
     public void onClick(View v) { //search button
         Intent intent = new Intent(ListOfSheltersActivity.this, SearchActivity.class);
