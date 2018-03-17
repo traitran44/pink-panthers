@@ -1,7 +1,18 @@
 package pinkpanthers.pinkshelters;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -10,9 +21,28 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    private List<String> choices = new ArrayList<>();
+    private List<String> genders = new ArrayList<>();
+    private List<String> ageRanges = new ArrayList<>();
+    private Spinner choices_spinner;
+    private Spinner second_spinner;
+    private ArrayAdapter<String> age_range_adapter;
+    private  ArrayAdapter<String> gender_adapter;
+    private EditText shelter_name_edit_text;
+
+    private ArrayList<String> shelterNames;
+    private List<Shelter> shelters;
+    private List<Shelter> myShelters;
+    private DBI db;
+    private TextView noResult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +52,135 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        // set up Db workspace
+        db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
+        noResult = findViewById(R.id.no_result_found);
+        shelters = db.getAllShelters(); // only shows at the beginning
+        myShelters = shelters;
+        // end
+
+        // data to populate the RecyclerView with
+
+
+        // set adapter for the first spinner
+        choices = Arrays.asList("Gender", "Age Range", "Name");
+        choices_spinner = findViewById(R.id.choices_spinner);
+        ArrayAdapter<String> choices_adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, choices);
+        choices_spinner.setAdapter(choices_adapter);
+        // end
+
+
+        // set adapter for second spinner, depending on which choice was made
+        genders = Arrays.asList("None", "Men", "Women", "Non-Binary");
+        ageRanges = Arrays.asList("None", "Families with Newborns",
+                "Children", "Young Adults", "Anyone");
+        second_spinner = findViewById(R.id.age_range_gender_spinner);
+        second_spinner.setVisibility(View.INVISIBLE);
+        gender_adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, genders);
+        age_range_adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, ageRanges);
+        second_spinner.setAdapter(gender_adapter);
+        // end
+
+
+        shelter_name_edit_text = findViewById(R.id.shelter_name_edit_text);
+        choices_spinner.setSelection(0);
+        second_spinner.setSelection(0);
+
+        choices_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String searchBy = choices.get(i);
+
+                if (searchBy.equals("Gender")) { // search by gender was selected
+                    second_spinner.setAdapter(gender_adapter);
+                    second_spinner.setVisibility(View.VISIBLE);
+                    shelter_name_edit_text.setVisibility(View.INVISIBLE);
+                    noResult.setText("");
+
+                } else if (searchBy.equals("Age Range")) { // search by age range was selected
+                    second_spinner.setAdapter(age_range_adapter);
+                    second_spinner.setVisibility(View.VISIBLE);
+                    shelter_name_edit_text.setVisibility(View.INVISIBLE);
+                    noResult.setText("");
+
+                } else if (searchBy.equals("Name")) { // search by name was selected
+                    second_spinner.setVisibility(View.INVISIBLE);
+                    shelter_name_edit_text.setVisibility(View.VISIBLE);
+
+                    // set interaction for the previewed list of shelter before starting the search
+                    shelter_name_edit_text.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                            myShelters = shelters;
+                            noResult.setText("");
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                            // grabs each new character that the user types into the textView
+                            try {
+                                myShelters = db.getShelterByName(charSequence.toString());
+                                for (Shelter s : myShelters) {
+                                    shelterNames.add(s.getShelterName());
+                                }
+                            } catch (NoSuchUserException e) {
+                                noResult.setText("No Result Found");
+                            }
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable editable) {
+                            // changes occurred during onTextChanged so no changes after text changed
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                // nothing changes when nothing is selected
+            }
+        });
+
+        second_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String firstSelection = choices_spinner.getSelectedItem().toString();
+
+                if (firstSelection.equals("Gender")) {
+                    String searchBy = sqlConverter(genders.get(i));
+                    noResult.setText("");
+                    if (!("None".equals(searchBy))) {
+                        try {
+                            myShelters = db.getShelterByRestriction(searchBy);
+                        } catch (NoSuchUserException e) {
+                            noResult.setText("No Result Found");
+                        }
+                    } else {
+                        myShelters = shelters;
+                    }
+                } else if ("Age Range".equals(firstSelection)) {
+                    String searchBy = sqlConverter(ageRanges.get(i));
+                    noResult.setText("No Result Found");
+                    if (!("None".equals(searchBy))) {
+                        try {
+                            myShelters = db.getShelterByRestriction(searchBy);
+                        } catch (NoSuchUserException e) {
+                            noResult.setText("No Result Found");
+                        }
+                    } else {
+                        myShelters = shelters;
+                    }
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                // nothing happens when nothing is selected
+            }
+        });
+
     }
 
 
@@ -39,8 +198,38 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(33.7756, 84.3963);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        LatLng myLocation = new LatLng(33.7756180,
+                -84.3962850);
+        mMap.addMarker(new MarkerOptions().position(myLocation).title("Georgia Tech is Here"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(myLocation));
+
+        LatLng shelterLocation;
+        for (Shelter shelter: myShelters) {
+            shelterLocation = new LatLng(shelter.getLatitude(), shelter.getLongitude());
+            mMap.addMarker(new MarkerOptions().position(shelterLocation).title(shelter.getShelterName()));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(shelterLocation));
+        }
     }
+
+    private String sqlConverter(String chosenItem) {
+        switch (chosenItem) {
+            case ("Men"):
+                return Restrictions.MEN.toString();
+            case ("Non-Binary"):
+                return Restrictions.NON_BINARY.toString();
+            case ("Women"):
+                return Restrictions.WOMEN.toString();
+            case ("Children"):
+                return Restrictions.CHILDREN.toString();
+            case ("Young Adults"):
+                return Restrictions.YOUNG_ADULTS.toString();
+            case ("Families with Newborns"):
+                return Restrictions.FAMILIES_W_NEWBORNS.toString();
+            case ("Anyone"):
+                return Restrictions.ANYONE.toString();
+            default:
+                return "None";
+        }
+    }
+
 }
