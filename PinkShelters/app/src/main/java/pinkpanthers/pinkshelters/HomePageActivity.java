@@ -88,4 +88,11 @@ public class HomePageActivity extends AppCompatActivity {
         }
 
     }
+
+    @Override
+    public void onRestart() {
+        super.onRestart();
+        finish();
+        startActivity(getIntent());
+    }
 }

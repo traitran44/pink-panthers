@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -219,6 +220,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mMap.addMarker(new MarkerOptions().position(shelterLocation).title(shelter.getShelterName()));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(shelterLocation));
         }
+        // TODO: make so only admin can add new shelters
+        // makes a new shelter when user clicks once on the map
+        mMap.setOnMapClickListener(latLng -> {
+            MarkerOptions markerOptions = new MarkerOptions();
+            markerOptions.position(latLng);
+
+            // TODO: make a dialog box pop up so admin can enter shelter new info
+            Shelter fakeshelter = new Shelter(1,"fake shelter", "30", "special note area", -90, 30,"777-777-7777",
+                    "women", "address");
+
+            // details that pops up when user clicks onto the marker
+            markerOptions.title(fakeshelter.getShelterName());
+            markerOptions.snippet(fakeshelter.getPhoneNumber());
+
+            // add marker to map and move camera to center its screen around it
+            mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+            mMap.addMarker(markerOptions);
+        });
     }
 
     private String sqlConverter(String chosenItem) {
