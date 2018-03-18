@@ -205,6 +205,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         for (Shelter shelter : myShelters) {
             shelterLocation = new LatLng(shelter.getLatitude(), shelter.getLongitude());
 
+            //create marker
             MarkerOptions markerOptions = new MarkerOptions()
                     .title(shelter.getShelterName())
                     .position(shelterLocation)
@@ -217,8 +218,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mMap.addMarker(markerOptions);
             float zoomLevel = 12.0f; //This goes up to 21
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(shelterLocation, zoomLevel));
-            mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
 
+            // info window
+            mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
 
                 @Override
                 public View getInfoWindow(Marker arg0) {
@@ -229,7 +231,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 public View getInfoContents(Marker marker) {
 
                     Context context = getApplicationContext();
-
                     LinearLayout info = new LinearLayout(context);
                     info.setOrientation(LinearLayout.VERTICAL);
 
@@ -252,6 +253,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
                 @Override
                 public void onInfoWindowClick(Marker marker) {
+                    // goes to detail page of this shelter
                     Intent details = new Intent(MapsActivity.this, ShelterDetails.class);
                     details.putExtra("shelterId", shelter.getId());
                     details.putExtra("username", getIntent().getExtras().getString("username"));
@@ -264,8 +266,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
+     * This is where we can add markers or lines, add listeners or move the camera.
      * If Google Play services is not installed on the device, the user will be prompted to install
      * it inside the SupportMapFragment. This method will only be triggered once the user has
      * installed Google Play services and returned to the app.
@@ -274,12 +275,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        LatLng shelterLocation;
-        for (Shelter shelter : myShelters) {
-            shelterLocation = new LatLng(shelter.getLatitude(), shelter.getLongitude());
-            mMap.addMarker(new MarkerOptions().position(shelterLocation).title(shelter.getShelterName()));
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(shelterLocation));
-        }
+        // this does nothing.
+
+//        LatLng shelterLocation;
+//        for (Shelter shelter : myShelters) {
+//            shelterLocation = new LatLng(shelter.getLatitude(), shelter.getLongitude());
+//            mMap.addMarker(new MarkerOptions().position(shelterLocation).title(shelter.getShelterName()));
+//            mMap.moveCamera(CameraUpdateFactory.newLatLng(shelterLocation));
+//        }
 
     }
 
