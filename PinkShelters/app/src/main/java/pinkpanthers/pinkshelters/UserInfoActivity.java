@@ -63,6 +63,18 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
         try {
             homeless.setRestrictionsMatch(restrictionList);
             homeless.setFamilyMemberNumber(familySize);
+
+            //reset vacancy
+
+            if (homeless.getShelterId() != 0) {
+                if (db.getShelterById(homeless.getShelterId()) != null) {
+                    Shelter shelter = db.getShelterById(homeless.getShelterId());
+                    int vacancy = shelter.getVacancy() + familySize;
+                    int occupancy = shelter.getUpdate_capacity() - vacancy;
+                    homeless.setShelterId(0);
+                    db.updateShelterOccupancy(shelter.getId(), occupancy);
+                }
+            }
             List<String> a = homeless.getRestrictionsMatch();
             //send that homeless to db.
             db.updateAccount(homeless);
