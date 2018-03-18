@@ -1,16 +1,22 @@
 package pinkpanthers.pinkshelters;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.telecom.Call;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -19,6 +25,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.lang.reflect.Array;
@@ -57,6 +64,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         noResult = findViewById(R.id.no_result_found);
         shelters = db.getAllShelters(); // only shows at the beginning
         myShelters = shelters;
+
         // end
 
         // data to populate the RecyclerView with
@@ -196,8 +204,60 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng shelterLocation;
         for (Shelter shelter : myShelters) {
             shelterLocation = new LatLng(shelter.getLatitude(), shelter.getLongitude());
-            mMap.addMarker(new MarkerOptions().position(shelterLocation).title(shelter.getShelterName()));
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(shelterLocation));
+
+            MarkerOptions markerOptions = new MarkerOptions()
+                    .title(shelter.getShelterName())
+                    .position(shelterLocation)
+                    .snippet( shelter.getAddress()
+                            + "\n phone: + " + shelter.getPhoneNumber()
+                            + "\n restrictions : " + shelter.getRestrictions()
+                            + "\n vacancy : " + shelter.getVacancy()
+                    );
+
+            mMap.addMarker(markerOptions);
+            float zoomLevel = 12.0f; //This goes up to 21
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(shelterLocation, zoomLevel));
+            mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+
+
+                @Override
+                public View getInfoWindow(Marker arg0) {
+                    return null;
+                }
+
+                @Override
+                public View getInfoContents(Marker marker) {
+
+                    Context context = getApplicationContext();
+
+                    LinearLayout info = new LinearLayout(context);
+                    info.setOrientation(LinearLayout.VERTICAL);
+
+                    TextView title = new TextView(context);
+                    title.setGravity(Gravity.CENTER);
+                    title.setTextColor(Color.BLACK);
+                    title.setTypeface(null, Typeface.BOLD);
+                    TextView snippet = new TextView(context);
+                    title.setText(marker.getTitle());
+                    snippet.setTextColor(Color.BLACK);
+                    snippet.setText(marker.getSnippet());
+
+                    info.addView(title);
+                    info.addView(snippet);
+
+                    return info;
+                }
+            });
+
+            mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+                @Override
+                public void onInfoWindowClick(Marker marker) {
+                    Intent details = new Intent(MapsActivity.this, ShelterDetails.class);
+                    details.putExtra("shelterId", shelter.getId());
+                    details.putExtra("username", getIntent().getExtras().getString("username"));
+                    startActivity(details);
+                }
+            });
         }
     }
 
@@ -213,12 +273,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+
         LatLng shelterLocation;
         for (Shelter shelter : myShelters) {
             shelterLocation = new LatLng(shelter.getLatitude(), shelter.getLongitude());
             mMap.addMarker(new MarkerOptions().position(shelterLocation).title(shelter.getShelterName()));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(shelterLocation));
         }
+
     }
 
     private String sqlConverter(String chosenItem) {
