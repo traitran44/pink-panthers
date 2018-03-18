@@ -13,7 +13,10 @@ import android.widget.TextView;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapter.ItemClickListener, View.OnClickListener {
     private DBI db;
@@ -38,6 +41,9 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
     private TextView restrictionView;
 
     private Account account;
+    private Homeless homeless;
+    private List<CheckBox> checkBoxList;
+    List<Restrictions> enums;
 
     private CheckBox ch1, ch2, ch3, ch4, ch5, ch6, ch7, ch8, ch9;
 
@@ -55,16 +61,13 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
         updateRestrictionList();
 
         try {
-            if (account instanceof Homeless) {
-                Homeless homeless = (Homeless) account;
-                homeless.setRestrictionsMatch(restrictionList);
-                homeless.setFamilyMemberNumber(familySize);
-                List<String> a = homeless.getRestrictionsMatch();
-                //send that homeless to db.
-                db.updateAccount(homeless);
-                buttonStatus.setVisibility(View.VISIBLE);
+            homeless.setRestrictionsMatch(restrictionList);
+            homeless.setFamilyMemberNumber(familySize);
+            List<String> a = homeless.getRestrictionsMatch();
+            //send that homeless to db.
+            db.updateAccount(homeless);
+            buttonStatus.setVisibility(View.VISIBLE);
                 //show successfull text and reset everything( )
-            }
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (NoSuchUserException e) {
@@ -76,24 +79,12 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
      * When checkbox is clicked, add restriction to list.
      */
     private void updateRestrictionList() {
-        if (ch1.isChecked())
-            restrictionList.add(Restrictions.MEN.toString());
-        if (ch2.isChecked())
-            restrictionList.add(Restrictions.WOMEN.toString());
-        if (ch3.isChecked())
-            restrictionList.add(Restrictions.YOUNG_ADULTS.toString());
-        if (ch4.isChecked())
-            restrictionList.add(Restrictions.CHILDREN.toString());
-        if (ch5.isChecked())
-            restrictionList.add(Restrictions.FAMILIES_W_CHILDREN_UNDER_5.toString());
-        if (ch6.isChecked())
-            restrictionList.add(Restrictions.NON_BINARY.toString());
-        if (ch7.isChecked())
-              restrictionList.add(Restrictions.FAMILY.toString());
-        if (ch8.isChecked())
-            restrictionList.add(Restrictions.VETERAN.toString());
-        if (ch9.isChecked())
-            restrictionList.add(Restrictions.FAMILIES_W_NEWBORNS.toString());
+
+        for (int i = 0; i < checkBoxList.size(); i ++) {
+            if (checkBoxList.get(i).isChecked()) {
+                restrictionList.add(enums.get(i).toString());
+            }
+        }
     }
 
     @Override
@@ -104,21 +95,43 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
         //set up check box restrictions
         buttonStatus = (TextView) findViewById(R.id.status);
         buttonStatus.setVisibility(View.INVISIBLE);
-        ch1 =(CheckBox)findViewById(R.id.checkBox1);
-        ch2 =(CheckBox)findViewById(R.id.checkBox2);
-        ch3 =(CheckBox)findViewById(R.id.checkBox3);
-        ch4 =(CheckBox)findViewById(R.id.checkBox4);
-        ch5 =(CheckBox)findViewById(R.id.checkBox5);
-        ch6 =(CheckBox)findViewById(R.id.checkBox6);
-        ch7 =(CheckBox)findViewById(R.id.checkBox7);
-        ch8 =(CheckBox)findViewById(R.id.checkBox8);
-        ch9 =(CheckBox)findViewById(R.id.checkBox9);
+
+        List<String> currentRestrictionList;
+        checkBoxList = new ArrayList<CheckBox>();
+        checkBoxList.add((CheckBox)findViewById(R.id.checkBox1));
+        checkBoxList.add((CheckBox)findViewById(R.id.checkBox2));
+        checkBoxList.add((CheckBox)findViewById(R.id.checkBox3));
+        checkBoxList.add((CheckBox)findViewById(R.id.checkBox4));
+        checkBoxList.add((CheckBox)findViewById(R.id.checkBox5));
+        checkBoxList.add((CheckBox)findViewById(R.id.checkBox6));
+        checkBoxList.add((CheckBox)findViewById(R.id.checkBox7));
+        checkBoxList.add((CheckBox)findViewById(R.id.checkBox8));
+        checkBoxList.add((CheckBox)findViewById(R.id.checkBox9));
+        enums = Arrays.asList(Restrictions.values());
+
+
 
         try {
             getUserAccount();
         } catch (NoSuchUserException e) {
             e.printStackTrace();
         }
+
+        if (account instanceof Homeless) {
+            homeless = (Homeless) account;
+
+            currentRestrictionList = ((Homeless) account).getRestrictionsMatch();
+            for (int i = 0; i < currentRestrictionList.size(); i++) {
+                for (int j = 0; j < checkBoxList.size(); j ++) {
+                    if (!checkBoxList.get(j).isChecked()) {
+                        boolean isCheck = checkCheckbox(currentRestrictionList.get(i), enums.get(j).toString());
+                        checkBoxList.get(j).setChecked(isCheck);
+                    }
+                }
+
+            }
+        }
+
 
         // add choices to family size
         for (int i = 1; i < 16; i++) {
@@ -129,7 +142,9 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
         family_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         family_spinner.setAdapter(family_adapter);
 
-        family_spinner.setSelection(0);
+
+
+        family_spinner.setSelection(homeless.getFamilyMemberNumber() - 1);
 
         // Spinner click listener for family size
         family_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -153,6 +168,10 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
 
 
 
+    }
+
+    private boolean checkCheckbox(String homelessRestriction, String shelterRestriction) {
+        return homelessRestriction.equals(shelterRestriction);
     }
 
     /**
