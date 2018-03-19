@@ -219,7 +219,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             float zoomLevel = 12.0f; //This goes up to 21
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(shelterLocation, zoomLevel));
 
-            // info window
+            //set up info window
             mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
 
                 @Override
@@ -250,6 +250,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }
             });
 
+            //info window listener
             mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
                 @Override
                 public void onInfoWindowClick(Marker marker) {
