@@ -65,17 +65,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         shelters = db.getAllShelters(); // only shows at the beginning
         myShelters = shelters;
 
-        // end
-
-        // data to populate the RecyclerView with
-
 
         // set adapter for the first spinner
         choices = Arrays.asList("Gender", "Age Range", "Name");
         choices_spinner = findViewById(R.id.choices_spinner);
         ArrayAdapter<String> choices_adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, choices);
         choices_spinner.setAdapter(choices_adapter);
-        // end
 
 
         // set adapter for second spinner, depending on which choice was made
