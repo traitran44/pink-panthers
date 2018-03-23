@@ -246,16 +246,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             });
 
             //info window listener
-            mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
-                @Override
-                public void onInfoWindowClick(Marker marker) {
-                    // goes to detail page of this shelter
-                    Intent details = new Intent(MapsActivity.this, ShelterDetails.class);
-                    details.putExtra("shelterId", shelter.getId());
-                    details.putExtra("username", getIntent().getExtras().getString("username"));
-                    startActivity(details);
-                }
-            });
+//            mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+//                @Override
+//                public void onInfoWindowClick(Marker marker) {
+//                    // goes to detail page of this shelter
+//                    Intent details = new Intent(MapsActivity.this, ShelterDetails.class);
+//                    Shelter clickedShelter;
+//                    try {
+//                        clickedShelter = db.getShelterById()
+//                    } catch (NoSuchUserException e) {
+//                        e.printStackTrace();
+//                    }
+//                    details.putExtra("shelterId", shelter.getId());
+//                    details.putExtra("username", getIntent().getExtras().getString("username"));
+//                    startActivity(details);
+//                }
+//            });
         }
     }
 
