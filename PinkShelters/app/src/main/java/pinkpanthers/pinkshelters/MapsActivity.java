@@ -1,17 +1,19 @@
 package pinkpanthers.pinkshelters;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.location.Address;
+import android.location.Geocoder;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.telecom.Call;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -28,10 +30,10 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -50,6 +52,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private DBI db;
     private TextView noResult;
 
+    private Account user;
+
+    private String sheltername;
+    private double longitude;
+    private double latitude;
+    private String address;
+    private String phoneNum;
+    private String restrictions;
+    private String specialNote;
+    private String capacity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +77,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         noResult = findViewById(R.id.no_result_found);
         shelters = db.getAllShelters(); // only shows at the beginning
         myShelters = shelters;
+
+        try {
+            user = db.getAccountByUsername(getIntent().getExtras().getString("username"));
+        } catch (NoSuchUserException e) {
+            throw new RuntimeException("There is not account with this username");
+        }
 
 
         // set adapter for the first spinner
@@ -205,9 +224,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     .title(shelter.getShelterName())
                     .position(shelterLocation)
                     .snippet( shelter.getAddress()
-                            + "\n phone: + " + shelter.getPhoneNumber()
-                            + "\n restrictions : " + shelter.getRestrictions()
-                            + "\n vacancy : " + shelter.getVacancy()
+                            + "\n Phone Number: + " + shelter.getPhoneNumber()
+                            + "\n Restrictions: " + shelter.getRestrictions()
+                            + "\n Vacancy: " + shelter.getVacancy()
                     );
 
             mMap.addMarker(markerOptions);
@@ -277,15 +296,88 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // this does nothing.
+        // makes a new shelter when user clicks once on the map
+        if (user instanceof Admin) {
+            mMap.setOnMapLongClickListener(latLng -> {
+                MarkerOptions markerOptions = new MarkerOptions();
+                markerOptions.position(latLng);
 
-//        LatLng shelterLocation;
-//        for (Shelter shelter : myShelters) {
-//            shelterLocation = new LatLng(shelter.getLatitude(), shelter.getLongitude());
-//            mMap.addMarker(new MarkerOptions().position(shelterLocation).title(shelter.getShelterName()));
-//            mMap.moveCamera(CameraUpdateFactory.newLatLng(shelterLocation));
-//        }
+                // create dialog box
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("Add a shelter");
 
+                // get view from xml and inflate into map activity
+                LinearLayout mapLayout = findViewById(R.id.linearLayout2);
+                LayoutInflater layoutInflater = getLayoutInflater();
+                View addShelter = layoutInflater.inflate(R.layout.add_new_shelter,
+                        mapLayout, false );
+
+                // get user inputs from dialog box
+                EditText shelternameText = addShelter.findViewById(R.id.name);
+                EditText longitudeText = addShelter.findViewById(R.id.longitude);
+                EditText latitudeText = addShelter.findViewById(R.id.latitude);
+                EditText addressText = addShelter.findViewById(R.id.address);
+                EditText phoneNumText = addShelter.findViewById(R.id.phoneNum);
+                EditText restrictionsText = addShelter.findViewById(R.id.restrictions);
+                EditText specialNoteText = addShelter.findViewById(R.id.specialNote);
+                EditText capacityText = addShelter.findViewById(R.id.capacity);
+
+                // set the longitude and latitude texts to the tapped position on map
+                String tappedLongitude = "" + latLng.longitude;
+                longitudeText.setText(tappedLongitude);
+                String tappedLatitude = "" + latLng.latitude;
+                latitudeText.setText(tappedLatitude);
+                builder.setView(addShelter);
+
+                // calculating the address from longitude and latitude
+                setAddress(latLng, addressText);
+
+                // click on "Add a shelter" button
+                builder.setPositiveButton("add a shelter", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        sheltername = shelternameText.getText().toString();
+                        longitude = Double.parseDouble(longitudeText.getText().toString());
+                        latitude = Double.parseDouble(latitudeText.getText().toString());
+                        address = addressText.getText().toString();
+                        phoneNum = phoneNumText.getText().toString();
+                        restrictions = restrictionsText.getText().toString();
+                        specialNote = specialNoteText.getText().toString();
+                        capacity = capacityText.getText().toString();
+
+
+                        Shelter newShelter = db.createShelter(sheltername, capacity, specialNote,
+                                latitude, longitude, phoneNum, restrictions, address);
+
+                        newShelter.setUpdate_capacity(capacityConverter());
+
+                        // details that pops up when user clicks onto the marker
+                        markerOptions.title(newShelter.getShelterName());
+                        markerOptions.snippet(newShelter.getAddress()
+                                        + "\n Phone Number: + " + newShelter.getPhoneNumber()
+                                        + "\n Restrictions: " + newShelter.getRestrictions()
+                                        + "\n Vacancy: " + newShelter.getVacancy());
+
+                        // add marker to map and move camera to center its screen around it
+                        mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+                        Marker marker = mMap.addMarker(markerOptions);
+                        marker.showInfoWindow();
+
+                    }
+                });
+                // click on "cancel" button
+                builder.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        markerOptions.visible(false);
+                    }
+                });
+                //show the builder (the dialog window)
+                builder.show();
+            });
+        }
     }
 
     private String sqlConverter(String chosenItem) {
@@ -309,4 +401,31 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
+    private void setAddress(LatLng latLng, EditText addressText) {
+        try {
+            Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+            List<Address> addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude,1);
+            String address = addresses.get(0).getAddressLine(0) + ", " + addresses.get(0).getLocality() +
+                    ", " + addresses.get(0).getAdminArea() + ", " + addresses.get(0).getPostalCode();
+            addressText.setText(address);
+        } catch (java.io.IOException e) {
+            throw new RuntimeException("Geocoder could not calculate the address using the " +
+                    "tapped longitude and latitude");
+        }
+    }
+
+    private int capacityConverter() {
+        if (capacity == null || capacity.equals("")) {
+            return 300; // default value for capacity
+        }
+
+        int num = 0;
+        String[] str = capacity.split(" ");
+        for (String ele: str) {
+            if (ele.charAt(0) >= 48 && ele.charAt(0) <= 57) {
+                num += Integer.parseInt(ele);
+            }
+        }
+        return num;
+    }
 }
