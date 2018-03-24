@@ -85,17 +85,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void checkLoginTrial() {
+        Button loginButton = findViewById(R.id.login_button);
         if (account != null) {
             if (account.getAccountState().equals("blocked")) {
                 txtView.setText("Your account has been disable, please contact admin");
+                loginButton.setVisibility(View.INVISIBLE);
             } else if (loginTrial < 3) {
                 txtView.setText("Wrong password, you have "
                         + (3 - loginTrial) + " tries left");
                 account = null;
             } else {
                 account.setAccountState("blocked");
-                txtView.setText("Your account is unactive due to 3 " +
+                txtView.setText("Your account is disable due to 3 " +
                         "unsuccessful attempts, please contact your admin");
+                loginButton.setVisibility(View.INVISIBLE);
                 try {
                     db.updateAccount(account);
                 } catch (SQLException e) {
@@ -111,7 +114,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 account = null;
             } else {
                 txtView.setText("You've exceeded your attempts, please try again next time");
-                Button loginButton = findViewById(R.id.login_button);
                 loginButton.setVisibility(View.INVISIBLE);
             }
         }
