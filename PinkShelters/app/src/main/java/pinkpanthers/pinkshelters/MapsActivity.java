@@ -68,7 +68,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private String restrictions;
     private String specialNote;
     private String capacity;
-    private boolean cancelled;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -299,7 +298,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // makes a new shelter when user clicks once on the map
         if (user instanceof Admin) {
-            mMap.setOnMapClickListener(latLng -> {
+            mMap.setOnMapLongClickListener(latLng -> {
                 MarkerOptions markerOptions = new MarkerOptions();
                 markerOptions.position(latLng);
 
@@ -351,7 +350,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         Shelter newShelter = db.createShelter(sheltername, capacity, specialNote,
                                 latitude, longitude, phoneNum, restrictions, address);
                         // TODO : calculate capacity
-//                        newShelter.setUpdate_capacity(capacity);
+
+                        newShelter.setUpdate_capacity(capacityConverter());
 
                         // details that pops up when user clicks onto the marker
                         markerOptions.title(newShelter.getShelterName());
@@ -365,14 +365,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         Marker marker = mMap.addMarker(markerOptions);
                         marker.showInfoWindow();
 
-                        cancelled = false;
                     }
                 });
                 // click on "cancel" button
                 builder.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        cancelled = true;
                         dialog.dismiss();
                         markerOptions.visible(false);
                     }
@@ -417,4 +415,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
+    private int capacityConverter() {
+        if (capacity == null || capacity.equals("")) {
+            return 300; // default value for capacity
+        }
+
+        int num = 0;
+        String[] str = capacity.split(" ");
+        for (String ele: str) {
+            if (ele.charAt(0) >= 48 && ele.charAt(0) <= 57) {
+                num += Integer.parseInt(ele);
+            }
+        }
+        return num;
+    }
 }
