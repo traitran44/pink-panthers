@@ -84,6 +84,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         startActivity(welcomeIntent);
     }
 
+    /**
+     * Validate if a user inputs the correct values. If not, raise a warning and do certain action
+     * associated with the activity
+     */
     private void checkLoginTrial() {
         Button loginButton = findViewById(R.id.login_button);
         if (account != null) {
