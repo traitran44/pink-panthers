@@ -1,6 +1,9 @@
 package pinkpanthers.pinkshelters;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -11,6 +14,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -62,33 +66,42 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
             buttonStatus.setText("Please select restriction(s) to update");
             buttonStatus.setVisibility(View.VISIBLE);
 
-                } else {
-                    try {
-                        homeless.setRestrictionsMatch(restrictionList);
-                        homeless.setFamilyMemberNumber(familySize);
+        } else {
+            try {
+                homeless.setRestrictionsMatch(restrictionList);
+                homeless.setFamilyMemberNumber(familySize);
 
-                        //this part is very similar to Jeannie's cancel reservation.
-                        if (homeless.getShelterId() != 0
-                                && db.getShelterById(homeless.getShelterId()) != null) {
-                            Shelter shelter = db.getShelterById(homeless.getShelterId());
-                            int vacancy = shelter.getVacancy() + familySize;
-                            int occupancy = shelter.getUpdate_capacity() - vacancy;
-                            homeless.setShelterId(0);
-                            db.updateShelterOccupancy(shelter.getId(), occupancy);
-                        }
-                        List<String> a = homeless.getRestrictionsMatch();
-                        //send that homeless to db.
-                        db.updateAccount(homeless);
-                        buttonStatus.setText("Update Successfully");
-                        buttonStatus.setVisibility(View.VISIBLE);
-                        //show successfully text and reset everything( )
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    } catch (NoSuchUserException e) {
-                        e.printStackTrace();
-                    }
+                //this part is very similar to Jeannie's cancel reservation.
+                if (homeless.getShelterId() != 0
+                        && db.getShelterById(homeless.getShelterId()) != null) {
+                    AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+                    alertDialog.setTitle("Alert");
+                    Shelter shelter = db.getShelterById(homeless.getShelterId());
+                    alertDialog.setMessage("Your claimed bed(s) at"+ shelter.getShelterName() +"were cancelled");
+                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    alertDialog.show();
+                    int vacancy = shelter.getVacancy() + familySize;
+                    int occupancy = shelter.getUpdate_capacity() - vacancy;
+                    homeless.setShelterId(0);
+                    db.updateShelterOccupancy(shelter.getId(), occupancy);
                 }
+                List<String> a = homeless.getRestrictionsMatch();
+                //send that homeless to db.
+                db.updateAccount(homeless);
+                buttonStatus.setVisibility(View.VISIBLE);
+                //show successfull text and reset everything( )
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } catch (NoSuchUserException e) {
+                e.printStackTrace();
             }
+        }
+    }
 
 
 
