@@ -66,6 +66,8 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
         if (restrictionList.isEmpty()) {
             buttonStatus.setText("Please select restriction(s) to update");
             buttonStatus.setVisibility(View.VISIBLE);
+            finish();
+            startActivity(getIntent());
 
         } else {
             try {
@@ -95,6 +97,8 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
                                 if (restrictionList.isEmpty()) {
                                     buttonStatus.setText("Please select restriction(s) to update");
                                     buttonStatus.setVisibility(View.VISIBLE);
+                                    finish();
+                                    startActivity(getIntent());
                                 } else {
                                     List<String> a = homeless.getRestrictionsMatch();
                                     //send that homeless to db.
@@ -102,6 +106,8 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
                                     //show successful text and reset everything()
                                     buttonStatus.setText("Update successfully");
                                     buttonStatus.setVisibility(View.VISIBLE);
+                                    finish();
+                                    startActivity(getIntent());
                                 }
                             } catch (SQLException e) {
                                 e.printStackTrace();
