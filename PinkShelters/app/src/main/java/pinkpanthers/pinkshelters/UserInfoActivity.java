@@ -93,21 +93,26 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
                                 int occupancy = shelter.getUpdate_capacity() - vacancy;
                                 homeless.setShelterId(0);
                                 db.updateShelterOccupancy(shelter.getId(), occupancy);
-                                List<String> a = homeless.getRestrictionsMatch();
-                                //send that homeless to db.
-                                db.updateAccount(homeless);
-                                //show successful text and reset everything()
-                                buttonStatus.setText("Update successfully");
-                                buttonStatus.setVisibility(View.VISIBLE);
+                                //updateRestrictionList();
+
+                                if (restrictionList.isEmpty()) {
+                                    buttonStatus.setText("Please select restriction(s) to update");
+                                    buttonStatus.setVisibility(View.VISIBLE);
+                                } else {
+                                    List<String> a = homeless.getRestrictionsMatch();
+                                    //send that homeless to db.
+                                    db.updateAccount(homeless);
+                                    //show successful text and reset everything()
+                                    buttonStatus.setText("Update successfully");
+                                    buttonStatus.setVisibility(View.VISIBLE);
                                 for (String r : restrictionList) {
                                     Log.d("yes button", r);
-                                }
+                                }}
                             } catch (SQLException e) {
                                 e.printStackTrace();
                             } catch (NoSuchUserException e) {
                                 e.printStackTrace();
                             }
-
                             dialog.cancel();
                         }
                     });
