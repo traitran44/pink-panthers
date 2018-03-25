@@ -19,7 +19,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.99"
         tools:layout_editor_absoluteX="0dp">
-
         <fragment xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:map="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
@@ -29,10 +28,8 @@
             android:layout_height="match_parent"
             map:layout_constraintBottom_toBottomOf="parent"
             map:layout_constraintTop_toTopOf="@+id/shelter_name_edit_text" />
-
     </LinearLayout>
-
-         location permissions for the 'MyLocation' functionality. 
+         location permissions for the 'MyLocation' functionality.
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
@@ -71,7 +68,7 @@
              Note that the API key is linked to the encryption key used to sign the APK.
              You need a different API key for each encryption key, including the release key that is used to
              sign the APK for publishing.
-             You can define the keys for the debug and release targets in src/debug/ and src/release/. 
+             You can define the keys for the debug and release targets in src/debug/ and src/release/.
         -->
         <activity
             android:name=".MapsActivity"
@@ -79,7 +76,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
+            android:value="AIzaSyCNq1KU1_wsjzLrepXNqnOOij7UTGYsFb4" />
 
     </application>
 

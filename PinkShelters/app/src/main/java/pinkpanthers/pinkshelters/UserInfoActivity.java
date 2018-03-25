@@ -3,6 +3,7 @@ package pinkpanthers.pinkshelters;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -57,31 +58,39 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
     //Create Update Info Button
     public void updateOnClick(View v) {
         updateRestrictionList();
-
-        try {
-            homeless.setRestrictionsMatch(restrictionList);
-            homeless.setFamilyMemberNumber(familySize);
-
-            //this part is very similar to Jeannie's cancel reservation.
-            if (homeless.getShelterId() != 0
-                    && db.getShelterById(homeless.getShelterId()) != null) {
-                    Shelter shelter = db.getShelterById(homeless.getShelterId());
-                    int vacancy = shelter.getVacancy() + familySize;
-                    int occupancy = shelter.getUpdate_capacity() - vacancy;
-                    homeless.setShelterId(0);
-                    db.updateShelterOccupancy(shelter.getId(), occupancy);
-            }
-            List<String> a = homeless.getRestrictionsMatch();
-            //send that homeless to db.
-            db.updateAccount(homeless);
+        if (restrictionList.isEmpty()) {
+            buttonStatus.setText("Please select restriction(s) to update");
             buttonStatus.setVisibility(View.VISIBLE);
-                //show successfull text and reset everything( )
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (NoSuchUserException e) {
-            e.printStackTrace();
-        }
-    }
+
+                } else {
+                    try {
+                        homeless.setRestrictionsMatch(restrictionList);
+                        homeless.setFamilyMemberNumber(familySize);
+
+                        //this part is very similar to Jeannie's cancel reservation.
+                        if (homeless.getShelterId() != 0
+                                && db.getShelterById(homeless.getShelterId()) != null) {
+                            Shelter shelter = db.getShelterById(homeless.getShelterId());
+                            int vacancy = shelter.getVacancy() + familySize;
+                            int occupancy = shelter.getUpdate_capacity() - vacancy;
+                            homeless.setShelterId(0);
+                            db.updateShelterOccupancy(shelter.getId(), occupancy);
+                        }
+                        List<String> a = homeless.getRestrictionsMatch();
+                        //send that homeless to db.
+                        db.updateAccount(homeless);
+                        buttonStatus.setText("Update Successfully");
+                        buttonStatus.setVisibility(View.VISIBLE);
+                        //show successfully text and reset everything( )
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    } catch (NoSuchUserException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+
 
     /**
      * When checkbox is clicked, add restriction to list.
@@ -116,6 +125,8 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
         checkBoxList.add((CheckBox)findViewById(R.id.checkBox8));
         checkBoxList.add((CheckBox)findViewById(R.id.checkBox9));
         enums = Arrays.asList(Restrictions.values());
+
+
 
 
 
