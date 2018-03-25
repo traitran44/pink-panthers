@@ -66,9 +66,6 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
         if (restrictionList.isEmpty()) {
             buttonStatus.setText("Please select restriction(s) to update");
             buttonStatus.setVisibility(View.VISIBLE);
-            for (String r : restrictionList) {
-                Log.d("none button", r);
-            }
 
         } else {
             try {
@@ -105,9 +102,7 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
                                     //show successful text and reset everything()
                                     buttonStatus.setText("Update successfully");
                                     buttonStatus.setVisibility(View.VISIBLE);
-                                for (String r : restrictionList) {
-                                    Log.d("yes button", r);
-                                }}
+                                }
                             } catch (SQLException e) {
                                 e.printStackTrace();
                             } catch (NoSuchUserException e) {
