@@ -26,17 +26,17 @@ import java.util.Set;
 public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapter.ItemClickListener, View.OnClickListener {
     private DBI db;
 
-    private List < String > restrictionList = new ArrayList < > ();
-    private List < Integer > familySizeList = new ArrayList < > ();
+    private List<String> restrictionList = new ArrayList<>();
+    private List<Integer> familySizeList = new ArrayList<>();
 
     private Button back_btn;
     private Button update_btn;
 
     private Spinner identity_spinner;
-    private ArrayAdapter < String > identity_adapter;
+    private ArrayAdapter<String> identity_adapter;
 
     private Spinner family_spinner;
-    private ArrayAdapter < Integer > family_adapter;
+    private ArrayAdapter<Integer> family_adapter;
 
     private int familySize;
 
@@ -47,8 +47,8 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
 
     private Account account;
     private Homeless homeless;
-    private List < CheckBox > checkBoxList;
-    List < Restrictions > enums;
+    private List<CheckBox> checkBoxList;
+    List<Restrictions> enums;
 
     //Create Back Button
     public void backOnClick(View v) {
@@ -66,6 +66,9 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
         if (restrictionList.isEmpty()) {
             buttonStatus.setText("Please select restriction(s) to update");
             buttonStatus.setVisibility(View.VISIBLE);
+            for (String r : restrictionList) {
+                Log.d("none button", r);
+            }
 
         } else {
             try {
@@ -75,12 +78,13 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
                 //checked if homeless has already claimed beds
                 if (homeless.getShelterId() != 0 && db.getShelterById(homeless.getShelterId()) != null) {
                     Shelter shelter = db.getShelterById(homeless.getShelterId());
-
+                    //create dialog
                     AlertDialog.Builder builder = new AlertDialog.Builder(this);
                     builder.setTitle("Confirm cancellation to update info");
-                    builder.setMessage("Are you sure to cancel bed(s) claimed at" +shelter.getShelterName() +"?");
+                    builder.setMessage("Are you sure to cancel bed(s) claimed at" + shelter.getShelterName() + "?");
                     //if homeless presses on YES, then cancel claimed beds
                     builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+
 
                         public void onClick(DialogInterface dialog, int which) {
                             try {
@@ -89,20 +93,22 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
                                 int occupancy = shelter.getUpdate_capacity() - vacancy;
                                 homeless.setShelterId(0);
                                 db.updateShelterOccupancy(shelter.getId(), occupancy);
-                                List <String> a = homeless.getRestrictionsMatch();
+                                List<String> a = homeless.getRestrictionsMatch();
                                 //send that homeless to db.
                                 db.updateAccount(homeless);
-                                buttonStatus.setVisibility(View.VISIBLE);
                                 //show successful text and reset everything()
-                                for (String r: restrictionList)
-                                Log.d("hhhhhhhh", r);
+                                buttonStatus.setText("Update successfully");
+                                buttonStatus.setVisibility(View.VISIBLE);
+                                for (String r : restrictionList) {
+                                    Log.d("yes button", r);
+                                }
                             } catch (SQLException e) {
                                 e.printStackTrace();
                             } catch (NoSuchUserException e) {
                                 e.printStackTrace();
                             }
 
-                            dialog.dismiss();
+                            dialog.cancel();
                         }
                     });
                     //if homeless presses NO then nothing happens
@@ -110,10 +116,8 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
 
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                            for (String r: restrictionList)
-                                Log.d("NOOOOO", r);
-                            Log.d("NOOOOO", "NOOOO");
+                            restrictionList.clear();
+                            dialog.cancel();
                         }
                     });
                     AlertDialog alert = builder.create();
@@ -125,8 +129,6 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
                     db.updateAccount(homeless);
                     //show successful text and reset everything()
                     buttonStatus.setVisibility(View.VISIBLE);
-                    for (String r : restrictionList)
-                        Log.d("hhhhhhhh", r);
                 }
 
             } catch (SQLException e) {
@@ -136,8 +138,6 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
             }
         }
     }
-
-
 
 
     /**
@@ -161,8 +161,8 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
         buttonStatus = (TextView) findViewById(R.id.status);
         buttonStatus.setVisibility(View.INVISIBLE);
 
-        List < String > currentRestrictionList;
-        checkBoxList = new ArrayList < CheckBox > ();
+        List<String> currentRestrictionList;
+        checkBoxList = new ArrayList<CheckBox>();
         checkBoxList.add((CheckBox) findViewById(R.id.checkBox1));
         checkBoxList.add((CheckBox) findViewById(R.id.checkBox2));
         checkBoxList.add((CheckBox) findViewById(R.id.checkBox3));
@@ -173,9 +173,6 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
         checkBoxList.add((CheckBox) findViewById(R.id.checkBox8));
         checkBoxList.add((CheckBox) findViewById(R.id.checkBox9));
         enums = Arrays.asList(Restrictions.values());
-
-
-
 
 
         try {
@@ -205,10 +202,9 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
             familySizeList.add(i);
         }
         family_spinner = (Spinner) findViewById(R.id.family_spinner);
-        family_adapter = new ArrayAdapter < Integer > (this, android.R.layout.simple_spinner_item, familySizeList);
+        family_adapter = new ArrayAdapter<Integer>(this, android.R.layout.simple_spinner_item, familySizeList);
         family_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         family_spinner.setAdapter(family_adapter);
-
 
 
         family_spinner.setSelection(homeless.getFamilyMemberNumber() - 1);
@@ -216,11 +212,12 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
         // Spinner click listener for family size
         family_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView < ? > adapterView, View view, int i, long l) {
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 familySize = Integer.valueOf(family_spinner.getSelectedItem().toString());
             }
+
             @Override
-            public void onNothingSelected(AdapterView < ? > adapterView) {
+            public void onNothingSelected(AdapterView<?> adapterView) {
                 // nothing happens when nothing is selected
             }
         });
@@ -234,7 +231,6 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
         email.setText("Email: " + account.getEmail());
 
 
-
     }
 
     private boolean checkCheckbox(String homelessRestriction, String shelterRestriction) {
@@ -243,6 +239,7 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
 
     /**
      * Retrieving active account
+     *
      * @throws NoSuchUserException
      */
     public void getUserAccount() throws NoSuchUserException {
@@ -253,8 +250,10 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
 
 
     @Override
-    public void onClick(View view) {}
+    public void onClick(View view) {
+    }
 
     @Override
-    public void onItemClick(View view, int position) {}
+    public void onItemClick(View view, int position) {
+    }
 }
