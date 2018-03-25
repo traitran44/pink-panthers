@@ -122,6 +122,8 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             restrictionList.clear();
+                            finish();
+                            startActivity(getIntent());
                             dialog.cancel();
                         }
                     });
@@ -133,6 +135,7 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
                     //send that homeless to db.
                     db.updateAccount(homeless);
                     //show successful text and reset everything()
+                    buttonStatus.setText("Update successfully");
                     buttonStatus.setVisibility(View.VISIBLE);
                 }
 
