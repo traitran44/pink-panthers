@@ -69,7 +69,7 @@ public class Db implements DBI {
         String sql = "INSERT INTO accounts " +
                 "(`type`, `username`, `password`, `name`, `email`, `account_state`, `shelter_id`)" +
                 " VALUES " +
-                "(?, ?, ?, ?, ?, 'active', NULL)";
+                "(?, ?, ?, ?, ?, 'active', 0)";
 
         int id;
         try {
