@@ -194,14 +194,15 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
             homeless = (Homeless) account;
 
             currentRestrictionList = ((Homeless) account).getRestrictionsMatch();
-            for (int i = 0; i < currentRestrictionList.size(); i++) {
-                for (int j = 0; j < checkBoxList.size(); j++) {
-                    if (!checkBoxList.get(j).isChecked()) {
-                        boolean isCheck = checkCheckbox(currentRestrictionList.get(i), enums.get(j).toString());
-                        checkBoxList.get(j).setChecked(isCheck);
+            if (currentRestrictionList != null) {
+                for (int i = 0; i < currentRestrictionList.size(); i++) {
+                    for (int j = 0; j < checkBoxList.size(); j++) {
+                        if (!checkBoxList.get(j).isChecked()) {
+                            boolean isCheck = checkCheckbox(currentRestrictionList.get(i), enums.get(j).toString());
+                            checkBoxList.get(j).setChecked(isCheck);
+                        }
                     }
                 }
-
             }
         }
 
