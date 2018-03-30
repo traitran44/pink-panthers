@@ -1,7 +1,7 @@
-package pinkpanthers.pinkshelters;
+package pinkpanthers.pinkshelters.Model;
 
-public class Admin extends Account {
-    public Admin(String username,
+public class Admin extends Account{
+     Admin(String username,
                  String password,
                  String name,
                  String accountState,

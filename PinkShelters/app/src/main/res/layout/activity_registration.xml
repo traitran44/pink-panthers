@@ -5,7 +5,7 @@
     android:id="@+id/registration_page"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="pinkpanthers.pinkshelters.Registration">
+    tools:context="pinkpanthers.pinkshelters.Controller.Registration">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -29,7 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:context="pinkpanthers.pinkshelters.Registration"
+        tools:context="pinkpanthers.pinkshelters.Controller.Registration"
         tools:showIn="@layout/activity_registration">
 
         <EditText
@@ -161,7 +161,9 @@
             android:layout_width="wrap_content"
             android:layout_height="17dp"
             android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
             android:layout_marginStart="5dp"
+            android:layout_marginLeft="5dp"
             android:layout_marginTop="8dp"
             android:text="Missing name"
             android:textColor="@android:color/holo_red_dark"

@@ -1,4 +1,4 @@
-package pinkpanthers.pinkshelters;
+package pinkpanthers.pinkshelters.Model;
 
 import android.os.StrictMode;
 import android.text.TextUtils;
@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
+
+import pinkpanthers.pinkshelters.Controller.NoSuchUserException;
+import pinkpanthers.pinkshelters.Controller.UniqueKeyError;
 
 public class Db implements DBI {
     private Connection conn;

@@ -1,16 +1,23 @@
-package pinkpanthers.pinkshelters;
+package pinkpanthers.pinkshelters.Controller;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Button;
 import android.widget.TextView;
 
 import java.sql.SQLException;
+
+import pinkpanthers.pinkshelters.Model.Account;
+import pinkpanthers.pinkshelters.Model.Admin;
+import pinkpanthers.pinkshelters.Model.DBI;
+import pinkpanthers.pinkshelters.Model.Db;
+import pinkpanthers.pinkshelters.Model.Homeless;
+import pinkpanthers.pinkshelters.Model.Volunteer;
+import pinkpanthers.pinkshelters.R;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     private EditText username;

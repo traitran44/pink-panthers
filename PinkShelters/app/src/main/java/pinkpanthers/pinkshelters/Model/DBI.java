@@ -1,7 +1,10 @@
-package pinkpanthers.pinkshelters;
+package pinkpanthers.pinkshelters.Model;
 
 import java.sql.SQLException;
 import java.util.List;
+
+import pinkpanthers.pinkshelters.Controller.NoSuchUserException;
+import pinkpanthers.pinkshelters.Controller.UniqueKeyError;
 
 /**
  * Created by hdang on 2/19/18.

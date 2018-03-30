@@ -1,4 +1,4 @@
-package pinkpanthers.pinkshelters;
+package pinkpanthers.pinkshelters.Model;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ public class Homeless extends Account {
     private List<String> restrictionsMatch;
     private int familyMemberNumber;
 
-    public Homeless(String username,
+    Homeless(String username,
                     String password,
                     String name,
                     String accountState,
