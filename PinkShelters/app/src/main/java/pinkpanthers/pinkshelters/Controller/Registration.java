@@ -1,4 +1,4 @@
-package pinkpanthers.pinkshelters;
+package pinkpanthers.pinkshelters.Controller;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,11 @@ import android.widget.TextView;
 import android.content.SharedPreferences;
 import java.util.Arrays;
 import java.util.List;
+
+import pinkpanthers.pinkshelters.Model.DBI;
+import pinkpanthers.pinkshelters.Model.Db;
+import pinkpanthers.pinkshelters.Model.UniqueKeyError;
+import pinkpanthers.pinkshelters.R;
 
 public class Registration extends AppCompatActivity implements View.OnClickListener{
     private Spinner userTypes;

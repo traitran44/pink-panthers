@@ -1,10 +1,9 @@
-package pinkpanthers.pinkshelters;
+package pinkpanthers.pinkshelters.Controller;
 
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -14,6 +13,14 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import pinkpanthers.pinkshelters.Model.Account;
+import pinkpanthers.pinkshelters.Model.DBI;
+import pinkpanthers.pinkshelters.Model.Db;
+import pinkpanthers.pinkshelters.Model.Homeless;
+import pinkpanthers.pinkshelters.Model.Shelter;
+import pinkpanthers.pinkshelters.Model.NoSuchUserException;
+import pinkpanthers.pinkshelters.R;
 
 public class ShelterDetails extends AppCompatActivity {
     private DBI db;

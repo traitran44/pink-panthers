@@ -1,4 +1,4 @@
-package pinkpanthers.pinkshelters;
+package pinkpanthers.pinkshelters.Model;
 
 /**
  * Created by Chau Phan on 2/18/18.
@@ -7,7 +7,7 @@ package pinkpanthers.pinkshelters;
 public class Volunteer extends Account {
     private int shelterID;
 
-    public Volunteer (String username,
+    Volunteer (String username,
                       String password,
                       String name,
                       String accountState,

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true"
-    tools:context="pinkpanthers.pinkshelters.MapsActivity">
+    tools:context="pinkpanthers.pinkshelters.Controller.MapsActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appBarLayout"
