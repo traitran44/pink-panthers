@@ -44,7 +44,6 @@
         <activity android:name=".Controller.LoginActivity" />
         <activity android:name=".Controller.HomePageActivity" />
         <activity android:name=".Controller.ListOfSheltersActivity" />
-        <activity android:name=".Controller.UserInfoActivity" />
         <activity android:name=".Controller.WelcomePageActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
