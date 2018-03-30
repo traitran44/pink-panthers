@@ -18,7 +18,7 @@ import pinkpanthers.pinkshelters.Model.Db;
 import pinkpanthers.pinkshelters.Model.UniqueKeyError;
 import pinkpanthers.pinkshelters.R;
 
-public class Registration extends AppCompatActivity implements View.OnClickListener{
+public class Registration extends AppCompatActivity implements View.OnClickListener {
     private Spinner userTypes;
     private EditText name;
     private EditText email;
@@ -118,6 +118,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         }
 
     }
+
     public void onClick(View v) { //cancel button
         Intent welcomeIntent = new Intent(Registration.this, WelcomePageActivity.class);
         startActivity(welcomeIntent);
