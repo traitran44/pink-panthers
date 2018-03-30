@@ -10,9 +10,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
-import pinkpanthers.pinkshelters.Controller.NoSuchUserException;
-import pinkpanthers.pinkshelters.Controller.UniqueKeyError;
-
 public class Db implements DBI {
     private Connection conn;
     public static Account activeAccount;

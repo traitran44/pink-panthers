@@ -1,4 +1,5 @@
-package pinkpanthers.pinkshelters.Controller;
+package pinkpanthers.pinkshelters.Model;
+
 
 public class NoSuchUserException extends Exception {
     public NoSuchUserException(String message) {

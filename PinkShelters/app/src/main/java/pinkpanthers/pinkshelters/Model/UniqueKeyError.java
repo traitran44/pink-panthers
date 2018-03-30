@@ -1,4 +1,4 @@
-package pinkpanthers.pinkshelters.Controller;
+package pinkpanthers.pinkshelters.Model;
 
 public class UniqueKeyError extends Exception {
     public UniqueKeyError(String s) {
