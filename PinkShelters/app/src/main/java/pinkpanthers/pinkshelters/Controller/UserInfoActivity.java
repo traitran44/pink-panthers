@@ -19,13 +19,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import pinkpanthers.pinkshelters.Model.Account;
+
 import pinkpanthers.pinkshelters.Model.DBI;
 import pinkpanthers.pinkshelters.Model.Db;
 import pinkpanthers.pinkshelters.Model.Homeless;
+import pinkpanthers.pinkshelters.Model.NoSuchUserException;
+import pinkpanthers.pinkshelters.Model.RecyclerAdapter;
 import pinkpanthers.pinkshelters.Model.Restrictions;
 import pinkpanthers.pinkshelters.Model.Shelter;
-import pinkpanthers.pinkshelters.Model.NoSuchUserException;
+import pinkpanthers.pinkshelters.Model.Account;
+
 import pinkpanthers.pinkshelters.R;
 
 public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapter.ItemClickListener, View.OnClickListener {
