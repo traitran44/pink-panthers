@@ -38,7 +38,7 @@ import pinkpanthers.pinkshelters.Model.Account;
 import pinkpanthers.pinkshelters.Model.Admin;
 import pinkpanthers.pinkshelters.Model.DBI;
 import pinkpanthers.pinkshelters.Model.Db;
-import pinkpanthers.pinkshelters.NoSuchUserException;
+import pinkpanthers.pinkshelters.Model.NoSuchUserException;
 import pinkpanthers.pinkshelters.R;
 import pinkpanthers.pinkshelters.Model.Restrictions;
 import pinkpanthers.pinkshelters.Model.Shelter;
