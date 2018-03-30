@@ -11,7 +11,7 @@ import pinkpanthers.pinkshelters.Model.Account;
 import pinkpanthers.pinkshelters.Model.DBI;
 import pinkpanthers.pinkshelters.Model.Db;
 import pinkpanthers.pinkshelters.Model.Homeless;
-import pinkpanthers.pinkshelters.NoSuchUserException;
+import pinkpanthers.pinkshelters.Model.NoSuchUserException;
 import pinkpanthers.pinkshelters.R;
 import pinkpanthers.pinkshelters.Model.Registration;
 import pinkpanthers.pinkshelters.Model.Shelter;

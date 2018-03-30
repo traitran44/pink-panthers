@@ -14,6 +14,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import pinkpanthers.pinkshelters.Controller.UserInfoActivity;
 import pinkpanthers.pinkshelters.R;
 
 public class ShelterDetails extends AppCompatActivity {

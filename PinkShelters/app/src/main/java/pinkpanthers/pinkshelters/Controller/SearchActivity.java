@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pinkpanthers.pinkshelters.Model.Db;
-import pinkpanthers.pinkshelters.NoSuchUserException;
+import pinkpanthers.pinkshelters.Model.NoSuchUserException;
 import pinkpanthers.pinkshelters.R;
 import pinkpanthers.pinkshelters.Model.RecyclerAdapter;
 import pinkpanthers.pinkshelters.Model.Restrictions;
