@@ -1,4 +1,4 @@
-package pinkpanthers.pinkshelters;
+package pinkpanthers.pinkshelters.Model;
 
 // Parent class of Homeless, Volunteer , Administrator
 public abstract class Account {

@@ -1,9 +1,8 @@
-package pinkpanthers.pinkshelters;
+package pinkpanthers.pinkshelters.Controller;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.location.Address;
@@ -34,6 +33,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+
+import pinkpanthers.pinkshelters.Model.Account;
+import pinkpanthers.pinkshelters.Model.Admin;
+import pinkpanthers.pinkshelters.Model.DBI;
+import pinkpanthers.pinkshelters.Model.Db;
+import pinkpanthers.pinkshelters.NoSuchUserException;
+import pinkpanthers.pinkshelters.R;
+import pinkpanthers.pinkshelters.Model.Restrictions;
+import pinkpanthers.pinkshelters.Model.Shelter;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 

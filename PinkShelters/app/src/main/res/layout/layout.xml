@@ -6,7 +6,7 @@
     android:id="@+id/registration_page"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="pinkpanthers.pinkshelters.ListOfSheltersActivity">
+    tools:context="pinkpanthers.pinkshelters.Controller.ListOfSheltersActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appBarLayout2"

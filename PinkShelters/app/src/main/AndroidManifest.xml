@@ -41,11 +41,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".HomePageActivity" />
-        <activity android:name=".ListOfSheltersActivity" />
-        <activity android:name=".UserInfoActivity" />
-        <activity android:name=".WelcomePageActivity">
+        <activity android:name=".Controller.LoginActivity" />
+        <activity android:name=".Controller.HomePageActivity" />
+        <activity android:name=".Controller.ListOfSheltersActivity" />
+        <activity android:name=".Controller.UserInfoActivity" />
+        <activity android:name=".Controller.WelcomePageActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -57,11 +57,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Registration"
+            android:name=".Model.Registration"
             android:label="@string/title_activity_registration"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ShelterDetails" />
-        <activity android:name=".SearchActivity" />
+        <activity android:name=".Model.ShelterDetails" />
+        <activity android:name=".Controller.SearchActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -71,7 +71,7 @@
              You can define the keys for the debug and release targets in src/debug/ and src/release/.
         -->
         <activity
-            android:name=".MapsActivity"
+            android:name=".Controller.MapsActivity"
             android:label="@string/title_activity_maps"></activity>
 
         <meta-data

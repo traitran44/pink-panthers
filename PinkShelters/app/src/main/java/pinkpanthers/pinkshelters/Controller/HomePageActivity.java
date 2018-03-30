@@ -1,12 +1,20 @@
-package pinkpanthers.pinkshelters;
+package pinkpanthers.pinkshelters.Controller;
 
-import android.app.ActivityManager;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
 import android.view.View;
 import android.widget.TextView;
+
+import pinkpanthers.pinkshelters.Model.Account;
+import pinkpanthers.pinkshelters.Model.DBI;
+import pinkpanthers.pinkshelters.Model.Db;
+import pinkpanthers.pinkshelters.Model.Homeless;
+import pinkpanthers.pinkshelters.NoSuchUserException;
+import pinkpanthers.pinkshelters.R;
+import pinkpanthers.pinkshelters.Model.Registration;
+import pinkpanthers.pinkshelters.Model.Shelter;
 
 public class HomePageActivity extends AppCompatActivity {
     private TextView textName, textWelcome, textUserType;

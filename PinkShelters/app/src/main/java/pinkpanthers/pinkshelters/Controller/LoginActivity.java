@@ -1,14 +1,22 @@
-package pinkpanthers.pinkshelters;
+package pinkpanthers.pinkshelters.Controller;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Button;
 import android.widget.TextView;
+
+import pinkpanthers.pinkshelters.Model.Account;
+import pinkpanthers.pinkshelters.Model.Admin;
+import pinkpanthers.pinkshelters.Model.DBI;
+import pinkpanthers.pinkshelters.Model.Db;
+import pinkpanthers.pinkshelters.Model.Homeless;
+import pinkpanthers.pinkshelters.NoSuchUserException;
+import pinkpanthers.pinkshelters.R;
+import pinkpanthers.pinkshelters.Model.Volunteer;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     private EditText username;
@@ -46,7 +54,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     editor.putString("USER_TYPE", "Homeless");
                 } else if (account instanceof Admin) {
                     editor.putString("USER_TYPE", "Admin");
-                } else if (account instanceof  Volunteer) {
+                } else if (account instanceof Volunteer) {
                     editor.putString("USER_TYPE", "Volunteer");
                 }
 
