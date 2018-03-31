@@ -16,11 +16,8 @@ import pinkpanthers.pinkshelters.Model.NoSuchUserException;
 import pinkpanthers.pinkshelters.R;
 
 public class HomePageActivity extends AppCompatActivity {
-    private TextView textName, textWelcome, textUserType;
-    private SharedPreferences preferences;
     public static final String PREFS_NAME = "com.example.sp.LoginPrefs";
-    private String username; //used to get current logged in user
-    private TextView message;
+    private String username;
     private Account user;
     private DBI db;
 
@@ -42,8 +39,8 @@ public class HomePageActivity extends AppCompatActivity {
         startActivity(info);
     }
 
-    public void setShelterText() throws NoSuchUserException {
-        message = findViewById(R.id.shelterMessage);
+    public void setShelterText() {
+        TextView message = findViewById(R.id.shelterMessage);
         if (user instanceof Homeless) {
             try {
                 Shelter shelter = db.getShelterById(((Homeless) user).getShelterId());
@@ -62,10 +59,10 @@ public class HomePageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
         //Grab name and user type to show in homepage
-        preferences = getApplicationContext().getSharedPreferences(PREFS_NAME, Registration.MODE_PRIVATE);
-        textUserType = findViewById(R.id.textView3);
-        textName = findViewById(R.id.textView1);
-        textWelcome = findViewById(R.id.textView2);
+        SharedPreferences preferences = getApplicationContext().getSharedPreferences(PREFS_NAME, Registration.MODE_PRIVATE);
+        TextView textUserType = findViewById(R.id.textView3);
+        TextView textName = findViewById(R.id.textView1);
+        TextView textWelcome = findViewById(R.id.textView2);
 
 
         //Get name and user type
@@ -85,11 +82,7 @@ public class HomePageActivity extends AppCompatActivity {
             throw new RuntimeException("cannot find the account");
         }
         if (user instanceof Homeless) {
-            try {
-                setShelterText();
-            } catch (NoSuchUserException e) {
-                throw new RuntimeException("Cannot set the proper String");
-            }
+            setShelterText();
         }
 
     }
