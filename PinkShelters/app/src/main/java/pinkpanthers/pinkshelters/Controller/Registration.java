@@ -1,4 +1,4 @@
-package pinkpanthers.pinkshelters;
+package pinkpanthers.pinkshelters.Controller;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,7 +13,12 @@ import android.content.SharedPreferences;
 import java.util.Arrays;
 import java.util.List;
 
-public class Registration extends AppCompatActivity implements View.OnClickListener{
+import pinkpanthers.pinkshelters.Model.DBI;
+import pinkpanthers.pinkshelters.Model.Db;
+import pinkpanthers.pinkshelters.Model.UniqueKeyError;
+import pinkpanthers.pinkshelters.R;
+
+public class Registration extends AppCompatActivity implements View.OnClickListener {
     private Spinner userTypes;
     private EditText name;
     private EditText email;
@@ -113,6 +118,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         }
 
     }
+
     public void onClick(View v) { //cancel button
         Intent welcomeIntent = new Intent(Registration.this, WelcomePageActivity.class);
         startActivity(welcomeIntent);

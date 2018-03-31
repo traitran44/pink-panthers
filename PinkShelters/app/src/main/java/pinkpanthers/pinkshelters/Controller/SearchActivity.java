@@ -1,7 +1,6 @@
-package pinkpanthers.pinkshelters;
+package pinkpanthers.pinkshelters.Controller;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,6 +15,12 @@ import android.widget.Spinner;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import pinkpanthers.pinkshelters.Model.Db;
+import pinkpanthers.pinkshelters.Model.Restrictions;
+import pinkpanthers.pinkshelters.Model.Shelter;
+import pinkpanthers.pinkshelters.Model.NoSuchUserException;
+import pinkpanthers.pinkshelters.R;
 
 public class SearchActivity extends AppCompatActivity implements RecyclerAdapter.ItemClickListener, View.OnClickListener {
 

@@ -1,4 +1,4 @@
-package pinkpanthers.pinkshelters;
+package pinkpanthers.pinkshelters.Model;
 
 import android.os.StrictMode;
 import android.text.TextUtils;
@@ -499,22 +499,26 @@ public class Db implements DBI {
                 "family_members = ?, " +
                 "restriction_match = ? " +
                 "WHERE id = ?";
-        PreparedStatement updatedFamily = null;
+        PreparedStatement updatedAccount = null;
         try {
             conn.setAutoCommit(false);
-            updatedFamily = conn.prepareStatement(sql);
-            updatedFamily.setString(1, user.getPassword());
-            updatedFamily.setString(2, user.getName());
-            updatedFamily.setString(3, user.getEmail());
-            updatedFamily.setString(4, user.getAccountState());
+            updatedAccount = conn.prepareStatement(sql);
+            updatedAccount.setString(1, user.getPassword());
+            updatedAccount.setString(2, user.getName());
+            updatedAccount.setString(3, user.getEmail());
+            updatedAccount.setString(4, user.getAccountState());
             if (user instanceof Homeless) {
-                updatedFamily.setInt(5, ((Homeless) user).getShelterId());
-                updatedFamily.setInt(6, ((Homeless) user).getFamilyMemberNumber());
+                updatedAccount.setInt(5, ((Homeless) user).getShelterId());
+                updatedAccount.setInt(6, ((Homeless) user).getFamilyMemberNumber());
                 String match = TextUtils.join(" ", ((Homeless) user).getRestrictionsMatch());
-                updatedFamily.setString(7, match);
+                updatedAccount.setString(7, match);
+            } else {
+                updatedAccount.setInt(5, 0);
+                updatedAccount.setInt(6, 0);
+                updatedAccount.setString(7, "");
             }
-            updatedFamily.setInt(8, user.getUserId());
-            int updatedRow = updatedFamily.executeUpdate();
+            updatedAccount.setInt(8, user.getUserId());
+            int updatedRow = updatedAccount.executeUpdate();
             if (updatedRow == 1) {
                 conn.commit();
             } else {
@@ -527,8 +531,8 @@ public class Db implements DBI {
                     + user.getUserId() + "failed: " +
                     e.toString()); // so we can log sql message too
         } finally {
-            if (updatedFamily != null) {
-                updatedFamily.close();
+            if (updatedAccount != null) {
+                updatedAccount.close();
             }
             conn.setAutoCommit(true);
         }

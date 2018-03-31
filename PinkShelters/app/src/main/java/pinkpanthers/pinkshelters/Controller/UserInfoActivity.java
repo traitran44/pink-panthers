@@ -1,12 +1,11 @@
-package pinkpanthers.pinkshelters;
+package pinkpanthers.pinkshelters.Controller;
+
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,14 +13,20 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+
+import pinkpanthers.pinkshelters.Model.Account;
+import pinkpanthers.pinkshelters.Model.DBI;
+import pinkpanthers.pinkshelters.Model.Db;
+import pinkpanthers.pinkshelters.Model.Homeless;
+import pinkpanthers.pinkshelters.Model.Restrictions;
+import pinkpanthers.pinkshelters.Model.Shelter;
+import pinkpanthers.pinkshelters.Model.NoSuchUserException;
+import pinkpanthers.pinkshelters.R;
 
 public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapter.ItemClickListener, View.OnClickListener {
     private DBI db;
@@ -203,6 +208,7 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
                         }
                     }
                 }
+
             }
         }
 
