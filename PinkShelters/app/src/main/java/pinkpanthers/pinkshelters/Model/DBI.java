@@ -95,16 +95,30 @@ public interface DBI {
      * @param shelterId a unique id created by the database
      * @param occupancy the updated occupancy (incremented by number of beds requested)
      * @throws SQLException        in case something with database connection goes wrong
-     * @throws NoSuchUserException when the id pass in the database doesn't exist, no rows get updated
+     * @throws NoSuchUserException when the id pass in the database doesn't exist,
+     *                             no rows get updated
      */
     void updateShelterOccupancy(int shelterId, int occupancy) throws SQLException, NoSuchUserException;
 
     /**
-     * update the the whole account's (whichever is editable, such as NOT username or userId) attributes
+     * update the the whole account's (whichever is editable, such as
+     * NOT username or userId) attributes
      *
      * @param user the user is currently logged in
      * @throws SQLException        in case the query interrupted
-     * @throws NoSuchUserException when the id pass in the database doesn't exist, no rows get updated
+     * @throws NoSuchUserException when the id pass in the database doesn't exist,
+     *                             no rows get updated
      */
     void updateAccount(Account user) throws SQLException, NoSuchUserException;
+
+    /**
+     * delete an account by its username (unique key)
+     *
+     * @param username username of the account
+     * @throws SQLException        in case the query interrupted
+     * @throws NoSuchUserException when username doesn't exist, the query will execute
+     *                             successfully but return 0 as # of rows
+     *                             got updated in the database
+     */
+    void deleteAccount(String username) throws SQLException, NoSuchUserException;
 }
