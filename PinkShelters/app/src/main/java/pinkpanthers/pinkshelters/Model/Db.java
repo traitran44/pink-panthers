@@ -69,7 +69,7 @@ public class Db implements DBI {
         String sql = "INSERT INTO accounts " +
                 "(`type`, `username`, `password`, `name`, `email`, `account_state`, `shelter_id`)" +
                 " VALUES " +
-                "(?, ?, ?, ?, ?, 'active', NULL)";
+                "(?, ?, ?, ?, ?, 'active', 0)";
 
         int id;
         try {
@@ -533,6 +533,33 @@ public class Db implements DBI {
         } finally {
             if (updatedAccount != null) {
                 updatedAccount.close();
+            }
+            conn.setAutoCommit(true);
+        }
+    }
+
+    @Override
+    public void deleteAccount (String username) throws SQLException, NoSuchUserException {
+        String sql = "DELETE FROM accounts WHERE username = ?";
+        PreparedStatement deleteAccount = null;
+        try {
+            conn.setAutoCommit(false);
+            deleteAccount = conn.prepareStatement(sql);
+            deleteAccount.setString(1, username);
+            int updatedRow = deleteAccount.executeUpdate();
+            if (updatedRow == 1) {
+                conn.commit();
+            } else {
+                throw new NoSuchUserException("The account with username: "+ username + " doesn't exist");
+            }
+
+        } catch (SQLException e) {
+            logSqlException(e);
+            throw new RuntimeException("Delete account by username failed: " +
+                    e.toString());
+        } finally {
+            if (deleteAccount != null) {
+                deleteAccount.close();
             }
             conn.setAutoCommit(true);
         }
