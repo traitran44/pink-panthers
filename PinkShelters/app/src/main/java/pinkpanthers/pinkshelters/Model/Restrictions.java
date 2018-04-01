@@ -1,9 +1,8 @@
 package pinkpanthers.pinkshelters.Model;
 
 /**
- * Created by hdang on 3/8/18.
+ * enum class for restrictions
  */
-
 public enum Restrictions {
     MEN("men"),
     WOMEN("women"),
