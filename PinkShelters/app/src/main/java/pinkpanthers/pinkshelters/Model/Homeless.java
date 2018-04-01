@@ -7,7 +7,7 @@ public class Homeless extends Account {
     private List<String> restrictionsMatch;
     private int familyMemberNumber;
 
-    Homeless(String username,
+    public Homeless(String username,
                     String password,
                     String name,
                     String accountState,

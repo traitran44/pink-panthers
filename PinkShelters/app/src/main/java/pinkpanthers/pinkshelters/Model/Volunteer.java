@@ -7,7 +7,7 @@ package pinkpanthers.pinkshelters.Model;
 public class Volunteer extends Account {
     private int shelterID;
 
-    Volunteer (String username,
+    public Volunteer (String username,
                       String password,
                       String name,
                       String accountState,

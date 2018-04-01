@@ -514,7 +514,7 @@ public class Db implements DBI {
             if (user instanceof Homeless) {
                 updatedAccount.setInt(5, ((Homeless) user).getShelterId());
                 updatedAccount.setInt(6, ((Homeless) user).getFamilyMemberNumber());
-                String match = TextUtils.join(" ", ((Homeless) user).getRestrictionsMatch());
+                String match = String.join(" ", ((Homeless) user).getRestrictionsMatch());
                 updatedAccount.setString(7, match);
             } else {
                 updatedAccount.setInt(5, 0);
