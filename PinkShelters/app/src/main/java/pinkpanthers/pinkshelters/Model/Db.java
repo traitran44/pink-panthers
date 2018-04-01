@@ -26,8 +26,12 @@ public class Db implements DBI {
      * @param database Database to use
      */
     public Db(String username, String password, String database) {
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
+        try {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        } catch (NullPointerException e) {
+            // for testing only
+        }
 
         try {
             Properties connProperties = new Properties();
@@ -275,7 +279,7 @@ public class Db implements DBI {
     @Override
     public List<Shelter> getAllShelters() {
         List<Shelter> sheltersList = new ArrayList<>();
-        Shelter newShelter = null;
+        Shelter newShelter;
         String sql = "SELECT id, shelter_name, capacity, special_notes, latitude, " +
                 "longitude, phone_number, restrictions, address, occupancy, update_capacity" +
                 " FROM shelters";
@@ -311,7 +315,7 @@ public class Db implements DBI {
 
     @Override
     public Shelter getShelterById(int id) throws NoSuchUserException {
-        Shelter newShelter = null;
+        Shelter newShelter;
         String sql = "SELECT id, shelter_name, capacity, special_notes, latitude, longitude, " +
                 "phone_number, restrictions, address, update_capacity, occupancy" +
                 " FROM shelters" +
@@ -521,6 +525,7 @@ public class Db implements DBI {
             int updatedRow = updatedAccount.executeUpdate();
             if (updatedRow == 1) {
                 conn.commit();
+
             } else {
                 throw new NoSuchUserException("The account with id: " + user.getUserId() + " doesn't exist");
             }
