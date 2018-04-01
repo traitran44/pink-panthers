@@ -34,21 +34,11 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
     private List<String> restrictionList = new ArrayList<>();
     private List<Integer> familySizeList = new ArrayList<>();
 
-    private Button back_btn;
-    private Button update_btn;
-
-    private Spinner identity_spinner;
-    private ArrayAdapter<String> identity_adapter;
-
     private Spinner family_spinner;
-    private ArrayAdapter<Integer> family_adapter;
 
     private int familySize;
 
-    private TextView name;
-    private TextView email;
     private TextView buttonStatus;
-    private TextView restrictionView;
 
     private Account account;
     private Homeless homeless;
@@ -218,7 +208,7 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
             familySizeList.add(i);
         }
         family_spinner = (Spinner) findViewById(R.id.family_spinner);
-        family_adapter = new ArrayAdapter<Integer>(this, android.R.layout.simple_spinner_item, familySizeList);
+        ArrayAdapter<Integer> family_adapter = new ArrayAdapter<Integer>(this, android.R.layout.simple_spinner_item, familySizeList);
         family_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         family_spinner.setAdapter(family_adapter);
 
@@ -239,8 +229,8 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
         });
 
         //Grab name and user type to show in homepage
-        name = (TextView) findViewById(R.id.name);
-        email = (TextView) findViewById(R.id.email);
+        TextView name = (TextView) findViewById(R.id.name);
+        TextView email = (TextView) findViewById(R.id.email);
 
         // Display name and email
         name.setText("Name: " + account.getName());

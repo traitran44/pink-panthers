@@ -18,7 +18,6 @@ import pinkpanthers.pinkshelters.R;
 
 public class ListOfSheltersActivity extends AppCompatActivity implements RecyclerAdapter.ItemClickListener, View.OnClickListener {
 
-    private RecyclerAdapter adapter;
     private List<Shelter> shelters;
     private String username; //used to get current logged in user
 
@@ -40,7 +39,7 @@ public class ListOfSheltersActivity extends AppCompatActivity implements Recycle
         // set up the RecyclerView
         RecyclerView recyclerView = findViewById(R.id.rvShelters);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new RecyclerAdapter(this, shelterNames);
+        RecyclerAdapter adapter = new RecyclerAdapter(this, shelterNames);
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
 

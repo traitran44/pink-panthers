@@ -27,8 +27,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private TextView txtView;
     private DBI db;
     private Account account;
-    private String user;
-    private String pass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +45,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         txtView = findViewById(R.id.validationWarn);
 
         try {
-            user = username.getText().toString().toLowerCase();
-            pass = password.getText().toString();
+            String user = username.getText().toString().toLowerCase();
+            String pass = password.getText().toString();
             account = db.getAccountByUsername(user);
             txtView.setText("");
             if (account.getPassword().equals(pass)
