@@ -2,6 +2,7 @@ package pinkpanthers.pinkshelters;
 
 import static org.junit.Assert.*;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -94,9 +95,9 @@ public class DbUnitTest {
     @Test
     public void testValidGetAccountByUsername() throws SQLException, NoSuchUserException {
         account = db.getAccountByUsername("cphan31");
-        assertEquals("cphan31@gatech.edu", ((Homeless) account).getEmail());
+        assertEquals(6, account.getUserId());
+        assertEquals("cphan31@gatech.edu", account.getEmail());
+        assertEquals("cphan31", account.getUsername());
     }
-
-
 
 }
