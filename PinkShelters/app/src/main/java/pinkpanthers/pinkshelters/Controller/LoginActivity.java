@@ -69,6 +69,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 editor.putString("USERNAME", account.getUsername());
                 editor.apply();
 
+                //active account is set to this static variable when
+                // logged in for quick access to current user
+
+                Db.activeAccount = account;
+
                 Intent homePageIntent = new Intent(this, HomePageActivity.class);
                 homePageIntent.putExtra("username", user);
                 startActivity(homePageIntent);

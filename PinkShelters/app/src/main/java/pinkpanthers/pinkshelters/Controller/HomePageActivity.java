@@ -23,6 +23,7 @@ public class HomePageActivity extends AppCompatActivity {
 
 
     public void buttonOnClick(View v) { //logout button
+        Db.activeAccount = null;
         Intent startMain = new Intent(this, WelcomePageActivity.class);
         startActivity(startMain);
     }
