@@ -1,7 +1,20 @@
 package pinkpanthers.pinkshelters.Model;
 
-public class Admin extends Account{
-     public Admin(String username,
+/**
+ * Admin class as one of 3 user types
+ */
+public class Admin extends Account {
+    /**
+     * constructor
+     *
+     * @param username     username of account
+     * @param password     password of account
+     * @param name         name of owner of account
+     * @param accountState blocked or active
+     * @param email        email address of account
+     * @param userId       unique user identification in database
+     */
+    public Admin(String username,
                  String password,
                  String name,
                  String accountState,

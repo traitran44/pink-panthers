@@ -1,6 +1,8 @@
 package pinkpanthers.pinkshelters.Model;
 
-// Parent class of Homeless, Volunteer , Administrator
+/**
+ * Parent class of Homeless, Volunteer , Administrator
+ */
 public abstract class Account {
     private String username;
     private String password;
@@ -35,6 +37,7 @@ public abstract class Account {
 
     /**
      * set new username
+     *
      * @param username username of account
      */
     public void setUsername(String username) {
@@ -43,6 +46,7 @@ public abstract class Account {
 
     /**
      * get current username
+     *
      * @return username of account
      */
     public String getUsername() {
@@ -51,6 +55,7 @@ public abstract class Account {
 
     /**
      * set new password
+     *
      * @param password new password of account
      */
     public void setPassword(String password) {
@@ -60,6 +65,7 @@ public abstract class Account {
 
     /**
      * get password of account
+     *
      * @return current password of account
      */
     public String getPassword() {
@@ -68,6 +74,7 @@ public abstract class Account {
 
     /**
      * set new name of owner of account
+     *
      * @param name new name
      */
     public void setName(String name) {
@@ -76,6 +83,7 @@ public abstract class Account {
 
     /**
      * get name of the owner of account
+     *
      * @return current name of the owner
      */
     public String getName() {
@@ -84,6 +92,7 @@ public abstract class Account {
 
     /**
      * set account state to blocked or active
+     *
      * @param accountState blocked or active
      */
     public void setAccountState(String accountState) {
@@ -92,6 +101,7 @@ public abstract class Account {
 
     /**
      * get account state
+     *
      * @return current account state
      */
     public String getAccountState() {
@@ -100,6 +110,7 @@ public abstract class Account {
 
     /**
      * set new email address
+     *
      * @param email new address
      */
     public void setEmail(String email) {
@@ -108,6 +119,7 @@ public abstract class Account {
 
     /**
      * get current email address
+     *
      * @return current email address
      */
     public String getEmail() {
@@ -116,6 +128,7 @@ public abstract class Account {
 
     /**
      * set userId of the account
+     *
      * @param userId user identification
      */
     public void setUserId(int userId) {
@@ -124,6 +137,7 @@ public abstract class Account {
 
     /**
      * get current user identification of the account
+     *
      * @return the current user id
      */
     public int getUserId() {
