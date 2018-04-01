@@ -76,4 +76,27 @@ public class DbUnitTest {
     }
 
 
+    @Test(expected = NoSuchUserException.class)
+    public void testInvalidGetAccountByUsername() throws SQLException, NoSuchUserException {
+        account = db.getAccountByUsername("invalid");
+    }
+
+    @Test(expected = NoSuchUserException.class)
+    public void testNullParamGetAccountByUsername() throws SQLException, NoSuchUserException {
+        account = db.getAccountByUsername(null);
+    }
+
+    @Test(expected = NoSuchUserException.class)
+    public void testEmptyStringParamGetAccountByUsername() throws SQLException, NoSuchUserException {
+        account = db.getAccountByUsername("");
+    }
+
+    @Test
+    public void testValidGetAccountByUsername() throws SQLException, NoSuchUserException {
+        account = db.getAccountByUsername("cphan31");
+        assertEquals("cphan31@gatech.edu", ((Homeless) account).getEmail());
+    }
+
+
+
 }
