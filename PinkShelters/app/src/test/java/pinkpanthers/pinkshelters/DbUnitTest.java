@@ -14,11 +14,13 @@ import pinkpanthers.pinkshelters.Model.Db;
 import pinkpanthers.pinkshelters.Model.DBI;
 import pinkpanthers.pinkshelters.Model.Homeless;
 import pinkpanthers.pinkshelters.Model.NoSuchUserException;
+import pinkpanthers.pinkshelters.Model.Shelter;
 import pinkpanthers.pinkshelters.Model.Volunteer;
 
 public class DbUnitTest {
     private DBI db;
     private Account account;
+    private Shelter shelter;
 
     @Before
     public void setUp() {
@@ -98,5 +100,35 @@ public class DbUnitTest {
         assertEquals("cphan31@gatech.edu", account.getEmail());
         assertEquals("cphan31", account.getUsername());
     }
+
+
+    @Test(expected = NoSuchUserException.class)
+    public void testNegativeParamGetShelterById() throws SQLException, NoSuchUserException {
+        shelter = db.getShelterById(-1);
+    }
+
+    @Test(expected = NoSuchUserException.class)
+    public void testZeroParamGetShelterById() throws SQLException, NoSuchUserException {
+        shelter = db.getShelterById(0);
+    }
+
+    @Test(expected = NoSuchUserException.class)
+    public void testInvalidParamGetShelterById() throws SQLException, NoSuchUserException {
+        shelter = db.getShelterById(20);
+    }
+
+    @Test(expected = NoSuchUserException.class)
+    public void testHugeParamGetShelterById() throws SQLException, NoSuchUserException {
+        shelter = db.getShelterById(10000);
+    }
+
+    @Test
+    public void testValidGetShelterById() throws SQLException, NoSuchUserException {
+        shelter = db.getShelterById(4);
+        assertEquals("Fuqua Hall", shelter.getShelterName());
+        assertEquals("Men", shelter.getRestrictions());
+        assertEquals(92, shelter.getCapacity());
+    }
+
 
 }
