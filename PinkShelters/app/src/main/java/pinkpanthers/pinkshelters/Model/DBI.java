@@ -4,9 +4,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 /**
- * Created by hdang on 2/19/18.
+ * interface for MySQL database
  */
-
 public interface DBI {
     /**
      * createAccount a new account/assignment

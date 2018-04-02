@@ -29,9 +29,7 @@ public class ShelterDetails extends AppCompatActivity {
     private TextView errorMessage;
     private TextView vacancy;
     private Shelter reservedShelter;
-    private Button claimBedButton;
     private Button updateInfoButton;
-    private Button cancelBedButton;
     private String username;
     private String message; //message for error message
 
@@ -42,9 +40,9 @@ public class ShelterDetails extends AppCompatActivity {
         db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
         errorMessage = findViewById(R.id.errorMessage);
         vacancy = findViewById(R.id.vacancy);
-        claimBedButton = findViewById(R.id.claimBed);
+        Button claimBedButton = findViewById(R.id.claimBed);
         updateInfoButton = findViewById(R.id.updateAccountButton);
-        cancelBedButton = findViewById(R.id.cancelReservation);
+        Button cancelBedButton = findViewById(R.id.cancelReservation);
 
         try {
             int shelterId = getIntent().getExtras().getInt("shelterId");
