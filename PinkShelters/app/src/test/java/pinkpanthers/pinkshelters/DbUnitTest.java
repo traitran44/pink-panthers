@@ -127,7 +127,7 @@ public class DbUnitTest {
         shelter = db.getShelterById(4);
         assertEquals("Fuqua Hall", shelter.getShelterName());
         assertEquals("Men", shelter.getRestrictions());
-        assertEquals(92, shelter.getCapacity());
+        assertEquals("92", shelter.getCapacity());
     }
 
 
