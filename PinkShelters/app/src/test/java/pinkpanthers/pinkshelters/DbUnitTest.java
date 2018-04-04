@@ -134,8 +134,7 @@ public class DbUnitTest {
 
 
     @Test
-    public void getAllShelters() {
-        Db db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
+    public void testGetAllShelters() {
         List<Shelter> shelters = db.getAllShelters();
 
         assertNotNull(shelters);
