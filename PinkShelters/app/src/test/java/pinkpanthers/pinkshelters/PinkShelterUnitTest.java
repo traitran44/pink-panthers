@@ -1,7 +1,11 @@
 package pinkpanthers.pinkshelters;
 import org.junit.Test;
 
+import java.util.List;
+
 import pinkpanthers.pinkshelters.Controller.MapsActivity;
+import pinkpanthers.pinkshelters.Model.Db;
+import pinkpanthers.pinkshelters.Model.Shelter;
 
 import static org.junit.Assert.*;
 
@@ -16,7 +20,8 @@ public class PinkShelterUnitTest {
     }
 
     @Test
-    public void testCapacityConverter() {
-        MapsActivity myMap = new MapsActivity();
+    public void getAllShelters() {
+        Db db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
+        List<Shelter> shelters = db.getAllShelters();
     }
 }

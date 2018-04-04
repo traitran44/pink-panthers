@@ -6,7 +6,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import pinkpanthers.pinkshelters.Model.Account;
 import pinkpanthers.pinkshelters.Model.Admin;
@@ -131,4 +133,75 @@ public class DbUnitTest {
     }
 
 
+    @Test
+    public void getAllShelters() {
+        Db db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
+        List<Shelter> shelters = db.getAllShelters();
+
+        assertNotNull(shelters);
+        assertEquals(13, shelters.size());
+
+        ArrayList<String> shelterNamesArr = new ArrayList<>();
+        ArrayList<String> addressArr = new ArrayList<>();
+        ArrayList<String> capArr = new ArrayList<>();
+
+        // Get Values
+        for (Shelter each : shelters) {
+            capArr.add(each.getCapacity());
+            shelterNamesArr.add(each.getShelterName());
+            addressArr.add(each.getAddress());
+        }
+        // Test Capacity
+        String[] capTest = {
+                "264",
+                "140",
+                "450",
+                "92",
+                "40",
+                "32 for families, 80 singles",
+                "76 family rooms ",
+                "80",
+                "",
+                "22 apartments",
+                "330",
+                "12",
+                ""
+        };
+
+        // Test Address
+        String[] addressTest = {
+                "921 Howell Mill Road, Atlanta, Georgia 30318",
+                "655 Ethel Street, Atlanta, Georgia 30318",
+                "156 Mills Street, Atlanta, Georgia 30313",
+                "144 Mills Street, Atlanta, Georgia 30313",
+                "607 Peachtree Street NE Atlanta, GA 30308",
+                "1300 Joseph E. Boone Blvd NW, Atlanta, GA 30314",
+                "173 Boulevard Northeast, Atlanta, GA 30312",
+                "1559 Johnson Road NW, Atlanta, GA 30318",
+                "830 Boulevard SE, Atlanta, GA 30312",
+                "34 Peachtree Street NW, Suite 700, Atlanta, GA 30303",
+                "275 Pryor St. SW, Atlanta, GA 30303",
+                "1230 Hightower Road NW Atlanta, GA 30318",
+                "1800 Memorial Dr SE G3, Atlanta, GA 30317"
+        };
+
+        // Test Shelter Names
+        String[] shelterNamesTest = {"My Sister's House",
+                "The Atlanta Day Center for Women & Children",
+                "The Shepherd's Inn",
+                "Fuqua Hall",
+                "Atlanta's Children Center",
+                "Eden Village ",
+                "Our House ",
+                "Covenant House Georgia ",
+                "Nicholas House",
+                "Hope Atlanta ",
+                "Gateway Center",
+                "Young Adult Guidance Center ",
+                "Homes of Light "};
+
+        assertArrayEquals(shelterNamesTest, shelterNamesArr.toArray());
+        assertArrayEquals(addressTest, addressArr.toArray());
+        assertArrayEquals(capTest, capArr.toArray());
+    }
 }
