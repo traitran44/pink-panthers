@@ -1,7 +1,8 @@
 package pinkpanthers.pinkshelters.Model;
 
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.os.StrictMode;
-import android.text.TextUtils;
 import android.util.Log;
 
 import java.sql.*;
@@ -492,6 +493,7 @@ public class Db implements DBI {
         }
     }
 
+    @TargetApi(Build.VERSION_CODES.O)
     @Override
     public void updateAccount (Account user) throws SQLException, NoSuchUserException {
         String sql = "UPDATE accounts " +
