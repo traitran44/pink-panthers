@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -233,7 +232,7 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
 
         //Grab name and user type to show in homepage
         TextView name = findViewById(R.id.name);
-        TextView email =  findViewById(R.id.email);
+        TextView email = findViewById(R.id.email);
 
         // Display name and email
         name.setText("Name: " + account.getName());
