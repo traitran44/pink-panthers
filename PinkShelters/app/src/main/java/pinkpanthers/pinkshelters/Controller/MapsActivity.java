@@ -419,7 +419,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     ", " + addresses.get(0).getAdminArea() + ", " + addresses.get(0).getPostalCode();
             addressText.setText(address);
         } catch (java.io.IOException e) {
-            throw new RuntimeException("Geocoder could not calculate the address using the " +
+            throw new RuntimeException("GeoCoder could not calculate the address using the " +
                     "tapped longitude and latitude");
         }
     }

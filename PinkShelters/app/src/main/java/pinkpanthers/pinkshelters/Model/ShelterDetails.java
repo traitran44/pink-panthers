@@ -165,8 +165,8 @@ public class ShelterDetails extends AppCompatActivity {
                 Set <String> homelessRestrictionsSet = new HashSet <> (homelessRestrictions);
                 Set <String> common = new HashSet <> (shelterRestrictionSet);
                 common.retainAll(homelessRestrictionsSet);
-                String anyone1 = s.getRestrictions().toLowerCase().toString();
-                if (anyone1.equals(new String("anyone ")) || (common.equals(homelessRestrictionsSet))) {
+                String anyone1 = s.getRestrictions().toLowerCase();
+                if (anyone1.equals("anyone ") || (common.equals(homelessRestrictionsSet))) {
                     try {
                         //update vacancy of shelter
                         int vacancy1 = s.getVacancy() - familyMemberNumber;
