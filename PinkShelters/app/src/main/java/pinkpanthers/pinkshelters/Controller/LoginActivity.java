@@ -38,7 +38,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         // set up Cancel button
         Button cancel_btn = findViewById(R.id.cancel_button);
         cancel_btn.setOnClickListener(this);
-        db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
+        db = new Db("pinkpanther", "PinkPantherReturns!");
     }
 
     public void logIn(View view) {
@@ -72,7 +72,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 //active account is set to this static variable when
                 // logged in for quick access to current user
 
-                Db.activeAccount = account;
+//                Db.activeAccount = account;
 
                 Intent homePageIntent = new Intent(this, HomePageActivity.class);
                 homePageIntent.putExtra("username", user);

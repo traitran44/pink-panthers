@@ -24,9 +24,9 @@ import pinkpanthers.pinkshelters.R;
 
 public class SearchActivity extends AppCompatActivity implements RecyclerAdapter.ItemClickListener, View.OnClickListener {
 
-    private List<String> choices = new ArrayList<>();
-    private List<String> genders = new ArrayList<>();
-    private List<String> ageRanges = new ArrayList<>();
+    private final List<String> choices = new ArrayList<>();
+    private final List<String> genders = new ArrayList<>();
+    private final List<String> ageRanges = new ArrayList<>();
     private Spinner choices_spinner;
     private Spinner age_range_gender_spinner;
     private ArrayAdapter<String> age_range_adapter;
@@ -49,7 +49,7 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
+        db = new Db("pinkpanther", "PinkPantherReturns!");
         username = getIntent().getExtras().getString("username");
 
         // data to populate the RecyclerView with
@@ -173,7 +173,7 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
 
                     // set interaction for the previewed list of shelter before starting the search
                     recycler_adapter = new RecyclerAdapter(SearchActivity.this, shelterNames);
-                    recycler_adapter.setClickListener(SearchActivity.this::onItemClick);
+                    recycler_adapter.setClickListener(SearchActivity.this);
                     search_recycler_view.setAdapter(recycler_adapter);
                     shelter_name_edit_text.addTextChangedListener(new TextWatcher() {
                         @Override
@@ -193,7 +193,7 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
 
                                 //set interaction between the suggestions and shelter details
                                 recycler_adapter = new RecyclerAdapter(SearchActivity.this, shelterNames);
-                                recycler_adapter.setClickListener(SearchActivity.this::onItemClick);
+                                recycler_adapter.setClickListener(SearchActivity.this);
                                 search_recycler_view.setAdapter(recycler_adapter);
                             } catch (NoSuchUserException e) {
                                 shelterNames.add("No results found");
@@ -220,7 +220,6 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
     public void onClick(View view) {
 
     }
-    // when user clicks on a shelter in the search, should go to ShelterDetails activity
     @Override
     public void onItemClick(View view, int position) {
         Intent detail = new Intent(this, ShelterDetails.class);

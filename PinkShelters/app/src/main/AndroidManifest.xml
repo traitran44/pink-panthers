@@ -60,7 +60,6 @@
             android:label="@string/title_activity_registration"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Controller.ShelterDetails" />
-        <activity android:name=".Model.ShelterDetails" />
         <activity android:name=".Controller.SearchActivity" />
         <activity android:name=".Controller.UserInfoActivity" />
         <!--

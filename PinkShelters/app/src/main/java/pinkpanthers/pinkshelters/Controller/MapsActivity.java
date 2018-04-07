@@ -83,7 +83,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
 
         // set up Db workspace
-        db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
+        db = new Db("pinkpanther", "PinkPantherReturns!");
         noResult = findViewById(R.id.no_result_found);
         shelters = db.getAllShelters(); // only shows at the beginning
         myShelters = shelters;
@@ -273,24 +273,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     return info;
                 }
             });
-
-            //info window listener
-//            mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
-//                @Override
-//                public void onInfoWindowClick(Marker marker) {
-//                    // goes to detail page of this shelter
-//                    Intent details = new Intent(MapsActivity.this, ShelterDetails.class);
-//                    Shelter clickedShelter;
-//                    try {
-//                        clickedShelter = db.getShelterById()
-//                    } catch (NoSuchUserException e) {
-//                        e.printStackTrace();
-//                    }
-//                    details.putExtra("shelterId", shelter.getId());
-//                    details.putExtra("username", getIntent().getExtras().getString("username"));
-//                    startActivity(details);
-//                }
-//            });
         }
     }
 
@@ -425,14 +407,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private int capacityConverter() {
-        if (capacity == null || capacity.equals("")) {
+        if ((capacity == null) || capacity.equals("")) {
             return 300; // default value for capacity
         }
 
         int num = 0;
         String[] str = capacity.split(" ");
         for (String ele: str) {
-            if (ele.charAt(0) >= 48 && ele.charAt(0) <= 57) {
+            if ((ele.charAt(0) >= 48) && (ele.charAt(0) <= 57)) {
                 num += Integer.parseInt(ele);
             }
         }

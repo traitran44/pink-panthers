@@ -3,7 +3,6 @@ import org.junit.Test;
 
 import java.util.List;
 
-import pinkpanthers.pinkshelters.Controller.MapsActivity;
 import pinkpanthers.pinkshelters.Model.Db;
 import pinkpanthers.pinkshelters.Model.Shelter;
 
@@ -21,7 +20,7 @@ public class PinkShelterUnitTest {
 
     @Test
     public void getAllShelters() {
-        Db db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
+        Db db = new Db("pinkpanther", "PinkPantherReturns!");
         List<Shelter> shelters = db.getAllShelters();
     }
 }

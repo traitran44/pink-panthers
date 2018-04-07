@@ -37,7 +37,7 @@ public class ShelterDetails extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shelter_details);
-        db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
+        db = new Db("pinkpanther", "PinkPantherReturns!");
         errorMessage = findViewById(R.id.errorMessage);
         vacancy = findViewById(R.id.vacancy);
         Button claimBedButton = findViewById(R.id.claimBed);
@@ -123,7 +123,7 @@ public class ShelterDetails extends AppCompatActivity {
 
     public void claimBedButton(View view) {
         // check to see if user has updated their information
-        if (a.getFamilyMemberNumber() == 0 || a.getRestrictionsMatch() == null) {
+        if ((a.getFamilyMemberNumber() == 0) || (a.getRestrictionsMatch() == null)) {
             message = "You need to update your information before you can claim a bed or beds. "
                     + "Please update your information by using the button below";
             errorMessage.setText(message);
