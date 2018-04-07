@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -165,20 +164,20 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
         setContentView(R.layout.user_info_page);
 
         //set up check box restrictions
-        buttonStatus = (TextView) findViewById(R.id.status);
+        buttonStatus = findViewById(R.id.status);
         buttonStatus.setVisibility(View.INVISIBLE);
 
         List<String> currentRestrictionList;
-        checkBoxList = new ArrayList<CheckBox>();
-        checkBoxList.add((CheckBox) findViewById(R.id.checkBox1));
-        checkBoxList.add((CheckBox) findViewById(R.id.checkBox2));
-        checkBoxList.add((CheckBox) findViewById(R.id.checkBox3));
-        checkBoxList.add((CheckBox) findViewById(R.id.checkBox4));
-        checkBoxList.add((CheckBox) findViewById(R.id.checkBox5));
-        checkBoxList.add((CheckBox) findViewById(R.id.checkBox6));
-        checkBoxList.add((CheckBox) findViewById(R.id.checkBox7));
-        checkBoxList.add((CheckBox) findViewById(R.id.checkBox8));
-        checkBoxList.add((CheckBox) findViewById(R.id.checkBox9));
+        checkBoxList = new ArrayList<>();
+        checkBoxList.add(findViewById(R.id.checkBox1));
+        checkBoxList.add(findViewById(R.id.checkBox2));
+        checkBoxList.add(findViewById(R.id.checkBox3));
+        checkBoxList.add(findViewById(R.id.checkBox4));
+        checkBoxList.add(findViewById(R.id.checkBox5));
+        checkBoxList.add(findViewById(R.id.checkBox6));
+        checkBoxList.add(findViewById(R.id.checkBox7));
+        checkBoxList.add(findViewById(R.id.checkBox8));
+        checkBoxList.add(findViewById(R.id.checkBox9));
         enums = Arrays.asList(Restrictions.values());
 
 
@@ -210,7 +209,7 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
         for (int i = 1; i < 16; i++) {
             familySizeList.add(i);
         }
-        family_spinner = (Spinner) findViewById(R.id.family_spinner);
+        family_spinner = findViewById(R.id.family_spinner);
         ArrayAdapter<Integer> family_adapter = new ArrayAdapter<Integer>(this, android.R.layout.simple_spinner_item, familySizeList);
         family_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         family_spinner.setAdapter(family_adapter);
@@ -232,8 +231,8 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
         });
 
         //Grab name and user type to show in homepage
-        TextView name = (TextView) findViewById(R.id.name);
-        TextView email = (TextView) findViewById(R.id.email);
+        TextView name = findViewById(R.id.name);
+        TextView email = findViewById(R.id.email);
 
         // Display name and email
         name.setText("Name: " + account.getName());
