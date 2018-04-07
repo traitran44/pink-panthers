@@ -12,7 +12,7 @@ public interface DBI {
      *
      * @return if an account is added to the database
      */
-    Account createAccount(String type, String username, String password, String name, String email) throws UniqueKeyError;
+    void createAccount(String type, String username, String password, String name, String email) throws UniqueKeyError;
 
     /**
      * to retrieve an account by its username (unique)

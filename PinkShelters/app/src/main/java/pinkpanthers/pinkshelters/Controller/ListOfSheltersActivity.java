@@ -30,7 +30,7 @@ public class ListOfSheltersActivity extends AppCompatActivity implements Recycle
         // data to populate the RecyclerView with
         ArrayList<String> shelterNames = new ArrayList<>();
 
-        DBI db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
+        DBI db = new Db("pinkpanther", "PinkPantherReturns!");
 
         shelters = db.getAllShelters();
         for (int i = 0; i < shelters.size(); i++) {

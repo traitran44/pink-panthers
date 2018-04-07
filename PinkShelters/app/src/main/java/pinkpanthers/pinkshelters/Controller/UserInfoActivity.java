@@ -23,7 +23,6 @@ import pinkpanthers.pinkshelters.Model.DBI;
 import pinkpanthers.pinkshelters.Model.Db;
 import pinkpanthers.pinkshelters.Model.Homeless;
 import pinkpanthers.pinkshelters.Model.NoSuchUserException;
-import pinkpanthers.pinkshelters.Model.RecyclerAdapter;
 import pinkpanthers.pinkshelters.Model.Restrictions;
 import pinkpanthers.pinkshelters.Model.Shelter;
 import pinkpanthers.pinkshelters.Model.Account;
@@ -33,8 +32,8 @@ import pinkpanthers.pinkshelters.R;
 public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapter.ItemClickListener, View.OnClickListener {
     private DBI db;
 
-    private List<String> restrictionList = new ArrayList<>();
-    private List<Integer> familySizeList = new ArrayList<>();
+    private final List<String> restrictionList = new ArrayList<>();
+    private final List<Integer> familySizeList = new ArrayList<>();
 
     private Spinner family_spinner;
 
@@ -45,7 +44,7 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
     private Account account;
     private Homeless homeless;
     private List<CheckBox> checkBoxList;
-    List<Restrictions> enums;
+    private List<Restrictions> enums;
 
     //Create Back Button
     public void backOnClick(View v) {
@@ -72,7 +71,7 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
                 homeless.setFamilyMemberNumber(familySize);
 
                 //checked if homeless has already claimed beds
-                if (homeless.getShelterId() != 0 && db.getShelterById(homeless.getShelterId()) != null) {
+                if ((homeless.getShelterId() != 0) && (db.getShelterById(homeless.getShelterId()) != null)) {
                     Shelter shelter = db.getShelterById(homeless.getShelterId());
                     //create dialog
                     AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -97,7 +96,6 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
                                     finish();
                                     startActivity(getIntent());
                                 } else {
-                                    List<String> a = homeless.getRestrictionsMatch();
                                     //send that homeless to db.
                                     db.updateAccount(homeless);
                                     //show successful text and reset everything()
@@ -129,7 +127,6 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
                     alert.show();
                     //if homeless has not claimed any beds yet, then update info
                 } else {
-                    List<String> a = homeless.getRestrictionsMatch();
                     //send that homeless to db.
                     db.updateAccount(homeless);
                     //show successful text and reset everything()
@@ -250,8 +247,8 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
      *
      * @throws NoSuchUserException when there is no user with that name
      */
-    public void getUserAccount() throws NoSuchUserException {
-        db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
+    private void getUserAccount() throws NoSuchUserException {
+        db = new Db("pinkpanther", "PinkPantherReturns!");
         String username = getIntent().getExtras().getString("username");
         account = db.getAccountByUsername(username);
     }

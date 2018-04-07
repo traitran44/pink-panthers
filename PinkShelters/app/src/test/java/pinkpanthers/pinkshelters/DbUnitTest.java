@@ -26,7 +26,7 @@ public class DbUnitTest {
 
     @Before
     public void setUp() {
-        db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
+        db = new Db("pinkpanther", "PinkPantherReturns!");
     }
 
     // account as null object

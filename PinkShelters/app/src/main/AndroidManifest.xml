@@ -70,7 +70,7 @@
         <activity android:name=".Controller.SearchActivity"
             tools:ignore="InnerclassSeparator" />
         <activity android:name=".Controller.UserInfoActivity"
-            tools:ignore="InnerclassSeparator" />
+            android:theme="@style/AppTheme.NoActionBar" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").

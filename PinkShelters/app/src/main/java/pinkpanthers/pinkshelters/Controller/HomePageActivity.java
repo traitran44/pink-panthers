@@ -16,14 +16,14 @@ import pinkpanthers.pinkshelters.Model.NoSuchUserException;
 import pinkpanthers.pinkshelters.R;
 
 public class HomePageActivity extends AppCompatActivity {
-    public static final String PREFS_NAME = "com.example.sp.LoginPrefs";
+    private static final String PREFS_NAME = "com.example.sp.LoginPrefs";
     private String username;
     private Account user;
     private DBI db;
 
 
     public void logOutButtonOnClick(View v) { //logout button
-        Db.activeAccount = null;
+//        Db.activeAccount = null;
         Intent startMain = new Intent(this, WelcomePageActivity.class);
         startActivity(startMain);
     }
@@ -40,12 +40,12 @@ public class HomePageActivity extends AppCompatActivity {
         startActivity(info);
     }
 
-    public void setShelterText() {
+    private void setShelterText() {
         TextView message = findViewById(R.id.shelterMessage);
         if (user instanceof Homeless) {
             try {
                 Shelter shelter = db.getShelterById(((Homeless) user).getShelterId());
-                String bed = ((Homeless) user).getFamilyMemberNumber() == 1 ? " bed" : " beds";
+                String bed = (((Homeless) user).getFamilyMemberNumber() == 1) ? " bed" : " beds";
                 message.setText("You have claim " + ((Homeless) user).getFamilyMemberNumber() + bed +
                         " at shelter: " + shelter.getShelterName());
             } catch (NoSuchUserException e) {
@@ -76,7 +76,7 @@ public class HomePageActivity extends AppCompatActivity {
         textUserType.setText(prefUserType);
 
         username = getIntent().getExtras().getString("username");
-        db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
+        db = new Db("pinkpanther", "PinkPantherReturns!");
         try {
             user = db.getAccountByUsername(username);
         } catch (NoSuchUserException e) {

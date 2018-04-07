@@ -39,9 +39,8 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     implementation 'com.android.support:cardview-v7:26.1.0'
     implementation 'com.android.support:recyclerview-v7:26.1.0'
-
     // https://mvnrepository.com/artifact/mysql/mysql-connector-java
-//    implementation 'mysql:mysql-connector-java:5.1.38'
+    implementation 'mysql:mysql-connector-java:5.1.38'
     //noinspection NewerVersionAvailable
     implementation 'org.mariadb.jdbc:mariadb-java-client:2.1.2'
 }

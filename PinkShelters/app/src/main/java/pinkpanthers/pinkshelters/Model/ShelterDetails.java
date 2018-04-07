@@ -32,7 +32,7 @@ public class ShelterDetails extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shelter_details);
-        db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
+        db = new Db("pinkpanther", "PinkPantherReturns!");
         errorMessage = findViewById(R.id.errorMessage);
         vacancy = findViewById(R.id.vacancy);
         Button claimBedButton = findViewById(R.id.claimBed);
