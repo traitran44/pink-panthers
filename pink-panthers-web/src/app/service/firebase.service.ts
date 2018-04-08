@@ -19,6 +19,15 @@ export class FirebaseService {
       .signInWithEmailAndPassword(email, pass);
   }
 
+  updateUserBeds(userKey: any, bed: any) {
+    console.log('Update Bed: ');
+    console.log(userKey);
+    console.log(bed);
+    return this.db.list('accounts').update(userKey, {
+      beds: bed
+    });
+  }
+
   getShelters() {
     return this.db.list('data').snapshotChanges();
   }

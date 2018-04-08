@@ -2,8 +2,33 @@
   <!--SEARCH-->
   <mat-card>
     <div class="row">
+      <div class="col-md-9">
+        Name: {{user.name}}
+        <br>
+        Email: {{user.email}}
+        <br>
+        Family Size : {{user['familySize']}}
+        <br>
+        Family Type : {{user['familyType']}}
+      </div>
+      <div class="col-md-3">
+        <button mat-button mat-raised-button style="float: right;">
+          <i class="fa fa-user-circle"></i>
+          Edit Info
+        </button>
+      </div>
+    </div>
+  </mat-card>
+  <mat-card>
+    <div class="row">
+      <b>
+
+        Search:
+      </b>
+    </div>
+    <div class="row">
       <div class="col-md-4">
-        <mat-radio-group (change)="onSearchCategories($event)">
+        <mat-radio-group (change)="onCategoryChange($event)">
           <mat-radio-button color="primary" *ngFor="let category of searchCategories" [value]="category"
                             style="padding: 10px;">
             {{category}}
@@ -12,7 +37,7 @@
       </div>
       <div class="col-md-8">
         <mat-form-field style="width: 100%;" *ngIf="toggleSeachField.select">
-          <mat-select placeholder="Select to Search">
+          <mat-select placeholder="Select to Search" (change)="onSearch($event)">
             <mat-option *ngFor="let search of searchList" [value]="search">
               {{ search }}
             </mat-option>
@@ -21,7 +46,7 @@
         </mat-form-field>
 
         <mat-form-field style="width: 100%;" *ngIf="toggleSeachField.type">
-          <input matInput placeholder="Type to Search" (keydown)="onTypeSearch($event)">
+          <input matInput placeholder="Type to Search" (keydown)="onSearch($event)">
         </mat-form-field>
       </div>
     </div>
@@ -75,6 +100,8 @@
       </div>
     </mat-card-content>
     <mat-card-actions>
+
+      <mat-checkbox mat-button mat-raised-button color="primary" [checked]="eachShelter.selected" (change)="claimBed(eachShelter['Shelter Name'])">Claim Bed</mat-checkbox>
     </mat-card-actions>
   </mat-card>
 

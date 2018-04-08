@@ -23,6 +23,7 @@ import {VolunteerService} from './service/volunteer.service';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule} from '@angular/forms';
 import { ShelterVolunteerComponent } from './component/shelter-volunteer/shelter-volunteer.component';
+import {UserService} from './service/user.service';
 
 
 @NgModule({
@@ -48,6 +49,7 @@ import { ShelterVolunteerComponent } from './component/shelter-volunteer/shelter
   ],
   providers: [
     AngularFireDatabase,
+    UserService,
     FirebaseService,
     AdminService,
     HomelessService,
