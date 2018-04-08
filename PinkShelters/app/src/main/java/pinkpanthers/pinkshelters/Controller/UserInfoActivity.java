@@ -29,7 +29,8 @@ import pinkpanthers.pinkshelters.Model.Account;
 
 import pinkpanthers.pinkshelters.R;
 
-public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapter.ItemClickListener, View.OnClickListener {
+public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapter.ItemClickListener
+        , View.OnClickListener {
     private DBI db;
 
     private final List<String> restrictionList = new ArrayList<>();
@@ -79,12 +80,14 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
                 homeless.setFamilyMemberNumber(familySize);
 
                 //checked if homeless has already claimed beds
-                if ((homeless.getShelterId() != 0) && (db.getShelterById(homeless.getShelterId()) != null)) {
+                if ((homeless.getShelterId() != 0) &&
+                        (db.getShelterById(homeless.getShelterId()) != null)) {
                     Shelter shelter = db.getShelterById(homeless.getShelterId());
                     //create dialog
                     AlertDialog.Builder builder = new AlertDialog.Builder(this);
                     builder.setTitle("Confirm cancellation to update info");
-                    builder.setMessage("Are you sure to cancel bed(s) claimed at" + shelter.getShelterName() + "?");
+                    builder.setMessage("Are you sure to cancel bed(s) claimed at" +
+                            shelter.getShelterName() + "?");
                     //if homeless presses on YES, then cancel claimed beds
                     builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
 
@@ -208,7 +211,8 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
                         CheckBox item = checkBoxList.get(j);
                         if (!item.isChecked()) {
                             Restrictions restrictions = enums.get(j);
-                            boolean isCheck = checkCheckbox(currentRestrictionList.get(i),restrictions.toString());
+                            boolean isCheck = checkCheckbox(currentRestrictionList.get(i),
+                                    restrictions.toString());
                             item.setChecked(isCheck);
                         }
                     }
@@ -223,7 +227,8 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
             familySizeList.add(i);
         }
         family_spinner = findViewById(R.id.family_spinner);
-        ArrayAdapter<Integer> family_adapter = new ArrayAdapter<Integer>(this, android.R.layout.simple_spinner_item, familySizeList);
+        ArrayAdapter<Integer> family_adapter = new ArrayAdapter<Integer>(
+                this, android.R.layout.simple_spinner_item, familySizeList);
         family_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         family_spinner.setAdapter(family_adapter);
 

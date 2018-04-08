@@ -26,7 +26,9 @@ public class Db implements DBI {
      */
     public Db(String username, String password) {
         try {
-            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.ThreadPolicy.Builder p = new StrictMode.ThreadPolicy.Builder();
+            p.permitAll();
+            StrictMode.ThreadPolicy policy = p.build();
             StrictMode.setThreadPolicy(policy);
         } catch (NullPointerException e) {
             // for testing only
@@ -39,7 +41,8 @@ public class Db implements DBI {
             connProperties.setProperty("maxReconnects", "3");
             connProperties.setProperty("user", username);
             connProperties.setProperty("password", password);
-            this.conn = DriverManager.getConnection("jdbc:mariadb://timbess.net:3306/pinkpanther", connProperties);
+            this.conn = DriverManager.getConnection(
+                    "jdbc:mariadb://timbess.net:3306/pinkpanther", connProperties);
         } catch (SQLException e) {
             String errMsg = logSqlException(e);
             throw new RuntimeException(errMsg);
@@ -53,7 +56,8 @@ public class Db implements DBI {
     }
 
     @Override
-    public void createAccount(String type, String username, String password, String name, String email) throws UniqueKeyError {
+    public void createAccount(String type, String username, String password, String name,
+                              String email) throws UniqueKeyError {
         // These are the only valid options.
         // Program should blow up in the event that a developer
         // accidentally changes these strings. For developers only not for users.
@@ -65,8 +69,8 @@ public class Db implements DBI {
             case "Admin":
                 break;
             default:
-                throw new RuntimeException("You have attempted to createAccount an invalid user type. " +
-                        "This should not be possible if the UI is designed correctly.");
+                throw new RuntimeException("You have attempted to createAccount an invalid user " +
+                        "type. " + "This should not be possible if the UI is designed correctly.");
         }
         // ?'s are replace in the prepared statement when the query runs
         String sql = "INSERT INTO accounts " +
@@ -87,7 +91,8 @@ public class Db implements DBI {
 
             ResultSet rs = stmt.getGeneratedKeys();
             if (!rs.next()) {
-                throw new RuntimeException("Failed to retried user id from DB. This should never occur.");
+                throw new RuntimeException("Failed to retried user id from DB. " +
+                        "This should never occur.");
             }
             id = rs.getInt(1);
         } catch (SQLException e) {
@@ -115,8 +120,9 @@ public class Db implements DBI {
                 newUser = new Admin(username, password, name, "active", email, id);
                 break;
             default:
-                throw new RuntimeException("You have attempted to createAccount an invalid user type. " +
-                        "This should not be possible if the UI is designed correctly.");
+                throw new RuntimeException("You have attempted to createAccount an " +
+                        "invalid user type. This should not be possible if the UI is designed " +
+                        "correctly.");
         }
     }
 
@@ -244,7 +250,8 @@ public class Db implements DBI {
                                  String restrictions,
                                  String address) {
         String sql = "INSERT INTO shelters " +
-                "(`shelter_name`, `capacity`, `special_notes`, `latitude`, `longitude`, `phone_number`, `restrictions`, `address`)" +
+                "(`shelter_name`, `capacity`, `special_notes`, `latitude`, `longitude`," +
+                " `phone_number`, `restrictions`, `address`)" +
                 " VALUES " +
                 "(?, ?, ?, ?, ?, ?, ?, ?)";
 
@@ -264,7 +271,8 @@ public class Db implements DBI {
 
             ResultSet rs = stmt.getGeneratedKeys();
             if (!rs.next()) {
-                throw new RuntimeException("Failed to retried user id from DB. This should never occur.");
+                throw new RuntimeException("Failed to retried user id from DB." +
+                        " This should never occur.");
             }
             id = rs.getInt(1);
         } catch (SQLException e) {
@@ -273,7 +281,8 @@ public class Db implements DBI {
         }
 
 
-        return new Shelter(id, shelterName, capacity, specialNotes, latitude, longitude, phoneNumber, restrictions, address);
+        return new Shelter(id, shelterName, capacity, specialNotes, latitude,
+                longitude, phoneNumber, restrictions, address);
     }
 
     @Override
@@ -298,7 +307,8 @@ public class Db implements DBI {
                 String restrictions = rs.getString("restrictions");
                 String address = rs.getString("address");
 
-                newShelter = new Shelter(id, shelterName, capacity, specialNotes, latitude, longitude, phoneNumber, restrictions, address);
+                newShelter = new Shelter(id, shelterName, capacity, specialNotes, latitude,
+                        longitude, phoneNumber, restrictions, address);
                 newShelter.setOccupancy(rs.getInt("occupancy"));
                 newShelter.setUpdate_capacity(rs.getInt("update_capacity"));
                 sheltersList.add(newShelter);
@@ -335,7 +345,8 @@ public class Db implements DBI {
                 String restrictions = rs.getString("restrictions");
                 String address = rs.getString("address");
 
-                newShelter = new Shelter(id, shelterName, capacity, specialNotes, latitude, longitude, phoneNumber, restrictions, address);
+                newShelter = new Shelter(id, shelterName, capacity, specialNotes, latitude,
+                        longitude, phoneNumber, restrictions, address);
                 newShelter.setOccupancy(rs.getInt("occupancy"));
                 newShelter.setUpdate_capacity(rs.getInt("update_capacity"));
             } else {
@@ -384,7 +395,8 @@ public class Db implements DBI {
                     shelterList.add(shelter);
                 } while (rs.next());
             } else {
-                throw new NoSuchUserException("There is no shelter that has this restriction: " + shelterName);
+                throw new NoSuchUserException("There is no shelter that has this restriction: " +
+                        shelterName);
             }
 
         } catch (SQLException e) {
@@ -448,7 +460,8 @@ public class Db implements DBI {
                     shelterList.add(shelter);
                 } while (rs.next());
             } else {
-                throw new NoSuchUserException("There is no shelter that has this " + sql_column + ": " + restriction);
+                throw new NoSuchUserException("There is no shelter that has this " +
+                        sql_column + ": " + restriction);
             }
 
         } catch (SQLException e) {
@@ -462,7 +475,8 @@ public class Db implements DBI {
 
 
     @Override
-    public void updateShelterOccupancy(int shelterId, int occupancy) throws SQLException, NoSuchUserException {
+    public void updateShelterOccupancy(int shelterId, int occupancy)
+            throws SQLException, NoSuchUserException {
         String sql = "UPDATE shelters " +
                 "SET occupancy = ? " +
                 "WHERE id = ?";
@@ -477,7 +491,8 @@ public class Db implements DBI {
             if (rowUpdated == 1) {// only one row is supposed to be updated
                 conn.commit();
             } else {
-                throw new NoSuchUserException("The shelter with id: " + shelterId + " doesn't exist");
+                throw new NoSuchUserException("The shelter with id: " + shelterId +
+                        " doesn't exist");
             }
 
         } catch (SQLException e) {
@@ -528,7 +543,8 @@ public class Db implements DBI {
                 conn.commit();
 
             } else {
-                throw new NoSuchUserException("The account with id: " + user.getUserId() + " doesn't exist");
+                throw new NoSuchUserException("The account with id: " + user.getUserId() +
+                        " doesn't exist");
             }
 
         } catch (SQLException e) {
@@ -556,7 +572,8 @@ public class Db implements DBI {
             if (updatedRow == 1) {
                 conn.commit();
             } else {
-                throw new NoSuchUserException("The account with username: "+ username + " doesn't exist");
+                throw new NoSuchUserException("The account with username: "+ username +
+                        " doesn't exist");
             }
 
         } catch (SQLException e) {

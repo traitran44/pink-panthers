@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/registration_page"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="pinkpanthers.pinkshelters.Model.ShelterDetails">
+    tools:context="pinkpanthers.pinkshelters.Controller.ShelterDetails">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -24,12 +25,13 @@
     </android.support.design.widget.AppBarLayout>
 
 
-    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="pinkpanthers.pinkshelters.Model.ShelterDetails">
+        tools:context="pinkpanthers.pinkshelters.Controller.ShelterDetails">
 
         <LinearLayout
             android:id="@+id/linearLayout"
