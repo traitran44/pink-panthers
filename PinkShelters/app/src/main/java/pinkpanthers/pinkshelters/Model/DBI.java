@@ -33,7 +33,7 @@ public interface DBI {
     /**
      * to get all the shelters in the database
      *
-     * @return lsit of Shelter objects
+     * @return list of Shelter objects
      */
     List<Shelter> getAllShelters();
 

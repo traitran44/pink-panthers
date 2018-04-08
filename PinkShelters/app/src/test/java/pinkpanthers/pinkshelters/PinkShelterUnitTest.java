@@ -1,10 +1,7 @@
 package pinkpanthers.pinkshelters;
 import org.junit.Test;
 
-import java.util.List;
-
 import pinkpanthers.pinkshelters.Model.Db;
-import pinkpanthers.pinkshelters.Model.Shelter;
 
 import static org.junit.Assert.*;
 
