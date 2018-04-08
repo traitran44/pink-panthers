@@ -53,7 +53,8 @@ public class ShelterDetails extends AppCompatActivity {
         } catch (NoSuchUserException e) {
             throw new RuntimeException("This is not how it works " + e.toString());
         } catch (NullPointerException e) {
-            throw new RuntimeException("NullPointerException is raised: getExtras() returns null in ListOfShelter");
+            throw new RuntimeException("NullPointerException is raised: getExtras() " +
+                    "returns null in ListOfShelter");
         }
 
         try {
@@ -82,7 +83,8 @@ public class ShelterDetails extends AppCompatActivity {
                 claimBedButton.setVisibility(View.INVISIBLE);
             }
         } catch (NoSuchUserException e) {
-            throw new RuntimeException("There is no user with that username or shelter with that ID");
+            throw new RuntimeException("There is no user with that username or shelter with " +
+                    "that ID");
         } catch (NullPointerException e) {
             throw new RuntimeException("getExtras() returns null username");
         }
@@ -133,7 +135,9 @@ public class ShelterDetails extends AppCompatActivity {
             errorMessage.setText(message);
             errorMessage.setVisibility(View.VISIBLE);
             updateInfoButton.setVisibility(View.VISIBLE);
-        } else { //homeless person cant claim bed(s) if they have already claimed bed(s) at a different shelter
+        } else {
+            //homeless person cant claim bed(s) if they have already claimed bed(s)
+            // at a different shelter
             int familyMemberNumber = a.getFamilyMemberNumber();
             if (a.getShelterId() != 0) {
                 if (s.getId() == reservedShelter.getId()) {
@@ -237,8 +241,8 @@ public class ShelterDetails extends AppCompatActivity {
         } catch (NoSuchUserException e) {
             throw new RuntimeException("Homeless user is null or shelterid does not exist");
         } catch (java.sql.SQLException e) {
-            throw new RuntimeException("SQLException raised when trying to update account or shelter" +
-                    " during canceling reservation");
+            throw new RuntimeException("SQLException raised when trying to update account or " +
+                    "shelter during canceling reservation");
         }
 
         message = "You have successfully cancel your reservation for " +

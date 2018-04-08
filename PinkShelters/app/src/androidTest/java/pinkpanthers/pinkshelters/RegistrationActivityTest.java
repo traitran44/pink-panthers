@@ -35,7 +35,8 @@ public class RegistrationActivityTest {
 
     // use to hook up tests with Registration activity
     @Rule
-    private ActivityTestRule<Registration> mActivityRule = new ActivityTestRule<>(Registration.class);
+    private final ActivityTestRule<Registration> mActivityRule =
+            new ActivityTestRule<>(Registration.class);
 
 
     /**
@@ -73,8 +74,9 @@ public class RegistrationActivityTest {
 
         // currently on WelcomePageActivity
 
-        /* attempting to login should pop up "Wrong username, you have " + (3 - loginTrial) + " tries left"
-         3 - loginTrial should equal 2 in this case since there will be only one wrong attempt at logging in */
+        /* attempting to login should pop up "Wrong username, you have " + (3 - loginTrial)
+        + " tries left" 3 - loginTrial should equal 2 in this case since there will be only one
+        wrong attempt at logging in */
 
         // click on login button
         onView(withId(R.id.login_button)).perform(click());
@@ -87,7 +89,8 @@ public class RegistrationActivityTest {
         // click on login button
         onView(withId(R.id.login_button)).perform(click());
         // warning should pop up
-        onView(withId(R.id.validationWarn)).check(matches(withText("Wrong username, you have 2 tries left")));
+        onView(withId(R.id.validationWarn)).check(matches(withText("Wrong username, you have" +
+                " 2 tries left")));
     }
 
     @Test

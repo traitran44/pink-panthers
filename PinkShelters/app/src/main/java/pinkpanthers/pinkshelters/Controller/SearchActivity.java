@@ -22,7 +22,8 @@ import pinkpanthers.pinkshelters.Model.Shelter;
 import pinkpanthers.pinkshelters.Model.NoSuchUserException;
 import pinkpanthers.pinkshelters.R;
 
-public class SearchActivity extends AppCompatActivity implements RecyclerAdapter.ItemClickListener, View.OnClickListener {
+public class SearchActivity extends AppCompatActivity
+        implements RecyclerAdapter.ItemClickListener, View.OnClickListener {
 
     private final List<String> choices = new ArrayList<>();
     private final List<String> genders = new ArrayList<>();
@@ -92,18 +93,22 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
         age_range_gender_spinner.setVisibility(View.INVISIBLE);
 
 
-        ArrayAdapter<String> choices_adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, choices);
+        ArrayAdapter<String> choices_adapter = new ArrayAdapter<>(
+                this, android.R.layout.simple_list_item_1, choices);
         choices_spinner.setAdapter(choices_adapter);
 
-        gender_adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, genders);
-        age_range_adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, ageRanges);
+        gender_adapter = new ArrayAdapter<>(
+                this, android.R.layout.simple_list_item_1, genders);
+        age_range_adapter = new ArrayAdapter<>(
+                this, android.R.layout.simple_list_item_1, ageRanges);
         age_range_gender_spinner.setAdapter(gender_adapter);
 
 
         choices_spinner.setSelection(0);
         age_range_gender_spinner.setSelection(0);
 
-        age_range_gender_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        age_range_gender_spinner.setOnItemSelectedListener(
+                new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 Object item = choices_spinner.getSelectedItem();
@@ -183,18 +188,22 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
                             shelterNames.add(s.getShelterName());
                         }
 
-                        // set interaction for the previewed list of shelter before starting the search
-                        recycler_adapter = new RecyclerAdapter(SearchActivity.this, shelterNames);
+                        // set interaction for the previewed list of shelter
+                        // before starting the search
+                        recycler_adapter = new RecyclerAdapter(
+                                SearchActivity.this, shelterNames);
                         recycler_adapter.setClickListener(SearchActivity.this);
                         search_recycler_view.setAdapter(recycler_adapter);
                         shelter_name_edit_text.addTextChangedListener(new TextWatcher() {
                             @Override
-                            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                            public void beforeTextChanged(CharSequence charSequence, int i, int i1,
+                                                          int i2) {
                                 // nothing changes before user types anything
                             }
 
                             @Override
-                            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                            public void onTextChanged(CharSequence charSequence, int i, int i1,
+                                                      int i2) {
                                 // grabs each new character that the user types into the textView
                                 shelterNames.clear();
                                 try {
@@ -204,7 +213,8 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
                                     }
 
                                     //set interaction between the suggestions and shelter details
-                                    recycler_adapter = new RecyclerAdapter(SearchActivity.this, shelterNames);
+                                    recycler_adapter = new RecyclerAdapter(
+                                            SearchActivity.this, shelterNames);
                                     recycler_adapter.setClickListener(SearchActivity.this);
                                     search_recycler_view.setAdapter(recycler_adapter);
                                 } catch (NoSuchUserException e) {
@@ -215,7 +225,8 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
 
                             @Override
                             public void afterTextChanged(Editable editable) {
-                                // changes occurred during onTextChanged so no changes after text changed
+                                // changes occurred during onTextChanged
+                                // so no changes after text changed
                             }
                         });
                         break;
