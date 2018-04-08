@@ -74,7 +74,8 @@ public class DbUnitTest {
         assertEquals(20, ((Homeless) updatedAccount).getFamilyMemberNumber());
 
         String[] expectedRestrictions = {"test_gender", "test_age"};
-        assertArrayEquals(expectedRestrictions, ((Homeless) updatedAccount).getRestrictionsMatch().toArray());
+        List<String> restrictionsMatch = ((Homeless) updatedAccount).getRestrictionsMatch();
+        assertArrayEquals(expectedRestrictions, restrictionsMatch.toArray());
 
         assertEquals(-1, ((Homeless) updatedAccount).getShelterId());
     }
@@ -101,7 +102,8 @@ public class DbUnitTest {
         assertEquals(0, ((Homeless) account).getFamilyMemberNumber());
         assertEquals(0, ((Homeless) account).getShelterId());
         String[] expectedRestriction = {""};
-        assertArrayEquals(expectedRestriction, ((Homeless) account).getRestrictionsMatch().toArray());
+        List<String> restrictionsMatch = ((Homeless) account).getRestrictionsMatch();
+        assertArrayEquals(expectedRestriction, restrictionsMatch.toArray());
 
     }
 

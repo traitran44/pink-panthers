@@ -157,8 +157,10 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
     private void updateRestrictionList() {
 
         for (int i = 0; i < checkBoxList.size(); i++) {
-            if (checkBoxList.get(i).isChecked()) {
-                restrictionList.add(enums.get(i).toString());
+            CheckBox item = checkBoxList.get(i);
+            if (item.isChecked()) {
+                Restrictions restrictions = enums.get(i);
+                restrictionList.add(restrictions.toString());
             }
         }
     }
@@ -178,15 +180,15 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
 
         List<String> currentRestrictionList;
         checkBoxList = new ArrayList<>();
-        checkBoxList.add((CheckBox) findViewById(R.id.checkBox1));
-        checkBoxList.add((CheckBox) findViewById(R.id.checkBox2));
-        checkBoxList.add((CheckBox) findViewById(R.id.checkBox3));
-        checkBoxList.add((CheckBox) findViewById(R.id.checkBox4));
-        checkBoxList.add((CheckBox) findViewById(R.id.checkBox5));
-        checkBoxList.add((CheckBox) findViewById(R.id.checkBox6));
-        checkBoxList.add((CheckBox) findViewById(R.id.checkBox7));
-        checkBoxList.add((CheckBox) findViewById(R.id.checkBox8));
-        checkBoxList.add((CheckBox) findViewById(R.id.checkBox9));
+        checkBoxList.add(findViewById(R.id.checkBox1));
+        checkBoxList.add(findViewById(R.id.checkBox2));
+        checkBoxList.add(findViewById(R.id.checkBox3));
+        checkBoxList.add(findViewById(R.id.checkBox4));
+        checkBoxList.add(findViewById(R.id.checkBox5));
+        checkBoxList.add(findViewById(R.id.checkBox6));
+        checkBoxList.add(findViewById(R.id.checkBox7));
+        checkBoxList.add(findViewById(R.id.checkBox8));
+        checkBoxList.add( findViewById(R.id.checkBox9));
         enums = Arrays.asList(Restrictions.values());
 
 
@@ -203,9 +205,11 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
             if (currentRestrictionList != null) {
                 for (int i = 0; i < currentRestrictionList.size(); i++) {
                     for (int j = 0; j < checkBoxList.size(); j++) {
-                        if (!checkBoxList.get(j).isChecked()) {
-                            boolean isCheck = checkCheckbox(currentRestrictionList.get(i), enums.get(j).toString());
-                            checkBoxList.get(j).setChecked(isCheck);
+                        CheckBox item = checkBoxList.get(j);
+                        if (!item.isChecked()) {
+                            Restrictions restrictions = enums.get(j);
+                            boolean isCheck = checkCheckbox(currentRestrictionList.get(i),restrictions.toString());
+                            item.setChecked(isCheck);
                         }
                     }
                 }
@@ -230,7 +234,8 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
         family_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                familySize = Integer.valueOf(family_spinner.getSelectedItem().toString());
+                Object item = family_spinner.getSelectedItem();
+                familySize = Integer.valueOf(item.toString());
             }
 
             @Override
@@ -267,7 +272,9 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
      */
     private void getUserAccount() throws NoSuchUserException {
         db = new Db("pinkpanther", "PinkPantherReturns!");
-        String username = getIntent().getExtras().getString("username");
+        Intent intent = getIntent();
+        Bundle extra = intent.getExtras();
+        String username = extra.getString("username");
         account = db.getAccountByUsername(username);
     }
 
