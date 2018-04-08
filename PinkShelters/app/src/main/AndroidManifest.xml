@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="pinkpanthers.pinkshelters">
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
@@ -41,10 +42,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Controller.LoginActivity" />
-        <activity android:name=".Controller.HomePageActivity" />
-        <activity android:name=".Controller.ListOfSheltersActivity" />
-        <activity android:name=".Controller.WelcomePageActivity">
+        <activity android:name=".Controller.LoginActivity"
+            tools:ignore="InnerclassSeparator" />
+        <activity android:name=".Controller.HomePageActivity"
+            tools:ignore="InnerclassSeparator" />
+        <activity android:name=".Controller.ListOfSheltersActivity"
+            tools:ignore="InnerclassSeparator" />
+        <activity android:name=".Controller.WelcomePageActivity"
+            tools:ignore="InnerclassSeparator">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -58,10 +63,15 @@
         <activity
             android:name=".Controller.Registration"
             android:label="@string/title_activity_registration"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Controller.ShelterDetails" />
-        <activity android:name=".Controller.SearchActivity" />
-        <activity android:name=".Controller.UserInfoActivity" />
+            android:theme="@style/AppTheme.NoActionBar"
+            tools:ignore="InnerclassSeparator" />
+        <activity android:name=".Model.ShelterDetails"
+            tools:ignore="InnerclassSeparator" />
+        <activity android:name=".Controller.SearchActivity"
+            tools:ignore="InnerclassSeparator" />
+        <activity android:name=".Controller.UserInfoActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            tools:ignore="InnerclassSeparator" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -72,7 +82,8 @@
         -->
         <activity
             android:name=".Controller.MapsActivity"
-            android:label="@string/title_activity_maps"></activity>
+            android:label="@string/title_activity_maps"
+            tools:ignore="InnerclassSeparator"></activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

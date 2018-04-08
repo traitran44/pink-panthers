@@ -1,4 +1,4 @@
-package pinkpanthers.pinkshelters.Controller;
+package pinkpanthers.pinkshelters.Model;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -14,12 +14,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import pinkpanthers.pinkshelters.Model.Account;
-import pinkpanthers.pinkshelters.Model.DBI;
-import pinkpanthers.pinkshelters.Model.Db;
-import pinkpanthers.pinkshelters.Model.Homeless;
-import pinkpanthers.pinkshelters.Model.Shelter;
-import pinkpanthers.pinkshelters.Model.NoSuchUserException;
+import pinkpanthers.pinkshelters.Controller.UserInfoActivity;
 import pinkpanthers.pinkshelters.R;
 
 public class ShelterDetails extends AppCompatActivity {
@@ -123,7 +118,7 @@ public class ShelterDetails extends AppCompatActivity {
 
     public void claimBedButton(View view) {
         // check to see if user has updated their information
-        if ((a.getFamilyMemberNumber() == 0) || (a.getRestrictionsMatch() == null)) {
+        if (a.getFamilyMemberNumber() == 0 || a.getRestrictionsMatch() == null) {
             message = "You need to update your information before you can claim a bed or beds. "
                     + "Please update your information by using the button below";
             errorMessage.setText(message);
@@ -170,13 +165,11 @@ public class ShelterDetails extends AppCompatActivity {
                 Set <String> homelessRestrictionsSet = new HashSet <> (homelessRestrictions);
                 Set <String> common = new HashSet <> (shelterRestrictionSet);
                 common.retainAll(homelessRestrictionsSet);
-                String anyone1 = s.getRestrictions().toLowerCase().toString();
-                if (anyone1.equals(new String("anyone ")) || (common.equals(homelessRestrictionsSet))) {
+                String anyone1 = s.getRestrictions().toLowerCase();
+                if (anyone1.equals("anyone ") || (common.equals(homelessRestrictionsSet))) {
                     try {
                         //update vacancy of shelter
                         int vacancy1 = s.getVacancy() - familyMemberNumber;
-                        s.setVacancy(vacancy1);
-
                         //update current vacancy on screen
                         String forVacancy = "Vacancy: " + s.getVacancy();
                         vacancy.setText(forVacancy);
@@ -215,14 +208,13 @@ public class ShelterDetails extends AppCompatActivity {
     }
 
     public void cancelReservationButton(View view) {
-        // update vacany
+        // update vacancy
         int vacancy1 = s.getVacancy() + a.getFamilyMemberNumber();
-        s.setVacancy(vacancy1);
         String forVacancy = "Vacancy: " + vacancy1;
         vacancy.setText(forVacancy);
 
         //update occupancy
-        int occupancy = s.getUpdate_capacity() - vacancy1;
+        int occupancy = s.getOccupancy() - a.getFamilyMemberNumber();
         s.setOccupancy(occupancy);
 
         //update homeless's shelter id

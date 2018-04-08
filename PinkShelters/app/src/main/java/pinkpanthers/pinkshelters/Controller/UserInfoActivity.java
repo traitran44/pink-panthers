@@ -166,15 +166,15 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
 
         List<String> currentRestrictionList;
         checkBoxList = new ArrayList<>();
-        checkBoxList.add(findViewById(R.id.checkBox1));
-        checkBoxList.add(findViewById(R.id.checkBox2));
-        checkBoxList.add(findViewById(R.id.checkBox3));
-        checkBoxList.add(findViewById(R.id.checkBox4));
-        checkBoxList.add(findViewById(R.id.checkBox5));
-        checkBoxList.add(findViewById(R.id.checkBox6));
-        checkBoxList.add(findViewById(R.id.checkBox7));
-        checkBoxList.add(findViewById(R.id.checkBox8));
-        checkBoxList.add(findViewById(R.id.checkBox9));
+        checkBoxList.add((CheckBox) findViewById(R.id.checkBox1));
+        checkBoxList.add((CheckBox) findViewById(R.id.checkBox2));
+        checkBoxList.add((CheckBox) findViewById(R.id.checkBox3));
+        checkBoxList.add((CheckBox) findViewById(R.id.checkBox4));
+        checkBoxList.add((CheckBox) findViewById(R.id.checkBox5));
+        checkBoxList.add((CheckBox) findViewById(R.id.checkBox6));
+        checkBoxList.add((CheckBox) findViewById(R.id.checkBox7));
+        checkBoxList.add((CheckBox) findViewById(R.id.checkBox8));
+        checkBoxList.add((CheckBox) findViewById(R.id.checkBox9));
         enums = Arrays.asList(Restrictions.values());
 
 
@@ -245,7 +245,7 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
     /**
      * Retrieving active account
      *
-     * @throws NoSuchUserException
+     * @throws NoSuchUserException when there is no user with that name
      */
     private void getUserAccount() throws NoSuchUserException {
         db = new Db("pinkpanther", "PinkPantherReturns!");

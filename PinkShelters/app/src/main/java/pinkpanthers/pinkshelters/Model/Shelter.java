@@ -15,7 +15,6 @@ public class Shelter {
     private String address;
     private int occupancy;
     private int update_capacity;
-    private int vacancy;
 
     /**
      * constructor
@@ -270,15 +269,6 @@ public class Shelter {
      */
     public int getVacancy() {
         return update_capacity - occupancy;
-    }
-
-    /**
-     * set new vacancy of shelter
-     *
-     * @param vacancy new vacancy of shelter
-     */
-    public void setVacancy(int vacancy) {
-        this.vacancy = vacancy;
     }
 
 }
