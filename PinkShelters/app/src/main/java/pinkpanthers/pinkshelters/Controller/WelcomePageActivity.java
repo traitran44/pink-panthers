@@ -9,16 +9,29 @@ import pinkpanthers.pinkshelters.R;
 
 public class WelcomePageActivity extends AppCompatActivity {
 
+    /**
+     * Display Welcome Page content
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_page);
     }
+
+    /**
+     * Direct User to Login Page
+     * @param view
+     */
     public void loginButton(View view) {
         Intent loginPageIntent = new Intent(this, LoginActivity.class);
         startActivity(loginPageIntent);
     }
 
+    /**
+     * Direct User to Register Page
+     * @param view
+     */
     public void registerButton(View view) {
         Intent registerPageIntent = new Intent(this, Registration.class);
         startActivity(registerPageIntent);

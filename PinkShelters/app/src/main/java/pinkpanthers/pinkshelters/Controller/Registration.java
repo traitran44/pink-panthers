@@ -26,6 +26,10 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     private EditText password;
     private DBI db;
 
+    /**
+     * Display Text Field ask user to fill out their form to register
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +53,14 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         db = new Db("pinkpanther", "PinkPantherReturns!");
     }
 
+    /**
+     * Register user with:
+     * Name
+     * Password
+     * Email
+     * User Types
+     * @param view
+     */
     public void registerButton(View view) {
         Boolean noName, noUsername, noPass, noEmail, noType;
 
@@ -116,6 +128,10 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    /**
+     * Direct user to Welcome Page
+     * @param v
+     */
     public void onClick(View v) { //cancel button
         Intent welcomeIntent = new Intent(Registration.this, WelcomePageActivity.class);
         startActivity(welcomeIntent);

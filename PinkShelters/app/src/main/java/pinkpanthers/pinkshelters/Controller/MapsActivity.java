@@ -372,6 +372,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
+    /**
+     * convert item name to corresponding under mysql
+     * @param chosenItem
+     * @return name
+     */
     private String sqlConverter(String chosenItem) {
         switch (chosenItem) {
             case ("Men"):
@@ -393,6 +398,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
+    /**
+     *  Calculate the address using the tapped longitude and latitude
+     * @param latLng
+     * @param addressText
+     */
     private void setAddress(LatLng latLng, EditText addressText) {
         try {
             Geocoder geocoder = new Geocoder(this, Locale.getDefault());
@@ -406,6 +416,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
+    /**
+     * Convert capacity string to int
+     * @return int capacity
+     */
     private int capacityConverter() {
         if ((capacity == null) || capacity.equals("")) {
             return 300; // default value for capacity

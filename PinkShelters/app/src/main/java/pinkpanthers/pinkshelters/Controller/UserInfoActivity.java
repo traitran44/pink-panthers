@@ -46,7 +46,11 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
     private List<CheckBox> checkBoxList;
     private List<Restrictions> enums;
 
-    //Create Back Button
+    /**
+     * set Click Event for Back Button
+     * Direct to Start Main
+     * @param v
+     */
     public void backOnClick(View v) {
         //passing username to intent
         Intent startMain = new Intent(this, HomePageActivity.class);
@@ -55,7 +59,11 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
     }
 
 
-    //Create Update Info Button
+    /**
+     * Set Click Event Update Info Button
+     * Update the information of the user when click
+     * @param v
+     */
     public void updateOnClick(View v) {
         updateRestrictionList();
         //require homeless to select at least one restriction to update
@@ -155,6 +163,10 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
         }
     }
 
+    /**
+     * Display list of checkbox and User Info
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -238,6 +250,12 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
 
     }
 
+    /**
+     * Check if checkbox name match with selected one
+     * @param homelessRestriction
+     * @param shelterRestriction
+     * @return true if match
+     */
     private boolean checkCheckbox(String homelessRestriction, String shelterRestriction) {
         return homelessRestriction.equals(shelterRestriction);
     }

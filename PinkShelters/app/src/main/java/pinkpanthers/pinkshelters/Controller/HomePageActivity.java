@@ -22,18 +22,30 @@ public class HomePageActivity extends AppCompatActivity {
     private DBI db;
 
 
+    /**
+     * Log the user out of current Activity
+     * @param v View
+     */
     public void logOutButtonOnClick(View v) { //logout button
 //        Db.activeAccount = null;
         Intent startMain = new Intent(this, WelcomePageActivity.class);
         startActivity(startMain);
     }
 
+    /**
+     * Direct user to the page that list all the shelters
+     * @param v View
+     */
     public void shelterListButton(View v) { //View Shelter button
         Intent shelterListIntent = new Intent(this, ListOfSheltersActivity.class);
         shelterListIntent.putExtra("username", username);
         startActivity(shelterListIntent);
     }
 
+    /**
+     * Direct user to the Info Page
+     * @param v View
+     */
     public void infoOnClick(View v) { //View/Edit User Info button
         Intent info = new Intent(this, UserInfoActivity.class);
         info.putExtra("username", username);
@@ -55,6 +67,10 @@ public class HomePageActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Display the home page for the user , and check whether the user exist
+     * @param savedInstanceState current instance
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

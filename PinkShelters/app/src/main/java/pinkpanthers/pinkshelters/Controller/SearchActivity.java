@@ -45,6 +45,10 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
 
     private Db db;
 
+    /**
+     * Display search bar
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -221,6 +225,12 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
     public void onClick(View view) {
 
     }
+
+    /**
+     * Direct to detail when shelter selected
+     * @param view
+     * @param position
+     */
     @Override
     public void onItemClick(View view, int position) {
         Intent detail = new Intent(this, ShelterDetails.class);
@@ -229,6 +239,11 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
         startActivity(detail);
     }
 
+    /**
+     * Convert item name to corresponding name in Database
+     * @param chosenItem
+     * @return
+     */
     private String sqlConverter(String chosenItem) {
         switch (chosenItem) {
             case ("Men"):
