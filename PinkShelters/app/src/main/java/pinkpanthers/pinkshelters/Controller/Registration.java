@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -64,11 +65,17 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
      * @param view
      */
     public void registerButton(@SuppressWarnings("unused") View view) {
-        Boolean noName, noUsername, noPass, noEmail, noType;
+        Boolean noName;
+        Boolean noUsername;
+        Boolean noPass;
+        Boolean noEmail;
+        Boolean noType;
+        String empty = "";
 
-        String isValidName = name.getText().toString();
+        Editable nameText = name.getText();
+        String isValidName = nameText.toString();
         TextView missingName = findViewById(R.id.missingName);
-        if (isValidName.equals("")) { //missing name
+        if (isValidName.equals(empty)) { //missing name
             missingName.setVisibility(View.VISIBLE);
             noName = false;
         } else {
@@ -76,9 +83,11 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
             noName = true;
         }
 
-        String isValidEmail = email.getText().toString().toLowerCase();
+        Editable emailText = email.getText();
+        String isValidEmail = emailText.toString();
+        isValidEmail = isValidEmail.toLowerCase();
         TextView missingEmail = findViewById(R.id.missingEmail);
-        if (isValidEmail.equals("") || !isValidEmail.contains("@")) {  //missing email or "@" sign
+        if (isValidEmail.equals(empty) || !isValidEmail.contains("@")) {  //missing email or "@" sign
             missingEmail.setVisibility(View.VISIBLE);
             noEmail = false;
         } else {
@@ -86,7 +95,9 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
             noEmail = true;
         }
 
-        String isValidUsername = username.getText().toString().toLowerCase();
+        Editable usernameText = username.getText();
+        String isValidUsername =usernameText.toString();
+        isValidUsername = isValidUsername.toLowerCase();
         TextView missingUsername = findViewById(R.id.missingUsername);
         if (isValidUsername.length() < 6) { //username cannot be less than 6 characters
             missingUsername.setVisibility(View.VISIBLE);
@@ -96,7 +107,8 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
             noUsername = true;
         }
 
-        String isValidPassword = password.getText().toString();
+        Editable passwordText = password.getText();
+        String isValidPassword = passwordText.toString();
         TextView missingPassword = findViewById(R.id.missingPassword);
         if (isValidPassword.length() < 6) { //password cannot be less than 6 characters
             missingPassword.setVisibility(View.VISIBLE);
@@ -108,7 +120,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
         String isValidType = (String) userTypes.getSelectedItem();
         TextView missingUserType = findViewById(R.id.missingUserType);
-        if (isValidType.equals("")) { // missing user type
+        if (isValidType.equals(empty)) { // missing user type
             missingUserType.setVisibility(View.VISIBLE);
             noType = false;
         } else {

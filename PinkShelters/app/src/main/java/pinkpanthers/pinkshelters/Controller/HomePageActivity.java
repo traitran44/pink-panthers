@@ -1,5 +1,6 @@
 package pinkpanthers.pinkshelters.Controller;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -77,7 +78,8 @@ public class HomePageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
         //Grab name and user type to show in homepage
-        SharedPreferences preferences = getApplicationContext().getSharedPreferences(
+        Context context = getApplicationContext();
+        SharedPreferences preferences = context.getSharedPreferences(
                 PREFS_NAME,
                 Registration.MODE_PRIVATE);
         TextView textUserType = findViewById(R.id.textView3);
@@ -94,7 +96,9 @@ public class HomePageActivity extends AppCompatActivity {
         textWelcome.setText("Welcome to Pink Shelter");
         textUserType.setText(prefUserType);
 
-        username = getIntent().getExtras().getString("username");
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        username = extras.getString("username");
         db = new Db("pinkpanther", "PinkPantherReturns!");
         try {
             user = db.getAccountByUsername(username);

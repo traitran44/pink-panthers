@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Properties;
 
 public class Db implements DBI {
-    private Connection conn;
+    private final Connection conn;
 //    public static Account activeAccount;
 
     /**
@@ -99,7 +99,9 @@ public class Db implements DBI {
             }
             id = rs.getInt(1);
         } catch (SQLException e) {
-            if (e.getSQLState().equals("23000")) {
+            String exist = "23000";
+            String sqlState = e.getSQLState();
+            if (sqlState.equals(exist)) {
                 throw new UniqueKeyError("Username already exists: " + username);
             }
             String errMsg = logSqlException(e);
@@ -446,8 +448,8 @@ public class Db implements DBI {
                 sql_column = "age_restrictions";
                 break;
         }
-
-        if (sql_column.equals("age_restrictions")) {
+        String ageRestriction = "age_restrictions";
+        if (sql_column.equals(ageRestriction)) {
             restriction = String.format("%%%s%%", restriction);
             sql = "SELECT id, shelter_name, capacity, special_notes, latitude, longitude, " +
                     "phone_number, restrictions, address, occupancy, update_capacity" +

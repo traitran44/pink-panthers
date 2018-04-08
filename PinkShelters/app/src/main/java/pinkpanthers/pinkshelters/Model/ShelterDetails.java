@@ -40,7 +40,9 @@ public class ShelterDetails extends AppCompatActivity {
         Button cancelBedButton = findViewById(R.id.cancelReservation);
 
         try {
-            int shelterId = getIntent().getExtras().getInt("shelterId");
+            Intent intent = getIntent();
+            Bundle extra = intent.getExtras();
+            int shelterId = extra.getInt("shelterId");
             s = db.getShelterById(shelterId);
             updateView(s);
         } catch (NoSuchUserException e) {
@@ -51,7 +53,9 @@ public class ShelterDetails extends AppCompatActivity {
         }
 
         try {
-            username = getIntent().getExtras().getString("username");
+            Intent intent = getIntent();
+            Bundle extra = intent.getExtras();
+            username = extra.getString("username");
             Account user = db.getAccountByUsername(username);
             if (user instanceof Homeless) { // user is a homeless person
                 a = (Homeless) user;
@@ -120,7 +124,7 @@ public class ShelterDetails extends AppCompatActivity {
 
     public void claimBedButton(@SuppressWarnings("unused") View view) {
         // check to see if user has updated their information
-        if (a.getFamilyMemberNumber() == 0 || a.getRestrictionsMatch() == null) {
+        if ((a.getFamilyMemberNumber() == 0) || (a.getRestrictionsMatch() == null)) {
             message = "You need to update your information before you can claim a bed or beds. "
                     + "Please update your information by using the button below";
             errorMessage.setText(message);
@@ -155,8 +159,8 @@ public class ShelterDetails extends AppCompatActivity {
                 Set <String> shelterRestrictionSet = new HashSet <> ();
 
                 //turn String of shelter restriction to List
-                List <String> shelterRestrictionList = Arrays.asList(
-                        s.getRestrictions().split((", ")));
+                String restrictions = s.getRestrictions();
+                List <String> shelterRestrictionList = Arrays.asList(restrictions.split((", ")));
 
                 //add Strings of shelter restriction list to set
                 for (String s: shelterRestrictionList) {
@@ -170,8 +174,10 @@ public class ShelterDetails extends AppCompatActivity {
                 Set <String> homelessRestrictionsSet = new HashSet <> (homelessRestrictions);
                 Set <String> common = new HashSet <> (shelterRestrictionSet);
                 common.retainAll(homelessRestrictionsSet);
-                String anyone1 = s.getRestrictions().toLowerCase();
-                if (anyone1.equals("anyone ") || (common.equals(homelessRestrictionsSet))) {
+                String sRestrictions = s.getRestrictions();
+                String anyone1 = sRestrictions.toLowerCase();
+                String anyone = "anyone";
+                if (anyone1.equals(anyone) || (common.equals(homelessRestrictionsSet))) {
                     try {
                         //update vacancy of shelter
                         int vacancy1 = s.getVacancy() - familyMemberNumber;

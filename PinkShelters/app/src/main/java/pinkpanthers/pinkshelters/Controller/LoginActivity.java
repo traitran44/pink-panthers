@@ -1,9 +1,11 @@
 package pinkpanthers.pinkshelters.Controller;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Button;
@@ -51,14 +53,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         txtView = findViewById(R.id.validationWarn);
 
         try {
-            String user = username.getText().toString().toLowerCase();
-            String pass = password.getText().toString();
+            Editable userText = username.getText();
+            String user = userText.toString();
+            user = user.toLowerCase();
+            Editable passText = password.getText();
+            String pass = passText.toString();
             account = db.getAccountByUsername(user);
             txtView.setText("");
-            if (account.getPassword().equals(pass)
-                    && !account.getAccountState().equals("blocked")) { // correct password
-
-                SharedPreferences preferences = getApplicationContext().getSharedPreferences(
+            String blocked = "blocked";
+            String correctPass = account.getPassword();
+            String accountState = account.getAccountState();
+            if (correctPass.equals(pass)
+                    && !accountState.equals(blocked)) { // correct password
+                Context context = getApplicationContext();
+                SharedPreferences preferences = context.getSharedPreferences(
                         "com.example.sp.LoginPrefs", MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferences.edit();
                 if (account instanceof Homeless) {
@@ -111,8 +119,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
      */
     private void checkLoginTrial() {
         Button loginButton = findViewById(R.id.login_button);
+        String blocked = "blocked";
         if (account != null) {
-            if (account.getAccountState().equals("blocked")) {
+            String accountState = account.getAccountState();
+            if (accountState.equals(blocked)) {
                 txtView.setText("Your account has been disable, please contact admin");
                 loginButton.setVisibility(View.INVISIBLE);
             } else if (loginTrial < 3) {
@@ -120,7 +130,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         + (3 - loginTrial) + " tries left");
                 account = null;
             } else {
-                account.setAccountState("blocked");
+                account.setAccountState(blocked);
                 txtView.setText("Your account is disable due to 3 " +
                         "unsuccessful attempts, please contact your admin");
                 loginButton.setVisibility(View.INVISIBLE);

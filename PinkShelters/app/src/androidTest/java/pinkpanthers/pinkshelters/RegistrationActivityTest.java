@@ -28,11 +28,10 @@ import pinkpanthers.pinkshelters.Model.Db;
 import pinkpanthers.pinkshelters.Model.NoSuchUserException;
 
 
+@SuppressWarnings("ChainedMethodCall")
 @RunWith(AndroidJUnit4.class)
 @LargeTest
 public class RegistrationActivityTest {
-
-    private DBI db;
 
     // use to hook up tests with Registration activity
     @Rule
@@ -44,7 +43,7 @@ public class RegistrationActivityTest {
      * Helper method to delete user account from database
      */
     public void deleteUser() {
-        db = new Db("pinkpanther", "PinkPantherReturns!");
+        DBI db = new Db("pinkpanther", "PinkPantherReturns!");
         try {
             db.deleteAccount("jeanuser");
         } catch (NoSuchUserException e) {

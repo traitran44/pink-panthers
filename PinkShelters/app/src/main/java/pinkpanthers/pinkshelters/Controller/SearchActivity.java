@@ -57,7 +57,9 @@ public class SearchActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_search);
 
         db = new Db("pinkpanther", "PinkPantherReturns!");
-        username = getIntent().getExtras().getString("username");
+        Intent intent = getIntent();
+        Bundle extra = intent.getExtras();
+        username = extra.getString("username");
 
         // data to populate the RecyclerView with
         shelterNames = new ArrayList<>();
@@ -109,24 +111,25 @@ public class SearchActivity extends AppCompatActivity implements
 
         age_range_gender_spinner.setOnItemSelectedListener(
                 new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                        String mainSelection = choices_spinner.getSelectedItem().toString();
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Object item = choices_spinner.getSelectedItem();
+                String mainSelection = item.toString();
 
-                        if ("Gender".equals(mainSelection)) {
-                            String searchBy = sqlConverter(genders.get(i));
-                            if ("None".equals(searchBy)) {
-                                shelterNames.clear();
-                                recycler_adapter.notifyDataSetChanged();
-                            } else {
-                                shelterNames.clear();
-                                try {
-                                    myShelters = db.getShelterByRestriction(searchBy);
-                                    for (Shelter sh : myShelters) {
-                                        shelterNames.add(sh.getShelterName());
-                                    }
-                                } catch (NoSuchUserException e) {
-                                    shelterNames.add("No results found");
+                if ("Gender".equals(mainSelection)) {
+                    String searchBy = sqlConverter(genders.get(i));
+                    if ("None".equals(searchBy)) {
+                        shelterNames.clear();
+                        recycler_adapter.notifyDataSetChanged();
+                    } else {
+                        shelterNames.clear();
+                        try {
+                            myShelters =  db.getShelterByRestriction(searchBy);
+                            for (Shelter sh : myShelters) {
+                                shelterNames.add(sh.getShelterName());
+                            }
+                        } catch (NoSuchUserException e) {
+                            shelterNames.add("No results found");
 
                                 }
                                 recycler_adapter.notifyDataSetChanged();
@@ -179,7 +182,8 @@ public class SearchActivity extends AppCompatActivity implements
 
                     //fill recyclerView with all shelters
                     for (int j = 0; j < shelters.size(); j++) {
-                        shelterNames.add(shelters.get(j).getShelterName());
+                        Shelter s = shelters.get(j);
+                        shelterNames.add(s.getShelterName());
                     }
 
                     // set interaction for the previewed list of shelter before starting the search
@@ -249,7 +253,8 @@ public class SearchActivity extends AppCompatActivity implements
     @Override
     public void onItemClick(View view, int position) {
         Intent detail = new Intent(this, ShelterDetails.class);
-        detail.putExtra("shelterId", myShelters.get(position).getId());
+        Shelter s = myShelters.get(position);
+        detail.putExtra("shelterId", s.getId());
         detail.putExtra("username", username);
         startActivity(detail);
     }

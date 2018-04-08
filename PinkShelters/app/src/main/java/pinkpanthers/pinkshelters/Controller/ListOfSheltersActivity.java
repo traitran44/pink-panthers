@@ -39,7 +39,8 @@ public class ListOfSheltersActivity extends AppCompatActivity implements
 
         shelters = db.getAllShelters();
         for (int i = 0; i < shelters.size(); i++) {
-            shelterNames.add(shelters.get(i).getShelterName());
+            Shelter s = shelters.get(i);
+            shelterNames.add(s.getShelterName());
         }
 
         // set up the RecyclerView
@@ -53,7 +54,9 @@ public class ListOfSheltersActivity extends AppCompatActivity implements
         Button search_button = findViewById(R.id.search_button);
         search_button.setOnClickListener(this);
 
-        username = getIntent().getExtras().getString("username");
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        username = extras.getString("username");
     }
 
     /**
@@ -64,7 +67,8 @@ public class ListOfSheltersActivity extends AppCompatActivity implements
     @Override
     public void onItemClick(View view, int position) { //clicked on one shelter
         Intent detail = new Intent(this, ShelterDetails.class);
-        detail.putExtra("shelterId", shelters.get(position).getId());
+        Shelter s = shelters.get(position);
+        detail.putExtra("shelterId", s.getId());
         detail.putExtra("username", username);
         startActivity(detail);
     }
