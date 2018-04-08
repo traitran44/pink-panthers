@@ -13,7 +13,6 @@ import java.util.List;
 import pinkpanthers.pinkshelters.Model.DBI;
 import pinkpanthers.pinkshelters.Model.Db;
 import pinkpanthers.pinkshelters.Model.Shelter;
-import pinkpanthers.pinkshelters.Model.ShelterDetails;
 import pinkpanthers.pinkshelters.R;
 
 

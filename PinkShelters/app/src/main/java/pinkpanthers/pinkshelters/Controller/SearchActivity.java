@@ -20,7 +20,6 @@ import pinkpanthers.pinkshelters.Model.Db;
 import pinkpanthers.pinkshelters.Model.Restrictions;
 import pinkpanthers.pinkshelters.Model.Shelter;
 import pinkpanthers.pinkshelters.Model.NoSuchUserException;
-import pinkpanthers.pinkshelters.Model.ShelterDetails;
 import pinkpanthers.pinkshelters.R;
 
 public class SearchActivity extends AppCompatActivity implements RecyclerAdapter.ItemClickListener, View.OnClickListener {
@@ -159,62 +158,67 @@ public class SearchActivity extends AppCompatActivity implements RecyclerAdapter
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String searchBy = choices.get(i);
 
-                if ("Gender".equals(searchBy)) { // search by gender was selected
-                    age_range_gender_spinner.setAdapter(gender_adapter);
-                    age_range_gender_spinner.setVisibility(View.VISIBLE);
-                    shelter_name_edit_text.setVisibility(View.INVISIBLE);
+                switch (searchBy) {
+                    case "Gender":  // search by gender was selected
+                        age_range_gender_spinner.setAdapter(gender_adapter);
+                        age_range_gender_spinner.setVisibility(View.VISIBLE);
+                        shelter_name_edit_text.setVisibility(View.INVISIBLE);
 
-                } else if ("Age Range".equals(searchBy)) { // search by age range was selected
-                    age_range_gender_spinner.setAdapter(age_range_adapter);
-                    age_range_gender_spinner.setVisibility(View.VISIBLE);
-                    shelter_name_edit_text.setVisibility(View.INVISIBLE);
-                } else if ("Name".equals(searchBy)) { // search by name was selected
-                    age_range_gender_spinner.setVisibility(View.INVISIBLE);
-                    shelter_name_edit_text.setVisibility(View.VISIBLE);
+                        break;
+                    case "Age Range":  // search by age range was selected
+                        age_range_gender_spinner.setAdapter(age_range_adapter);
+                        age_range_gender_spinner.setVisibility(View.VISIBLE);
+                        shelter_name_edit_text.setVisibility(View.INVISIBLE);
+                        break;
+                    case "Name":  // search by name was selected
+                        age_range_gender_spinner.setVisibility(View.INVISIBLE);
+                        shelter_name_edit_text.setVisibility(View.VISIBLE);
 
-                    shelterNames.clear(); // clear out old results found by different categories
+                        shelterNames.clear(); // clear out old results found by different categories
 
-                    //fill recyclerView with all shelters
-                    for (int j = 0; j < shelters.size(); j++) {
-                        Shelter s = shelters.get(j);
-                        shelterNames.add(s.getShelterName());
-                    }
 
-                    // set interaction for the previewed list of shelter before starting the search
-                    recycler_adapter = new RecyclerAdapter(SearchActivity.this, shelterNames);
-                    recycler_adapter.setClickListener(SearchActivity.this);
-                    search_recycler_view.setAdapter(recycler_adapter);
-                    shelter_name_edit_text.addTextChangedListener(new TextWatcher() {
-                        @Override
-                        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                            // nothing changes before user types anything
+                        //fill recyclerView with all shelters
+                        for (int j = 0; j < shelters.size(); j++) {
+                            Shelter s = shelters.get(j);
+                            shelterNames.add(s.getShelterName());
                         }
 
-                        @Override
-                        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                            // grabs each new character that the user types into the textView
-                            shelterNames.clear();
-                            try {
-                                myShelters = db.getShelterByName(charSequence.toString());
-                                for (Shelter s : myShelters) {
-                                    shelterNames.add(s.getShelterName());
-                                }
-
-                                //set interaction between the suggestions and shelter details
-                                recycler_adapter = new RecyclerAdapter(SearchActivity.this, shelterNames);
-                                recycler_adapter.setClickListener(SearchActivity.this);
-                                search_recycler_view.setAdapter(recycler_adapter);
-                            } catch (NoSuchUserException e) {
-                                shelterNames.add("No results found");
+                        // set interaction for the previewed list of shelter before starting the search
+                        recycler_adapter = new RecyclerAdapter(SearchActivity.this, shelterNames);
+                        recycler_adapter.setClickListener(SearchActivity.this);
+                        search_recycler_view.setAdapter(recycler_adapter);
+                        shelter_name_edit_text.addTextChangedListener(new TextWatcher() {
+                            @Override
+                            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                                // nothing changes before user types anything
                             }
-                            recycler_adapter.notifyDataSetChanged();
-                        }
 
-                        @Override
-                        public void afterTextChanged(Editable editable) {
-                            // changes occurred during onTextChanged so no changes after text changed
-                        }
-                    });
+                            @Override
+                            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                                // grabs each new character that the user types into the textView
+                                shelterNames.clear();
+                                try {
+                                    myShelters = db.getShelterByName(charSequence.toString());
+                                    for (Shelter s : myShelters) {
+                                        shelterNames.add(s.getShelterName());
+                                    }
+
+                                    //set interaction between the suggestions and shelter details
+                                    recycler_adapter = new RecyclerAdapter(SearchActivity.this, shelterNames);
+                                    recycler_adapter.setClickListener(SearchActivity.this);
+                                    search_recycler_view.setAdapter(recycler_adapter);
+                                } catch (NoSuchUserException e) {
+                                    shelterNames.add("No results found");
+                                }
+                                recycler_adapter.notifyDataSetChanged();
+                            }
+
+                            @Override
+                            public void afterTextChanged(Editable editable) {
+                                // changes occurred during onTextChanged so no changes after text changed
+                            }
+                        });
+                        break;
                 }
             }
 

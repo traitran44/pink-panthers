@@ -65,7 +65,7 @@
             android:label="@string/title_activity_registration"
             android:theme="@style/AppTheme.NoActionBar"
             tools:ignore="InnerclassSeparator" />
-        <activity android:name=".Model.ShelterDetails"
+        <activity android:name=".Controller.ShelterDetails"
             tools:ignore="InnerclassSeparator" />
         <activity android:name=".Controller.SearchActivity"
             tools:ignore="InnerclassSeparator" />

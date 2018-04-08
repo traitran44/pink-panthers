@@ -24,8 +24,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
      * @param data
      */
     RecyclerAdapter(Context context, List<String> data) {
-        this.mInflater = LayoutInflater.from(context);
-        this.mData = data;
+        mInflater = LayoutInflater.from(context);
+        mData = data;
     }
 
 

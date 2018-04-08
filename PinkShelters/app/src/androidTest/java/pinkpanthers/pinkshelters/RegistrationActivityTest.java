@@ -35,7 +35,7 @@ public class RegistrationActivityTest {
 
     // use to hook up tests with Registration activity
     @Rule
-    public ActivityTestRule<Registration> mActivityRule = new ActivityTestRule<>(Registration.class);
+    private ActivityTestRule<Registration> mActivityRule = new ActivityTestRule<>(Registration.class);
 
 
     /**
