@@ -98,7 +98,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // set adapter for the first spinner
         choices = Arrays.asList("Gender", "Age Range", "Name");
         choices_spinner = findViewById(R.id.choices_spinner);
-        ArrayAdapter<String> choices_adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, choices);
+        ArrayAdapter<String> choices_adapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1,
+                choices);
         choices_spinner.setAdapter(choices_adapter);
 
 
@@ -109,7 +111,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         second_spinner = findViewById(R.id.age_range_gender_spinner);
         second_spinner.setVisibility(View.INVISIBLE);
         gender_adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, genders);
-        age_range_adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, ageRanges);
+        age_range_adapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1,
+                ageRanges);
         second_spinner.setAdapter(gender_adapter);
         // end
 
@@ -142,14 +146,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     // set interaction for the previewed list of shelter before starting the search
                     shelter_name_edit_text.addTextChangedListener(new TextWatcher() {
                         @Override
-                        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                        public void beforeTextChanged(CharSequence charSequence,
+                                                      int i,
+                                                      int i1,
+                                                      int i2) {
                             myShelters = shelters;
                             setMarkersOnMap();
                             noResult.setText("");
                         }
 
                         @Override
-                        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                        public void onTextChanged(CharSequence charSequence,
+                                                  int i,
+                                                  int i1,
+                                                  int i2) {
                             // grabs each new character that the user types into the textView
                             try {
                                 myShelters = db.getShelterByName(charSequence.toString());
@@ -162,7 +172,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                         @Override
                         public void afterTextChanged(Editable editable) {
-                            // changes occurred during onTextChanged so no changes after text changed
+                            // changes occurred during onTextChanged
+                            // so no changes after text changed
                         }
                     });
                 }
@@ -233,7 +244,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             MarkerOptions markerOptions = new MarkerOptions()
                     .title(shelter.getShelterName())
                     .position(shelterLocation)
-                    .snippet( shelter.getAddress()
+                    .snippet(shelter.getAddress()
                             + "\n Phone Number: + " + shelter.getPhoneNumber()
                             + "\n Restrictions: " + shelter.getRestrictions()
                             + "\n Vacancy: " + shelter.getVacancy()
@@ -302,7 +313,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 LinearLayout mapLayout = findViewById(R.id.linearLayout2);
                 LayoutInflater layoutInflater = getLayoutInflater();
                 View addShelter = layoutInflater.inflate(R.layout.add_new_shelter,
-                        mapLayout, false );
+                        mapLayout, false);
 
                 // get user inputs from dialog box
                 EditText shelternameText = addShelter.findViewById(R.id.name);
@@ -347,9 +358,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         // details that pops up when user clicks onto the marker
                         markerOptions.title(newShelter.getShelterName());
                         markerOptions.snippet(newShelter.getAddress()
-                                        + "\n Phone Number: + " + newShelter.getPhoneNumber()
-                                        + "\n Restrictions: " + newShelter.getRestrictions()
-                                        + "\n Vacancy: " + newShelter.getVacancy());
+                                + "\n Phone Number: + " + newShelter.getPhoneNumber()
+                                + "\n Restrictions: " + newShelter.getRestrictions()
+                                + "\n Vacancy: " + newShelter.getVacancy());
 
                         // add marker to map and move camera to center its screen around it
                         mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
@@ -374,6 +385,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     /**
      * convert item name to corresponding under mysql
+     *
      * @param chosenItem
      * @return name
      */
@@ -399,16 +411,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     /**
-     *  Calculate the address using the tapped longitude and latitude
+     * Calculate the address using the tapped longitude and latitude
+     *
      * @param latLng
      * @param addressText
      */
     private void setAddress(LatLng latLng, EditText addressText) {
         try {
             Geocoder geocoder = new Geocoder(this, Locale.getDefault());
-            List<Address> addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude,1);
-            String address = addresses.get(0).getAddressLine(0) + ", " + addresses.get(0).getLocality() +
-                    ", " + addresses.get(0).getAdminArea() + ", " + addresses.get(0).getPostalCode();
+            List<Address> addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1);
+            String address = addresses.get(0).getAddressLine(0) + ", "
+                    + addresses.get(0).getLocality() +
+                    ", " + addresses.get(0).getAdminArea() + ", "
+                    + addresses.get(0).getPostalCode();
             addressText.setText(address);
         } catch (java.io.IOException e) {
             throw new RuntimeException("GeoCoder could not calculate the address using the " +
@@ -418,6 +433,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     /**
      * Convert capacity string to int
+     *
      * @return int capacity
      */
     private int capacityConverter() {
@@ -427,7 +443,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         int num = 0;
         String[] str = capacity.split(" ");
-        for (String ele: str) {
+        for (String ele : str) {
             if ((ele.charAt(0) >= 48) && (ele.charAt(0) <= 57)) {
                 num += Integer.parseInt(ele);
             }

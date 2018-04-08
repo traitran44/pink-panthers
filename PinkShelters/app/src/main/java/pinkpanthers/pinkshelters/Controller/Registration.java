@@ -40,7 +40,9 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         // set up the spinner (user type)
         List<String> legalUsers = Arrays.asList("", "Homeless", "Shelter Volunteer", "Admin");
         userTypes = findViewById(R.id.user_type_spinner);
-        ArrayAdapter<String> adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, legalUsers);
+        ArrayAdapter<String> adapter = new ArrayAdapter(this,
+                android.R.layout.simple_spinner_item,
+                legalUsers);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         userTypes.setAdapter(adapter);
 
@@ -117,7 +119,11 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         Boolean missingAnything = noName && noEmail && noPass && noUsername && noType;
         if (missingAnything) {
             try {
-                db.createAccount(isValidType, isValidUsername, isValidPassword, isValidName, isValidEmail);
+                db.createAccount(isValidType,
+                        isValidUsername,
+                        isValidPassword,
+                        isValidName,
+                        isValidEmail);
                 Intent loginPageIntent = new Intent(this, LoginActivity.class);
                 startActivity(loginPageIntent);
             } catch (UniqueKeyError e) {

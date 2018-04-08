@@ -36,7 +36,8 @@ public class RegistrationActivityTest {
 
     // use to hook up tests with Registration activity
     @Rule
-    public ActivityTestRule<Registration> mActivityRule = new ActivityTestRule<>(Registration.class);
+    public ActivityTestRule<Registration> mActivityRule = new
+            ActivityTestRule<>(Registration.class);
 
 
     /**
@@ -74,21 +75,26 @@ public class RegistrationActivityTest {
 
         // currently on WelcomePageActivity
 
-        /* attempting to login should pop up "Wrong username, you have " + (3 - loginTrial) + " tries left"
-         3 - loginTrial should equal 2 in this case since there will be only one wrong attempt at logging in */
+        /* attempting to login should pop up "Wrong username,
+        you have " + (3 - loginTrial) + " tries left"
+         3 - loginTrial should equal 2 in this case since
+         there will be only one wrong attempt at logging in */
 
         // click on login button
         onView(withId(R.id.login_button)).perform(click());
 
         //currently on loginActivity page
         // types "jeanuser" into username text box
-        onView(withId(R.id.name)).perform(typeText("jeanuser"), closeSoftKeyboard());
+        onView(withId(R.id.name)).perform(
+                typeText("jeanuser"), closeSoftKeyboard());
         // types "jean123" into password text box
-        onView(withId(R.id.password)).perform(typeText("jean123"), closeSoftKeyboard());
+        onView(withId(R.id.password)).perform(
+                typeText("jean123"), closeSoftKeyboard());
         // click on login button
         onView(withId(R.id.login_button)).perform(click());
         // warning should pop up
-        onView(withId(R.id.validationWarn)).check(matches(withText("Wrong username, you have 2 tries left")));
+        onView(withId(R.id.validationWarn)).check(
+                matches(withText("Wrong username, you have 2 tries left")));
     }
 
     @Test

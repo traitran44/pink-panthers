@@ -58,7 +58,8 @@ public class HomePageActivity extends AppCompatActivity {
             try {
                 Shelter shelter = db.getShelterById(((Homeless) user).getShelterId());
                 String bed = (((Homeless) user).getFamilyMemberNumber() == 1) ? " bed" : " beds";
-                message.setText("You have claim " + ((Homeless) user).getFamilyMemberNumber() + bed +
+                message.setText("You have claim " + ((Homeless) user).getFamilyMemberNumber()
+                        + bed +
                         " at shelter: " + shelter.getShelterName());
             } catch (NoSuchUserException e) {
                 message.setText("You have not claimed any bed yet");
@@ -76,7 +77,9 @@ public class HomePageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
         //Grab name and user type to show in homepage
-        SharedPreferences preferences = getApplicationContext().getSharedPreferences(PREFS_NAME, Registration.MODE_PRIVATE);
+        SharedPreferences preferences = getApplicationContext().getSharedPreferences(
+                PREFS_NAME,
+                Registration.MODE_PRIVATE);
         TextView textUserType = findViewById(R.id.textView3);
         TextView textName = findViewById(R.id.textView1);
         TextView textWelcome = findViewById(R.id.textView2);
