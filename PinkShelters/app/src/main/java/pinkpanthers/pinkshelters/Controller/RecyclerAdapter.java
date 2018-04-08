@@ -94,6 +94,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
      * parent activity will implement this method to respond to click events
      */
     public interface ItemClickListener {
-        void onItemClick(View view, int position);
+        void onItemClick(@SuppressWarnings("unused") View view, int position);
     }
 }

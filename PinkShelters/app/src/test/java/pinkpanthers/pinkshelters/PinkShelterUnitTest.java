@@ -14,13 +14,13 @@ import static org.junit.Assert.*;
 
 public class PinkShelterUnitTest {
     @Test
-    public void addition_isCorrect() throws Exception {
+    public void addition_isCorrect() {
         assertEquals(4, 2 + 2);
     }
 
     @Test
     public void getAllShelters() {
         Db db = new Db("pinkpanther", "PinkPantherReturns!");
-        List<Shelter> shelters = db.getAllShelters();
+//        List<Shelter> shelters = db.getAllShelters();
     }
 }

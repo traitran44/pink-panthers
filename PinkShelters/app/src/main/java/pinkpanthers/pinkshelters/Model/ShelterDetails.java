@@ -116,7 +116,7 @@ public class ShelterDetails extends AppCompatActivity {
         vacancy.setText(forVacancy);
     }
 
-    public void claimBedButton(View view) {
+    public void claimBedButton(@SuppressWarnings("unused") View view) {
         // check to see if user has updated their information
         if (a.getFamilyMemberNumber() == 0 || a.getRestrictionsMatch() == null) {
             message = "You need to update your information before you can claim a bed or beds. "
@@ -201,13 +201,13 @@ public class ShelterDetails extends AppCompatActivity {
     }
 
 
-    public void updateInfoButton(View view) {
+    public void updateInfoButton(@SuppressWarnings("unused") View view) {
         Intent updateInfoPage = new Intent(ShelterDetails.this, UserInfoActivity.class);
         updateInfoPage.putExtra("username", username);
         startActivity(updateInfoPage);
     }
 
-    public void cancelReservationButton(View view) {
+    public void cancelReservationButton(@SuppressWarnings("unused") View view) {
         // update vacancy
         int vacancy1 = s.getVacancy() + a.getFamilyMemberNumber();
         String forVacancy = "Vacancy: " + vacancy1;

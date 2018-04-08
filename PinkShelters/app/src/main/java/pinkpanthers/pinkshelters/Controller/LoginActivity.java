@@ -47,7 +47,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
      * Fail: Display Error
      * @param view
      */
-    public void logIn(View view) {
+    public void logIn(@SuppressWarnings("unused") View view) {
         txtView = findViewById(R.id.validationWarn);
 
         try {

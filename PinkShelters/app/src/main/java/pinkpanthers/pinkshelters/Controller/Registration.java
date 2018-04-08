@@ -61,7 +61,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
      * User Types
      * @param view
      */
-    public void registerButton(View view) {
+    public void registerButton(@SuppressWarnings("unused") View view) {
         Boolean noName, noUsername, noPass, noEmail, noType;
 
         String isValidName = name.getText().toString();

@@ -26,7 +26,7 @@ public class HomePageActivity extends AppCompatActivity {
      * Log the user out of current Activity
      * @param v View
      */
-    public void logOutButtonOnClick(View v) { //logout button
+    public void logOutButtonOnClick(@SuppressWarnings("unused") View v) { //logout button
 //        Db.activeAccount = null;
         Intent startMain = new Intent(this, WelcomePageActivity.class);
         startActivity(startMain);
@@ -36,7 +36,7 @@ public class HomePageActivity extends AppCompatActivity {
      * Direct user to the page that list all the shelters
      * @param v View
      */
-    public void shelterListButton(View v) { //View Shelter button
+    public void shelterListButton(@SuppressWarnings("unused") View v) { //View Shelter button
         Intent shelterListIntent = new Intent(this, ListOfSheltersActivity.class);
         shelterListIntent.putExtra("username", username);
         startActivity(shelterListIntent);
@@ -46,7 +46,7 @@ public class HomePageActivity extends AppCompatActivity {
      * Direct user to the Info Page
      * @param v View
      */
-    public void infoOnClick(View v) { //View/Edit User Info button
+    public void infoOnClick(@SuppressWarnings("unused") View v) { //View/Edit User Info button
         Intent info = new Intent(this, UserInfoActivity.class);
         info.putExtra("username", username);
         startActivity(info);

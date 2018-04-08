@@ -72,7 +72,7 @@ public class ListOfSheltersActivity extends AppCompatActivity implements Recycle
      * Direct to map
      * @param view View
      */
-    public void showMapButton(View view) {
+    public void showMapButton(@SuppressWarnings("unused") View view) {
         Intent map = new Intent(this, MapsActivity.class);
         map.putExtra("username", username);
         startActivity(map);

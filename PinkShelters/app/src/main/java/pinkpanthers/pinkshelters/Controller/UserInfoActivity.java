@@ -51,7 +51,7 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
      * Direct to Start Main
      * @param v
      */
-    public void backOnClick(View v) {
+    public void backOnClick(@SuppressWarnings("unused")  View v) {
         //passing username to intent
         Intent startMain = new Intent(this, HomePageActivity.class);
         startMain.putExtra("username", account.getUsername());
@@ -64,7 +64,7 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
      * Update the information of the user when click
      * @param v
      */
-    public void updateOnClick(View v) {
+    public void updateOnClick(@SuppressWarnings("unused") View v) {
         updateRestrictionList();
         //require homeless to select at least one restriction to update
         if (restrictionList.isEmpty()) {
