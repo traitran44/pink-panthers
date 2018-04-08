@@ -23,6 +23,9 @@ import pinkpanthers.pinkshelters.Model.NoSuchUserException;
 import pinkpanthers.pinkshelters.Model.ShelterDetails;
 import pinkpanthers.pinkshelters.R;
 
+/**
+ * to create an activity that allows user to search for a shelter
+ */
 public class SearchActivity extends AppCompatActivity implements
         RecyclerAdapter.ItemClickListener, View.OnClickListener {
 
@@ -46,11 +49,6 @@ public class SearchActivity extends AppCompatActivity implements
 
     private Db db;
 
-    /**
-     * Display search bar
-     *
-     * @param savedInstanceState
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,25 +109,25 @@ public class SearchActivity extends AppCompatActivity implements
 
         age_range_gender_spinner.setOnItemSelectedListener(
                 new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Object item = choices_spinner.getSelectedItem();
-                String mainSelection = item.toString();
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        Object item = choices_spinner.getSelectedItem();
+                        String mainSelection = item.toString();
 
-                if ("Gender".equals(mainSelection)) {
-                    String searchBy = sqlConverter(genders.get(i));
-                    if ("None".equals(searchBy)) {
-                        shelterNames.clear();
-                        recycler_adapter.notifyDataSetChanged();
-                    } else {
-                        shelterNames.clear();
-                        try {
-                            myShelters =  db.getShelterByRestriction(searchBy);
-                            for (Shelter sh : myShelters) {
-                                shelterNames.add(sh.getShelterName());
-                            }
-                        } catch (NoSuchUserException e) {
-                            shelterNames.add("No results found");
+                        if ("Gender".equals(mainSelection)) {
+                            String searchBy = sqlConverter(genders.get(i));
+                            if ("None".equals(searchBy)) {
+                                shelterNames.clear();
+                                recycler_adapter.notifyDataSetChanged();
+                            } else {
+                                shelterNames.clear();
+                                try {
+                                    myShelters = db.getShelterByRestriction(searchBy);
+                                    for (Shelter sh : myShelters) {
+                                        shelterNames.add(sh.getShelterName());
+                                    }
+                                } catch (NoSuchUserException e) {
+                                    shelterNames.add("No results found");
 
                                 }
                                 recycler_adapter.notifyDataSetChanged();
@@ -244,12 +242,6 @@ public class SearchActivity extends AppCompatActivity implements
 
     }
 
-    /**
-     * Direct to detail when shelter selected
-     *
-     * @param view
-     * @param position
-     */
     @Override
     public void onItemClick(View view, int position) {
         Intent detail = new Intent(this, ShelterDetails.class);
@@ -262,8 +254,8 @@ public class SearchActivity extends AppCompatActivity implements
     /**
      * Convert item name to corresponding name in Database
      *
-     * @param chosenItem
-     * @return
+     * @param chosenItem the selected item of the spinner
+     * @return the correct sql string format
      */
     private String sqlConverter(String chosenItem) {
         switch (chosenItem) {

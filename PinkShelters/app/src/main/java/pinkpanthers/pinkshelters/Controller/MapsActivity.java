@@ -47,6 +47,9 @@ import pinkpanthers.pinkshelters.R;
 import pinkpanthers.pinkshelters.Model.Restrictions;
 import pinkpanthers.pinkshelters.Model.Shelter;
 
+/**
+ * to create a map and filtering features
+ */
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
@@ -410,8 +413,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     /**
      * convert item name to corresponding under mysql
      *
-     * @param chosenItem
-     * @return name
+     * @param chosenItem the item picked from the spinner
+     * @return the sql portion
      */
     private String sqlConverter(String chosenItem) {
         switch (chosenItem) {
@@ -437,15 +440,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     /**
      * Calculate the address using the tapped longitude and latitude
      *
-     * @param latLng
-     * @param addressText
+     * @param latLng latitude and longitude
+     * @param addressText the address at that location
      */
     private void setAddress(LatLng latLng, EditText addressText) {
         try {
             Geocoder geocoder = new Geocoder(this, Locale.getDefault());
-            List<Address> addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude,1);
+            List<Address> addresses = geocoder.getFromLocation(latLng.latitude,
+                    latLng.longitude,1);
             Address onlyAddress = addresses.get(0);
-            String address = onlyAddress.getAddressLine(0) + ", " + onlyAddress.getLocality() +
+            String address = onlyAddress.getAddressLine(0) + ", "
+                    + onlyAddress.getLocality() +
                     ", " + onlyAddress.getAdminArea() + ", " + onlyAddress.getPostalCode();
             addressText.setText(address);
         } catch (java.io.IOException e) {

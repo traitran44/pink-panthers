@@ -29,6 +29,9 @@ import pinkpanthers.pinkshelters.Model.Account;
 
 import pinkpanthers.pinkshelters.R;
 
+/**
+ * to create a view that allows users to update their information
+ */
 public class UserInfoActivity extends AppCompatActivity implements
         RecyclerAdapter.ItemClickListener, View.OnClickListener {
     private DBI db;
@@ -50,7 +53,7 @@ public class UserInfoActivity extends AppCompatActivity implements
     /**
      * set Click Event for Back Button
      * Direct to Start Main
-     * @param v
+     * @param v current view that holds the back button
      */
     public void backOnClick(@SuppressWarnings("unused")  View v) {
         //passing username to intent
@@ -63,7 +66,7 @@ public class UserInfoActivity extends AppCompatActivity implements
     /**
      * Set Click Event Update Info Button
      * Update the information of the user when click
-     * @param v
+     * @param v current view that holds the update button
      */
     public void updateOnClick(@SuppressWarnings("unused") View v) {
         updateRestrictionList();
@@ -91,7 +94,11 @@ public class UserInfoActivity extends AppCompatActivity implements
                     //if homeless presses on YES, then cancel claimed beds
                     builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
 
-
+                        /**
+                         * to create a listener for item that gets clicked on
+                         * @param dialog the dialog that this button holds
+                         * @param which the position of the item
+                         */
                         public void onClick(DialogInterface dialog, int which) {
                             try {
                                 Shelter shelter = db.getShelterById(homeless.getShelterId());
@@ -168,10 +175,6 @@ public class UserInfoActivity extends AppCompatActivity implements
         }
     }
 
-    /**
-     * Display list of checkbox and User Info
-     * @param savedInstanceState
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -263,8 +266,8 @@ public class UserInfoActivity extends AppCompatActivity implements
 
     /**
      * Check if checkbox name match with selected one
-     * @param homelessRestriction
-     * @param shelterRestriction
+     * @param homelessRestriction the restrictions that a homeless matches
+     * @param shelterRestriction the restrictions that a shelter holds
      * @return true if match
      */
     private boolean checkCheckbox(String homelessRestriction, String shelterRestriction) {

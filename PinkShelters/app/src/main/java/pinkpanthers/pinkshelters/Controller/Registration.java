@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.content.SharedPreferences;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -19,6 +20,9 @@ import pinkpanthers.pinkshelters.Model.Db;
 import pinkpanthers.pinkshelters.Model.UniqueKeyError;
 import pinkpanthers.pinkshelters.R;
 
+/**
+ * to create an activity that allows users to register their accounts
+ */
 public class Registration extends AppCompatActivity implements View.OnClickListener {
     private Spinner userTypes;
     private EditText name;
@@ -27,10 +31,6 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     private EditText password;
     private DBI db;
 
-    /**
-     * Display Text Field ask user to fill out their form to register
-     * @param savedInstanceState
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +62,8 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
      * Password
      * Email
      * User Types
-     * @param view
+     *
+     * @param view the current view that the register button is on
      */
     public void registerButton(@SuppressWarnings("unused") View view) {
         Boolean noName;
@@ -87,7 +88,8 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         String isValidEmail = emailText.toString();
         isValidEmail = isValidEmail.toLowerCase();
         TextView missingEmail = findViewById(R.id.missingEmail);
-        if (isValidEmail.equals(empty) || !isValidEmail.contains("@")) {  //missing email or "@" sign
+        if (isValidEmail.equals(empty) || !isValidEmail.contains("@")) {
+            //missing email or "@" sign
             missingEmail.setVisibility(View.VISIBLE);
             noEmail = false;
         } else {
@@ -96,7 +98,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         }
 
         Editable usernameText = username.getText();
-        String isValidUsername =usernameText.toString();
+        String isValidUsername = usernameText.toString();
         isValidUsername = isValidUsername.toLowerCase();
         TextView missingUsername = findViewById(R.id.missingUsername);
         if (isValidUsername.length() < 6) { //username cannot be less than 6 characters
@@ -148,10 +150,12 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
     /**
      * Direct user to Welcome Page
-     * @param v
+     *
+     * @param v the current view that handles this onClick method
      */
     public void onClick(View v) { //cancel button
-        Intent welcomeIntent = new Intent(Registration.this, WelcomePageActivity.class);
+        Intent welcomeIntent = new Intent(Registration.this,
+                WelcomePageActivity.class);
         startActivity(welcomeIntent);
     }
 }

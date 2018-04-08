@@ -11,6 +11,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
+/**
+ * to create a class that implements all DBI methods
+ */
 public class Db implements DBI {
     private final Connection conn;
 //    public static Account activeAccount;
@@ -40,7 +43,8 @@ public class Db implements DBI {
             connProperties.setProperty("maxReconnects", "3");
             connProperties.setProperty("user", username);
             connProperties.setProperty("password", password);
-            this.conn = DriverManager.getConnection("jdbc:mariadb://timbess.net:3306/pinkpanther",
+            this.conn = DriverManager.getConnection(
+                    "jdbc:mariadb://timbess.net:3306/pinkpanther",
                     connProperties);
         } catch (SQLException e) {
             String errMsg = logSqlException(e);
@@ -48,6 +52,11 @@ public class Db implements DBI {
         }
     }
 
+    /**
+     * to log error
+     * @param e the error
+     * @return the text of error
+     */
     private String logSqlException(SQLException e) {
         String errMsg = "Error connecting to DB: " + e.toString();
         Log.d(Db.class.getName(), errMsg);

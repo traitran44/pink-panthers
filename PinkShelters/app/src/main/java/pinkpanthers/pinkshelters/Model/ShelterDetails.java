@@ -17,6 +17,9 @@ import java.util.Set;
 import pinkpanthers.pinkshelters.Controller.UserInfoActivity;
 import pinkpanthers.pinkshelters.R;
 
+/**
+ * to create a view that allow users to view more details about a shelter
+ */
 public class ShelterDetails extends AppCompatActivity {
     private DBI db;
     private Shelter s;
@@ -85,6 +88,10 @@ public class ShelterDetails extends AppCompatActivity {
         }
     }
 
+    /**
+     * specific details about a shelter
+     * @param s the selected shelter
+     */
     private void updateView(Shelter s) {
         TextView name = findViewById(R.id.name);
         String forName = "Name: " + s.getShelterName();
@@ -122,6 +129,10 @@ public class ShelterDetails extends AppCompatActivity {
         vacancy.setText(forVacancy);
     }
 
+    /**
+     * the button that allows users to claim a bed at a shelter
+     * @param view the current view that holds the claim button
+     */
     public void claimBedButton(@SuppressWarnings("unused") View view) {
         // check to see if user has updated their information
         if ((a.getFamilyMemberNumber() == 0) || (a.getRestrictionsMatch() == null)) {
@@ -212,12 +223,21 @@ public class ShelterDetails extends AppCompatActivity {
     }
 
 
+    /**
+     * to direct to userInfoActivity
+     * @param view the current view that holds the update button
+     */
     public void updateInfoButton(@SuppressWarnings("unused") View view) {
-        Intent updateInfoPage = new Intent(ShelterDetails.this, UserInfoActivity.class);
+        Intent updateInfoPage = new Intent(ShelterDetails.this,
+                UserInfoActivity.class);
         updateInfoPage.putExtra("username", username);
         startActivity(updateInfoPage);
     }
 
+    /**
+     * to cancel a reservation and will update the vacancy number
+     * @param view the current view that holds the cancel button
+     */
     public void cancelReservationButton(@SuppressWarnings("unused") View view) {
         // update vacancy
         int vacancy1 = s.getVacancy() + a.getFamilyMemberNumber();
