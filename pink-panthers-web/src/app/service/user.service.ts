@@ -1,35 +1,40 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {User} from '../@types/user';
 
 @Injectable()
 export class UserService {
   user: User;
+
   constructor() {
     this.user = {
       userKey: '',
       name: '',
-      email: '',
       pass: '',
+      email: '',
       role: '',
+      familySize: 1,
+      familyType: [],
       beds: []
     };
   }
 
   setUser(newUser) {
-    console.log(newUser);
     this.user = JSON.parse(JSON.stringify(newUser));
   }
 
-  getUser() {
+  getUser(): User {
     return this.user;
   }
 
-  getUserBed() {
-    console.log('Get beds');
-    console.log(this.user);
+  getUserFamilyType(): string[] {
+    return this.user.familyType;
+  }
+
+  getUserBed(): string[] {
     return this.user.beds;
   }
-  getUserKey() {
+
+  getUserKey(): string {
     return this.user.userKey;
   }
 }

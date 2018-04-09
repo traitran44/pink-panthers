@@ -1,0 +1,9 @@
+<ngui-map style="height: 100vh; " zoom="0" center="40.771, -73.974">
+  <directions-renderer
+    [suppressMarkers]="true"
+    [draggable]="true"
+    panel="#my-panel"
+    (directions_changed)="directionsChanged()"
+    [directions-request]="direction">
+  </directions-renderer>
+</ngui-map>
