@@ -7,9 +7,13 @@ import android.view.View;
 
 import pinkpanthers.pinkshelters.R;
 
+<<<<<<< HEAD
+@SuppressWarnings("ALL")
+=======
 /**
  * to create a welcome page that allows users to either log in or register
  */
+>>>>>>> 80ec6491ea06372256fbdab0cfbe9566d1c66c80
 public class WelcomePageActivity extends AppCompatActivity {
 
     @Override

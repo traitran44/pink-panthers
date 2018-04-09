@@ -29,12 +29,20 @@ import pinkpanthers.pinkshelters.Model.Account;
 
 import pinkpanthers.pinkshelters.R;
 
+<<<<<<< HEAD
+
+@SuppressWarnings({"CyclicClassDependency", "OverlyLongMethod", "LawOfDemeter"})
+public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapter.ItemClickListener
+        , View.OnClickListener {
+
+=======
 /**
  * to create a view that allows users to update their information
  */
 @SuppressWarnings("RedundantCast")
 public class UserInfoActivity extends AppCompatActivity implements
         RecyclerAdapter.ItemClickListener, View.OnClickListener {
+>>>>>>> 80ec6491ea06372256fbdab0cfbe9566d1c66c80
     private DBI db;
 
     private final List<String> restrictionList = new ArrayList<>();
@@ -50,6 +58,9 @@ public class UserInfoActivity extends AppCompatActivity implements
     private Homeless homeless;
     private List<CheckBox> checkBoxList;
     private List<Restrictions> enums;
+    private int familySizeSpinner;
+    static final int familySizeSpinnerChoice=16;
+
 
     /**
      * set Click Event for Back Button
@@ -71,6 +82,7 @@ public class UserInfoActivity extends AppCompatActivity implements
      *
      * @param v current view that holds the update button
      */
+    @SuppressWarnings("FeatureEnvy")
     public void updateOnClick(@SuppressWarnings("unused") View v) {
         updateRestrictionList();
         //require homeless to select at least one restriction to update
@@ -92,23 +104,38 @@ public class UserInfoActivity extends AppCompatActivity implements
                     //create dialog
                     AlertDialog.Builder builder = new AlertDialog.Builder(this);
                     builder.setTitle("Confirm cancellation to update info");
+<<<<<<< HEAD
+                    String shelterNameGetter=shelter.getShelterName();
+                    builder.setMessage("Are you sure to cancel bed(s) claimed at" +
+                            shelterNameGetter + "?");
+=======
                     builder.setMessage("Are you sure to cancel bed(s) claimed at"
                             + shelter.getShelterName() + "?");
+>>>>>>> 80ec6491ea06372256fbdab0cfbe9566d1c66c80
                     //if homeless presses on YES, then cancel claimed beds
+                    //noinspection FeatureEnvy,FeatureEnvy
                     builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+<<<<<<< HEAD
+                        @SuppressWarnings("LawOfDemeter")
+                        @Override
+=======
 
                         /**
                          * to create a listener for item that gets clicked on
                          * @param dialog the dialog that this button holds
                          * @param which the position of the item
                          */
+>>>>>>> 80ec6491ea06372256fbdab0cfbe9566d1c66c80
                         public void onClick(DialogInterface dialog, int which) {
                             try {
                                 Shelter shelter = db.getShelterById(homeless.getShelterId());
-                                int vacancy = shelter.getVacancy() + familySize;
-                                int occupancy = shelter.getUpdate_capacity() - vacancy;
+                                int vacancyGetter=shelter.getVacancy();
+                                int vacancy = vacancyGetter + familySize;
+                                int occupancy=shelter.getUpdate_capacity();
+                                int occupancyUpdate = occupancy - vacancy;
                                 homeless.setShelterId(0);
-                                db.updateShelterOccupancy(shelter.getId(), occupancy);
+                                int shelterId=shelter.getId();
+                                db.updateShelterOccupancy(shelterId, occupancyUpdate);
                                 //updateRestrictionList();
 
                                 if (restrictionList.isEmpty()) {
@@ -207,6 +234,7 @@ public class UserInfoActivity extends AppCompatActivity implements
             e.printStackTrace();
         }
 
+        //noinspection InstanceofConcreteClass
         if (account instanceof Homeless) {
             homeless = (Homeless) account;
 
@@ -227,9 +255,9 @@ public class UserInfoActivity extends AppCompatActivity implements
             }
         }
 
-
+        familySizeSpinner=familySizeSpinnerChoice;
         // add choices to family size
-        for (int i = 1; i < 16; i++) {
+        for (int i = 1; i <familySizeSpinnerChoice; i++) {
             familySizeList.add(i);
         }
         family_spinner = findViewById(R.id.family_spinner);

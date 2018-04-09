@@ -22,9 +22,13 @@ import pinkpanthers.pinkshelters.Model.NoSuchUserException;
 import pinkpanthers.pinkshelters.Model.Shelter;
 import pinkpanthers.pinkshelters.R;
 
+<<<<<<< HEAD
+@SuppressWarnings("ALL")
+=======
 /**
  * to create a view that allow users to view more details about a shelter
  */
+>>>>>>> 80ec6491ea06372256fbdab0cfbe9566d1c66c80
 public class ShelterDetails extends AppCompatActivity {
     private DBI db;
     private Shelter s;
@@ -261,7 +265,7 @@ public class ShelterDetails extends AppCompatActivity {
             db.updateAccount(a);
             db.updateShelterOccupancy(s.getId(), occupancy);
         } catch (NoSuchUserException e) {
-            throw new RuntimeException("Homeless user is null or shelterid does not exist");
+            throw new RuntimeException("Homeless user is null or shelterId does not exist");
         } catch (java.sql.SQLException e) {
             throw new RuntimeException("SQLException raised when trying " +
                     "to update account or shelter" +

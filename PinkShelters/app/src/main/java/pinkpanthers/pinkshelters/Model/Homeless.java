@@ -7,6 +7,7 @@ import java.util.List;
 /**
  * Homeless class, one of 3 user type
  */
+@SuppressWarnings("ALL")
 public class Homeless extends Account {
     private int shelterId; // might change to int depends on the type parsed in csv file
     private List<String> restrictionsMatch;

@@ -3,6 +3,7 @@ package pinkpanthers.pinkshelters.Model;
 /**
  * Admin class as one of 3 user types
  */
+@SuppressWarnings("ALL")
 public class Admin extends Account {
     /**
      * constructor

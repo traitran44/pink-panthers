@@ -5,15 +5,25 @@ import android.os.Build;
 import android.os.StrictMode;
 import android.util.Log;
 
-import java.sql.*;
+//import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
+<<<<<<< HEAD
+@SuppressWarnings("ALL")
+=======
 /**
  * to create a class that implements all DBI methods
  */
+>>>>>>> 80ec6491ea06372256fbdab0cfbe9566d1c66c80
 public class Db implements DBI {
     private final Connection conn;
 //    public static Account activeAccount;

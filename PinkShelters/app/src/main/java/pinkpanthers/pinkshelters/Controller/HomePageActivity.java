@@ -16,9 +16,13 @@ import pinkpanthers.pinkshelters.Model.Shelter;
 import pinkpanthers.pinkshelters.Model.NoSuchUserException;
 import pinkpanthers.pinkshelters.R;
 
+<<<<<<< HEAD
+@SuppressWarnings("ALL")
+=======
 /**
  * to create homepage view after logging in
  */
+>>>>>>> 80ec6491ea06372256fbdab0cfbe9566d1c66c80
 public class HomePageActivity extends AppCompatActivity {
     private static final String PREFS_NAME = "com.example.sp.LoginPrefs";
     private String username;
