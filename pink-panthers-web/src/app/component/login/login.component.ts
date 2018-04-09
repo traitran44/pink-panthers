@@ -40,6 +40,12 @@ export class LoginComponent implements OnInit {
         if (!user['beds']) {
           user['beds'] = [];
         }
+        if (!user['familyType']) {
+          user['familyType'] = [];
+        }
+        if (!user['familySize']) {
+          user['familySize'] = 1;
+        }
         this.user$$.setUser(user);
         this.user = user;
         console.log(this.user);

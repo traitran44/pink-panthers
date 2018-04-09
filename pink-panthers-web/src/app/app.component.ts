@@ -22,6 +22,8 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.user = {
+      familyType: [],
+      familySize: 1,
       userKey: '',
       name: '',
       email: '',

@@ -1,3 +1,110 @@
-<p>
-  admin works!
-</p>
+<div class="container">
+  <!--SEARCH-->
+  <mat-card>
+    <div class="row">
+      <div class="col-md-12">
+        Name: {{user.name}}
+        <br>
+        Email: {{user.email}}
+        <br>
+        <mat-form-field>
+          <mat-select placeholder="Family Size"  [value]="user['familySize']" (change)="onFamilySizeChange($event)">
+            <mat-option *ngFor="let size of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]" [value]="size">
+              {{ size }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <br>
+        <pp-multi-check-box [selectList]="restrictionList" [selected]="user['familyType']"
+                            (listChange)="onFamilyTypeChange($event)"></pp-multi-check-box>
+      </div>
+    </div>
+  </mat-card>
+  <mat-card>
+    <div class="row">
+      <b>
+        Search:
+      </b>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <mat-radio-group (change)="onCategoryChange($event)">
+          <mat-radio-button color="primary" *ngFor="let category of searchCategories" [value]="category"
+                            style="padding: 10px;">
+            {{category}}
+          </mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <div class="col-md-8">
+        <mat-form-field style="width: 100%;" *ngIf="toggleSearchField.select">
+          <mat-select placeholder="Select to Search" (change)="onSearch($event)">
+            <mat-option *ngFor="let search of searchList" [value]="search">
+              {{ search }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field style="width: 100%;" *ngIf="toggleSearchField.type">
+          <input matInput placeholder="Type to Search" (keydown)="onSearch($event)">
+        </mat-form-field>
+      </div>
+    </div>
+  </mat-card>
+
+  <!--DETAILS-->
+  <mat-card *ngFor="let eachShelter of shelters" style="margin-top: 20px">
+    <mat-card-header>
+      <mat-card-title>
+        <h4>
+          {{eachShelter['Shelter Name']}}
+        </h4>
+      </mat-card-title>
+      <mat-card-subtitle>{{eachShelter['Address']}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-divider></mat-divider>
+    <mat-card-content>
+      <div class="row" style="padding: 15px;">
+        <div class="col-md-6">
+          <p>
+            <strong>Capacity: </strong>{{eachShelter['Capacity']}}
+          </p>
+          <p>
+            <strong>
+              Latitude:
+            </strong> {{eachShelter['Latitude']}}
+          </p>
+          <p>
+            <strong>
+              Longitude:
+            </strong> {{eachShelter['Longitude']}}
+          </p>
+        </div>
+        <div class="col-md-6">
+          <p>
+            <strong>
+              Phone
+            </strong> Number: {{eachShelter['Phone Number']}}
+          </p>
+          <p>
+            <strong>
+              Restrictions:
+            </strong> {{eachShelter['Restrictions']}}
+          </p>
+          <p>
+            <strong>
+              Special Notes:
+            </strong> {{eachShelter['Special Notes']}}
+          </p>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+
+      <button mat-button mat-raised-button (click)="getDirection(eachShelter)">
+        <i class="fa fa-map-signs"></i>
+        Direction
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+
