@@ -4,6 +4,8 @@ import {SnapshotAction} from 'angularfire2/database';
 import {statsWarningsToString} from '@angular/cli/utilities/stats';
 import {UserService} from '../../service/user.service';
 import {User} from '../../@types/user';
+import {MatDialog, MatOptionSelectionChange, MatSnackBar} from '@angular/material';
+import {GoogleMapsComponent} from '../google-maps/google-maps.component';
 
 interface ShelterResponse {
   'Address': string[];
@@ -41,23 +43,38 @@ export class HomelessComponent implements OnInit {
   searchList: string[];
   genderList: string[];
   ageRangeList: string[];
-  toggleSeachField: {
+  toggleSearchField: {
     select: boolean,
     type: boolean
   };
+  restrictionList: string[];
   searchType: string;
   user: User;
+  shelterMap: any;
 
   constructor(private fb$$: FirebaseService,
+              private snackBar: MatSnackBar,
+              public dialog: MatDialog,
               private user$$: UserService) {
   }
 
   ngOnInit() {
     this.user = this.user$$.getUser();
-    this.toggleSeachField = {
+    this.toggleSearchField = {
       select: false,
       type: false
     };
+    this.shelterMap = {};
+    this.restrictionList = [
+      'Men',
+      'Women',
+      'Non-binary',
+      'Families w/ Newborns',
+      'Families w/ Children under 5',
+      'Veterans',
+      'Children',
+      'Young Adults'
+    ];
     this.genderList = [
       'None',
       'Men',
@@ -121,6 +138,7 @@ export class HomelessComponent implements OnInit {
 
       this.shelterBuffer = this.shelters.slice();
       this.shelterBuffer.forEach((val, indx) => {
+        this.shelterMap[val['Shelter Name']] = val;
         if (this.user$$.getUserBed().includes(val['Shelter Name'])) {
           val['selected'] = true;
         }
@@ -135,11 +153,41 @@ export class HomelessComponent implements OnInit {
     console.log('bed');
     console.log(bed);
     console.log(this.user$$.getUserBed());
+    console.log(this.shelterMap);
+    const userFamilyRestriction = this.user$$.getUserFamilyType();
+    const restrictions = this.shelterMap[bed]['Restrictions'].split(',');
+    let isClaimable = true;
+
+    restrictions.forEach((val, indx) => {
+      restrictions[indx] = val.toLowerCase();
+    });
+
+    userFamilyRestriction.forEach((famType, indx2) => {
+      if (!restrictions.includes(famType.toLowerCase())) {
+        isClaimable = false;
+      }
+    });
+
+    if (userFamilyRestriction.length === 0) {
+      isClaimable = false;
+    }
+
+    console.log('userFamilyRestriction');
+    console.log(userFamilyRestriction);
+    console.log(restrictions);
 
     if (!this.user$$.getUserBed().includes(bed)) {
-      this.user$$.getUserBed().push(bed);
-      this.fb$$.updateUserBeds(this.user$$.getUserKey(), this.user$$.getUserBed());
+      if (isClaimable) {
+        this.user$$.getUserBed().push(bed);
+        this.fb$$.updateUserBeds(this.user$$.getUserKey(), this.user$$.getUserBed());
+      } else {
+        this.shelterMap[bed]['selected'] = false;
+        this.snackBar.open('Cannot claim this bed due to restrictions', '', {
+          duration: 3000,
+        });
+      }
     } else {
+      this.shelterMap[bed]['selected'] = false;
       const rmvIndx = this.user$$.getUserBed().indexOf(bed);
       this.user$$.getUserBed().splice(rmvIndx, 1);
       this.fb$$.updateUserBeds(this.user$$.getUserKey(), this.user$$.getUserBed());
@@ -151,20 +199,20 @@ export class HomelessComponent implements OnInit {
     switch ($event.value) {
       case 'Gender':
         this.searchType = 'gender';
-        this.toggleSeachField.select = true;
-        this.toggleSeachField.type = false;
+        this.toggleSearchField.select = true;
+        this.toggleSearchField.type = false;
         this.searchList = this.genderList;
         break;
       case 'Age Range':
         this.searchType = 'age';
-        this.toggleSeachField.select = true;
-        this.toggleSeachField.type = false;
+        this.toggleSearchField.select = true;
+        this.toggleSearchField.type = false;
         this.searchList = this.ageRangeList;
         break;
       case 'Name':
         this.searchType = 'name';
-        this.toggleSeachField.select = false;
-        this.toggleSeachField.type = true;
+        this.toggleSearchField.select = false;
+        this.toggleSearchField.type = true;
         break;
       default:
         break;
@@ -260,5 +308,30 @@ export class HomelessComponent implements OnInit {
         this.onGenderSearch($event);
         break;
     }
+  }
+
+  onFamilyTypeChange($event: any) {
+    console.log($event);
+    this.fb$$.updateFamilyType(this.user$$.getUserKey(), $event);
+  }
+
+  onFamilySizeChange($event) {
+    this.fb$$.updateFamilySize(this.user$$.getUserKey(), $event.value);
+  }
+
+  getDirection(eachShelter: Shelter) {
+    console.log(eachShelter);
+    this.openDialog(eachShelter);
+  }
+
+  openDialog(shelter: Shelter): void {
+    const dialogRef = this.dialog.open(GoogleMapsComponent, {
+      panelClass: 'g-map',
+      data: {shelter: shelter}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
   }
 }
