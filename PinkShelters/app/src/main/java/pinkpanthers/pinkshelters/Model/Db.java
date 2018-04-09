@@ -11,17 +11,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
-<<<<<<< HEAD
 
 /**
  * to create a class that implements all DBI methods
  */
 
-=======
-/**
- * to create a class that implements all DBI methods
- */
->>>>>>> parent of 44a7e1e... Merge pull request #89 from MrTrai/Julia-nguyen-person4
 public class Db implements DBI {
     private final Connection conn;
 //    public static Account activeAccount;

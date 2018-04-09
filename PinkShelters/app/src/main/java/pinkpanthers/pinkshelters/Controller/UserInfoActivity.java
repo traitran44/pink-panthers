@@ -29,10 +29,6 @@ import pinkpanthers.pinkshelters.Model.Account;
 
 import pinkpanthers.pinkshelters.R;
 
-<<<<<<< HEAD
-
-=======
->>>>>>> parent of 44a7e1e... Merge pull request #89 from MrTrai/Julia-nguyen-person4
 /**
  * to create a view that allows users to update their information
  */
@@ -100,18 +96,8 @@ public class UserInfoActivity extends AppCompatActivity implements
                             + shelter.getShelterName() + "?");
                     //if homeless presses on YES, then cancel claimed beds
                     builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-<<<<<<< HEAD
-                        @SuppressWarnings("LawOfDemeter")
+
                         @Override
-
-=======
->>>>>>> parent of 44a7e1e... Merge pull request #89 from MrTrai/Julia-nguyen-person4
-
-                        /**
-                         * to create a listener for item that gets clicked on
-                         * @param dialog the dialog that this button holds
-                         * @param which the position of the item
-                         */
                         public void onClick(DialogInterface dialog, int which) {
                             try {
                                 Shelter shelter = db.getShelterById(homeless.getShelterId());

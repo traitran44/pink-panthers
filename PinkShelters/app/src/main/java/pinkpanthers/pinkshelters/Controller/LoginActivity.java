@@ -22,10 +22,6 @@ import pinkpanthers.pinkshelters.Model.Volunteer;
 import pinkpanthers.pinkshelters.Model.NoSuchUserException;
 import pinkpanthers.pinkshelters.R;
 
-<<<<<<< HEAD
-
-=======
->>>>>>> parent of 44a7e1e... Merge pull request #89 from MrTrai/Julia-nguyen-person4
 /**
  * to create log-in trials
  */

@@ -16,20 +16,11 @@ import pinkpanthers.pinkshelters.Model.Db;
 import pinkpanthers.pinkshelters.Model.Shelter;
 import pinkpanthers.pinkshelters.R;
 
-<<<<<<< HEAD
-
-=======
->>>>>>> parent of 44a7e1e... Merge pull request #89 from MrTrai/Julia-nguyen-person4
 /**
  * to create a view that shows a list of shelters
  */
 public class ListOfSheltersActivity extends AppCompatActivity implements
         RecyclerAdapter.ItemClickListener, View.OnClickListener {
-<<<<<<< HEAD
-
-
-=======
->>>>>>> parent of 44a7e1e... Merge pull request #89 from MrTrai/Julia-nguyen-person4
 
     private List<Shelter> shelters;
     private String username; //used to get current logged in user

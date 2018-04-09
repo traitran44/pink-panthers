@@ -16,17 +16,10 @@ import pinkpanthers.pinkshelters.Model.Shelter;
 import pinkpanthers.pinkshelters.Model.NoSuchUserException;
 import pinkpanthers.pinkshelters.R;
 
-<<<<<<< HEAD
-
 /**
  * to create homepage view after logging in
  */
 
-=======
-/**
- * to create homepage view after logging in
- */
->>>>>>> parent of 44a7e1e... Merge pull request #89 from MrTrai/Julia-nguyen-person4
 public class HomePageActivity extends AppCompatActivity {
     private static final String PREFS_NAME = "com.example.sp.LoginPrefs";
     private String username;

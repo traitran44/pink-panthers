@@ -47,10 +47,6 @@ import pinkpanthers.pinkshelters.R;
 import pinkpanthers.pinkshelters.Model.Restrictions;
 import pinkpanthers.pinkshelters.Model.Shelter;
 
-<<<<<<< HEAD
-
-=======
->>>>>>> parent of 44a7e1e... Merge pull request #89 from MrTrai/Julia-nguyen-person4
 /**
  * to create a map and filtering features
  */

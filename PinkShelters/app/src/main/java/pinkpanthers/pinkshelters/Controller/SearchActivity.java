@@ -27,10 +27,6 @@ import pinkpanthers.pinkshelters.R;
  */
 public class SearchActivity extends AppCompatActivity implements
         RecyclerAdapter.ItemClickListener, View.OnClickListener {
-<<<<<<< HEAD
-
-=======
->>>>>>> parent of 44a7e1e... Merge pull request #89 from MrTrai/Julia-nguyen-person4
 
     private final List<String> choices = new ArrayList<>();
     private final List<String> genders = new ArrayList<>();
@@ -94,11 +90,6 @@ public class SearchActivity extends AppCompatActivity implements
         shelter_name_edit_text = findViewById(R.id.shelter_name_edit_text);
 
         age_range_gender_spinner.setVisibility(View.INVISIBLE);
-
-<<<<<<< HEAD
-=======
-
->>>>>>> parent of 44a7e1e... Merge pull request #89 from MrTrai/Julia-nguyen-person4
         ArrayAdapter<String> choices_adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1,
                 choices);
