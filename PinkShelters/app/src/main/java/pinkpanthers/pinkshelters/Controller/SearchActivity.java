@@ -47,7 +47,7 @@ public class SearchActivity extends AppCompatActivity
 
     /**
      * Display search bar
-     * @param savedInstanceState
+     * @param savedInstanceState saved state of instance
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +57,7 @@ public class SearchActivity extends AppCompatActivity
         db = new Db("pinkpanther", "PinkPantherReturns!");
         Intent intent = getIntent();
         Bundle extra = intent.getExtras();
-        username = extra.getString("username");
+        username = extra != null ? extra.getString("username") : null;
 
         // data to populate the RecyclerView with
         shelterNames = new ArrayList<>();
@@ -247,8 +247,8 @@ public class SearchActivity extends AppCompatActivity
 
     /**
      * Direct to detail when shelter selected
-     * @param view
-     * @param position
+     * @param view current view
+     * @param position current position
      */
     @Override
     public void onItemClick(View view, int position) {
@@ -261,8 +261,8 @@ public class SearchActivity extends AppCompatActivity
 
     /**
      * Convert item name to corresponding name in Database
-     * @param chosenItem
-     * @return
+     * @param chosenItem item chosen
+     * @return enum of restriction
      */
     private String sqlConverter(String chosenItem) {
         switch (chosenItem) {

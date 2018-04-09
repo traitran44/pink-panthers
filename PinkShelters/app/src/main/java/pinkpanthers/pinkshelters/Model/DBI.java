@@ -9,8 +9,6 @@ import java.util.List;
 public interface DBI {
     /**
      * createAccount a new account/assignment
-     *
-     * @return if an account is added to the database
      */
     void createAccount(String type, String username, String password, String name, String email)
             throws UniqueKeyError;

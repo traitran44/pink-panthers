@@ -47,7 +47,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
      * Check for user name, password and log the user in.
      * Success: Direct User to Home Page
      * Fail: Display Error
-     * @param view
+     * @param view current view
      */
     public void logIn(@SuppressWarnings("unused") View view) {
         txtView = findViewById(R.id.validationWarn);
@@ -106,7 +106,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     /**
      * When click on Cancel button, redirect back to Welcome Page
-     * @param v
+     * @param v current view
      */
     public void onClick(View v) { //cancel button
         Intent welcomeIntent = new Intent(LoginActivity.this, WelcomePageActivity.class);

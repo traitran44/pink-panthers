@@ -20,8 +20,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     /**
      * data is passed into the constructor
      * Update class data and layoutInflater context
-     * @param context
-     * @param data
+     * @param context current context
+     * @param data data passed into constructor
      */
     RecyclerAdapter(Context context, List<String> data) {
         mInflater = LayoutInflater.from(context);
@@ -31,9 +31,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     /**
      * inflates the row layout from xml when needed
-     * @param parent
-     * @param viewType
-     * @return
+     * @param parent parent viewGroup
+     * @param viewType type of view
+     * @return viewHolder
      */
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -43,8 +43,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     /**
      * binds the data to the TextView in each row
-     * @param holder
-     * @param position
+     * @param holder view Holder
+     * @param position current position
      */
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
@@ -86,7 +86,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     /**
      * allows clicks events to be caught
-     * @param itemClickListener
+     * @param itemClickListener current ItemClickListener
      */
     void setClickListener(ItemClickListener itemClickListener) {
         this.mClickListener = itemClickListener;

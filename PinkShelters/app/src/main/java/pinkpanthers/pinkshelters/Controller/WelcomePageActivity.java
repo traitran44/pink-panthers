@@ -11,7 +11,7 @@ public class WelcomePageActivity extends AppCompatActivity {
 
     /**
      * Display Welcome Page content
-     * @param savedInstanceState
+     * @param savedInstanceState saved state of instance
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +21,7 @@ public class WelcomePageActivity extends AppCompatActivity {
 
     /**
      * Direct User to Login Page
-     * @param view
+     * @param view view
      */
     public void loginButton(@SuppressWarnings("unused") View view) {
         Intent loginPageIntent = new Intent(this, LoginActivity.class);
@@ -30,7 +30,7 @@ public class WelcomePageActivity extends AppCompatActivity {
 
     /**
      * Direct User to Register Page
-     * @param view
+     * @param view view
      */
     public void registerButton(@SuppressWarnings("unused") View view) {
         Intent registerPageIntent = new Intent(this, Registration.class);

@@ -93,7 +93,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         try {
             Intent intent = getIntent();
             Bundle extra = intent.getExtras();
-            String username = extra.getString("username");
+            String username = extra != null ? extra.getString("username") : null;
             user = db.getAccountByUsername(username);
         } catch (NoSuchUserException e) {
             throw new RuntimeException("There is not account with this username");
@@ -404,8 +404,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     /**
      * convert item name to corresponding under mysql
-     * @param chosenItem
-     * @return name
+     * @param chosenItem item chosen
+     * @return name name of chosen item
      */
     private String sqlConverter(String chosenItem) {
         switch (chosenItem) {
@@ -430,8 +430,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     /**
      *  Calculate the address using the tapped longitude and latitude
-     * @param latLng
-     * @param addressText
+     * @param latLng location
+     * @param addressText address of location
      */
     private void setAddress(LatLng latLng, EditText addressText) {
         try {

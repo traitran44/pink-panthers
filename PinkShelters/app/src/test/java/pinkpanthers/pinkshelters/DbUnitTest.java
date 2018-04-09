@@ -33,8 +33,7 @@ public class DbUnitTest {
     @Test(expected = NullPointerException.class)
     public void testNullForUpdateAccount() throws SQLException, NoSuchUserException {
         // account is null
-        account = null;
-        db.updateAccount(account);
+        db.updateAccount(null);
     }
 
     // account with invalid id (negative)

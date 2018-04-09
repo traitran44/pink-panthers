@@ -29,7 +29,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
     /**
      * Display Text Field ask user to fill out their form to register
-     * @param savedInstanceState
+     * @param savedInstanceState recently saved instance state
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +61,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
      * Password
      * Email
      * User Types
-     * @param view
+     * @param view current view
      */
     public void registerButton(@SuppressWarnings("unused") View view) {
         Boolean noName;
@@ -144,7 +144,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
     /**
      * Direct user to Welcome Page
-     * @param v
+     * @param v view
      */
     public void onClick(View v) { //cancel button
         Intent welcomeIntent = new Intent(Registration.this, WelcomePageActivity.class);

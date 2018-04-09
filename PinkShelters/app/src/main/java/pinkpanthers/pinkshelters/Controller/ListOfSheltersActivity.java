@@ -24,7 +24,7 @@ public class ListOfSheltersActivity extends AppCompatActivity
 
     /**
      * Create a list view of all the shelters
-     * @param savedInstanceState
+     * @param savedInstanceState saved instance
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,13 +55,13 @@ public class ListOfSheltersActivity extends AppCompatActivity
 
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
-        username = extras.getString("username");
+        username = extras != null ? extras.getString("username") : null;
     }
 
     /**
      * Direst to detail page when a shelter is selected
-     * @param view
-     * @param position
+     * @param view current view
+     * @param position current position of item clicked
      */
     @Override
     public void onItemClick(View view, int position) { //clicked on one shelter
@@ -84,7 +84,7 @@ public class ListOfSheltersActivity extends AppCompatActivity
 
     /**
      * Direct to search page
-     * @param v
+     * @param v current view
      */
     @Override
     public void onClick(View v) { //search button

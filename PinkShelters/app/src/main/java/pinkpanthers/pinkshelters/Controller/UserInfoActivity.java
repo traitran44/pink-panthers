@@ -50,7 +50,7 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
     /**
      * set Click Event for Back Button
      * Direct to Start Main
-     * @param v
+     * @param v view
      */
     public void backOnClick(@SuppressWarnings("unused")  View v) {
         //passing username to intent
@@ -63,7 +63,7 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
     /**
      * Set Click Event Update Info Button
      * Update the information of the user when click
-     * @param v
+     * @param v view
      */
     public void updateOnClick(@SuppressWarnings("unused") View v) {
         updateRestrictionList();
@@ -170,7 +170,7 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
 
     /**
      * Display list of checkbox and User Info
-     * @param savedInstanceState
+     * @param savedInstanceState state of saved instance
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -227,7 +227,7 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
             familySizeList.add(i);
         }
         family_spinner = findViewById(R.id.family_spinner);
-        ArrayAdapter<Integer> family_adapter = new ArrayAdapter<Integer>(
+        ArrayAdapter<Integer> family_adapter = new ArrayAdapter<>(
                 this, android.R.layout.simple_spinner_item, familySizeList);
         family_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         family_spinner.setAdapter(family_adapter);
@@ -262,9 +262,9 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
 
     /**
      * Check if checkbox name match with selected one
-     * @param homelessRestriction
-     * @param shelterRestriction
-     * @return true if match
+     * @param homelessRestriction restriction of homeless
+     * @param shelterRestriction restriction of shelter
+     * @return true if match, false if not.
      */
     private boolean checkCheckbox(String homelessRestriction, String shelterRestriction) {
         return homelessRestriction.equals(shelterRestriction);
@@ -279,7 +279,7 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
         db = new Db("pinkpanther", "PinkPantherReturns!");
         Intent intent = getIntent();
         Bundle extra = intent.getExtras();
-        String username = extra.getString("username");
+        String username = extra != null ? extra.getString("username") : null;
         account = db.getAccountByUsername(username);
     }
 
