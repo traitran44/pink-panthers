@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.Collections;
 import java.util.List;
 
 import pinkpanthers.pinkshelters.R;
