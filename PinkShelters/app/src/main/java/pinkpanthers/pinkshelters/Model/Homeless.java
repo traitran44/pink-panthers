@@ -73,6 +73,7 @@ public class Homeless extends Account {
      * @param restrictionsMatch list of restrictions that current homeless
      *                          matches with shelter
      */
+    @SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType")
     public void setRestrictionsMatch(List<String> restrictionsMatch) {
         this.restrictionsMatch = restrictionsMatch;
     }
@@ -83,6 +84,7 @@ public class Homeless extends Account {
      * @return list of restrictions that current homeless
      * matches with shelter
      */
+    @SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType")
     public List<String> getRestrictionsMatch() {
         return restrictionsMatch;
     }
