@@ -216,6 +216,7 @@ public class SearchActivity extends AppCompatActivity implements
                             } catch (NoSuchUserException e) {
                                 shelterNames.add("No results found");
                             }
+                            recycler_adapter.notifyDataSetChanged();
                         }
 
                         @Override
