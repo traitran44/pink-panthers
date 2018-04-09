@@ -31,6 +31,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     private EditText password;
     private DBI db;
 
+    @SuppressWarnings("unchecked")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +42,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         // set up the spinner (user type)
         List<String> legalUsers = Arrays.asList("", "Homeless", "Shelter Volunteer", "Admin");
         userTypes = findViewById(R.id.user_type_spinner);
-        ArrayAdapter<String> adapter = new ArrayAdapter(this,
+        @SuppressWarnings("unchecked") ArrayAdapter<String> adapter = new ArrayAdapter(this,
                 android.R.layout.simple_spinner_item,
                 legalUsers);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

@@ -36,13 +36,14 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
     <application
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:ignore="AllowBackup">
+        tools:ignore="AllowBackup"
+        >
         <activity android:name=".Controller.LoginActivity"
             tools:ignore="InnerclassSeparator" />
         <activity android:name=".Controller.HomePageActivity"
@@ -77,14 +78,9 @@
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
              Note that the API key is linked to the encryption key used to sign the APK.
-<<<<<<< HEAD
-             You need a different API key for each encryption key, including the release key that is
-              used to sign the APK for publishing.
-=======
              You need a different API key for each encryption key,
              including the release key that is used to
              sign the APK for publishing.
->>>>>>> 7c94b2a85cdab0ca2dcad11d38e5717039707c3d
              You can define the keys for the debug and release targets in src/debug/
              and src/release/.
         -->
