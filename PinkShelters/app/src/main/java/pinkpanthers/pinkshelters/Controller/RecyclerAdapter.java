@@ -6,6 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import pinkpanthers.pinkshelters.R;
@@ -24,8 +27,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
      * @param data
      */
     RecyclerAdapter(Context context, List<String> data) {
-        this.mInflater = LayoutInflater.from(context);
-        this.mData = data;
+        mInflater = LayoutInflater.from(context);
+        mData = Collections.unmodifiableList(new ArrayList<String>(data));
     }
 
 

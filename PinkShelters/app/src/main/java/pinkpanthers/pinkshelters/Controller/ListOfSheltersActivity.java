@@ -13,11 +13,11 @@ import java.util.List;
 import pinkpanthers.pinkshelters.Model.DBI;
 import pinkpanthers.pinkshelters.Model.Db;
 import pinkpanthers.pinkshelters.Model.Shelter;
-import pinkpanthers.pinkshelters.Model.ShelterDetails;
 import pinkpanthers.pinkshelters.R;
 
 
-public class ListOfSheltersActivity extends AppCompatActivity implements RecyclerAdapter.ItemClickListener, View.OnClickListener {
+public class ListOfSheltersActivity extends AppCompatActivity
+        implements RecyclerAdapter.ItemClickListener, View.OnClickListener {
 
     private List<Shelter> shelters;
     private String username; //used to get current logged in user
