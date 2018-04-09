@@ -28,7 +28,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
      */
     RecyclerAdapter(Context context, List<String> data) {
         mInflater = LayoutInflater.from(context);
-        mData = Collections.unmodifiableList(new ArrayList<String>(data));
+        mData = data;
     }
 
 

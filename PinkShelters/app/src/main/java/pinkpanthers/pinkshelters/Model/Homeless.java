@@ -74,8 +74,7 @@ public class Homeless extends Account {
      *                          matches with shelter
      */
     public void setRestrictionsMatch(List<String> restrictionsMatch) {
-        this.restrictionsMatch = Collections.unmodifiableList(
-                new ArrayList<String>(restrictionsMatch));
+        this.restrictionsMatch = restrictionsMatch;
     }
 
     /**
@@ -85,7 +84,7 @@ public class Homeless extends Account {
      * matches with shelter
      */
     public List<String> getRestrictionsMatch() {
-        return Collections.unmodifiableList(restrictionsMatch);
+        return restrictionsMatch;
     }
 
 
