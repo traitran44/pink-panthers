@@ -9,9 +9,13 @@ import java.util.List;
 public interface DBI {
     /**
      * createAccount a new account/assignment
+     *
      */
-    void createAccount(String type, String username, String password, String name, String email)
-            throws UniqueKeyError;
+    void createAccount(String type,
+                       String username,
+                       String password,
+                       String name,
+                       String email) throws UniqueKeyError;
 
     /**
      * to retrieve an account by its username (unique)
@@ -97,8 +101,8 @@ public interface DBI {
      * @throws NoSuchUserException when the id pass in the database doesn't exist,
      *                             no rows get updated
      */
-    void updateShelterOccupancy(int shelterId, int occupancy)
-            throws SQLException, NoSuchUserException;
+    void updateShelterOccupancy(int shelterId, int occupancy) throws SQLException,
+                                                                    NoSuchUserException;
 
     /**
      * update the the whole account's (whichever is editable, such as

@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,17 +16,15 @@ import pinkpanthers.pinkshelters.Model.Db;
 import pinkpanthers.pinkshelters.Model.Shelter;
 import pinkpanthers.pinkshelters.R;
 
-
-public class ListOfSheltersActivity extends AppCompatActivity
-        implements RecyclerAdapter.ItemClickListener, View.OnClickListener {
+/**
+ * to create a view that shows a list of shelters
+ */
+public class ListOfSheltersActivity extends AppCompatActivity implements
+        RecyclerAdapter.ItemClickListener, View.OnClickListener {
 
     private List<Shelter> shelters;
     private String username; //used to get current logged in user
 
-    /**
-     * Create a list view of all the shelters
-     * @param savedInstanceState saved instance
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,11 +57,7 @@ public class ListOfSheltersActivity extends AppCompatActivity
         username = extras != null ? extras.getString("username") : null;
     }
 
-    /**
-     * Direst to detail page when a shelter is selected
-     * @param view current view
-     * @param position current position of item clicked
-     */
+
     @Override
     public void onItemClick(View view, int position) { //clicked on one shelter
         Intent detail = new Intent(this, ShelterDetails.class);
@@ -74,6 +69,7 @@ public class ListOfSheltersActivity extends AppCompatActivity
 
     /**
      * Direct to map
+     *
      * @param view View
      */
     public void showMapButton(@SuppressWarnings("unused") View view) {
@@ -82,10 +78,7 @@ public class ListOfSheltersActivity extends AppCompatActivity
         startActivity(map);
     }
 
-    /**
-     * Direct to search page
-     * @param v current view
-     */
+
     @Override
     public void onClick(View v) { //search button
         Intent intent = new Intent(ListOfSheltersActivity.this, SearchActivity.class);

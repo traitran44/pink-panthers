@@ -56,8 +56,17 @@ public class DbUnitTest {
     // account with invalid id (positive)
     @Test(expected = NoSuchUserException.class)
     public void testPosInvalidIdUpdateAccount() throws SQLException, NoSuchUserException {
+        account = new Volunteer("test123", "test123", "test",
+                "blocked", "test123@", 1000);
+        db.updateAccount(account);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testPosInvalidHomelessUpdateAccount() throws SQLException, NoSuchUserException {
         account = new Homeless("test123", "test123", "test",
                 "blocked", "test123@", 1000);
+        // not setting shelterId, familyMemberNumber and restrictionMatch
+        // NullPointerException returns in the method where restrictionMatch is null by defaults
         db.updateAccount(account);
     }
 

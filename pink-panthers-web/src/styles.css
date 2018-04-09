@@ -5,3 +5,9 @@
 html, body {
   background-color: #ECEFF1;
 }
+
+.g-map {
+  width: 60vw;
+  height: 100vh;
+
+}

@@ -83,14 +83,16 @@ public class RegistrationActivityTest {
 
         //currently on loginActivity page
         // types "jeanuser" into username text box
-        onView(withId(R.id.name)).perform(typeText("jeanuser"), closeSoftKeyboard());
+        onView(withId(R.id.name)).perform(
+                typeText("jeanuser"), closeSoftKeyboard());
         // types "jean123" into password text box
-        onView(withId(R.id.password)).perform(typeText("jean123"), closeSoftKeyboard());
+        onView(withId(R.id.password)).perform(
+                typeText("jean123"), closeSoftKeyboard());
         // click on login button
         onView(withId(R.id.login_button)).perform(click());
         // warning should pop up
-        onView(withId(R.id.validationWarn)).check(matches(withText("Wrong username, you have" +
-                " 2 tries left")));
+        onView(withId(R.id.validationWarn)).check(
+                matches(withText("Wrong username, you have 2 tries left")));
     }
 
     @Test

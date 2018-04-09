@@ -29,8 +29,12 @@ import pinkpanthers.pinkshelters.Model.Account;
 
 import pinkpanthers.pinkshelters.R;
 
-public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapter.ItemClickListener
-        , View.OnClickListener {
+/**
+ * to create a view that allows users to update their information
+ */
+@SuppressWarnings("RedundantCast")
+public class UserInfoActivity extends AppCompatActivity implements
+        RecyclerAdapter.ItemClickListener, View.OnClickListener {
     private DBI db;
 
     private final List<String> restrictionList = new ArrayList<>();
@@ -50,9 +54,10 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
     /**
      * set Click Event for Back Button
      * Direct to Start Main
-     * @param v view
+     *
+     * @param v current view that holds the back button
      */
-    public void backOnClick(@SuppressWarnings("unused")  View v) {
+    public void backOnClick(@SuppressWarnings("unused") View v) {
         //passing username to intent
         Intent startMain = new Intent(this, HomePageActivity.class);
         startMain.putExtra("username", account.getUsername());
@@ -63,7 +68,8 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
     /**
      * Set Click Event Update Info Button
      * Update the information of the user when click
-     * @param v view
+     *
+     * @param v current view that holds the update button
      */
     public void updateOnClick(@SuppressWarnings("unused") View v) {
         updateRestrictionList();
@@ -80,18 +86,22 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
                 homeless.setFamilyMemberNumber(familySize);
 
                 //checked if homeless has already claimed beds
-                if ((homeless.getShelterId() != 0) &&
-                        (db.getShelterById(homeless.getShelterId()) != null)) {
+                if ((homeless.getShelterId() != 0)
+                        && (db.getShelterById(homeless.getShelterId()) != null)) {
                     Shelter shelter = db.getShelterById(homeless.getShelterId());
                     //create dialog
                     AlertDialog.Builder builder = new AlertDialog.Builder(this);
                     builder.setTitle("Confirm cancellation to update info");
-                    builder.setMessage("Are you sure to cancel bed(s) claimed at" +
-                            shelter.getShelterName() + "?");
+                    builder.setMessage("Are you sure to cancel bed(s) claimed at"
+                            + shelter.getShelterName() + "?");
                     //if homeless presses on YES, then cancel claimed beds
                     builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
 
-
+                        /**
+                         * to create a listener for item that gets clicked on
+                         * @param dialog the dialog that this button holds
+                         * @param which the position of the item
+                         */
                         public void onClick(DialogInterface dialog, int which) {
                             try {
                                 Shelter shelter = db.getShelterById(homeless.getShelterId());
@@ -168,10 +178,7 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
         }
     }
 
-    /**
-     * Display list of checkbox and User Info
-     * @param savedInstanceState state of saved instance
-     */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -183,15 +190,15 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
 
         List<String> currentRestrictionList;
         checkBoxList = new ArrayList<>();
-        checkBoxList.add(findViewById(R.id.checkBox1));
-        checkBoxList.add(findViewById(R.id.checkBox2));
-        checkBoxList.add(findViewById(R.id.checkBox3));
-        checkBoxList.add(findViewById(R.id.checkBox4));
-        checkBoxList.add(findViewById(R.id.checkBox5));
-        checkBoxList.add(findViewById(R.id.checkBox6));
-        checkBoxList.add(findViewById(R.id.checkBox7));
-        checkBoxList.add(findViewById(R.id.checkBox8));
-        checkBoxList.add( findViewById(R.id.checkBox9));
+        checkBoxList.add((CheckBox) findViewById(R.id.checkBox1));
+        checkBoxList.add((CheckBox) findViewById(R.id.checkBox2));
+        checkBoxList.add((CheckBox) findViewById(R.id.checkBox3));
+        checkBoxList.add((CheckBox) findViewById(R.id.checkBox4));
+        checkBoxList.add((CheckBox) findViewById(R.id.checkBox5));
+        checkBoxList.add((CheckBox) findViewById(R.id.checkBox6));
+        checkBoxList.add((CheckBox) findViewById(R.id.checkBox7));
+        checkBoxList.add((CheckBox) findViewById(R.id.checkBox8));
+        checkBoxList.add((CheckBox) findViewById(R.id.checkBox9));
         enums = Arrays.asList(Restrictions.values());
 
 
@@ -227,8 +234,9 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
             familySizeList.add(i);
         }
         family_spinner = findViewById(R.id.family_spinner);
-        ArrayAdapter<Integer> family_adapter = new ArrayAdapter<>(
-                this, android.R.layout.simple_spinner_item, familySizeList);
+        ArrayAdapter<Integer> family_adapter =
+                new ArrayAdapter<Integer>(this,
+                        android.R.layout.simple_spinner_item, familySizeList);
         family_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         family_spinner.setAdapter(family_adapter);
 
@@ -262,9 +270,10 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
 
     /**
      * Check if checkbox name match with selected one
-     * @param homelessRestriction restriction of homeless
-     * @param shelterRestriction restriction of shelter
-     * @return true if match, false if not.
+     *
+     * @param homelessRestriction the restrictions that a homeless matches
+     * @param shelterRestriction  the restrictions that a shelter holds
+     * @return true if match
      */
     private boolean checkCheckbox(String homelessRestriction, String shelterRestriction) {
         return homelessRestriction.equals(shelterRestriction);

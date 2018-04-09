@@ -2,27 +2,27 @@
   <!--SEARCH-->
   <mat-card>
     <div class="row">
-      <div class="col-md-9">
+      <div class="col-md-12">
         Name: {{user.name}}
         <br>
         Email: {{user.email}}
         <br>
-        Family Size : {{user['familySize']}}
+        <mat-form-field>
+          <mat-select placeholder="Family Size"  [value]="user['familySize']" (change)="onFamilySizeChange($event)">
+            <mat-option *ngFor="let size of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]" [value]="size">
+              {{ size }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
         <br>
-        Family Type : {{user['familyType']}}
-      </div>
-      <div class="col-md-3">
-        <button mat-button mat-raised-button style="float: right;">
-          <i class="fa fa-user-circle"></i>
-          Edit Info
-        </button>
+        <pp-multi-check-box [selectList]="restrictionList" [selected]="user['familyType']"
+                            (listChange)="onFamilyTypeChange($event)"></pp-multi-check-box>
       </div>
     </div>
   </mat-card>
   <mat-card>
     <div class="row">
       <b>
-
         Search:
       </b>
     </div>
@@ -36,16 +36,15 @@
         </mat-radio-group>
       </div>
       <div class="col-md-8">
-        <mat-form-field style="width: 100%;" *ngIf="toggleSeachField.select">
+        <mat-form-field style="width: 100%;" *ngIf="toggleSearchField.select">
           <mat-select placeholder="Select to Search" (change)="onSearch($event)">
             <mat-option *ngFor="let search of searchList" [value]="search">
               {{ search }}
             </mat-option>
           </mat-select>
-
         </mat-form-field>
 
-        <mat-form-field style="width: 100%;" *ngIf="toggleSeachField.type">
+        <mat-form-field style="width: 100%;" *ngIf="toggleSearchField.type">
           <input matInput placeholder="Type to Search" (keydown)="onSearch($event)">
         </mat-form-field>
       </div>
@@ -101,9 +100,14 @@
     </mat-card-content>
     <mat-card-actions>
 
-      <mat-checkbox mat-button mat-raised-button color="primary" [checked]="eachShelter.selected" (change)="claimBed(eachShelter['Shelter Name'])">Claim Bed</mat-checkbox>
+      <mat-checkbox mat-button mat-raised-button color="primary" [(ngModel)]="shelterMap[eachShelter['Shelter Name']]['selected']"
+                    (change)="claimBed(eachShelter['Shelter Name'])">Claim Bed
+      </mat-checkbox>
+      <button mat-button mat-raised-button (click)="getDirection(eachShelter)">
+        <i class="fa fa-map-signs"></i>
+        Direction
+      </button>
     </mat-card-actions>
   </mat-card>
-
 </div>
 
