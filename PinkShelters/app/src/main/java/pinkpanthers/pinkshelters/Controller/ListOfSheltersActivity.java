@@ -16,19 +16,13 @@ import pinkpanthers.pinkshelters.Model.Db;
 import pinkpanthers.pinkshelters.Model.Shelter;
 import pinkpanthers.pinkshelters.R;
 
-<<<<<<< HEAD
 
-
-@SuppressWarnings("CyclicClassDependency")
-public class ListOfSheltersActivity extends AppCompatActivity
-        implements RecyclerAdapter.ItemClickListener, View.OnClickListener {
-=======
 /**
  * to create a view that shows a list of shelters
  */
 public class ListOfSheltersActivity extends AppCompatActivity implements
         RecyclerAdapter.ItemClickListener, View.OnClickListener {
->>>>>>> 80ec6491ea06372256fbdab0cfbe9566d1c66c80
+
 
 
     private List<Shelter> shelters;

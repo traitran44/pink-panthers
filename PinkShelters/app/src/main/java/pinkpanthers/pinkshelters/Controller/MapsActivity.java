@@ -46,13 +46,10 @@ import pinkpanthers.pinkshelters.R;
 import pinkpanthers.pinkshelters.Model.Restrictions;
 import pinkpanthers.pinkshelters.Model.Shelter;
 
-<<<<<<< HEAD
-@SuppressWarnings("ALL")
-=======
+
 /**
  * to create a map and filtering features
  */
->>>>>>> 80ec6491ea06372256fbdab0cfbe9566d1c66c80
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;

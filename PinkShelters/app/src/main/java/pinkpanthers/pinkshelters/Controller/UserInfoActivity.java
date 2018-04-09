@@ -29,20 +29,13 @@ import pinkpanthers.pinkshelters.Model.Account;
 
 import pinkpanthers.pinkshelters.R;
 
-<<<<<<< HEAD
 
-@SuppressWarnings({"CyclicClassDependency", "OverlyLongMethod", "LawOfDemeter"})
-public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapter.ItemClickListener
-        , View.OnClickListener {
-
-=======
 /**
  * to create a view that allows users to update their information
  */
 @SuppressWarnings("RedundantCast")
 public class UserInfoActivity extends AppCompatActivity implements
         RecyclerAdapter.ItemClickListener, View.OnClickListener {
->>>>>>> 80ec6491ea06372256fbdab0cfbe9566d1c66c80
     private DBI db;
 
     private final List<String> restrictionList = new ArrayList<>();
@@ -104,28 +97,20 @@ public class UserInfoActivity extends AppCompatActivity implements
                     //create dialog
                     AlertDialog.Builder builder = new AlertDialog.Builder(this);
                     builder.setTitle("Confirm cancellation to update info");
-<<<<<<< HEAD
-                    String shelterNameGetter=shelter.getShelterName();
-                    builder.setMessage("Are you sure to cancel bed(s) claimed at" +
-                            shelterNameGetter + "?");
-=======
                     builder.setMessage("Are you sure to cancel bed(s) claimed at"
                             + shelter.getShelterName() + "?");
->>>>>>> 80ec6491ea06372256fbdab0cfbe9566d1c66c80
                     //if homeless presses on YES, then cancel claimed beds
                     //noinspection FeatureEnvy,FeatureEnvy
                     builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-<<<<<<< HEAD
                         @SuppressWarnings("LawOfDemeter")
                         @Override
-=======
+
 
                         /**
                          * to create a listener for item that gets clicked on
                          * @param dialog the dialog that this button holds
                          * @param which the position of the item
                          */
->>>>>>> 80ec6491ea06372256fbdab0cfbe9566d1c66c80
                         public void onClick(DialogInterface dialog, int which) {
                             try {
                                 Shelter shelter = db.getShelterById(homeless.getShelterId());

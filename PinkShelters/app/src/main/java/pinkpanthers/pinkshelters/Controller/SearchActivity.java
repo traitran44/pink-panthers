@@ -23,18 +23,11 @@ import pinkpanthers.pinkshelters.Model.Shelter;
 import pinkpanthers.pinkshelters.Model.NoSuchUserException;
 import pinkpanthers.pinkshelters.R;
 
-<<<<<<< HEAD
-
-@SuppressWarnings({"CyclicClassDependency", "OverlyLongMethod"})
-public class SearchActivity extends AppCompatActivity
-        implements RecyclerAdapter.ItemClickListener, View.OnClickListener {
-=======
 /**
  * to create an activity that allows user to search for a shelter
  */
 public class SearchActivity extends AppCompatActivity implements
         RecyclerAdapter.ItemClickListener, View.OnClickListener {
->>>>>>> 80ec6491ea06372256fbdab0cfbe9566d1c66c80
 
 
     private final List<String> choices = new ArrayList<>();
@@ -57,14 +50,6 @@ public class SearchActivity extends AppCompatActivity implements
 
     private Db db;
 
-<<<<<<< HEAD
-    /**
-     * Display search bar
-     * @param savedInstanceState
-     */
-    @SuppressWarnings("FeatureEnvy")
-=======
->>>>>>> 80ec6491ea06372256fbdab0cfbe9566d1c66c80
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,15 +93,9 @@ public class SearchActivity extends AppCompatActivity implements
 
         age_range_gender_spinner.setVisibility(View.INVISIBLE);
 
-
-<<<<<<< HEAD
-        SpinnerAdapter choices_adapter = new ArrayAdapter<>(
-                this, android.R.layout.simple_list_item_1, choices);
-=======
         ArrayAdapter<String> choices_adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1,
                 choices);
->>>>>>> 80ec6491ea06372256fbdab0cfbe9566d1c66c80
         choices_spinner.setAdapter(choices_adapter);
 
         gender_adapter = new ArrayAdapter<>(this,

@@ -13,13 +13,10 @@ import java.util.List;
 
 import pinkpanthers.pinkshelters.R;
 
-<<<<<<< HEAD
-@SuppressWarnings("ALL")
-=======
+
 /**
  * to set up an adapter for recycler view
  */
->>>>>>> 80ec6491ea06372256fbdab0cfbe9566d1c66c80
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
     private final List<String> mData;

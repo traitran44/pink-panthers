@@ -10,10 +10,8 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-<<<<<<< HEAD
-=======
-import android.content.SharedPreferences;
->>>>>>> 80ec6491ea06372256fbdab0cfbe9566d1c66c80
+
+
 
 import java.util.Arrays;
 import java.util.List;
@@ -23,13 +21,10 @@ import pinkpanthers.pinkshelters.Model.Db;
 import pinkpanthers.pinkshelters.Model.UniqueKeyError;
 import pinkpanthers.pinkshelters.R;
 
-<<<<<<< HEAD
-@SuppressWarnings("ALL")
-=======
+
 /**
  * to create an activity that allows users to register their accounts
  */
->>>>>>> 80ec6491ea06372256fbdab0cfbe9566d1c66c80
 public class Registration extends AppCompatActivity implements View.OnClickListener {
     private Spinner userTypes;
     private EditText name;

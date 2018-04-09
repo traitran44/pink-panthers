@@ -22,13 +22,10 @@ import pinkpanthers.pinkshelters.Model.NoSuchUserException;
 import pinkpanthers.pinkshelters.Model.Shelter;
 import pinkpanthers.pinkshelters.R;
 
-<<<<<<< HEAD
-@SuppressWarnings("ALL")
-=======
+
 /**
  * to create a view that allow users to view more details about a shelter
  */
->>>>>>> 80ec6491ea06372256fbdab0cfbe9566d1c66c80
 public class ShelterDetails extends AppCompatActivity {
     private DBI db;
     private Shelter s;
