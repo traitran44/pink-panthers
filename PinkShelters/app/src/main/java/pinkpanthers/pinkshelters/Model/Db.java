@@ -3,7 +3,6 @@ package pinkpanthers.pinkshelters.Model;
 import android.annotation.TargetApi;
 import android.os.Build;
 import android.os.StrictMode;
-import android.text.TextUtils;
 import android.util.Log;
 
 import java.sql.*;
@@ -14,7 +13,7 @@ import java.util.Properties;
 
 public class Db implements DBI {
     private Connection conn;
-    public static Account activeAccount;
+//    public static Account activeAccount;
 
     /**
      * Create connection to DB.
@@ -22,12 +21,10 @@ public class Db implements DBI {
      * In the event of a connection error
      * it will retry 10 times and blow up
      * the application after that.
-     *
-     * @param username Database username
+     *  @param username Database username
      * @param password Database password
-     * @param database Database to use
      */
-    public Db(String username, String password, String database) {
+    public Db(String username, String password) {
         try {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
@@ -56,7 +53,7 @@ public class Db implements DBI {
     }
 
     @Override
-    public Account createAccount(String type, String username, String password, String name, String email) throws UniqueKeyError {
+    public void createAccount(String type, String username, String password, String name, String email) throws UniqueKeyError {
         // These are the only valid options.
         // Program should blow up in the event that a developer
         // accidentally changes these strings. For developers only not for users.
@@ -119,7 +116,6 @@ public class Db implements DBI {
                 throw new RuntimeException("You have attempted to createAccount an invalid user type. " +
                         "This should not be possible if the UI is designed correctly.");
         }
-        return newUser;
     }
 
     @Override

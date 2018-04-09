@@ -43,7 +43,7 @@ public class RegistrationActivityTest {
      * Helper method to delete user account from database
      */
     public void deleteUser() {
-        db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
+        db = new Db("pinkpanther", "PinkPantherReturns!");
         try {
             db.deleteAccount("jeanuser");
         } catch (NoSuchUserException e) {

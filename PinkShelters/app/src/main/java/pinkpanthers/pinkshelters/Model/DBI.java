@@ -12,14 +12,14 @@ public interface DBI {
      *
      * @return if an account is added to the database
      */
-    Account createAccount(String type, String username, String password, String name, String email) throws UniqueKeyError;
+    void createAccount(String type, String username, String password, String name, String email) throws UniqueKeyError;
 
     /**
      * to retrieve an account by its username (unique)
      *
      * @param username unique identification - username of account
      * @return an account object that holds information related to that account
-     * @throws NoSuchUserException
+     * @throws NoSuchUserException when there is no account with that username
      */
     Account getAccountByUsername(String username) throws NoSuchUserException;
 
@@ -41,8 +41,9 @@ public interface DBI {
      * to get a shelter by its ids
      *
      * @param id unique identification
-     * @return
-     * @throws NoSuchUserException
+     * @return Shelter object with associated id
+     * @throws NoSuchUserException when the id pass in the database doesn't exist,
+     *                             no rows get updated
      */
     Shelter getShelterById(int id) throws NoSuchUserException;
 
@@ -51,7 +52,7 @@ public interface DBI {
      *
      * @param restriction gender_restriction and/or age_range_restriction
      * @return a list of shelters that share the same restriction
-     * @throws NoSuchUserException
+     * @throws NoSuchUserException when there is no shelter with that restriction
      */
     List<Shelter> getShelterByRestriction(String restriction) throws NoSuchUserException;
 
@@ -61,7 +62,7 @@ public interface DBI {
      *
      * @param shelterName shelter name is not unique
      * @return a list of shelter that share that substring
-     * @throws NoSuchUserException
+     * @throws NoSuchUserException when there is no shelter with that name
      */
     List<Shelter> getShelterByName(String shelterName) throws NoSuchUserException;
 

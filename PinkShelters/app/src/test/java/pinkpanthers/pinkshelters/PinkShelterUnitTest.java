@@ -1,7 +1,10 @@
 package pinkpanthers.pinkshelters;
 import org.junit.Test;
 
-import pinkpanthers.pinkshelters.Controller.MapsActivity;
+import java.util.List;
+
+import pinkpanthers.pinkshelters.Model.Db;
+import pinkpanthers.pinkshelters.Model.Shelter;
 
 import static org.junit.Assert.*;
 
@@ -11,12 +14,13 @@ import static org.junit.Assert.*;
 
 public class PinkShelterUnitTest {
     @Test
-    public void addition_isCorrect() throws Exception {
+    public void addition_isCorrect() {
         assertEquals(4, 2 + 2);
     }
 
     @Test
-    public void testCapacityConverter() {
-        MapsActivity myMap = new MapsActivity();
+    public void getAllShelters() {
+        Db db = new Db("pinkpanther", "PinkPantherReturns!");
+//        List<Shelter> shelters = db.getAllShelters();
     }
 }

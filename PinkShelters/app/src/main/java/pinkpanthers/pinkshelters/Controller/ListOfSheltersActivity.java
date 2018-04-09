@@ -13,6 +13,7 @@ import java.util.List;
 import pinkpanthers.pinkshelters.Model.DBI;
 import pinkpanthers.pinkshelters.Model.Db;
 import pinkpanthers.pinkshelters.Model.Shelter;
+import pinkpanthers.pinkshelters.Model.ShelterDetails;
 import pinkpanthers.pinkshelters.R;
 
 
@@ -21,6 +22,10 @@ public class ListOfSheltersActivity extends AppCompatActivity implements Recycle
     private List<Shelter> shelters;
     private String username; //used to get current logged in user
 
+    /**
+     * Create a list view of all the shelters
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +34,7 @@ public class ListOfSheltersActivity extends AppCompatActivity implements Recycle
         // data to populate the RecyclerView with
         ArrayList<String> shelterNames = new ArrayList<>();
 
-        DBI db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
+        DBI db = new Db("pinkpanther", "PinkPantherReturns!");
 
         shelters = db.getAllShelters();
         for (int i = 0; i < shelters.size(); i++) {
@@ -50,6 +55,11 @@ public class ListOfSheltersActivity extends AppCompatActivity implements Recycle
         username = getIntent().getExtras().getString("username");
     }
 
+    /**
+     * Direst to detail page when a shelter is selected
+     * @param view
+     * @param position
+     */
     @Override
     public void onItemClick(View view, int position) { //clicked on one shelter
         Intent detail = new Intent(this, ShelterDetails.class);
@@ -58,13 +68,20 @@ public class ListOfSheltersActivity extends AppCompatActivity implements Recycle
         startActivity(detail);
     }
 
-    // id = shelterID
-    public void showMapButton(View view) {
+    /**
+     * Direct to map
+     * @param view View
+     */
+    public void showMapButton(@SuppressWarnings("unused") View view) {
         Intent map = new Intent(this, MapsActivity.class);
         map.putExtra("username", username);
         startActivity(map);
     }
 
+    /**
+     * Direct to search page
+     * @param v
+     */
     @Override
     public void onClick(View v) { //search button
         Intent intent = new Intent(ListOfSheltersActivity.this, SearchActivity.class);

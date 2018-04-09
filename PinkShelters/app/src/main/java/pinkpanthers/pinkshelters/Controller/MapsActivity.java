@@ -92,7 +92,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
 
         // set up Db workspace
-        db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
+        db = new Db("pinkpanther", "PinkPantherReturns!");
         noResult = findViewById(R.id.no_result_found);
         shelters = db.getAllShelters(); // only shows at the beginning
         myShelters = shelters;
@@ -282,7 +282,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     return info;
                 }
             });
-
         }
     }
 
@@ -421,6 +420,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
+    /**
+     * convert item name to corresponding under mysql
+     * @param chosenItem
+     * @return name
+     */
     private String sqlConverter(String chosenItem) {
         switch (chosenItem) {
             case ("Men"):
@@ -442,6 +446,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
+    /**
+     *  Calculate the address using the tapped longitude and latitude
+     * @param latLng
+     * @param addressText
+     */
     private void setAddress(LatLng latLng, EditText addressText) {
         try {
             Geocoder geocoder = new Geocoder(this, Locale.getDefault());
@@ -450,20 +459,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     ", " + addresses.get(0).getAdminArea() + ", " + addresses.get(0).getPostalCode();
             addressText.setText(address);
         } catch (java.io.IOException e) {
-            throw new RuntimeException("Geocoder could not calculate the address using the " +
+            throw new RuntimeException("GeoCoder could not calculate the address using the " +
                     "tapped longitude and latitude");
         }
     }
 
+    /**
+     * Convert capacity string to int
+     * @return int capacity
+     */
     private int capacityConverter() {
-        if (capacity == null || capacity.equals("")) {
+        if ((capacity == null) || capacity.equals("")) {
             return 300; // default value for capacity
         }
 
         int num = 0;
         String[] str = capacity.split(" ");
         for (String ele: str) {
-            if (ele.charAt(0) >= 48 && ele.charAt(0) <= 57) {
+            if ((ele.charAt(0) >= 48) && (ele.charAt(0) <= 57)) {
                 num += Integer.parseInt(ele);
             }
         }

@@ -6,7 +6,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import pinkpanthers.pinkshelters.Model.Account;
 import pinkpanthers.pinkshelters.Model.Admin;
@@ -24,7 +26,7 @@ public class DbUnitTest {
 
     @Before
     public void setUp() {
-        db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
+        db = new Db("pinkpanther", "PinkPantherReturns!");
     }
 
     // account as null object
@@ -77,24 +79,49 @@ public class DbUnitTest {
         assertEquals(-1, ((Homeless) updatedAccount).getShelterId());
     }
 
+    //not supposed to update the username
+    @Test (expected = NoSuchUserException.class)
+    public void testUsernameUpdateAccount() throws SQLException, NoSuchUserException {
+        account = new Volunteer("test123", "test123", "test",
+                "blocked", "test123@", 55);
+        db.updateAccount(account);
+        account = db.getAccountByUsername("test123");
+    }
+
+    @Test
+    public void testNotHomelessUpdateAccount() throws SQLException, NoSuchUserException {
+        account = new Volunteer("test123", "test123", "test",
+                "blocked", "test123@", 54);
+        db.updateAccount(account);
+        account = db.getAccountByUsername("testcase5"); // correct username ad userId 54
+
+        assertFalse("Account is not instance of Volunteer: ", account instanceof Volunteer);
+        assertTrue(account instanceof Homeless);
+
+        assertEquals(0, ((Homeless) account).getFamilyMemberNumber());
+        assertEquals(0, ((Homeless) account).getShelterId());
+        String[] expectedRestriction = {""};
+        assertArrayEquals(expectedRestriction, ((Homeless) account).getRestrictionsMatch().toArray());
+
+    }
 
     @Test(expected = NoSuchUserException.class)
-    public void testInvalidGetAccountByUsername() throws SQLException, NoSuchUserException {
+    public void testInvalidGetAccountByUsername() throws NoSuchUserException {
         account = db.getAccountByUsername("invalid");
     }
 
     @Test(expected = NoSuchUserException.class)
-    public void testNullParamGetAccountByUsername() throws SQLException, NoSuchUserException {
+    public void testNullParamGetAccountByUsername() throws NoSuchUserException {
         account = db.getAccountByUsername(null);
     }
 
     @Test(expected = NoSuchUserException.class)
-    public void testEmptyStringParamGetAccountByUsername() throws SQLException, NoSuchUserException {
+    public void testEmptyStringParamGetAccountByUsername() throws NoSuchUserException {
         account = db.getAccountByUsername("");
     }
 
     @Test
-    public void testValidGetAccountByUsername() throws SQLException, NoSuchUserException {
+    public void testValidGetAccountByUsername() throws NoSuchUserException {
         account = db.getAccountByUsername("cphan31");
         assertEquals(6, account.getUserId());
         assertEquals("cphan31@gatech.edu", account.getEmail());
@@ -103,27 +130,27 @@ public class DbUnitTest {
 
 
     @Test(expected = NoSuchUserException.class)
-    public void testNegativeParamGetShelterById() throws SQLException, NoSuchUserException {
+    public void testNegativeParamGetShelterById() throws NoSuchUserException {
         shelter = db.getShelterById(-1);
     }
 
     @Test(expected = NoSuchUserException.class)
-    public void testZeroParamGetShelterById() throws SQLException, NoSuchUserException {
+    public void testZeroParamGetShelterById() throws NoSuchUserException {
         shelter = db.getShelterById(0);
     }
 
     @Test(expected = NoSuchUserException.class)
-    public void testInvalidParamGetShelterById() throws SQLException, NoSuchUserException {
+    public void testInvalidParamGetShelterById() throws NoSuchUserException {
         shelter = db.getShelterById(20);
     }
 
     @Test(expected = NoSuchUserException.class)
-    public void testHugeParamGetShelterById() throws SQLException, NoSuchUserException {
+    public void testHugeParamGetShelterById() throws NoSuchUserException {
         shelter = db.getShelterById(10000);
     }
 
     @Test
-    public void testValidGetShelterById() throws SQLException, NoSuchUserException {
+    public void testValidGetShelterById() throws NoSuchUserException {
         shelter = db.getShelterById(4);
         assertEquals("Fuqua Hall", shelter.getShelterName());
         assertEquals("Men", shelter.getRestrictions());
@@ -131,4 +158,74 @@ public class DbUnitTest {
     }
 
 
+    @Test
+    public void testGetAllShelters() {
+        List<Shelter> shelters = db.getAllShelters();
+
+        assertNotNull(shelters);
+        assertEquals(13, shelters.size());
+
+        ArrayList<String> shelterNamesArr = new ArrayList<>();
+        ArrayList<String> addressArr = new ArrayList<>();
+        ArrayList<String> capArr = new ArrayList<>();
+
+        // Get Values
+        for (Shelter each : shelters) {
+            capArr.add(each.getCapacity());
+            shelterNamesArr.add(each.getShelterName());
+            addressArr.add(each.getAddress());
+        }
+        // Test Capacity
+        String[] capTest = {
+                "264",
+                "140",
+                "450",
+                "92",
+                "40",
+                "32 for families, 80 singles",
+                "76 family rooms ",
+                "80",
+                "",
+                "22 apartments",
+                "330",
+                "12",
+                ""
+        };
+
+        // Test Address
+        String[] addressTest = {
+                "921 Howell Mill Road, Atlanta, Georgia 30318",
+                "655 Ethel Street, Atlanta, Georgia 30318",
+                "156 Mills Street, Atlanta, Georgia 30313",
+                "144 Mills Street, Atlanta, Georgia 30313",
+                "607 Peachtree Street NE Atlanta, GA 30308",
+                "1300 Joseph E. Boone Blvd NW, Atlanta, GA 30314",
+                "173 Boulevard Northeast, Atlanta, GA 30312",
+                "1559 Johnson Road NW, Atlanta, GA 30318",
+                "830 Boulevard SE, Atlanta, GA 30312",
+                "34 Peachtree Street NW, Suite 700, Atlanta, GA 30303",
+                "275 Pryor St. SW, Atlanta, GA 30303",
+                "1230 Hightower Road NW Atlanta, GA 30318",
+                "1800 Memorial Dr SE G3, Atlanta, GA 30317"
+        };
+
+        // Test Shelter Names
+        String[] shelterNamesTest = {"My Sister's House",
+                "The Atlanta Day Center for Women & Children",
+                "The Shepherd's Inn",
+                "Fuqua Hall",
+                "Atlanta's Children Center",
+                "Eden Village ",
+                "Our House ",
+                "Covenant House Georgia ",
+                "Nicholas House",
+                "Hope Atlanta ",
+                "Gateway Center",
+                "Young Adult Guidance Center ",
+                "Homes of Light "};
+
+        assertArrayEquals(shelterNamesTest, shelterNamesArr.toArray());
+        assertArrayEquals(addressTest, addressArr.toArray());
+        assertArrayEquals(capTest, capArr.toArray());
+    }
 }

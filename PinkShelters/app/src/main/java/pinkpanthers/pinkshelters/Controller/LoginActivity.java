@@ -38,10 +38,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         // set up Cancel button
         Button cancel_btn = findViewById(R.id.cancel_button);
         cancel_btn.setOnClickListener(this);
-        db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
+        db = new Db("pinkpanther", "PinkPantherReturns!");
     }
 
-    public void logIn(View view) {
+    /**
+     * Check for user name, password and log the user in.
+     * Success: Direct User to Home Page
+     * Fail: Display Error
+     * @param view
+     */
+    public void logIn(@SuppressWarnings("unused") View view) {
         txtView = findViewById(R.id.validationWarn);
 
         try {
@@ -72,7 +78,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 //active account is set to this static variable when
                 // logged in for quick access to current user
 
-                Db.activeAccount = account;
+//                Db.activeAccount = account;
 
                 Intent homePageIntent = new Intent(this, HomePageActivity.class);
                 homePageIntent.putExtra("username", user);
@@ -90,6 +96,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
+    /**
+     * When click on Cancel button, redirect back to Welcome Page
+     * @param v
+     */
     public void onClick(View v) { //cancel button
         Intent welcomeIntent = new Intent(LoginActivity.this, WelcomePageActivity.class);
         startActivity(welcomeIntent);

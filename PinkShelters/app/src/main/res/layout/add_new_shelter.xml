@@ -57,6 +57,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
+                    android:hint="40.446° N"
                     android:inputType="textPersonName" />
             </TableRow>
 
@@ -76,6 +77,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:ems="10"
+                    android:hint=" 79.982° W"
                     android:inputType="textPersonName" />
             </TableRow>
 
@@ -95,6 +97,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
+                    android:hint="123 Street Name, City State"
                     android:inputType="textPersonName" />
             </TableRow>
 
@@ -115,7 +118,7 @@
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:hint="(###) ### - ####"
-                    android:inputType="textPersonName" />
+                    android:inputType="number|phone" />
             </TableRow>
 
             <TableRow
@@ -154,6 +157,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
+                    android:hint="Amenities"
                     android:inputType="textPersonName" />
             </TableRow>
 
@@ -173,6 +177,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
+                    android:hint="0-1000"
                     android:inputType="textPersonName" />
             </TableRow>
 

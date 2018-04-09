@@ -12,31 +12,49 @@ import pinkpanthers.pinkshelters.R;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
-    private List<String> mData;
-    private LayoutInflater mInflater;
+    private final List<String> mData;
+    private final LayoutInflater mInflater;
     private ItemClickListener mClickListener;
 
-    // data is passed into the constructor
+
+    /**
+     * data is passed into the constructor
+     * Update class data and layoutInflater context
+     * @param context
+     * @param data
+     */
     RecyclerAdapter(Context context, List<String> data) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
     }
 
-    // inflates the row layout from xml when needed
+
+    /**
+     * inflates the row layout from xml when needed
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.recyclerview_row, parent, false);
         return new ViewHolder(view);
     }
 
-    // binds the data to the TextView in each row
+    /**
+     * binds the data to the TextView in each row
+     * @param holder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         String animal = mData.get(position);
         holder.myTextView.setText(animal);
     }
 
-    // total number of rows
+    /**
+     * @return total number of rows
+     */
     @Override
     public int getItemCount() {
         return mData.size();
@@ -45,7 +63,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView myTextView;
+        final TextView myTextView;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -64,13 +82,18 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         return mData.get(id);
     }
 
-    // allows clicks events to be caught
+    /**
+     * allows clicks events to be caught
+     * @param itemClickListener
+     */
     void setClickListener(ItemClickListener itemClickListener) {
         this.mClickListener = itemClickListener;
     }
 
-    // parent activity will implement this method to respond to click events
+    /**
+     * parent activity will implement this method to respond to click events
+     */
     public interface ItemClickListener {
-        void onItemClick(View view, int position);
+        void onItemClick(@SuppressWarnings("unused") View view, int position);
     }
 }

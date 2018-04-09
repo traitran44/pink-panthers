@@ -26,9 +26,10 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     private EditText password;
     private DBI db;
 
-    public SharedPreferences preferences;
-    public static final String PREFS_NAME = "com.example.sp.LoginPrefs";
-
+    /**
+     * Display Text Field ask user to fill out their form to register
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,10 +50,18 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         username = findViewById(R.id.username);
         password = findViewById(R.id.pw);
 
-        db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
+        db = new Db("pinkpanther", "PinkPantherReturns!");
     }
 
-    public void registerButton(View view) {
+    /**
+     * Register user with:
+     * Name
+     * Password
+     * Email
+     * User Types
+     * @param view
+     */
+    public void registerButton(@SuppressWarnings("unused") View view) {
         Boolean noName, noUsername, noPass, noEmail, noType;
 
         String isValidName = name.getText().toString();
@@ -119,6 +128,10 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    /**
+     * Direct user to Welcome Page
+     * @param v
+     */
     public void onClick(View v) { //cancel button
         Intent welcomeIntent = new Intent(Registration.this, WelcomePageActivity.class);
         startActivity(welcomeIntent);
