@@ -1,5 +1,7 @@
 package pinkpanthers.pinkshelters.Model;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -72,7 +74,8 @@ public class Homeless extends Account {
      *                          matches with shelter
      */
     public void setRestrictionsMatch(List<String> restrictionsMatch) {
-        this.restrictionsMatch = restrictionsMatch;
+        this.restrictionsMatch = Collections.unmodifiableList(
+                new ArrayList<String>(restrictionsMatch));
     }
 
     /**
@@ -82,7 +85,7 @@ public class Homeless extends Account {
      * matches with shelter
      */
     public List<String> getRestrictionsMatch() {
-        return restrictionsMatch;
+        return Collections.unmodifiableList(restrictionsMatch);
     }
 
 
