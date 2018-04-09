@@ -7,6 +7,7 @@ import android.view.View;
 
 import pinkpanthers.pinkshelters.R;
 
+@SuppressWarnings("ALL")
 public class WelcomePageActivity extends AppCompatActivity {
 
     /**

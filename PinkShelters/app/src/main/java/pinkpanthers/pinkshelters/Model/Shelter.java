@@ -3,6 +3,7 @@ package pinkpanthers.pinkshelters.Model;
 /**
  * shelter class that hold information about each shelter
  */
+@SuppressWarnings("ALL")
 public class Shelter {
     private int id;
     private String shelterName;

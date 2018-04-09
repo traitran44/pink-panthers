@@ -10,6 +10,7 @@ import java.util.List;
 
 import pinkpanthers.pinkshelters.R;
 
+@SuppressWarnings("ALL")
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
     private final List<String> mData;

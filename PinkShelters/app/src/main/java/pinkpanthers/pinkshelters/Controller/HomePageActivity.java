@@ -16,6 +16,7 @@ import pinkpanthers.pinkshelters.Model.Shelter;
 import pinkpanthers.pinkshelters.Model.NoSuchUserException;
 import pinkpanthers.pinkshelters.R;
 
+@SuppressWarnings("ALL")
 public class HomePageActivity extends AppCompatActivity {
     private static final String PREFS_NAME = "com.example.sp.LoginPrefs";
     private String username;

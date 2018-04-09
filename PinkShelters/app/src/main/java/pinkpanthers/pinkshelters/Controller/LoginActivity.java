@@ -22,6 +22,7 @@ import pinkpanthers.pinkshelters.Model.Volunteer;
 import pinkpanthers.pinkshelters.Model.NoSuchUserException;
 import pinkpanthers.pinkshelters.R;
 
+@SuppressWarnings("ALL")
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     private EditText username;
     private EditText password;

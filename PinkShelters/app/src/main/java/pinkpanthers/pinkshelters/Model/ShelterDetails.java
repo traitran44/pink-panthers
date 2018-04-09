@@ -17,6 +17,7 @@ import java.util.Set;
 import pinkpanthers.pinkshelters.Controller.UserInfoActivity;
 import pinkpanthers.pinkshelters.R;
 
+@SuppressWarnings("ALL")
 public class ShelterDetails extends AppCompatActivity {
     private DBI db;
     private Shelter s;

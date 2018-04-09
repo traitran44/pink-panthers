@@ -17,6 +17,7 @@ import pinkpanthers.pinkshelters.Model.ShelterDetails;
 import pinkpanthers.pinkshelters.R;
 
 
+@SuppressWarnings("ALL")
 public class ListOfSheltersActivity extends AppCompatActivity implements RecyclerAdapter.ItemClickListener, View.OnClickListener {
 
     private List<Shelter> shelters;

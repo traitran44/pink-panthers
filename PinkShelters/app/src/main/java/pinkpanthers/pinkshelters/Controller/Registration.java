@@ -19,6 +19,7 @@ import pinkpanthers.pinkshelters.Model.Db;
 import pinkpanthers.pinkshelters.Model.UniqueKeyError;
 import pinkpanthers.pinkshelters.R;
 
+@SuppressWarnings("ALL")
 public class Registration extends AppCompatActivity implements View.OnClickListener {
     private Spinner userTypes;
     private EditText name;
