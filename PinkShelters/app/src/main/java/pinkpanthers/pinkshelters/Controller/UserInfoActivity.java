@@ -32,6 +32,7 @@ import pinkpanthers.pinkshelters.R;
 /**
  * to create a view that allows users to update their information
  */
+@SuppressWarnings("RedundantCast")
 public class UserInfoActivity extends AppCompatActivity implements
         RecyclerAdapter.ItemClickListener, View.OnClickListener {
     private DBI db;
@@ -53,9 +54,10 @@ public class UserInfoActivity extends AppCompatActivity implements
     /**
      * set Click Event for Back Button
      * Direct to Start Main
+     *
      * @param v current view that holds the back button
      */
-    public void backOnClick(@SuppressWarnings("unused")  View v) {
+    public void backOnClick(@SuppressWarnings("unused") View v) {
         //passing username to intent
         Intent startMain = new Intent(this, HomePageActivity.class);
         startMain.putExtra("username", account.getUsername());
@@ -66,6 +68,7 @@ public class UserInfoActivity extends AppCompatActivity implements
     /**
      * Set Click Event Update Info Button
      * Update the information of the user when click
+     *
      * @param v current view that holds the update button
      */
     public void updateOnClick(@SuppressWarnings("unused") View v) {
@@ -186,15 +189,15 @@ public class UserInfoActivity extends AppCompatActivity implements
 
         List<String> currentRestrictionList;
         checkBoxList = new ArrayList<>();
-        checkBoxList.add(findViewById(R.id.checkBox1));
-        checkBoxList.add(findViewById(R.id.checkBox2));
-        checkBoxList.add(findViewById(R.id.checkBox3));
-        checkBoxList.add(findViewById(R.id.checkBox4));
-        checkBoxList.add(findViewById(R.id.checkBox5));
-        checkBoxList.add(findViewById(R.id.checkBox6));
-        checkBoxList.add(findViewById(R.id.checkBox7));
-        checkBoxList.add(findViewById(R.id.checkBox8));
-        checkBoxList.add(findViewById(R.id.checkBox9));
+        checkBoxList.add((CheckBox) findViewById(R.id.checkBox1));
+        checkBoxList.add((CheckBox) findViewById(R.id.checkBox2));
+        checkBoxList.add((CheckBox) findViewById(R.id.checkBox3));
+        checkBoxList.add((CheckBox) findViewById(R.id.checkBox4));
+        checkBoxList.add((CheckBox) findViewById(R.id.checkBox5));
+        checkBoxList.add((CheckBox) findViewById(R.id.checkBox6));
+        checkBoxList.add((CheckBox) findViewById(R.id.checkBox7));
+        checkBoxList.add((CheckBox) findViewById(R.id.checkBox8));
+        checkBoxList.add((CheckBox) findViewById(R.id.checkBox9));
         enums = Arrays.asList(Restrictions.values());
 
 
@@ -266,8 +269,9 @@ public class UserInfoActivity extends AppCompatActivity implements
 
     /**
      * Check if checkbox name match with selected one
+     *
      * @param homelessRestriction the restrictions that a homeless matches
-     * @param shelterRestriction the restrictions that a shelter holds
+     * @param shelterRestriction  the restrictions that a shelter holds
      * @return true if match
      */
     private boolean checkCheckbox(String homelessRestriction, String shelterRestriction) {
