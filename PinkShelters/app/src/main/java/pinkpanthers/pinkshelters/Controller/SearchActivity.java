@@ -27,7 +27,10 @@ import pinkpanthers.pinkshelters.R;
  */
 public class SearchActivity extends AppCompatActivity implements
         RecyclerAdapter.ItemClickListener, View.OnClickListener {
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of 44a7e1e... Merge pull request #89 from MrTrai/Julia-nguyen-person4
 
     private final List<String> choices = new ArrayList<>();
     private final List<String> genders = new ArrayList<>();
@@ -92,6 +95,10 @@ public class SearchActivity extends AppCompatActivity implements
 
         age_range_gender_spinner.setVisibility(View.INVISIBLE);
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> parent of 44a7e1e... Merge pull request #89 from MrTrai/Julia-nguyen-person4
         ArrayAdapter<String> choices_adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1,
                 choices);
@@ -259,7 +266,6 @@ public class SearchActivity extends AppCompatActivity implements
      * @param chosenItem the selected item of the spinner
      * @return the correct sql string format
      */
-    @SuppressWarnings("FeatureEnvy")
     private String sqlConverter(String chosenItem) {
         switch (chosenItem) {
             case ("Men"):

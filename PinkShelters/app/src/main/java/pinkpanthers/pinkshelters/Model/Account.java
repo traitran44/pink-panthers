@@ -3,7 +3,6 @@ package pinkpanthers.pinkshelters.Model;
 /**
  * Parent class of Homeless, Volunteer , Administrator
  */
-@SuppressWarnings("ALL")
 public abstract class Account {
     private String username;
     private String password;

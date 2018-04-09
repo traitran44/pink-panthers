@@ -3,7 +3,6 @@ package pinkpanthers.pinkshelters.Model;
 /**
  * Volunteer class, one of 3 user types
  */
-@SuppressWarnings("ALL")
 public class Volunteer extends Account {
     private int shelterID;
 

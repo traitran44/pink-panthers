@@ -31,8 +31,6 @@ import pinkpanthers.pinkshelters.Model.NoSuchUserException;
 @SuppressWarnings("ChainedMethodCall")
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-
-
 public class RegistrationActivityTest {
 
     // use to hook up tests with Registration activity
@@ -56,11 +54,6 @@ public class RegistrationActivityTest {
     }
 
     @Test
-
-    /**
-     * test cancel registration button
-     *
-     */
     public void testCancelRegister() {
         // to make sure the account did not exist beforehand
         deleteUser();

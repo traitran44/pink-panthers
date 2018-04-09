@@ -10,8 +10,12 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+<<<<<<< HEAD
 
 
+=======
+import android.content.SharedPreferences;
+>>>>>>> parent of 44a7e1e... Merge pull request #89 from MrTrai/Julia-nguyen-person4
 
 import java.util.Arrays;
 import java.util.List;
@@ -21,7 +25,10 @@ import pinkpanthers.pinkshelters.Model.Db;
 import pinkpanthers.pinkshelters.Model.UniqueKeyError;
 import pinkpanthers.pinkshelters.R;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of 44a7e1e... Merge pull request #89 from MrTrai/Julia-nguyen-person4
 /**
  * to create an activity that allows users to register their accounts
  */

@@ -11,7 +11,10 @@ import java.util.List;
 
 import pinkpanthers.pinkshelters.R;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of 44a7e1e... Merge pull request #89 from MrTrai/Julia-nguyen-person4
 /**
  * to set up an adapter for recycler view
  */

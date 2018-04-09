@@ -16,14 +16,20 @@ import pinkpanthers.pinkshelters.Model.Db;
 import pinkpanthers.pinkshelters.Model.Shelter;
 import pinkpanthers.pinkshelters.R;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of 44a7e1e... Merge pull request #89 from MrTrai/Julia-nguyen-person4
 /**
  * to create a view that shows a list of shelters
  */
 public class ListOfSheltersActivity extends AppCompatActivity implements
         RecyclerAdapter.ItemClickListener, View.OnClickListener {
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> parent of 44a7e1e... Merge pull request #89 from MrTrai/Julia-nguyen-person4
 
     private List<Shelter> shelters;
     private String username; //used to get current logged in user
@@ -54,6 +60,7 @@ public class ListOfSheltersActivity extends AppCompatActivity implements
         // set up search button
         Button search_button = findViewById(R.id.search_button);
         search_button.setOnClickListener(this);
+
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         username = extras.getString("username");

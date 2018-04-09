@@ -19,7 +19,6 @@ import pinkpanthers.pinkshelters.Model.NoSuchUserException;
 import pinkpanthers.pinkshelters.Model.Shelter;
 import pinkpanthers.pinkshelters.Model.Volunteer;
 
-@SuppressWarnings("ALL")
 public class DbUnitTest {
     private DBI db;
     private Account account;

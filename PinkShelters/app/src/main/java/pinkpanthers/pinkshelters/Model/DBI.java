@@ -6,7 +6,6 @@ import java.util.List;
 /**
  * interface for MySQL database
  */
-@SuppressWarnings("ALL")
 public interface DBI {
     /**
      * createAccount a new account/assignment
@@ -37,7 +36,7 @@ public interface DBI {
     /**
      * to get all the shelters in the database
      *
-     * @return list of Shelter objects
+     * @return lsit of Shelter objects
      */
     List<Shelter> getAllShelters();
 

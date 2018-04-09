@@ -3,7 +3,10 @@ package pinkpanthers.pinkshelters.Model;
 /**
  * shelter class that hold information about each shelter
  */
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of 44a7e1e... Merge pull request #89 from MrTrai/Julia-nguyen-person4
 @SuppressWarnings("unused")
 public class Shelter {
     private int id;
