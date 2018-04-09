@@ -17,6 +17,7 @@ import pinkpanthers.pinkshelters.R;
 
 
 
+@SuppressWarnings("CyclicClassDependency")
 public class ListOfSheltersActivity extends AppCompatActivity
         implements RecyclerAdapter.ItemClickListener, View.OnClickListener {
 
@@ -54,7 +55,6 @@ public class ListOfSheltersActivity extends AppCompatActivity
         // set up search button
         Button search_button = findViewById(R.id.search_button);
         search_button.setOnClickListener(this);
-
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         username = extras.getString("username");

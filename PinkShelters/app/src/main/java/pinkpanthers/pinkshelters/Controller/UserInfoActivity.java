@@ -30,6 +30,7 @@ import pinkpanthers.pinkshelters.Model.Account;
 import pinkpanthers.pinkshelters.R;
 
 
+@SuppressWarnings({"CyclicClassDependency", "OverlyLongMethod", "LawOfDemeter"})
 public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapter.ItemClickListener
         , View.OnClickListener {
 
@@ -48,6 +49,9 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
     private Homeless homeless;
     private List<CheckBox> checkBoxList;
     private List<Restrictions> enums;
+    private int familySizeSpinner;
+    static final int familySizeSpinnerChoice=16;
+
 
     /**
      * set Click Event for Back Button
@@ -67,6 +71,7 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
      * Update the information of the user when click
      * @param v
      */
+    @SuppressWarnings("FeatureEnvy")
     public void updateOnClick(@SuppressWarnings("unused") View v) {
         updateRestrictionList();
         //require homeless to select at least one restriction to update
@@ -88,18 +93,24 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
                     //create dialog
                     AlertDialog.Builder builder = new AlertDialog.Builder(this);
                     builder.setTitle("Confirm cancellation to update info");
+                    String shelterNameGetter=shelter.getShelterName();
                     builder.setMessage("Are you sure to cancel bed(s) claimed at" +
-                            shelter.getShelterName() + "?");
+                            shelterNameGetter + "?");
                     //if homeless presses on YES, then cancel claimed beds
+                    //noinspection FeatureEnvy,FeatureEnvy
                     builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                        @SuppressWarnings("LawOfDemeter")
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             try {
                                 Shelter shelter = db.getShelterById(homeless.getShelterId());
-                                int vacancy = shelter.getVacancy() + familySize;
-                                int occupancy = shelter.getUpdate_capacity() - vacancy;
+                                int vacancyGetter=shelter.getVacancy();
+                                int vacancy = vacancyGetter + familySize;
+                                int occupancy=shelter.getUpdate_capacity();
+                                int occupancyUpdate = occupancy - vacancy;
                                 homeless.setShelterId(0);
-                                db.updateShelterOccupancy(shelter.getId(), occupancy);
+                                int shelterId=shelter.getId();
+                                db.updateShelterOccupancy(shelterId, occupancyUpdate);
                                 //updateRestrictionList();
 
                                 if (restrictionList.isEmpty()) {
@@ -202,6 +213,7 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
             e.printStackTrace();
         }
 
+        //noinspection InstanceofConcreteClass
         if (account instanceof Homeless) {
             homeless = (Homeless) account;
 
@@ -222,9 +234,9 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
             }
         }
 
-
+        familySizeSpinner=familySizeSpinnerChoice;
         // add choices to family size
-        for (int i = 1; i < 16; i++) {
+        for (int i = 1; i <familySizeSpinnerChoice; i++) {
             familySizeList.add(i);
         }
         family_spinner = findViewById(R.id.family_spinner);

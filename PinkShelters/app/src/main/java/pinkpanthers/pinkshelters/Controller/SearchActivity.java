@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +24,7 @@ import pinkpanthers.pinkshelters.Model.NoSuchUserException;
 import pinkpanthers.pinkshelters.R;
 
 
+@SuppressWarnings({"CyclicClassDependency", "OverlyLongMethod"})
 public class SearchActivity extends AppCompatActivity
         implements RecyclerAdapter.ItemClickListener, View.OnClickListener {
 
@@ -51,6 +53,7 @@ public class SearchActivity extends AppCompatActivity
      * Display search bar
      * @param savedInstanceState
      */
+    @SuppressWarnings("FeatureEnvy")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,7 +98,7 @@ public class SearchActivity extends AppCompatActivity
         age_range_gender_spinner.setVisibility(View.INVISIBLE);
 
 
-        ArrayAdapter<String> choices_adapter = new ArrayAdapter<>(
+        SpinnerAdapter choices_adapter = new ArrayAdapter<>(
                 this, android.R.layout.simple_list_item_1, choices);
         choices_spinner.setAdapter(choices_adapter);
 
@@ -266,6 +269,7 @@ public class SearchActivity extends AppCompatActivity
      * @param chosenItem
      * @return
      */
+    @SuppressWarnings("FeatureEnvy")
     private String sqlConverter(String chosenItem) {
         switch (chosenItem) {
             case ("Men"):
