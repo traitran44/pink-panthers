@@ -1,4 +1,4 @@
-package pinkpanthers.pinkshelters.Model;
+package pinkpanthers.pinkshelters.Controller;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -14,7 +14,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import pinkpanthers.pinkshelters.Controller.UserInfoActivity;
+import pinkpanthers.pinkshelters.Model.Account;
+import pinkpanthers.pinkshelters.Model.DBI;
+import pinkpanthers.pinkshelters.Model.Db;
+import pinkpanthers.pinkshelters.Model.Homeless;
+import pinkpanthers.pinkshelters.Model.NoSuchUserException;
+import pinkpanthers.pinkshelters.Model.Shelter;
 import pinkpanthers.pinkshelters.R;
 
 @SuppressWarnings("ALL")
@@ -49,7 +54,8 @@ public class ShelterDetails extends AppCompatActivity {
         } catch (NoSuchUserException e) {
             throw new RuntimeException("This is not how it works " + e.toString());
         } catch (NullPointerException e) {
-            throw new RuntimeException("NullPointerException is raised: getExtras() returns null in ListOfShelter");
+            throw new RuntimeException("NullPointerException is raised: getExtras() " +
+                    "returns null in ListOfShelter");
         }
 
         try {
@@ -78,7 +84,8 @@ public class ShelterDetails extends AppCompatActivity {
                 claimBedButton.setVisibility(View.INVISIBLE);
             }
         } catch (NoSuchUserException e) {
-            throw new RuntimeException("There is no user with that username or shelter with that ID");
+            throw new RuntimeException("There is no user with that username or shelter with " +
+                    "that ID");
         } catch (NullPointerException e) {
             throw new RuntimeException("getExtras() returns null username");
         }
@@ -129,7 +136,9 @@ public class ShelterDetails extends AppCompatActivity {
             errorMessage.setText(message);
             errorMessage.setVisibility(View.VISIBLE);
             updateInfoButton.setVisibility(View.VISIBLE);
-        } else { //homeless person cant claim bed(s) if they have already claimed bed(s) at a different shelter
+        } else {
+            //homeless person cant claim bed(s) if they have already claimed bed(s)
+            // at a different shelter
             int familyMemberNumber = a.getFamilyMemberNumber();
             if (a.getShelterId() != 0) {
                 if (s.getId() == reservedShelter.getId()) {
@@ -233,8 +242,8 @@ public class ShelterDetails extends AppCompatActivity {
         } catch (NoSuchUserException e) {
             throw new RuntimeException("Homeless user is null or shelterId does not exist");
         } catch (java.sql.SQLException e) {
-            throw new RuntimeException("SQLException raised when trying to update account or shelter" +
-                    " during canceling reservation");
+            throw new RuntimeException("SQLException raised when trying to update account or " +
+                    "shelter during canceling reservation");
         }
 
         message = "You have successfully cancel your reservation for " +

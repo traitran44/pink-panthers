@@ -103,7 +103,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // set adapter for the first spinner
         choices = Arrays.asList("Gender", "Age Range", "Name");
         choices_spinner = findViewById(R.id.choices_spinner);
-        ArrayAdapter<String> choices_adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, choices);
+        ArrayAdapter<String> choices_adapter = new ArrayAdapter<>(
+                this, android.R.layout.simple_list_item_1, choices);
         choices_spinner.setAdapter(choices_adapter);
 
 
@@ -113,8 +114,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 "Children", "Young Adults", "Anyone");
         second_spinner = findViewById(R.id.age_range_gender_spinner);
         second_spinner.setVisibility(View.INVISIBLE);
-        gender_adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, genders);
-        age_range_adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, ageRanges);
+        gender_adapter = new ArrayAdapter<>(
+                this, android.R.layout.simple_list_item_1, genders);
+        age_range_adapter = new ArrayAdapter<>(
+                this, android.R.layout.simple_list_item_1, ageRanges);
         second_spinner.setAdapter(gender_adapter);
         // end
 
@@ -149,14 +152,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     // set interaction for the previewed list of shelter before starting the search
                     shelter_name_edit_text.addTextChangedListener(new TextWatcher() {
                         @Override
-                        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                        public void beforeTextChanged(CharSequence charSequence, int i, int i1,
+                                                      int i2) {
                             myShelters = shelters;
                             setMarkersOnMap();
                             noResult.setText("");
                         }
 
                         @Override
-                        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                        public void onTextChanged(CharSequence charSequence, int i, int i1,
+                                                  int i2) {
                             // grabs each new character that the user types into the textView
                             try {
                                 myShelters = db.getShelterByName(charSequence.toString());
@@ -169,7 +174,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                         @Override
                         public void afterTextChanged(Editable editable) {
-                            // changes occurred during onTextChanged so no changes after text changed
+                            // changes occurred during onTextChanged
+                            // so no changes after text changed
                         }
                     });
                 }

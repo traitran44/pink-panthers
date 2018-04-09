@@ -83,7 +83,7 @@ public class Homeless extends Account {
      * matches with shelter
      */
     public List<String> getRestrictionsMatch() {
-        return this.restrictionsMatch;
+        return restrictionsMatch;
     }
 
 
