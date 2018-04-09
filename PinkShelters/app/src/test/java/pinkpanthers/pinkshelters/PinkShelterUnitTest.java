@@ -6,14 +6,18 @@ import pinkpanthers.pinkshelters.Model.Db;
 import static org.junit.Assert.*;
 
 /**
- * Created by Trai Tran on 3/30/2018.
+ * Test arithmetic function: addition
+ *
  */
-
 public class PinkShelterUnitTest {
     @Test
     public void addition_isCorrect() {
         assertEquals(4, 2 + 2);
     }
+    /**
+     * Get all shelters saved in database
+     *
+     */
 
     @Test
     public void getAllShelters() {
