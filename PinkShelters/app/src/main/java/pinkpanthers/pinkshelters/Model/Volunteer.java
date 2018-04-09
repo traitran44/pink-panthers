@@ -30,6 +30,7 @@ public class Volunteer extends Account {
      * get current shelter id
      * @return current shelter id
      */
+    @SuppressWarnings("unused")
     public int getShelterID() {
         return shelterID;
     }

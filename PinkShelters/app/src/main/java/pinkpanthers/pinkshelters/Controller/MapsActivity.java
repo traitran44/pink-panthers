@@ -46,7 +46,13 @@ import pinkpanthers.pinkshelters.R;
 import pinkpanthers.pinkshelters.Model.Restrictions;
 import pinkpanthers.pinkshelters.Model.Shelter;
 
+<<<<<<< HEAD
 @SuppressWarnings("ALL")
+=======
+/**
+ * to create a map and filtering features
+ */
+>>>>>>> 80ec6491ea06372256fbdab0cfbe9566d1c66c80
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
@@ -103,8 +109,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // set adapter for the first spinner
         choices = Arrays.asList("Gender", "Age Range", "Name");
         choices_spinner = findViewById(R.id.choices_spinner);
-        ArrayAdapter<String> choices_adapter = new ArrayAdapter<>(
-                this, android.R.layout.simple_list_item_1, choices);
+        ArrayAdapter<String> choices_adapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1,
+                choices);
         choices_spinner.setAdapter(choices_adapter);
 
 
@@ -152,7 +159,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     // set interaction for the previewed list of shelter before starting the search
                     shelter_name_edit_text.addTextChangedListener(new TextWatcher() {
                         @Override
-                        public void beforeTextChanged(CharSequence charSequence, int i, int i1,
+                        public void beforeTextChanged(CharSequence charSequence,
+                                                      int i,
+                                                      int i1,
                                                       int i2) {
                             myShelters = shelters;
                             setMarkersOnMap();
@@ -160,7 +169,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         }
 
                         @Override
-                        public void onTextChanged(CharSequence charSequence, int i, int i1,
+                        public void onTextChanged(CharSequence charSequence,
+                                                  int i,
+                                                  int i1,
                                                   int i2) {
                             // grabs each new character that the user types into the textView
                             try {
@@ -315,7 +326,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 LinearLayout mapLayout = findViewById(R.id.linearLayout2);
                 LayoutInflater layoutInflater = getLayoutInflater();
                 View addShelter = layoutInflater.inflate(R.layout.add_new_shelter,
-                        mapLayout, false );
+                        mapLayout, false);
 
                 // get user inputs from dialog box
                 EditText shelterNameText = addShelter.findViewById(R.id.name);
@@ -377,9 +388,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         // details that pops up when user clicks onto the marker
                         markerOptions.title(newShelter.getShelterName());
                         markerOptions.snippet(newShelter.getAddress()
-                                        + "\n Phone Number: + " + newShelter.getPhoneNumber()
-                                        + "\n Restrictions: " + newShelter.getRestrictions()
-                                        + "\n Vacancy: " + newShelter.getVacancy());
+                                + "\n Phone Number: + " + newShelter.getPhoneNumber()
+                                + "\n Restrictions: " + newShelter.getRestrictions()
+                                + "\n Vacancy: " + newShelter.getVacancy());
 
                         // add marker to map and move camera to center its screen around it
                         mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
@@ -404,8 +415,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     /**
      * convert item name to corresponding under mysql
-     * @param chosenItem
-     * @return name
+     *
+     * @param chosenItem the item picked from the spinner
+     * @return the sql portion
      */
     private String sqlConverter(String chosenItem) {
         switch (chosenItem) {
@@ -429,16 +441,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     /**
-     *  Calculate the address using the tapped longitude and latitude
-     * @param latLng
-     * @param addressText
+     * Calculate the address using the tapped longitude and latitude
+     *
+     * @param latLng latitude and longitude
+     * @param addressText the address at that location
      */
     private void setAddress(LatLng latLng, EditText addressText) {
         try {
             Geocoder geocoder = new Geocoder(this, Locale.getDefault());
-            List<Address> addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude,1);
+            List<Address> addresses = geocoder.getFromLocation(latLng.latitude,
+                    latLng.longitude,1);
             Address onlyAddress = addresses.get(0);
-            String address = onlyAddress.getAddressLine(0) + ", " + onlyAddress.getLocality() +
+            String address = onlyAddress.getAddressLine(0) + ", "
+                    + onlyAddress.getLocality() +
                     ", " + onlyAddress.getAdminArea() + ", " + onlyAddress.getPostalCode();
             addressText.setText(address);
         } catch (java.io.IOException e) {
@@ -449,6 +464,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     /**
      * Convert capacity string to int
+     *
      * @return int capacity
      */
     private int capacityConverter() {
@@ -459,7 +475,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         int num = 0;
         String[] str = capacity.split(" ");
-        for (String ele: str) {
+        for (String ele : str) {
             if ((ele.charAt(0) >= 48) && (ele.charAt(0) <= 57)) {
                 num += Integer.parseInt(ele);
             }

@@ -16,7 +16,13 @@ import pinkpanthers.pinkshelters.Model.Shelter;
 import pinkpanthers.pinkshelters.Model.NoSuchUserException;
 import pinkpanthers.pinkshelters.R;
 
+<<<<<<< HEAD
 @SuppressWarnings("ALL")
+=======
+/**
+ * to create homepage view after logging in
+ */
+>>>>>>> 80ec6491ea06372256fbdab0cfbe9566d1c66c80
 public class HomePageActivity extends AppCompatActivity {
     private static final String PREFS_NAME = "com.example.sp.LoginPrefs";
     private String username;
@@ -26,6 +32,7 @@ public class HomePageActivity extends AppCompatActivity {
 
     /**
      * Log the user out of current Activity
+     *
      * @param v View
      */
     public void logOutButtonOnClick(@SuppressWarnings("unused") View v) { //logout button
@@ -36,6 +43,7 @@ public class HomePageActivity extends AppCompatActivity {
 
     /**
      * Direct user to the page that list all the shelters
+     *
      * @param v View
      */
     public void shelterListButton(@SuppressWarnings("unused") View v) { //View Shelter button
@@ -46,6 +54,7 @@ public class HomePageActivity extends AppCompatActivity {
 
     /**
      * Direct user to the Info Page
+     *
      * @param v View
      */
     public void infoOnClick(@SuppressWarnings("unused") View v) { //View/Edit User Info button
@@ -54,14 +63,19 @@ public class HomePageActivity extends AppCompatActivity {
         startActivity(info);
     }
 
+    /**
+     * to set text if a user has claimed any shelter
+     */
     private void setShelterText() {
         TextView message = findViewById(R.id.shelterMessage);
         if (user instanceof Homeless) {
             try {
                 Shelter shelter = db.getShelterById(((Homeless) user).getShelterId());
                 String bed = (((Homeless) user).getFamilyMemberNumber() == 1) ? " bed" : " beds";
-                message.setText("You have claim " + ((Homeless) user).getFamilyMemberNumber() + bed
-                        + " at shelter: " + shelter.getShelterName());
+
+                message.setText("You have claim " + ((Homeless) user).getFamilyMemberNumber()
+                        + bed +
+                        " at shelter: " + shelter.getShelterName());
             } catch (NoSuchUserException e) {
                 message.setText("You have not claimed any bed yet");
             }
@@ -69,10 +83,6 @@ public class HomePageActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * Display the home page for the user , and check whether the user exist
-     * @param savedInstanceState current instance
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

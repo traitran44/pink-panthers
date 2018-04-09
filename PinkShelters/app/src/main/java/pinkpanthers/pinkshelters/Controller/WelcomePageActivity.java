@@ -7,13 +7,15 @@ import android.view.View;
 
 import pinkpanthers.pinkshelters.R;
 
+<<<<<<< HEAD
 @SuppressWarnings("ALL")
+=======
+/**
+ * to create a welcome page that allows users to either log in or register
+ */
+>>>>>>> 80ec6491ea06372256fbdab0cfbe9566d1c66c80
 public class WelcomePageActivity extends AppCompatActivity {
 
-    /**
-     * Display Welcome Page content
-     * @param savedInstanceState
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,7 +24,7 @@ public class WelcomePageActivity extends AppCompatActivity {
 
     /**
      * Direct User to Login Page
-     * @param view
+     * @param view the current view that holds the log-in button
      */
     public void loginButton(@SuppressWarnings("unused") View view) {
         Intent loginPageIntent = new Intent(this, LoginActivity.class);
@@ -31,7 +33,7 @@ public class WelcomePageActivity extends AppCompatActivity {
 
     /**
      * Direct User to Register Page
-     * @param view
+     * @param view the current view that hold the register button
      */
     public void registerButton(@SuppressWarnings("unused") View view) {
         Intent registerPageIntent = new Intent(this, Registration.class);

@@ -13,7 +13,13 @@ import java.util.List;
 
 import pinkpanthers.pinkshelters.R;
 
+<<<<<<< HEAD
 @SuppressWarnings("ALL")
+=======
+/**
+ * to set up an adapter for recycler view
+ */
+>>>>>>> 80ec6491ea06372256fbdab0cfbe9566d1c66c80
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
     private final List<String> mData;
@@ -24,48 +30,37 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     /**
      * data is passed into the constructor
      * Update class data and layoutInflater context
-     * @param context
-     * @param data
+     *
+     * @param context the current context in the view
+     * @param data    data available in the view
      */
+    @SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType")
     RecyclerAdapter(Context context, List<String> data) {
         mInflater = LayoutInflater.from(context);
-        mData = Collections.unmodifiableList(new ArrayList<String>(data));
+        mData = data;
     }
 
 
-    /**
-     * inflates the row layout from xml when needed
-     * @param parent
-     * @param viewType
-     * @return
-     */
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.recyclerview_row, parent, false);
         return new ViewHolder(view);
     }
 
-    /**
-     * binds the data to the TextView in each row
-     * @param holder
-     * @param position
-     */
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         String animal = mData.get(position);
         holder.myTextView.setText(animal);
     }
 
-    /**
-     * @return total number of rows
-     */
     @Override
     public int getItemCount() {
         return mData.size();
     }
 
-
-    // stores and recycles views as they are scrolled off screen
+    /**
+     * stores and recycles views as they are scrolled off screen
+     */
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         final TextView myTextView;
 
@@ -83,14 +78,20 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         }
     }
 
-    // convenience method for getting data at click position
+    /**
+     * convenience method for getting data at click position
+     *
+     * @param id the id of the item
+     * @return the data that with that id
+     */
     String getItem(int id) {
         return mData.get(id);
     }
 
     /**
      * allows clicks events to be caught
-     * @param itemClickListener
+     *
+     * @param itemClickListener the item that was chosen
      */
     void setClickListener(ItemClickListener itemClickListener) {
         this.mClickListener = itemClickListener;

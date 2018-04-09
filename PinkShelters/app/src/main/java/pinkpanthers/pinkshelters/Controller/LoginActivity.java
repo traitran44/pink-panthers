@@ -22,7 +22,13 @@ import pinkpanthers.pinkshelters.Model.Volunteer;
 import pinkpanthers.pinkshelters.Model.NoSuchUserException;
 import pinkpanthers.pinkshelters.R;
 
+<<<<<<< HEAD
 @SuppressWarnings("ALL")
+=======
+/**
+ * to create log-in trials
+ */
+>>>>>>> 80ec6491ea06372256fbdab0cfbe9566d1c66c80
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     private EditText username;
     private EditText password;
@@ -48,7 +54,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
      * Check for user name, password and log the user in.
      * Success: Direct User to Home Page
      * Fail: Display Error
-     * @param view
+     *
+     * @param view current view of the app
      */
     public void logIn(@SuppressWarnings("unused") View view) {
         txtView = findViewById(R.id.validationWarn);
@@ -107,10 +114,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     /**
      * When click on Cancel button, redirect back to Welcome Page
-     * @param v
+     *
+     * @param v current view of the app
      */
     public void onClick(View v) { //cancel button
-        Intent welcomeIntent = new Intent(LoginActivity.this, WelcomePageActivity.class);
+        Intent welcomeIntent = new Intent(LoginActivity.this,
+                WelcomePageActivity.class);
         startActivity(welcomeIntent);
     }
 
