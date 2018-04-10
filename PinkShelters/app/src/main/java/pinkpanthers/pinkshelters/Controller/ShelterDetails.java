@@ -50,7 +50,7 @@ public class ShelterDetails extends AppCompatActivity {
         try {
             Intent intent = getIntent();
             Bundle extra = intent.getExtras();
-            int shelterId = extra.getInt("shelterId");
+            int shelterId = extra != null ? extra.getInt("shelterId") : 0;
             s = db.getShelterById(shelterId);
             updateView(s);
         } catch (NoSuchUserException e) {
@@ -63,7 +63,7 @@ public class ShelterDetails extends AppCompatActivity {
         try {
             Intent intent = getIntent();
             Bundle extra = intent.getExtras();
-            username = extra.getString("username");
+            username = extra != null ? extra.getString("username") : null;
             Account user = db.getAccountByUsername(username);
             if (user instanceof Homeless) { // user is a homeless person
                 a = (Homeless) user;

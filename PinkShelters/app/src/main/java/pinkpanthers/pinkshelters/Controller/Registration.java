@@ -30,7 +30,9 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     private EditText password;
     private DBI db;
 
+
     @SuppressWarnings("unchecked")
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

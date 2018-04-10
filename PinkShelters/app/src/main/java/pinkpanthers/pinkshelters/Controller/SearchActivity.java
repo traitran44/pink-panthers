@@ -48,6 +48,7 @@ public class SearchActivity extends AppCompatActivity implements
 
     private Db db;
 
+  
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +57,7 @@ public class SearchActivity extends AppCompatActivity implements
         db = new Db("pinkpanther", "PinkPantherReturns!");
         Intent intent = getIntent();
         Bundle extra = intent.getExtras();
-        username = extra.getString("username");
+        username = extra != null ? extra.getString("username") : null;
 
         // data to populate the RecyclerView with
         shelterNames = new ArrayList<>();
@@ -245,6 +246,7 @@ public class SearchActivity extends AppCompatActivity implements
 
     }
 
+  
     @Override
     public void onItemClick (View view,int position){
         Intent detail = new Intent(this, ShelterDetails.class);

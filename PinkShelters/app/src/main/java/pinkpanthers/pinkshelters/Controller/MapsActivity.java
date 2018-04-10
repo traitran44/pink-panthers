@@ -95,7 +95,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         try {
             Intent intent = getIntent();
             Bundle extra = intent.getExtras();
-            String username = extra.getString("username");
+            String username = extra != null ? extra.getString("username") : null;
             user = db.getAccountByUsername(username);
         } catch (NoSuchUserException e) {
             throw new RuntimeException("There is not account with this username");

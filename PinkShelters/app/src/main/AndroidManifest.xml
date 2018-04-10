@@ -46,6 +46,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup"
         >
+
         <activity android:name=".Controller.LoginActivity"
             tools:ignore="InnerclassSeparator" />
         <activity android:name=".Controller.HomePageActivity"

@@ -15,9 +15,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0">
 
-        <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
             <TableRow
                 android:layout_width="match_parent"
@@ -179,7 +176,6 @@
                     android:inputType="textPersonName" />
             </TableRow>
 
-        </TableLayout>
 
     </FrameLayout>
 </android.support.constraint.ConstraintLayout>

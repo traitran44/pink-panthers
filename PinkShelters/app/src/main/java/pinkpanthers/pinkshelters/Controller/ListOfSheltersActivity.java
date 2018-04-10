@@ -54,8 +54,9 @@ public class ListOfSheltersActivity extends AppCompatActivity implements
 
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
-        username = extras.getString("username");
+        username = extras != null ? extras.getString("username") : null;
     }
+
 
     @Override
     public void onItemClick(View view, int position) { //clicked on one shelter
@@ -76,6 +77,7 @@ public class ListOfSheltersActivity extends AppCompatActivity implements
         map.putExtra("username", username);
         startActivity(map);
     }
+
 
     @Override
     public void onClick(View v) { //search button

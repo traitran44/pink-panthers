@@ -178,6 +178,7 @@ public class UserInfoActivity extends AppCompatActivity implements
         }
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -287,7 +288,7 @@ public class UserInfoActivity extends AppCompatActivity implements
         db = new Db("pinkpanther", "PinkPantherReturns!");
         Intent intent = getIntent();
         Bundle extra = intent.getExtras();
-        String username = extra.getString("username");
+        String username = extra != null ? extra.getString("username") : null;
         account = db.getAccountByUsername(username);
     }
 

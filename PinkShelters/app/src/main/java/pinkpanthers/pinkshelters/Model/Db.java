@@ -91,7 +91,7 @@ public class Db implements DBI {
                 " VALUES " +
                 "(?, ?, ?, ?, ?, 'active', 0)";
 
-        int id;
+//        int id;
         try {
             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, type);
@@ -107,7 +107,7 @@ public class Db implements DBI {
                 throw new RuntimeException("Failed to retried user id from DB. " +
                         "This should never occur.");
             }
-            id = rs.getInt(1);
+//            id = rs.getInt(1);
         } catch (SQLException e) {
             String exist = "23000";
             String sqlState = e.getSQLState();
@@ -121,6 +121,7 @@ public class Db implements DBI {
 
         // Create Java object after inserting into database
         // and retrieving the row id.
+
         Account newUser;
         switch (type) {
             case "Homeless":

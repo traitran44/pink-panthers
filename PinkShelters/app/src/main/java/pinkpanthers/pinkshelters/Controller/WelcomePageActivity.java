@@ -12,6 +12,7 @@ import pinkpanthers.pinkshelters.R;
  */
 public class WelcomePageActivity extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
