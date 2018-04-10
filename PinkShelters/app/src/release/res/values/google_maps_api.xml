@@ -1,3 +1,4 @@
+<!--suppress XmlUnboundNsPrefix -->
 <resources>
     <!--
 
@@ -18,5 +19,4 @@
 
     <string name="AIzaSyCNq1KU1_wsjzLrepXNqnOOij7UTGYsFb4"
         templateMergeStrategy="preserve" translatable="false">YOUR_KEY_HERE</string>
-
 </resources>
