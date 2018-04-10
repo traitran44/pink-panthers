@@ -19,6 +19,36 @@ export class FirebaseService {
       .signInWithEmailAndPassword(email, pass);
   }
 
+  updateFamilyType(userKey: any, type: string[]) {
+    return this.db.list('accounts').update(userKey, {
+      familyType: type
+    });
+  }
+
+  updateFamilySize(userKey: any, size: number) {
+    return this.db.list('accounts').update(userKey, {
+      familySize: size
+    });
+  }
+
+  updateUserName(userKey: any, name: string) {
+    return this.db.list('accounts').update(userKey, {
+      name: name
+    });
+  }
+
+  updateUserEmail(userKey: any, email: string) {
+    return this.db.list('accounts').update(userKey, {
+      email: email
+    });
+  }
+
+  updateUserBeds(userKey: any, bed: any) {
+    return this.db.list('accounts').update(userKey, {
+      beds: bed
+    });
+  }
+
   getShelters() {
     return this.db.list('data').snapshotChanges();
   }

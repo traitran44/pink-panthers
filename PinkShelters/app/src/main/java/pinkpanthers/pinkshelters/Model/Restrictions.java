@@ -1,9 +1,8 @@
 package pinkpanthers.pinkshelters.Model;
 
 /**
- * Created by hdang on 3/8/18.
+ * enum class for restrictions
  */
-
 public enum Restrictions {
     MEN("men"),
     WOMEN("women"),
@@ -16,7 +15,7 @@ public enum Restrictions {
     VETERAN("veterans"),
     FAMILIES_W_CHILDREN_UNDER_5("family_w_children_under_5");
 
-    private String sqlRestriction;
+    private final String sqlRestriction;
     Restrictions(String restriction) {
         this.sqlRestriction = restriction;
     }

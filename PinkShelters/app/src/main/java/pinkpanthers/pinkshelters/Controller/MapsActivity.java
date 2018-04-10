@@ -1,8 +1,10 @@
 package pinkpanthers.pinkshelters.Controller;
 
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.location.Address;
@@ -20,6 +22,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -43,6 +46,9 @@ import pinkpanthers.pinkshelters.R;
 import pinkpanthers.pinkshelters.Model.Restrictions;
 import pinkpanthers.pinkshelters.Model.Shelter;
 
+/**
+ * to create a map and filtering features
+ */
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
@@ -62,7 +68,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private Account user;
 
-    private String sheltername;
+    private String shelterName;
     private double longitude;
     private double latitude;
     private String address;
@@ -81,13 +87,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
 
         // set up Db workspace
-        db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
+        db = new Db("pinkpanther", "PinkPantherReturns!");
         noResult = findViewById(R.id.no_result_found);
         shelters = db.getAllShelters(); // only shows at the beginning
         myShelters = shelters;
 
         try {
-            user = db.getAccountByUsername(getIntent().getExtras().getString("username"));
+            Intent intent = getIntent();
+            Bundle extra = intent.getExtras();
+            assert extra != null;
+            String username = extra.getString("username");
+            user = db.getAccountByUsername(username);
         } catch (NoSuchUserException e) {
             throw new RuntimeException("There is not account with this username");
         }
@@ -96,7 +106,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // set adapter for the first spinner
         choices = Arrays.asList("Gender", "Age Range", "Name");
         choices_spinner = findViewById(R.id.choices_spinner);
-        ArrayAdapter<String> choices_adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, choices);
+        ArrayAdapter<String> choices_adapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1,
+                choices);
         choices_spinner.setAdapter(choices_adapter);
 
 
@@ -106,8 +118,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 "Children", "Young Adults", "Anyone");
         second_spinner = findViewById(R.id.age_range_gender_spinner);
         second_spinner.setVisibility(View.INVISIBLE);
-        gender_adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, genders);
-        age_range_adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, ageRanges);
+        gender_adapter = new ArrayAdapter<>(
+                this, android.R.layout.simple_list_item_1, genders);
+        age_range_adapter = new ArrayAdapter<>(
+                this, android.R.layout.simple_list_item_1, ageRanges);
         second_spinner.setAdapter(gender_adapter);
         // end
 
@@ -120,34 +134,42 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String searchBy = choices.get(i);
-
-                if (searchBy.equals("Gender")) { // search by gender was selected
+                String gender = "Gender";
+                String ageRange = "Age Range";
+                String name = "Name";
+                if (searchBy.equals(gender)) { // search by gender was selected
                     second_spinner.setAdapter(gender_adapter);
                     second_spinner.setVisibility(View.VISIBLE);
                     shelter_name_edit_text.setVisibility(View.INVISIBLE);
                     noResult.setText("");
 
-                } else if (searchBy.equals("Age Range")) { // search by age range was selected
+                } else if (searchBy.equals(ageRange)) { // search by age range was selected
                     second_spinner.setAdapter(age_range_adapter);
                     second_spinner.setVisibility(View.VISIBLE);
                     shelter_name_edit_text.setVisibility(View.INVISIBLE);
                     noResult.setText("");
 
-                } else if (searchBy.equals("Name")) { // search by name was selected
+                } else if (searchBy.equals(name)) { // search by name was selected
                     second_spinner.setVisibility(View.INVISIBLE);
                     shelter_name_edit_text.setVisibility(View.VISIBLE);
 
                     // set interaction for the previewed list of shelter before starting the search
                     shelter_name_edit_text.addTextChangedListener(new TextWatcher() {
                         @Override
-                        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                        public void beforeTextChanged(CharSequence charSequence,
+                                                      int i,
+                                                      int i1,
+                                                      int i2) {
                             myShelters = shelters;
                             setMarkersOnMap();
                             noResult.setText("");
                         }
 
                         @Override
-                        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                        public void onTextChanged(CharSequence charSequence,
+                                                  int i,
+                                                  int i1,
+                                                  int i2) {
                             // grabs each new character that the user types into the textView
                             try {
                                 myShelters = db.getShelterByName(charSequence.toString());
@@ -160,7 +182,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                         @Override
                         public void afterTextChanged(Editable editable) {
-                            // changes occurred during onTextChanged so no changes after text changed
+                            // changes occurred during onTextChanged
+                            // so no changes after text changed
                         }
                     });
                 }
@@ -175,9 +198,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         second_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String firstSelection = choices_spinner.getSelectedItem().toString();
-
-                if (firstSelection.equals("Gender")) {
+                Object item = choices_spinner.getSelectedItem();
+                String firstSelection = item.toString();
+                String gender = "Gender";
+                if (firstSelection.equals(gender)) {
                     String searchBy = sqlConverter(genders.get(i));
                     noResult.setText("");
                     if (!("None".equals(searchBy))) {
@@ -186,7 +210,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             setMarkersOnMap();
                         } catch (NoSuchUserException e) {
                             noResult.setText("No Result Found");
-                            MapsActivity.this.mMap.clear();
+                            mMap.clear();
                         }
                     } else {
                         myShelters = shelters;
@@ -201,7 +225,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             setMarkersOnMap();
                         } catch (NoSuchUserException e) {
                             noResult.setText("No Result Found");
-                            MapsActivity.this.mMap.clear();
+                            mMap.clear();
                         }
                     } else {
                         myShelters = shelters;
@@ -228,14 +252,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             shelterLocation = new LatLng(shelter.getLatitude(), shelter.getLongitude());
 
             //create marker
-            MarkerOptions markerOptions = new MarkerOptions()
-                    .title(shelter.getShelterName())
-                    .position(shelterLocation)
-                    .snippet( shelter.getAddress()
-                            + "\n Phone Number: + " + shelter.getPhoneNumber()
-                            + "\n Restrictions: " + shelter.getRestrictions()
-                            + "\n Vacancy: " + shelter.getVacancy()
-                    );
+            MarkerOptions markerOptions = new MarkerOptions();
+            markerOptions.title(shelter.getShelterName());
+            markerOptions.position(shelterLocation);
+            markerOptions.snippet(shelter.getAddress()
+                                    + "\n Phone Number: + " + shelter.getPhoneNumber()
+                                    + "\n Restrictions: " + shelter.getRestrictions()
+                                    + "\n Vacancy: " + shelter.getVacancy());
 
             mMap.addMarker(markerOptions);
             float zoomLevel = 12.0f; //This goes up to 21
@@ -271,24 +294,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     return info;
                 }
             });
-
-            //info window listener
-//            mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
-//                @Override
-//                public void onInfoWindowClick(Marker marker) {
-//                    // goes to detail page of this shelter
-//                    Intent details = new Intent(MapsActivity.this, ShelterDetails.class);
-//                    Shelter clickedShelter;
-//                    try {
-//                        clickedShelter = db.getShelterById()
-//                    } catch (NoSuchUserException e) {
-//                        e.printStackTrace();
-//                    }
-//                    details.putExtra("shelterId", shelter.getId());
-//                    details.putExtra("username", getIntent().getExtras().getString("username"));
-//                    startActivity(details);
-//                }
-//            });
         }
     }
 
@@ -318,10 +323,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 LinearLayout mapLayout = findViewById(R.id.linearLayout2);
                 LayoutInflater layoutInflater = getLayoutInflater();
                 View addShelter = layoutInflater.inflate(R.layout.add_new_shelter,
-                        mapLayout, false );
+                        mapLayout, false);
 
                 // get user inputs from dialog box
-                EditText shelternameText = addShelter.findViewById(R.id.name);
+                EditText shelterNameText = addShelter.findViewById(R.id.name);
                 EditText longitudeText = addShelter.findViewById(R.id.longitude);
                 EditText latitudeText = addShelter.findViewById(R.id.latitude);
                 EditText addressText = addShelter.findViewById(R.id.address);
@@ -345,17 +350,34 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-                        sheltername = shelternameText.getText().toString();
-                        longitude = Double.parseDouble(longitudeText.getText().toString());
-                        latitude = Double.parseDouble(latitudeText.getText().toString());
-                        address = addressText.getText().toString();
-                        phoneNum = phoneNumText.getText().toString();
-                        restrictions = restrictionsText.getText().toString();
-                        specialNote = specialNoteText.getText().toString();
-                        capacity = capacityText.getText().toString();
+                        Editable textName = shelterNameText.getText();
+                        shelterName = textName.toString();
+
+                        Editable textLongitude = longitudeText.getText();
+                        String numLongitude = textLongitude.toString();
+                        longitude = Double.parseDouble(numLongitude);
+
+                        Editable textLatitude = latitudeText.getText();
+                        String numLatitude = textLatitude.toString();
+                        latitude = Double.parseDouble(numLatitude);
+
+                        Editable textAddress = addressText.getText();
+                        address = textAddress.toString();
+
+                        Editable textPhone = phoneNumText.getText();
+                        phoneNum = textPhone.toString();
+
+                        Editable textRestrict = restrictionsText.getText();
+                        restrictions = textRestrict.toString();
+
+                        Editable textSpecial = specialNoteText.getText();
+                        specialNote = textSpecial.toString();
+
+                        Editable textCapacity = capacityText.getText();
+                        capacity = textCapacity.toString();
 
 
-                        Shelter newShelter = db.createShelter(sheltername, capacity, specialNote,
+                        Shelter newShelter = db.createShelter(shelterName, capacity, specialNote,
                                 latitude, longitude, phoneNum, restrictions, address);
 
                         newShelter.setUpdate_capacity(capacityConverter());
@@ -363,9 +385,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         // details that pops up when user clicks onto the marker
                         markerOptions.title(newShelter.getShelterName());
                         markerOptions.snippet(newShelter.getAddress()
-                                        + "\n Phone Number: + " + newShelter.getPhoneNumber()
-                                        + "\n Restrictions: " + newShelter.getRestrictions()
-                                        + "\n Vacancy: " + newShelter.getVacancy());
+                                + "\n Phone Number: + " + newShelter.getPhoneNumber()
+                                + "\n Restrictions: " + newShelter.getRestrictions()
+                                + "\n Vacancy: " + newShelter.getVacancy());
 
                         // add marker to map and move camera to center its screen around it
                         mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
@@ -388,6 +410,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
+    /**
+     * convert item name to corresponding under mysql
+     *
+     * @param chosenItem the item picked from the spinner
+     * @return the sql portion
+     */
     private String sqlConverter(String chosenItem) {
         switch (chosenItem) {
             case ("Men"):
@@ -409,28 +437,43 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
+    /**
+     * Calculate the address using the tapped longitude and latitude
+     *
+     * @param latLng latitude and longitude
+     * @param addressText the address at that location
+     */
     private void setAddress(LatLng latLng, EditText addressText) {
         try {
             Geocoder geocoder = new Geocoder(this, Locale.getDefault());
-            List<Address> addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude,1);
-            String address = addresses.get(0).getAddressLine(0) + ", " + addresses.get(0).getLocality() +
-                    ", " + addresses.get(0).getAdminArea() + ", " + addresses.get(0).getPostalCode();
+            List<Address> addresses = geocoder.getFromLocation(latLng.latitude,
+                    latLng.longitude,1);
+            Address onlyAddress = addresses.get(0);
+            String address = onlyAddress.getAddressLine(0) + ", "
+                    + onlyAddress.getLocality() +
+                    ", " + onlyAddress.getAdminArea() + ", " + onlyAddress.getPostalCode();
             addressText.setText(address);
         } catch (java.io.IOException e) {
-            throw new RuntimeException("Geocoder could not calculate the address using the " +
+            throw new RuntimeException("GeoCoder could not calculate the address using the " +
                     "tapped longitude and latitude");
         }
     }
 
+    /**
+     * Convert capacity string to int
+     *
+     * @return int capacity
+     */
     private int capacityConverter() {
-        if (capacity == null || capacity.equals("")) {
+        String empty = "";
+        if ((capacity == null) || capacity.equals(empty)) {
             return 300; // default value for capacity
         }
 
         int num = 0;
         String[] str = capacity.split(" ");
-        for (String ele: str) {
-            if (ele.charAt(0) >= 48 && ele.charAt(0) <= 57) {
+        for (String ele : str) {
+            if ((ele.charAt(0) >= 48) && (ele.charAt(0) <= 57)) {
                 num += Integer.parseInt(ele);
             }
         }

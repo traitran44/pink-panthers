@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -19,44 +18,46 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import pinkpanthers.pinkshelters.Model.Account;
+
 import pinkpanthers.pinkshelters.Model.DBI;
 import pinkpanthers.pinkshelters.Model.Db;
 import pinkpanthers.pinkshelters.Model.Homeless;
+import pinkpanthers.pinkshelters.Model.NoSuchUserException;
 import pinkpanthers.pinkshelters.Model.Restrictions;
 import pinkpanthers.pinkshelters.Model.Shelter;
-import pinkpanthers.pinkshelters.Model.NoSuchUserException;
+import pinkpanthers.pinkshelters.Model.Account;
+
 import pinkpanthers.pinkshelters.R;
 
-public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapter.ItemClickListener, View.OnClickListener {
+/**
+ * to create a view that allows users to update their information
+ */
+@SuppressWarnings("RedundantCast")
+public class UserInfoActivity extends AppCompatActivity implements
+        RecyclerAdapter.ItemClickListener, View.OnClickListener {
     private DBI db;
 
-    private List<String> restrictionList = new ArrayList<>();
-    private List<Integer> familySizeList = new ArrayList<>();
-
-    private Button back_btn;
-    private Button update_btn;
-
-    private Spinner identity_spinner;
-    private ArrayAdapter<String> identity_adapter;
+    private final List<String> restrictionList = new ArrayList<>();
+    private final List<Integer> familySizeList = new ArrayList<>();
 
     private Spinner family_spinner;
-    private ArrayAdapter<Integer> family_adapter;
 
     private int familySize;
 
-    private TextView name;
-    private TextView email;
     private TextView buttonStatus;
-    private TextView restrictionView;
 
     private Account account;
     private Homeless homeless;
     private List<CheckBox> checkBoxList;
-    List<Restrictions> enums;
+    private List<Restrictions> enums;
 
-    //Create Back Button
-    public void backOnClick(View v) {
+    /**
+     * set Click Event for Back Button
+     * Direct to Start Main
+     *
+     * @param v current view that holds the back button
+     */
+    public void backOnClick(@SuppressWarnings("unused") View v) {
         //passing username to intent
         Intent startMain = new Intent(this, HomePageActivity.class);
         startMain.putExtra("username", account.getUsername());
@@ -64,8 +65,13 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
     }
 
 
-    //Create Update Info Button
-    public void updateOnClick(View v) {
+    /**
+     * Set Click Event Update Info Button
+     * Update the information of the user when click
+     *
+     * @param v current view that holds the update button
+     */
+    public void updateOnClick(@SuppressWarnings("unused") View v) {
         updateRestrictionList();
         //require homeless to select at least one restriction to update
         if (restrictionList.isEmpty()) {
@@ -80,16 +86,18 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
                 homeless.setFamilyMemberNumber(familySize);
 
                 //checked if homeless has already claimed beds
-                if (homeless.getShelterId() != 0 && db.getShelterById(homeless.getShelterId()) != null) {
+                if ((homeless.getShelterId() != 0)
+                        && (db.getShelterById(homeless.getShelterId()) != null)) {
                     Shelter shelter = db.getShelterById(homeless.getShelterId());
                     //create dialog
                     AlertDialog.Builder builder = new AlertDialog.Builder(this);
                     builder.setTitle("Confirm cancellation to update info");
-                    builder.setMessage("Are you sure to cancel bed(s) claimed at" + shelter.getShelterName() + "?");
+                    builder.setMessage("Are you sure to cancel bed(s) claimed at"
+                            + shelter.getShelterName() + "?");
                     //if homeless presses on YES, then cancel claimed beds
                     builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
 
-
+                        @Override
                         public void onClick(DialogInterface dialog, int which) {
                             try {
                                 Shelter shelter = db.getShelterById(homeless.getShelterId());
@@ -105,7 +113,6 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
                                     finish();
                                     startActivity(getIntent());
                                 } else {
-                                    List<String> a = homeless.getRestrictionsMatch();
                                     //send that homeless to db.
                                     db.updateAccount(homeless);
                                     //show successful text and reset everything()
@@ -137,7 +144,6 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
                     alert.show();
                     //if homeless has not claimed any beds yet, then update info
                 } else {
-                    List<String> a = homeless.getRestrictionsMatch();
                     //send that homeless to db.
                     db.updateAccount(homeless);
                     //show successful text and reset everything()
@@ -160,8 +166,10 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
     private void updateRestrictionList() {
 
         for (int i = 0; i < checkBoxList.size(); i++) {
-            if (checkBoxList.get(i).isChecked()) {
-                restrictionList.add(enums.get(i).toString());
+            CheckBox item = checkBoxList.get(i);
+            if (item.isChecked()) {
+                Restrictions restrictions = enums.get(i);
+                restrictionList.add(restrictions.toString());
             }
         }
     }
@@ -172,11 +180,11 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
         setContentView(R.layout.user_info_page);
 
         //set up check box restrictions
-        buttonStatus = (TextView) findViewById(R.id.status);
+        buttonStatus = findViewById(R.id.status);
         buttonStatus.setVisibility(View.INVISIBLE);
 
         List<String> currentRestrictionList;
-        checkBoxList = new ArrayList<CheckBox>();
+        checkBoxList = new ArrayList<>();
         checkBoxList.add((CheckBox) findViewById(R.id.checkBox1));
         checkBoxList.add((CheckBox) findViewById(R.id.checkBox2));
         checkBoxList.add((CheckBox) findViewById(R.id.checkBox3));
@@ -202,9 +210,12 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
             if (currentRestrictionList != null) {
                 for (int i = 0; i < currentRestrictionList.size(); i++) {
                     for (int j = 0; j < checkBoxList.size(); j++) {
-                        if (!checkBoxList.get(j).isChecked()) {
-                            boolean isCheck = checkCheckbox(currentRestrictionList.get(i), enums.get(j).toString());
-                            checkBoxList.get(j).setChecked(isCheck);
+                        CheckBox item = checkBoxList.get(j);
+                        if (!item.isChecked()) {
+                            Restrictions restrictions = enums.get(j);
+                            boolean isCheck = checkCheckbox(currentRestrictionList.get(i),
+                                    restrictions.toString());
+                            item.setChecked(isCheck);
                         }
                     }
                 }
@@ -217,8 +228,10 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
         for (int i = 1; i < 16; i++) {
             familySizeList.add(i);
         }
-        family_spinner = (Spinner) findViewById(R.id.family_spinner);
-        family_adapter = new ArrayAdapter<Integer>(this, android.R.layout.simple_spinner_item, familySizeList);
+        family_spinner = findViewById(R.id.family_spinner);
+        ArrayAdapter<Integer> family_adapter =
+                new ArrayAdapter<>(this,
+                        android.R.layout.simple_spinner_item, familySizeList);
         family_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         family_spinner.setAdapter(family_adapter);
 
@@ -229,7 +242,8 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
         family_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                familySize = Integer.valueOf(family_spinner.getSelectedItem().toString());
+                Object item = family_spinner.getSelectedItem();
+                familySize = Integer.valueOf(item.toString());
             }
 
             @Override
@@ -239,8 +253,8 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
         });
 
         //Grab name and user type to show in homepage
-        name = (TextView) findViewById(R.id.name);
-        email = (TextView) findViewById(R.id.email);
+        TextView name = findViewById(R.id.name);
+        TextView email = findViewById(R.id.email);
 
         // Display name and email
         name.setText("Name: " + account.getName());
@@ -249,6 +263,13 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
 
     }
 
+    /**
+     * Check if checkbox name match with selected one
+     *
+     * @param homelessRestriction the restrictions that a homeless matches
+     * @param shelterRestriction  the restrictions that a shelter holds
+     * @return true if match
+     */
     private boolean checkCheckbox(String homelessRestriction, String shelterRestriction) {
         return homelessRestriction.equals(shelterRestriction);
     }
@@ -256,11 +277,14 @@ public class UserInfoActivity extends AppCompatActivity implements RecyclerAdapt
     /**
      * Retrieving active account
      *
-     * @throws NoSuchUserException
+     * @throws NoSuchUserException when there is no user with that name
      */
-    public void getUserAccount() throws NoSuchUserException {
-        db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
-        String username = getIntent().getExtras().getString("username");
+    private void getUserAccount() throws NoSuchUserException {
+        db = new Db("pinkpanther", "PinkPantherReturns!");
+        Intent intent = getIntent();
+        Bundle extra = intent.getExtras();
+        assert extra != null;
+        String username = extra.getString("username");
         account = db.getAccountByUsername(username);
     }
 

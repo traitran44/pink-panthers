@@ -18,10 +18,13 @@ import pinkpanthers.pinkshelters.Model.Account;
 import pinkpanthers.pinkshelters.Model.DBI;
 import pinkpanthers.pinkshelters.Model.Db;
 import pinkpanthers.pinkshelters.Model.Homeless;
-import pinkpanthers.pinkshelters.Model.Shelter;
 import pinkpanthers.pinkshelters.Model.NoSuchUserException;
+import pinkpanthers.pinkshelters.Model.Shelter;
 import pinkpanthers.pinkshelters.R;
 
+/**
+ * to create a view that allow users to view more details about a shelter
+ */
 public class ShelterDetails extends AppCompatActivity {
     private DBI db;
     private Shelter s;
@@ -29,9 +32,7 @@ public class ShelterDetails extends AppCompatActivity {
     private TextView errorMessage;
     private TextView vacancy;
     private Shelter reservedShelter;
-    private Button claimBedButton;
     private Button updateInfoButton;
-    private Button cancelBedButton;
     private String username;
     private String message; //message for error message
 
@@ -39,25 +40,32 @@ public class ShelterDetails extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shelter_details);
-        db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
+        db = new Db("pinkpanther", "PinkPantherReturns!");
         errorMessage = findViewById(R.id.errorMessage);
         vacancy = findViewById(R.id.vacancy);
-        claimBedButton = findViewById(R.id.claimBed);
+        Button claimBedButton = findViewById(R.id.claimBed);
         updateInfoButton = findViewById(R.id.updateAccountButton);
-        cancelBedButton = findViewById(R.id.cancelReservation);
+        Button cancelBedButton = findViewById(R.id.cancelReservation);
 
         try {
-            int shelterId = getIntent().getExtras().getInt("shelterId");
+            Intent intent = getIntent();
+            Bundle extra = intent.getExtras();
+            assert extra != null;
+            int shelterId = extra.getInt("shelterId");
             s = db.getShelterById(shelterId);
             updateView(s);
         } catch (NoSuchUserException e) {
             throw new RuntimeException("This is not how it works " + e.toString());
         } catch (NullPointerException e) {
-            throw new RuntimeException("NullPointerException is raised: getExtras() returns null in ListOfShelter");
+            throw new RuntimeException("NullPointerException is raised: " +
+                    "getExtras() returns null in ListOfShelter");
         }
 
         try {
-            username = getIntent().getExtras().getString("username");
+            Intent intent = getIntent();
+            Bundle extra = intent.getExtras();
+            assert extra != null;
+            username = extra.getString("username");
             Account user = db.getAccountByUsername(username);
             if (user instanceof Homeless) { // user is a homeless person
                 a = (Homeless) user;
@@ -80,12 +88,18 @@ public class ShelterDetails extends AppCompatActivity {
                 claimBedButton.setVisibility(View.INVISIBLE);
             }
         } catch (NoSuchUserException e) {
-            throw new RuntimeException("There is no user with that username or shelter with that ID");
+            throw new RuntimeException("There is no user with that " +
+                    "username or shelter with that ID");
+
         } catch (NullPointerException e) {
             throw new RuntimeException("getExtras() returns null username");
         }
     }
 
+    /**
+     * specific details about a shelter
+     * @param s the selected shelter
+     */
     private void updateView(Shelter s) {
         TextView name = findViewById(R.id.name);
         String forName = "Name: " + s.getShelterName();
@@ -123,15 +137,22 @@ public class ShelterDetails extends AppCompatActivity {
         vacancy.setText(forVacancy);
     }
 
-    public void claimBedButton(View view) {
+    /**
+     * the button that allows users to claim a bed at a shelter
+     * @param view the current view that holds the claim button
+     */
+    public void claimBedButton(@SuppressWarnings("unused") View view) {
         // check to see if user has updated their information
-        if (a.getFamilyMemberNumber() == 0 || a.getRestrictionsMatch() == null) {
+        if ((a.getFamilyMemberNumber() == 0) || (a.getRestrictionsMatch() == null)) {
             message = "You need to update your information before you can claim a bed or beds. "
                     + "Please update your information by using the button below";
             errorMessage.setText(message);
             errorMessage.setVisibility(View.VISIBLE);
             updateInfoButton.setVisibility(View.VISIBLE);
-        } else { //homeless person cant claim bed(s) if they have already claimed bed(s) at a different shelter
+        } else {
+            //homeless person cant claim bed(s) if they have already claimed bed(s)
+            // at a different shelter
+
             int familyMemberNumber = a.getFamilyMemberNumber();
             if (a.getShelterId() != 0) {
                 if (s.getId() == reservedShelter.getId()) {
@@ -158,7 +179,8 @@ public class ShelterDetails extends AppCompatActivity {
                 Set <String> shelterRestrictionSet = new HashSet <> ();
 
                 //turn String of shelter restriction to List
-                List <String> shelterRestrictionList = Arrays.asList(s.getRestrictions().split((", ")));
+                String restrictions = s.getRestrictions();
+                List <String> shelterRestrictionList = Arrays.asList(restrictions.split((", ")));
 
                 //add Strings of shelter restriction list to set
                 for (String s: shelterRestrictionList) {
@@ -172,13 +194,13 @@ public class ShelterDetails extends AppCompatActivity {
                 Set <String> homelessRestrictionsSet = new HashSet <> (homelessRestrictions);
                 Set <String> common = new HashSet <> (shelterRestrictionSet);
                 common.retainAll(homelessRestrictionsSet);
-                String anyone1 = s.getRestrictions().toLowerCase().toString();
-                if (anyone1.equals(new String("anyone ")) || (common.equals(homelessRestrictionsSet))) {
+                String sRestrictions = s.getRestrictions();
+                String anyone1 = sRestrictions.toLowerCase();
+                String anyone = "anyone";
+                if (anyone1.equals(anyone) || (common.equals(homelessRestrictionsSet))) {
                     try {
                         //update vacancy of shelter
                         int vacancy1 = s.getVacancy() - familyMemberNumber;
-                        s.setVacancy(vacancy1);
-
                         //update current vacancy on screen
                         String forVacancy = "Vacancy: " + s.getVacancy();
                         vacancy.setText(forVacancy);
@@ -210,21 +232,29 @@ public class ShelterDetails extends AppCompatActivity {
     }
 
 
-    public void updateInfoButton(View view) {
-        Intent updateInfoPage = new Intent(ShelterDetails.this, UserInfoActivity.class);
+    /**
+     * to direct to userInfoActivity
+     * @param view the current view that holds the update button
+     */
+    public void updateInfoButton(@SuppressWarnings("unused") View view) {
+        Intent updateInfoPage = new Intent(ShelterDetails.this,
+                UserInfoActivity.class);
         updateInfoPage.putExtra("username", username);
         startActivity(updateInfoPage);
     }
 
-    public void cancelReservationButton(View view) {
-        // update vacany
+    /**
+     * to cancel a reservation and will update the vacancy number
+     * @param view the current view that holds the cancel button
+     */
+    public void cancelReservationButton(@SuppressWarnings("unused") View view) {
+        // update vacancy
         int vacancy1 = s.getVacancy() + a.getFamilyMemberNumber();
-        s.setVacancy(vacancy1);
         String forVacancy = "Vacancy: " + vacancy1;
         vacancy.setText(forVacancy);
 
         //update occupancy
-        int occupancy = s.getUpdate_capacity() - vacancy1;
+        int occupancy = s.getOccupancy() - a.getFamilyMemberNumber();
         s.setOccupancy(occupancy);
 
         //update homeless's shelter id
@@ -233,9 +263,10 @@ public class ShelterDetails extends AppCompatActivity {
             db.updateAccount(a);
             db.updateShelterOccupancy(s.getId(), occupancy);
         } catch (NoSuchUserException e) {
-            throw new RuntimeException("Homeless user is null or shelterid does not exist");
+            throw new RuntimeException("Homeless user is null or shelterId does not exist");
         } catch (java.sql.SQLException e) {
-            throw new RuntimeException("SQLException raised when trying to update account or shelter" +
+            throw new RuntimeException("SQLException raised when trying " +
+                    "to update account or shelter" +
                     " during canceling reservation");
         }
 

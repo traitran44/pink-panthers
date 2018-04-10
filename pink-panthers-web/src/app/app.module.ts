@@ -15,15 +15,19 @@ import {RegistrationComponent} from './component/registration/registration.compo
 import {WelcomeComponent} from './component/welcome/welcome.component';
 import {MaterialModule} from './module/material/material.module';
 import {RoutingModule} from './routing.module';
-import { TitleComponent } from './component/title/title.component';
+import {TitleComponent} from './component/title/title.component';
 import {FirebaseService} from './service/firebase.service';
 import {AdminService} from './service/admin.service';
 import {HomelessService} from './service/homeless.service';
 import {VolunteerService} from './service/volunteer.service';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule} from '@angular/forms';
-import { ShelterVolunteerComponent } from './component/shelter-volunteer/shelter-volunteer.component';
+import {ShelterVolunteerComponent} from './component/shelter-volunteer/shelter-volunteer.component';
+import {UserService} from './service/user.service';
+import {MultiCheckBoxComponent} from './component/multi-check-box/multi-check-box.component';
+import {GoogleMapsComponent} from './component/google-maps/google-maps.component';
 
+import {NguiMapModule} from '@ngui/map';
 
 @NgModule({
   declarations: [
@@ -35,7 +39,9 @@ import { ShelterVolunteerComponent } from './component/shelter-volunteer/shelter
     RegistrationComponent,
     WelcomeComponent,
     TitleComponent,
-    ShelterVolunteerComponent
+    ShelterVolunteerComponent,
+    MultiCheckBoxComponent,
+    GoogleMapsComponent
   ],
   imports: [
     BrowserModule,
@@ -44,15 +50,20 @@ import { ShelterVolunteerComponent } from './component/shelter-volunteer/shelter
     FormsModule,
     MaterialModule,
     NgbModule.forRoot(),
+    NguiMapModule.forRoot({apiUrl: 'https://maps.google.com/maps/api/js?key=AIzaSyAPpCHnBWt7YXLYD0ORk8tp-AEr8oiX87I'}),
     AngularFireModule.initializeApp(environment.firebase)
   ],
   providers: [
     AngularFireDatabase,
+    UserService,
     FirebaseService,
     AdminService,
     HomelessService,
     VolunteerService,
     AngularFireAuth
+  ],
+  entryComponents: [
+    GoogleMapsComponent
   ],
   bootstrap: [AppComponent]
 })

@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,10 +16,12 @@ import pinkpanthers.pinkshelters.Model.Db;
 import pinkpanthers.pinkshelters.Model.Shelter;
 import pinkpanthers.pinkshelters.R;
 
+/**
+ * to create a view that shows a list of shelters
+ */
+public class ListOfSheltersActivity extends AppCompatActivity implements
+        RecyclerAdapter.ItemClickListener, View.OnClickListener {
 
-public class ListOfSheltersActivity extends AppCompatActivity implements RecyclerAdapter.ItemClickListener, View.OnClickListener {
-
-    private RecyclerAdapter adapter;
     private List<Shelter> shelters;
     private String username; //used to get current logged in user
 
@@ -30,17 +33,18 @@ public class ListOfSheltersActivity extends AppCompatActivity implements Recycle
         // data to populate the RecyclerView with
         ArrayList<String> shelterNames = new ArrayList<>();
 
-        DBI db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
+        DBI db = new Db("pinkpanther", "PinkPantherReturns!");
 
         shelters = db.getAllShelters();
         for (int i = 0; i < shelters.size(); i++) {
-            shelterNames.add(shelters.get(i).getShelterName());
+            Shelter s = shelters.get(i);
+            shelterNames.add(s.getShelterName());
         }
 
         // set up the RecyclerView
         RecyclerView recyclerView = findViewById(R.id.rvShelters);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new RecyclerAdapter(this, shelterNames);
+        RecyclerAdapter adapter = new RecyclerAdapter(this, shelterNames);
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
 
@@ -48,19 +52,27 @@ public class ListOfSheltersActivity extends AppCompatActivity implements Recycle
         Button search_button = findViewById(R.id.search_button);
         search_button.setOnClickListener(this);
 
-        username = getIntent().getExtras().getString("username");
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        assert extras != null;
+        username = extras.getString("username");
     }
 
     @Override
     public void onItemClick(View view, int position) { //clicked on one shelter
         Intent detail = new Intent(this, ShelterDetails.class);
-        detail.putExtra("shelterId", shelters.get(position).getId());
+        Shelter s = shelters.get(position);
+        detail.putExtra("shelterId", s.getId());
         detail.putExtra("username", username);
         startActivity(detail);
     }
 
-    // id = shelterID
-    public void showMapButton(View view) {
+    /**
+     * Direct to map
+     *
+     * @param view View
+     */
+    public void showMapButton(@SuppressWarnings("unused") View view) {
         Intent map = new Intent(this, MapsActivity.class);
         map.putExtra("username", username);
         startActivity(map);

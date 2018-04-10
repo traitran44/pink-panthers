@@ -1,9 +1,11 @@
 package pinkpanthers.pinkshelters.Controller;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Button;
@@ -20,6 +22,9 @@ import pinkpanthers.pinkshelters.Model.Volunteer;
 import pinkpanthers.pinkshelters.Model.NoSuchUserException;
 import pinkpanthers.pinkshelters.R;
 
+/**
+ * to create log-in trials
+ */
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     private EditText username;
     private EditText password;
@@ -27,8 +32,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private TextView txtView;
     private DBI db;
     private Account account;
-    private String user;
-    private String pass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,21 +43,34 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         // set up Cancel button
         Button cancel_btn = findViewById(R.id.cancel_button);
         cancel_btn.setOnClickListener(this);
-        db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
+        db = new Db("pinkpanther", "PinkPantherReturns!");
     }
 
-    public void logIn(View view) {
+    /**
+     * Check for user name, password and log the user in.
+     * Success: Direct User to Home Page
+     * Fail: Display Error
+     *
+     * @param view current view of the app
+     */
+    public void logIn(@SuppressWarnings("unused") View view) {
         txtView = findViewById(R.id.validationWarn);
 
         try {
-            user = username.getText().toString().toLowerCase();
-            pass = password.getText().toString();
+            Editable userText = username.getText();
+            String user = userText.toString();
+            user = user.toLowerCase();
+            Editable passText = password.getText();
+            String pass = passText.toString();
             account = db.getAccountByUsername(user);
             txtView.setText("");
-            if (account.getPassword().equals(pass)
-                    && !account.getAccountState().equals("blocked")) { // correct password
-
-                SharedPreferences preferences = getApplicationContext().getSharedPreferences(
+            String blocked = "blocked";
+            String correctPass = account.getPassword();
+            String accountState = account.getAccountState();
+            if (correctPass.equals(pass)
+                    && !accountState.equals(blocked)) { // correct password
+                Context context = getApplicationContext();
+                SharedPreferences preferences = context.getSharedPreferences(
                         "com.example.sp.LoginPrefs", MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferences.edit();
                 if (account instanceof Homeless) {
@@ -70,6 +86,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 //get name to use for shelter details
                 editor.putString("USERNAME", account.getUsername());
                 editor.apply();
+
+                //active account is set to this static variable when
+                // logged in for quick access to current user
+
+//                Db.activeAccount = account;
 
                 Intent homePageIntent = new Intent(this, HomePageActivity.class);
                 homePageIntent.putExtra("username", user);
@@ -87,8 +108,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
+    /**
+     * When click on Cancel button, redirect back to Welcome Page
+     *
+     * @param v current view of the app
+     */
     public void onClick(View v) { //cancel button
-        Intent welcomeIntent = new Intent(LoginActivity.this, WelcomePageActivity.class);
+        Intent welcomeIntent = new Intent(LoginActivity.this,
+                WelcomePageActivity.class);
         startActivity(welcomeIntent);
     }
 
@@ -98,8 +125,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
      */
     private void checkLoginTrial() {
         Button loginButton = findViewById(R.id.login_button);
+        String blocked = "blocked";
         if (account != null) {
-            if (account.getAccountState().equals("blocked")) {
+            String accountState = account.getAccountState();
+            if (accountState.equals(blocked)) {
                 txtView.setText("Your account has been disable, please contact admin");
                 loginButton.setVisibility(View.INVISIBLE);
             } else if (loginTrial < 3) {
@@ -107,7 +136,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         + (3 - loginTrial) + " tries left");
                 account = null;
             } else {
-                account.setAccountState("blocked");
+                account.setAccountState(blocked);
                 txtView.setText("Your account is disable due to 3 " +
                         "unsuccessful attempts, please contact your admin");
                 loginButton.setVisibility(View.INVISIBLE);

@@ -7,6 +7,9 @@ import android.view.View;
 
 import pinkpanthers.pinkshelters.R;
 
+/**
+ * to create a welcome page that allows users to either log in or register
+ */
 public class WelcomePageActivity extends AppCompatActivity {
 
     @Override
@@ -14,12 +17,21 @@ public class WelcomePageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_page);
     }
-    public void loginButton(View view) {
+
+    /**
+     * Direct User to Login Page
+     * @param view the current view that holds the log-in button
+     */
+    public void loginButton(@SuppressWarnings("unused") View view) {
         Intent loginPageIntent = new Intent(this, LoginActivity.class);
         startActivity(loginPageIntent);
     }
 
-    public void registerButton(View view) {
+    /**
+     * Direct User to Register Page
+     * @param view the current view that hold the register button
+     */
+    public void registerButton(@SuppressWarnings("unused") View view) {
         Intent registerPageIntent = new Intent(this, Registration.class);
         startActivity(registerPageIntent);
     }

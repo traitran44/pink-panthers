@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FirebaseService} from '../../service/firebase.service';
 import {Router} from '@angular/router';
+import {User} from '../../@types/user';
 
 @Component({
   selector: 'pp-registration',
@@ -9,12 +10,7 @@ import {Router} from '@angular/router';
 })
 export class RegistrationComponent implements OnInit {
 
-  user: {
-    name: string,
-    pass: string,
-    email: string,
-    role: string
-  };
+  user: User;
   roleList: string[];
 
 
@@ -29,10 +25,14 @@ export class RegistrationComponent implements OnInit {
       'Admin'
     ];
     this.user = {
+      userKey: '',
       name: '',
       pass: '',
       email: '',
-      role: ''
+      role: '',
+      familySize: 1,
+      familyType: [],
+      beds: []
     };
   }
 

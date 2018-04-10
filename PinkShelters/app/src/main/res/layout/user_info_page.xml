@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/registration_page"
@@ -15,7 +16,7 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/titleBar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="match_parent"
             android:background="@color/colorPrimary"
             android:visibility="visible"
             app:popupTheme="@style/AppTheme.PopupOverlay"
@@ -24,7 +25,8 @@
     </android.support.design.widget.AppBarLayout>
 
 
-    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
@@ -183,11 +185,11 @@
                     android:layout_height="wrap_content"
                     android:layout_column="1"
                     android:layout_row="6"
-                    android:text="Update succesfully!"
+                    android:text="Update successfully!"
                     android:textColor="@color/colorAccent"
                     android:textStyle="bold"
                     android:visibility="invisible"
-                    tools:text="Update succesfully!" />
+                    tools:text="Update successfully!" />
 
             </GridLayout>
 

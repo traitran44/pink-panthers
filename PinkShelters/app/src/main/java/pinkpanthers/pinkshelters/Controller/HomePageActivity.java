@@ -1,5 +1,6 @@
 package pinkpanthers.pinkshelters.Controller;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,40 +16,62 @@ import pinkpanthers.pinkshelters.Model.Shelter;
 import pinkpanthers.pinkshelters.Model.NoSuchUserException;
 import pinkpanthers.pinkshelters.R;
 
+/**
+ * to create homepage view after logging in
+ */
+
 public class HomePageActivity extends AppCompatActivity {
-    private TextView textName, textWelcome, textUserType;
-    private SharedPreferences preferences;
-    public static final String PREFS_NAME = "com.example.sp.LoginPrefs";
-    private String username; //used to get current logged in user
-    private TextView message;
+    private static final String PREFS_NAME = "com.example.sp.LoginPrefs";
+    private String username;
     private Account user;
     private DBI db;
 
 
-    public void buttonOnClick(View v) { //logout button
+    /**
+     * Log the user out of current Activity
+     *
+     * @param v View
+     */
+    public void logOutButtonOnClick(@SuppressWarnings("unused") View v) { //logout button
+//        Db.activeAccount = null;
         Intent startMain = new Intent(this, WelcomePageActivity.class);
         startActivity(startMain);
     }
 
-    public void shelterListButton(View v) { //View Shelter button
+    /**
+     * Direct user to the page that list all the shelters
+     *
+     * @param v View
+     */
+    public void shelterListButton(@SuppressWarnings("unused") View v) { //View Shelter button
         Intent shelterListIntent = new Intent(this, ListOfSheltersActivity.class);
         shelterListIntent.putExtra("username", username);
         startActivity(shelterListIntent);
     }
 
-    public void infoOnClick(View v) { //View/Edit User Info button
+    /**
+     * Direct user to the Info Page
+     *
+     * @param v View
+     */
+    public void infoOnClick(@SuppressWarnings("unused") View v) { //View/Edit User Info button
         Intent info = new Intent(this, UserInfoActivity.class);
         info.putExtra("username", username);
         startActivity(info);
     }
 
-    public void setShelterText() throws NoSuchUserException {
-        message = findViewById(R.id.shelterMessage);
+    /**
+     * to set text if a user has claimed any shelter
+     */
+    private void setShelterText() {
+        TextView message = findViewById(R.id.shelterMessage);
         if (user instanceof Homeless) {
             try {
                 Shelter shelter = db.getShelterById(((Homeless) user).getShelterId());
-                String bed = ((Homeless) user).getFamilyMemberNumber() == 1 ? " bed" : " beds";
-                message.setText("You have claim " + ((Homeless) user).getFamilyMemberNumber() + bed +
+                String bed = (((Homeless) user).getFamilyMemberNumber() == 1) ? " bed" : " beds";
+
+                message.setText("You have claim " + ((Homeless) user).getFamilyMemberNumber()
+                        + bed +
                         " at shelter: " + shelter.getShelterName());
             } catch (NoSuchUserException e) {
                 message.setText("You have not claimed any bed yet");
@@ -62,10 +85,12 @@ public class HomePageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
         //Grab name and user type to show in homepage
-        preferences = getApplicationContext().getSharedPreferences(PREFS_NAME, Registration.MODE_PRIVATE);
-        textUserType = findViewById(R.id.textView3);
-        textName = findViewById(R.id.textView1);
-        textWelcome = findViewById(R.id.textView2);
+        Context context = getApplicationContext();
+        SharedPreferences preferences = context.getSharedPreferences(PREFS_NAME,
+                Registration.MODE_PRIVATE);
+        TextView textUserType = findViewById(R.id.textView3);
+        TextView textName = findViewById(R.id.textView1);
+        TextView textWelcome = findViewById(R.id.textView2);
 
 
         //Get name and user type
@@ -77,19 +102,18 @@ public class HomePageActivity extends AppCompatActivity {
         textWelcome.setText("Welcome to Pink Shelter");
         textUserType.setText(prefUserType);
 
-        username = getIntent().getExtras().getString("username");
-        db = new Db("pinkpanther", "PinkPantherReturns!", "pinkpanther");
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        assert extras != null;
+        username = extras.getString("username");
+        db = new Db("pinkpanther", "PinkPantherReturns!");
         try {
             user = db.getAccountByUsername(username);
         } catch (NoSuchUserException e) {
             throw new RuntimeException("cannot find the account");
         }
         if (user instanceof Homeless) {
-            try {
-                setShelterText();
-            } catch (NoSuchUserException e) {
-                throw new RuntimeException("Cannot set the proper String");
-            }
+            setShelterText();
         }
 
     }
