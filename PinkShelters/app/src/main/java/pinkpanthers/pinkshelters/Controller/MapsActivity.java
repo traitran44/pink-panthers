@@ -68,7 +68,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private Account user;
 
-    private String sheltername;
+    private String shelterName;
     private double longitude;
     private double latitude;
     private String address;
@@ -325,7 +325,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         mapLayout, false);
 
                 // get user inputs from dialog box
-                EditText shelternameText = addShelter.findViewById(R.id.name);
+                EditText shelterNameText = addShelter.findViewById(R.id.name);
                 EditText longitudeText = addShelter.findViewById(R.id.longitude);
                 EditText latitudeText = addShelter.findViewById(R.id.latitude);
                 EditText addressText = addShelter.findViewById(R.id.address);
@@ -349,8 +349,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-                        Editable textName = shelternameText.getText();
-                        sheltername = textName.toString();
+                        Editable textName = shelterNameText.getText();
+                        shelterName = textName.toString();
 
                         Editable textLongitude = longitudeText.getText();
                         String numLongitude = textLongitude.toString();
@@ -376,7 +376,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         capacity = textCapacity.toString();
 
 
-                        Shelter newShelter = db.createShelter(sheltername, capacity, specialNote,
+                        Shelter newShelter = db.createShelter(shelterName, capacity, specialNote,
                                 latitude, longitude, phoneNum, restrictions, address);
 
                         newShelter.setUpdate_capacity(capacityConverter());
