@@ -261,7 +261,7 @@ public class ShelterDetails extends AppCompatActivity {
             db.updateAccount(a);
             db.updateShelterOccupancy(s.getId(), occupancy);
         } catch (NoSuchUserException e) {
-            throw new RuntimeException("Homeless user is null or shelterid does not exist");
+            throw new RuntimeException("Homeless user is null or shelterId does not exist");
         } catch (java.sql.SQLException e) {
             throw new RuntimeException("SQLException raised when trying " +
                     "to update account or shelter" +
