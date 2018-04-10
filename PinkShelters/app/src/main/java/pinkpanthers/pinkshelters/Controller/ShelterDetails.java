@@ -50,6 +50,7 @@ public class ShelterDetails extends AppCompatActivity {
         try {
             Intent intent = getIntent();
             Bundle extra = intent.getExtras();
+            assert extra != null;
             int shelterId = extra.getInt("shelterId");
             s = db.getShelterById(shelterId);
             updateView(s);
@@ -63,6 +64,7 @@ public class ShelterDetails extends AppCompatActivity {
         try {
             Intent intent = getIntent();
             Bundle extra = intent.getExtras();
+            assert extra != null;
             username = extra.getString("username");
             Account user = db.getAccountByUsername(username);
             if (user instanceof Homeless) { // user is a homeless person

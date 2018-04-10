@@ -54,6 +54,7 @@ public class ListOfSheltersActivity extends AppCompatActivity implements
 
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
+        assert extras != null;
         username = extras.getString("username");
     }
 

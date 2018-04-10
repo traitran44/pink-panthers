@@ -34,6 +34,7 @@ public class DbUnitTest {
     public void testNullForUpdateAccount() throws SQLException, NoSuchUserException {
         // account is null
         account = null;
+        //noinspection ConstantConditions
         db.updateAccount(account);
     }
 

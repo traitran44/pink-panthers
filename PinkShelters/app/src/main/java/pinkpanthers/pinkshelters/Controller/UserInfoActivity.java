@@ -230,7 +230,7 @@ public class UserInfoActivity extends AppCompatActivity implements
         }
         family_spinner = findViewById(R.id.family_spinner);
         ArrayAdapter<Integer> family_adapter =
-                new ArrayAdapter<Integer>(this,
+                new ArrayAdapter<>(this,
                         android.R.layout.simple_spinner_item, familySizeList);
         family_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         family_spinner.setAdapter(family_adapter);
@@ -283,6 +283,7 @@ public class UserInfoActivity extends AppCompatActivity implements
         db = new Db("pinkpanther", "PinkPantherReturns!");
         Intent intent = getIntent();
         Bundle extra = intent.getExtras();
+        assert extra != null;
         String username = extra.getString("username");
         account = db.getAccountByUsername(username);
     }

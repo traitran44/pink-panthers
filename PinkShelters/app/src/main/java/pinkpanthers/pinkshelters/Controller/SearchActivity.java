@@ -56,6 +56,7 @@ public class SearchActivity extends AppCompatActivity implements
         db = new Db("pinkpanther", "PinkPantherReturns!");
         Intent intent = getIntent();
         Bundle extra = intent.getExtras();
+        assert extra != null;
         username = extra.getString("username");
 
         // data to populate the RecyclerView with

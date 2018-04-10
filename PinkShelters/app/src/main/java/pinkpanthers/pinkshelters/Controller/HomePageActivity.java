@@ -104,6 +104,7 @@ public class HomePageActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
+        assert extras != null;
         username = extras.getString("username");
         db = new Db("pinkpanther", "PinkPantherReturns!");
         try {
