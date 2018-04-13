@@ -122,17 +122,16 @@ public class Db implements DBI {
 
 
         // Create Java object after inserting into database
-        // and retrieving the row id.
-        Account newUser;
+        // and retrieving the row id
         switch (type) {
             case "Homeless":
-                newUser = new Homeless(username, password, name, "active", email, id);
+                new Homeless(username, password, name, "active", email, id);
                 break;
             case "Shelter Volunteer":
-                newUser = new Volunteer(username, password, name, "active", email, id);
+                new Volunteer(username, password, name, "active", email, id);
                 break;
             case "Admin":
-                newUser = new Admin(username, password, name, "active", email, id);
+                new Admin(username, password, name, "active", email, id);
                 break;
             default:
                 throw new RuntimeException("You have attempted to " +
