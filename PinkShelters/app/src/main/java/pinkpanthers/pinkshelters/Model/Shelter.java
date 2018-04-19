@@ -16,6 +16,8 @@ public class Shelter {
     private String address;
     private int occupancy;
     private int update_capacity;
+    private float rating;
+
 
     /**
      * constructor
@@ -271,5 +273,22 @@ public class Shelter {
     public int getVacancy() {
         return update_capacity - occupancy;
     }
+
+    /**
+     * get current rating
+     * @return current rating
+     */
+    public float getRating() {
+        return rating;
+    }
+
+    /**
+     * set new rating
+     * @param rating new rating
+     */
+    public void setRating(float rating) {
+        this.rating = rating;
+    }
+
 
 }

@@ -125,4 +125,15 @@ public interface DBI {
      *                             got updated in the database
      */
     void deleteAccount(String username) throws SQLException, NoSuchUserException;
+
+    /**
+     * currently just only update the rating,
+     * will need to modify later if need to update more fields in shelter
+     * @param shelter shelter to update
+     * @throws SQLException        in case the query interrupted
+     * @throws NoSuchUserException when username doesn't exist, the query will execute
+     *                             successfully but return 0 as # of rows
+     *                             got updated in the database
+     */
+    void updateShelter(Shelter shelter) throws SQLException, NoSuchUserException;
 }

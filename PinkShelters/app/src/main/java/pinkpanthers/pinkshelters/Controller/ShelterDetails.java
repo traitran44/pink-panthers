@@ -6,7 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.sql.SQLException;
 import java.util.Arrays;
@@ -35,6 +37,8 @@ public class ShelterDetails extends AppCompatActivity {
     private Button updateInfoButton;
     private String username;
     private String message; //message for error message
+    private RatingBar ratingBar;
+    private TextView txtRatingValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -94,6 +98,9 @@ public class ShelterDetails extends AppCompatActivity {
         } catch (NullPointerException e) {
             throw new RuntimeException("getExtras() returns null username");
         }
+
+        addListenerOnRatingBar();
+        addListenerOnButton();
     }
 
     /**
@@ -231,6 +238,18 @@ public class ShelterDetails extends AppCompatActivity {
         }
     }
 
+    /**
+     * To direct to all homeless that check in that shelter
+     * @param view curent view that holds the button
+     */
+//    public void viewAllHomelessButton(View view) {
+//        Intent viewAllHomeless = new Intent(ShelterDetails.this, AllHomeless.class);
+//        startActivity(viewAllHomeless);
+//    }
+//
+//    public void checkInButton(View view) {
+//
+//    }
 
     /**
      * to direct to userInfoActivity
@@ -279,6 +298,59 @@ public class ShelterDetails extends AppCompatActivity {
         // refresh page to update vacancy textView
         finish();
         startActivity(getIntent());
+    }
+
+    /**
+     * listener for the rating bar so that it shows the current rating of the shelter
+     */
+    public void addListenerOnRatingBar() {
+
+        ratingBar = (RatingBar) findViewById(R.id.ratingBar);
+        txtRatingValue = (TextView) findViewById(R.id.txtRatingValue);
+
+        //if rating value is changed,
+        //display the current rating value in the result (textview) automatically
+        ratingBar.setRating(s.getRating());
+        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            public void onRatingChanged(RatingBar ratingBar, float rating,
+                                        boolean fromUser) {
+
+                txtRatingValue.setText("Thanks for rating " + String.valueOf(rating));
+                s.setRating(rating);
+
+            }
+        });
+    }
+
+    /**
+     * click on this button to save the result on the database
+     */
+    public void addListenerOnButton() {
+
+        ratingBar = (RatingBar) findViewById(R.id.ratingBar);
+        Button btnSubmit = (Button) findViewById(R.id.ratingButton);
+
+        //if click on this button, then display the current rating value.
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                Toast.makeText(ShelterDetails.this,
+                        String.valueOf(ratingBar.getRating()),
+                        Toast.LENGTH_SHORT).show();
+
+                try {
+                    db.updateShelter(s);
+                } catch (NoSuchUserException e) {
+                    throw new RuntimeException("No shelter with this ID get updated");
+                } catch (SQLException e) {
+                    throw new RuntimeException("SQL statement is written wrong");
+                }
+            }
+
+        });
+
     }
 
 }
