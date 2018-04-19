@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import pinkpanthers.pinkshelters.Model.Account;
@@ -114,6 +115,9 @@ public class HomePageActivity extends AppCompatActivity {
         }
         if (user instanceof Homeless) {
             setShelterText();
+        } else {
+            Button infoButton = findViewById(R.id.myInfo_btn);
+            infoButton.setVisibility(View.INVISIBLE);
         }
 
     }
