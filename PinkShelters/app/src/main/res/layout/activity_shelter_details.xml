@@ -194,6 +194,7 @@
             android:layout_marginLeft="28dp"
             android:layout_marginStart="28dp"
             android:layout_marginTop="8dp"
+            android:onClick="checkInButton"
             android:text="Check In"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -270,5 +271,23 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ratingButton"
             app:layout_constraintVertical_bias="0.0" />
+
+        <Spinner
+            android:id="@+id/people_number"
+            android:layout_width="353dp"
+            android:layout_height="35dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.533"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+            app:layout_constraintVertical_bias="0.155" />
     </android.support.constraint.ConstraintLayout>
 </android.support.design.widget.CoordinatorLayout>
