@@ -262,11 +262,12 @@ public class ShelterDetails extends AppCompatActivity {
      * To direct to all homeless that check in that shelter
      * @param view curent view that holds the button
      */
-//    public void viewAllHomelessButton(View view) {
-//        Intent viewAllHomeless = new Intent(ShelterDetails.this, AllHomeless.class);
-//        startActivity(viewAllHomeless);
-//    }
-//
+    public void viewAllHomelessButton(View view) {
+        Intent viewAllHomeless = new Intent(this, AllHomelessActivity.class);
+        viewAllHomeless.putExtra("shelterId", s.getId());
+        startActivity(viewAllHomeless);
+    }
+
 
     /**
      * to check in manually how many people want to reside at that shelter

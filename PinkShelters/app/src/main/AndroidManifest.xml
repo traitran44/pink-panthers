@@ -64,6 +64,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity android:name=".Controller.AllHomelessActivity"></activity>
         <activity
             android:name=".Controller.Registration"
             android:label="@string/title_activity_registration"
