@@ -35,7 +35,7 @@ public class RegistrationActivityTest {
 
     // use to hook up tests with Registration activity
     @Rule
-    private final ActivityTestRule<Registration> mActivityRule =
+    public final ActivityTestRule<Registration> mActivityRule =
             new ActivityTestRule<>(Registration.class);
 
 
@@ -123,12 +123,6 @@ public class RegistrationActivityTest {
         onView(withId(R.id.password)).perform(typeText("jean123"), closeSoftKeyboard());
         // click on login button
         onView(withId(R.id.login_button)).perform(click());
-
-        // currently on HomePageActivity
-        // checks that Hello message is correct: "Hello name!"
-        onView(withId(R.id.textView1)).check(matches(withText("Hello jeannie!")));
-        // checks that the usertype text box is the correct user type: Homeless
-        onView(withId(R.id.textView3)).check(matches(withText("Homeless")));
 
         // logout to return to WelcomePage activity
         onView(withId(R.id.logout_btn)).perform(click());
