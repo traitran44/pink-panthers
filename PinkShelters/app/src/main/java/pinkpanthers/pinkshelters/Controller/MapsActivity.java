@@ -52,6 +52,53 @@ import pinkpanthers.pinkshelters.R;
 import pinkpanthers.pinkshelters.Model.Restrictions;
 import pinkpanthers.pinkshelters.Model.Shelter;
 
+import static android.os.Process.THREAD_PRIORITY_BACKGROUND;
+import static android.os.Process.THREAD_PRIORITY_MORE_FAVORABLE;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentSender;
+import android.graphics.Color;
+import android.location.Location;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.os.Process;
+import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.MapsInitializer;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import javax.net.ssl.HttpsURLConnection;
+
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
@@ -80,7 +127,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private String specialNote;
     private String capacity;
 
-    @Override
+    public static final int REQUEST_CODE = 2;
+    private final int CITY = 15;
+    MapView mapView;
+    GoogleMap gMap;
+    LocationRequest locationRequest;
+    Location location;
+    GeoLocation destinationLocation;
+    int callMapDraw = 0;
+    int time = 0;
+    View v;
+    WaterData waterData;
+    private boolean permissionDenied = false;
+    private GoogleApiClient mGoogleApiClient;
+
+
+        @Override
     protected void onCreate(Bundle savedInstanceState) {
 
 
@@ -466,6 +528,34 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             throw new RuntimeException("GeoCoder could not calculate the address using the " +
                     "tapped longitude and latitude");
         }
+    }
+
+    /**
+     * Put the map point at the current location of the user
+     */
+    private void putUserInCurrentLocation() {
+        if (location != null && time == 0) {
+            Log.d("Location", "Location is not null");
+            LatLng current = new LatLng(location.getLatitude(), location.getLongitude());
+            EventBus.getDefault().post(location);
+            gMap.setInfoWindowAdapter(new MyInfoWindowAdapter());
+            gMap.addMarker(new MarkerOptions().position(current).title("Current location"));
+            gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(current, CITY));
+            time++;
+        } else {
+            Log.d("Location", "not going to the if");
+        }
+    }
+
+    /**
+     * Create location request for the map
+     */
+    protected void createLocationRequest() {
+        locationRequest = new LocationRequest();
+        locationRequest.setInterval(10000);
+        locationRequest.setFastestInterval(5000);
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        connectGoogleApiClient();
     }
 
     /**
