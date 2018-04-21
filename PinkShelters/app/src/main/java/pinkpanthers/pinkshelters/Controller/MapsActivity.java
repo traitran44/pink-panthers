@@ -559,6 +559,28 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     /**
+     * Callback from the onConnected method to get the location from the request
+     *
+     * @param location The location changed from the onConnected method
+     */
+    @Override
+    public void onLocationChanged(Location location) {
+        this.location = location;
+        putUserInCurrentLocation();
+    }
+
+    /**
+     * connect When the device unsuccessfully connected
+     */
+    @Override
+    public void onConnectionFailed(ConnectionResult result) {
+        Log.d("Connection failed", "Connection failed:" + result.getErrorMessage());
+        Toast
+                .makeText(getContext(), "Connection failed: " + result.getErrorMessage(), Toast.LENGTH_LONG)
+                .show();
+    }
+
+    /**
      * Convert capacity string to int
      * @return int capacity
      */
