@@ -285,12 +285,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
-
-    public static boolean haveLocationPermission(Context context)
-    {
+    /**
+     *
+     * @param context
+     * @return permission to use location service
+     */
+    public static boolean haveLocationPermission(Context context) {
         return ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
                 ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
     }
+
     public static Location getBestLastKnownLocation(Context context) {
         LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         List<String> providers = locationManager.getAllProviders();
