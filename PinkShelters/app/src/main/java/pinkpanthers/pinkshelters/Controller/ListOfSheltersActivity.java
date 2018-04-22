@@ -50,7 +50,10 @@ public class ListOfSheltersActivity extends AppCompatActivity implements
 
         // set up search button
         Button search_button = findViewById(R.id.search_button);
+        search_button.setVisibility(View.VISIBLE);
         search_button.setOnClickListener(this);
+        Button map_search = findViewById(R.id.button2);
+        map_search.setVisibility(View.VISIBLE);
 
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();

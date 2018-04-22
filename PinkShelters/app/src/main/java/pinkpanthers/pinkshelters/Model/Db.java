@@ -122,8 +122,7 @@ public class Db implements DBI {
 
 
         // Create Java object after inserting into database
-        // and retrieving the row id.
-        Account newUser;
+        // and retrieving the row id
         switch (type) {
             case "Homeless":
                 newUser = new Homeless(username, password, name, "not_verified", email, id);
@@ -340,7 +339,7 @@ public class Db implements DBI {
     public Shelter getShelterById(int id) throws NoSuchUserException {
         Shelter newShelter;
         String sql = "SELECT id, shelter_name, capacity, special_notes, latitude, longitude, " +
-                "phone_number, restrictions, address, update_capacity, occupancy" +
+                "phone_number, restrictions, address, update_capacity, occupancy, rating" +
                 " FROM shelters" +
                 " WHERE id = ?";
 
@@ -361,6 +360,7 @@ public class Db implements DBI {
                         longitude, phoneNumber, restrictions, address);
                 newShelter.setOccupancy(rs.getInt("occupancy"));
                 newShelter.setUpdate_capacity(rs.getInt("update_capacity"));
+                newShelter.setRating(rs.getFloat("rating"));
             } else {
                 throw new NoSuchUserException("Shelter with this " + id + " doesn't exist");
             }
@@ -598,6 +598,39 @@ public class Db implements DBI {
         } finally {
             if (deleteAccount != null) {
                 deleteAccount.close();
+            }
+            conn.setAutoCommit(true);
+        }
+    }
+
+    @Override
+    public void updateShelter(Shelter shelter) throws SQLException, NoSuchUserException{
+        String sql = "UPDATE shelters " +
+                "SET rating = ? " +
+                "WHERE id = ?";
+        PreparedStatement updatedOccupancy = null;
+        try {
+            conn.setAutoCommit(false);
+            updatedOccupancy = conn.prepareStatement(sql);
+            updatedOccupancy.setFloat(1, shelter.getRating());
+            updatedOccupancy.setInt(2, shelter.getId());
+            int rowUpdated = updatedOccupancy.executeUpdate();
+
+            if (rowUpdated == 1) {// only one row is supposed to be updated
+                conn.commit();
+            } else {
+                throw new NoSuchUserException("The shelter with id: "
+                        + shelter.getId()
+                        + " doesn't exist");
+            }
+
+        } catch (SQLException e) {
+            logSqlException(e);
+            throw new RuntimeException("Updating shelter\'s occupancy failed: " +
+                    e.toString()); // so we can log sql message too
+        } finally {
+            if (updatedOccupancy != null) {
+                updatedOccupancy.close();
             }
             conn.setAutoCommit(true);
         }

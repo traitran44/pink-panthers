@@ -5,8 +5,12 @@ import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.RatingBar;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.sql.SQLException;
 import java.util.Arrays;
@@ -35,9 +39,14 @@ public class ShelterDetails extends AppCompatActivity {
     private Button updateInfoButton;
     private String username;
     private String message; //message for error message
+    private RatingBar ratingBar;
+    private TextView txtRatingValue;
+    private Button checkIn;
+    private Spinner peopleNumber;
+    private Button viewResident;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shelter_details);
         db = new Db("pinkpanther", "PinkPantherReturns!");
@@ -46,6 +55,14 @@ public class ShelterDetails extends AppCompatActivity {
         Button claimBedButton = findViewById(R.id.claimBed);
         updateInfoButton = findViewById(R.id.updateAccountButton);
         Button cancelBedButton = findViewById(R.id.cancelReservation);
+        checkIn = findViewById(R.id.check_in_btn);
+        viewResident = findViewById(R.id.view_all_homeless);
+        peopleNumber = findViewById(R.id.people_number);
+        List<Integer> number = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+        ArrayAdapter<Integer> adapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_dropdown_item,
+                number);
+        peopleNumber.setAdapter(adapter);
 
         try {
             Intent intent = getIntent();
@@ -86,6 +103,10 @@ public class ShelterDetails extends AppCompatActivity {
                 }
             } else { // user is not a homeless person
                 claimBedButton.setVisibility(View.INVISIBLE);
+                checkIn.setVisibility(View.VISIBLE);
+                peopleNumber.setVisibility(View.VISIBLE);
+                viewResident.setVisibility(View.VISIBLE);
+
             }
         } catch (NoSuchUserException e) {
             throw new RuntimeException("There is no user with that " +
@@ -94,10 +115,15 @@ public class ShelterDetails extends AppCompatActivity {
         } catch (NullPointerException e) {
             throw new RuntimeException("getExtras() returns null username");
         }
+
+        addListenerOnRatingBar();
+        addListenerOnButton();
+        checkInButton();
     }
 
     /**
      * specific details about a shelter
+     *
      * @param s the selected shelter
      */
     private void updateView(Shelter s) {
@@ -139,6 +165,7 @@ public class ShelterDetails extends AppCompatActivity {
 
     /**
      * the button that allows users to claim a bed at a shelter
+     *
      * @param view the current view that holds the claim button
      */
     public void claimBedButton(@SuppressWarnings("unused") View view) {
@@ -176,23 +203,23 @@ public class ShelterDetails extends AppCompatActivity {
 
             } else {
                 //set of restriction of shelter
-                Set <String> shelterRestrictionSet = new HashSet <> ();
+                Set<String> shelterRestrictionSet = new HashSet<>();
 
                 //turn String of shelter restriction to List
                 String restrictions = s.getRestrictions();
-                List <String> shelterRestrictionList = Arrays.asList(restrictions.split((", ")));
+                List<String> shelterRestrictionList = Arrays.asList(restrictions.split((", ")));
 
                 //add Strings of shelter restriction list to set
-                for (String s: shelterRestrictionList) {
+                for (String s : shelterRestrictionList) {
                     shelterRestrictionSet.add(s.toLowerCase());
                 }
 
                 //list of homeless restriction
-                List <String> homelessRestrictions = a.getRestrictionsMatch();
+                List<String> homelessRestrictions = a.getRestrictionsMatch();
 
                 //turn list into set of homeless restriction
-                Set <String> homelessRestrictionsSet = new HashSet <> (homelessRestrictions);
-                Set <String> common = new HashSet <> (shelterRestrictionSet);
+                Set<String> homelessRestrictionsSet = new HashSet<>(homelessRestrictions);
+                Set<String> common = new HashSet<>(shelterRestrictionSet);
                 common.retainAll(homelessRestrictionsSet);
                 String sRestrictions = s.getRestrictions();
                 String anyone1 = sRestrictions.toLowerCase();
@@ -231,9 +258,52 @@ public class ShelterDetails extends AppCompatActivity {
         }
     }
 
+    /**
+     * To direct to all homeless that check in that shelter
+     * @param view curent view that holds the button
+     */
+    public void viewAllHomelessButton(View view) {
+        Intent viewAllHomeless = new Intent(this, AllHomelessActivity.class);
+        viewAllHomeless.putExtra("shelterId", s.getId());
+        startActivity(viewAllHomeless);
+    }
+
+
+    /**
+     * to check in manually how many people want to reside at that shelter
+     *
+     */
+    public void checkInButton() {
+        checkIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int occupancy = s.getOccupancy() + (Integer) peopleNumber.getSelectedItem();
+                if (occupancy > s.getUpdate_capacity()) {
+                    message = "Sorry, there are not enough beds";
+                    errorMessage.setText(message);
+                    errorMessage.setVisibility(View.VISIBLE);
+                } else {
+                    s.setOccupancy(occupancy);
+                    try {
+                        db.updateShelterOccupancy(s.getId(), s.getOccupancy());
+                    } catch (NoSuchUserException e) {
+                        throw new RuntimeException("Homeless user is null or shelterId does not exist");
+                    } catch (java.sql.SQLException e){
+                        throw new RuntimeException("SQLException raised when trying " +
+                                "to update account or shelter" +
+                                " during canceling reservation");
+                    }
+
+                    finish();
+                    startActivity(getIntent());
+                }
+            }
+        });
+    }
 
     /**
      * to direct to userInfoActivity
+     *
      * @param view the current view that holds the update button
      */
     public void updateInfoButton(@SuppressWarnings("unused") View view) {
@@ -245,6 +315,7 @@ public class ShelterDetails extends AppCompatActivity {
 
     /**
      * to cancel a reservation and will update the vacancy number
+     *
      * @param view the current view that holds the cancel button
      */
     public void cancelReservationButton(@SuppressWarnings("unused") View view) {
@@ -279,6 +350,59 @@ public class ShelterDetails extends AppCompatActivity {
         // refresh page to update vacancy textView
         finish();
         startActivity(getIntent());
+    }
+
+    /**
+     * listener for the rating bar so that it shows the current rating of the shelter
+     */
+    public void addListenerOnRatingBar() {
+
+        ratingBar = (RatingBar) findViewById(R.id.ratingBar);
+        txtRatingValue = (TextView) findViewById(R.id.txtRatingValue);
+
+        //if rating value is changed,
+        //display the current rating value in the result (textview) automatically
+        ratingBar.setRating(s.getRating());
+        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            public void onRatingChanged(RatingBar ratingBar, float rating,
+                                        boolean fromUser) {
+
+                txtRatingValue.setText("Thanks for rating " + String.valueOf(rating));
+                s.setRating(rating);
+
+            }
+        });
+    }
+
+    /**
+     * click on this button to save the result on the database
+     */
+    public void addListenerOnButton() {
+
+        ratingBar = (RatingBar) findViewById(R.id.ratingBar);
+        Button btnSubmit = (Button) findViewById(R.id.ratingButton);
+
+        //if click on this button, then display the current rating value.
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                Toast.makeText(ShelterDetails.this,
+                        String.valueOf(ratingBar.getRating()),
+                        Toast.LENGTH_SHORT).show();
+
+                try {
+                    db.updateShelter(s);
+                } catch (NoSuchUserException e) {
+                    throw new RuntimeException("No shelter with this ID get updated");
+                } catch (SQLException e) {
+                    throw new RuntimeException("SQL statement is written wrong");
+                }
+            }
+
+        });
+
     }
 
 }
