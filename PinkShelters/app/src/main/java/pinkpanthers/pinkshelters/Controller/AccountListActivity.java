@@ -44,7 +44,9 @@ public class AccountListActivity extends AppCompatActivity implements
         for (int i = 0; i < allAccountList.size(); i++) {
             Account a = allAccountList.get(i);
             allAccountName.add(a.getUsername());
+            //allAccountName.add(a.getAccountState());
         }
+
 
         // set up the RecyclerView
         RecyclerView recyclerView = findViewById(R.id.rvShelters);

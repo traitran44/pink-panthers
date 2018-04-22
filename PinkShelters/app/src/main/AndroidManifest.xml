@@ -100,19 +100,19 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCNq1KU1_wsjzLrepXNqnOOij7UTGYsFb4" />
+        <activity android:name=".Controller.AccountListActivity">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Controller.AccountDetailsActivity">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
 
-        <activity
-            android:name=".Controller.AccountListActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:label="@string/title_activity_account_list"
-
-             />
-        <activity
-            android:name=".Controller.AccountDetailsActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:label="@string/title_activity_account_details"
-
-            />
     </application>
 
 </manifest>

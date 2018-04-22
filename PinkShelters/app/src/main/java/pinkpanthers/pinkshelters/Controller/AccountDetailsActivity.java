@@ -7,13 +7,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.view.View.OnClickListener;
+import android.widget.ToggleButton;
 
+import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 
 import pinkpanthers.pinkshelters.Model.Account;
 import pinkpanthers.pinkshelters.Model.DBI;
 import pinkpanthers.pinkshelters.Model.Db;
+import pinkpanthers.pinkshelters.Model.Homeless;
 import pinkpanthers.pinkshelters.Model.NoSuchUserException;
 import pinkpanthers.pinkshelters.Model.Shelter;
 import pinkpanthers.pinkshelters.R;
@@ -22,9 +27,7 @@ public class AccountDetailsActivity extends AppCompatActivity {
 
     private DBI db;
     private Account a;
-    private TextView errorMessage;
-    private String username;
-    private String message;
+    private TextView txtView;
 
 
     @Override
@@ -32,6 +35,9 @@ public class AccountDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_details);
         db = new Db("pinkpanther", "PinkPantherReturns!");
+        Button onClick=(Button) findViewById(R.id.ban_btn);
+        Button unBanButton=(Button) findViewById(R.id.unBan_btn);
+        txtView = findViewById(R.id.banNotification_text);
 
 
         try {
@@ -48,7 +54,6 @@ public class AccountDetailsActivity extends AppCompatActivity {
         }
     }
 
-
     /**
      * specific details about a account
      *
@@ -60,7 +65,7 @@ public class AccountDetailsActivity extends AppCompatActivity {
         String forUserName = "Account User Name: " + a.getUsername();
         username.setText(forUserName);
 
-        TextView name = findViewById(R.id.accountUserName);
+        TextView name = findViewById(R.id.accountName);
         String forName = "Account Name: " + a.getName();
         name.setText(forName);
 
@@ -80,55 +85,71 @@ public class AccountDetailsActivity extends AppCompatActivity {
         String forUserId = "Account Id: " + a.getUserId();
         userId.setText(forUserId);
 
-
+        setAccountStateText();
     }
 
-
-
-
-
-
-    public void banAccountButton(View view) {
-        final Button testButton = (Button) findViewById(R.id.banAccount);
-        testButton.setTag(1);
-        testButton.setText("Ban");
-        testButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final int status = (Integer) v.getTag();
-                if (status == 1) {
-                    String ban = "banned";
-                    a.setAccountState(ban);
-                    testButton.setText("Unban");
-                    TextView accountState = findViewById(R.id.accountState);
-                    accountState.setText(ban);
-                    v.setTag(0); //ban
-                    finish();
-                    startActivity(getIntent());
-                    Log.d("account state", a.getAccountState());
-                } else {
-                    String ban = "active";
-                    a.setAccountState(ban);
-                    testButton.setText("Ban");
-                    TextView accountState = findViewById(R.id.accountState);
-                    accountState.setText(ban);
-                    v.setTag(1); //ban
-                    finish();
-                    startActivity(getIntent());
-                    Log.d("account state", a.getAccountState());
-                }
-                try {
-                db.updateAccount(a);
-            } catch (SQLException e) {
-                throw new RuntimeException("Failed to update account " +
-                        e.toString());
-            } catch (NoSuchUserException e) { // this shouldn't happen
-                errorMessage.setText("Your account doesn't exist");
-            }
+    private void setAccountStateText() {
+        txtView = findViewById(R.id.banNotification_text);
+        String ban= "banned";
+        Log.d("tate", a.getAccountState());
+        String accountState = a.getAccountState();
+        if (accountState.equals(new String("banned"))) {
+            txtView.setText("This account has been banned");
+            txtView.setVisibility(View.VISIBLE);
+        } else {
+            txtView.setVisibility(View.INVISIBLE);
         }
-        });
-
-
     }
-}
+
+
+    public void onClick(View v) { //ban button
+        TextView accountState = findViewById(R.id.accountState);
+        Button unBanButton = (Button) findViewById(R.id.unBan_btn);
+        String ban= "banned";
+        a.setAccountState(ban);
+        txtView.setVisibility(View.VISIBLE);
+        String forAccountState = "Account State: " + a.getAccountState();
+        accountState.setText(forAccountState);
+        unBanButton.setVisibility(View.VISIBLE);
+        Button onClick = (Button) findViewById(R.id.ban_btn);
+        onClick.setVisibility(View.INVISIBLE);
+        txtView.setText("This account has been banned");
+        txtView.setVisibility(View.VISIBLE);
+        finish();
+        startActivity(getIntent());
+        try {
+            db.updateAccount(a);
+        } catch (SQLException e) {
+            throw new RuntimeException("Failed to update account " +
+                    e.toString());
+        } catch (NoSuchUserException e) { // this shouldn't happen
+            txtView.setText("Your account doesn't exist");
+        }
+    }
+
+    public void onUnbanClick(View v) { //unban button
+        TextView accountState = findViewById(R.id.accountState);
+        String ban = "unbanned";
+        a.setAccountState(ban);
+        String forAccountState = "Account State: " + a.getAccountState();
+        accountState.setText(forAccountState);
+        Button onClick = (Button) findViewById(R.id.ban_btn);
+        onClick.setVisibility(View.VISIBLE);
+        Button unBanButton = (Button) findViewById(R.id.unBan_btn);
+        unBanButton.setVisibility(View.INVISIBLE);
+        txtView.setText("This account has been un-banned");
+        txtView.setVisibility(View.VISIBLE);
+        finish();
+        startActivity(getIntent());
+        try {
+            db.updateAccount(a);
+        } catch (SQLException e) {
+            throw new RuntimeException("Failed to update account " +
+                    e.toString());
+        } catch (NoSuchUserException e) { // this shouldn't happen
+            txtView.setText("Your account doesn't exist");
+        }
+    }}
+
+
 
