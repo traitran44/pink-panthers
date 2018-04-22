@@ -58,7 +58,7 @@ public class RegistrationActivityTest {
         // to make sure the account did not exist beforehand
         deleteUser();
         // types "jeannie" in name text box
-        onView(withId(R.id.name)).perform(typeText("jeannie"), closeSoftKeyboard());
+        onView(withId(R.id.accountUserName)).perform(typeText("jeannie"), closeSoftKeyboard());
         // types "jean@gmail.com" in email text box
         onView(withId(R.id.email)).perform(typeText("jean@gmail.com"), closeSoftKeyboard());
         // types "jeanuser" in username text box
@@ -83,7 +83,7 @@ public class RegistrationActivityTest {
 
         //currently on loginActivity page
         // types "jeanuser" into username text box
-        onView(withId(R.id.name)).perform(
+        onView(withId(R.id.accountUserName)).perform(
                 typeText("jeanuser"), closeSoftKeyboard());
         // types "jean123" into password text box
         onView(withId(R.id.password)).perform(
@@ -100,7 +100,7 @@ public class RegistrationActivityTest {
         // to make sure the account did not exist beforehand
         deleteUser();
         // types "jeannie" in name text box
-        onView(withId(R.id.name)).perform(typeText("jeannie"), closeSoftKeyboard());
+        onView(withId(R.id.accountUserName)).perform(typeText("jeannie"), closeSoftKeyboard());
         // types "jean@gmail.com" in email text box
         onView(withId(R.id.email)).perform(typeText("jean@gmail.com"), closeSoftKeyboard());
         // types "jeanuser" in username text box
@@ -118,7 +118,7 @@ public class RegistrationActivityTest {
 
         // currently on loginActivity page
         // types "jeanuser" into username text box
-        onView(withId(R.id.name)).perform(typeText("jeanuser"), closeSoftKeyboard());
+        onView(withId(R.id.accountUserName)).perform(typeText("jeanuser"), closeSoftKeyboard());
         // types "jean123" into password text box
         onView(withId(R.id.password)).perform(typeText("jean123"), closeSoftKeyboard());
         // click on login button
@@ -165,7 +165,7 @@ public class RegistrationActivityTest {
     @Test
     public void testMissingEmail() {
         // types "jeannie" in name text box
-        onView(withId(R.id.name)).perform(typeText("jeannie"), closeSoftKeyboard());
+        onView(withId(R.id.accountUserName)).perform(typeText("jeannie"), closeSoftKeyboard());
         // does not fill out email text box
         // types "jeanuser" in username text box
         onView(withId(R.id.username)).perform(typeText("jeanuser"), closeSoftKeyboard());
@@ -190,7 +190,7 @@ public class RegistrationActivityTest {
     @Test
     public void testMissingUsername() {
         // types "jeannie" in name text box
-        onView(withId(R.id.name)).perform(typeText("jeannie"), closeSoftKeyboard());
+        onView(withId(R.id.accountUserName)).perform(typeText("jeannie"), closeSoftKeyboard());
         // types "jean@gmail.com" in email text box
         onView(withId(R.id.email)).perform(typeText("jean@gmail.com"), closeSoftKeyboard());
         // does not fill out username
@@ -215,7 +215,7 @@ public class RegistrationActivityTest {
     @Test
     public void testMissingPassword() {
         // types "jeannie" in name text box
-        onView(withId(R.id.name)).perform(typeText("jeannie"), closeSoftKeyboard());
+        onView(withId(R.id.accountUserName)).perform(typeText("jeannie"), closeSoftKeyboard());
         // types "jean@gmail.com" in email text box
         onView(withId(R.id.email)).perform(typeText("jean@gmail.com"), closeSoftKeyboard());
         // types "jeanuser" in username text box
@@ -240,7 +240,7 @@ public class RegistrationActivityTest {
     @Test
     public void testMissingUserType() {
         // types "jeannie" in name text box
-        onView(withId(R.id.name)).perform(typeText("jeannie"), closeSoftKeyboard());
+        onView(withId(R.id.accountUserName)).perform(typeText("jeannie"), closeSoftKeyboard());
         // types "jean@gmail.com" in email text box
         onView(withId(R.id.email)).perform(typeText("jean@gmail.com"), closeSoftKeyboard());
         // types "jeanuser" in username text box
@@ -291,7 +291,7 @@ public class RegistrationActivityTest {
         testSuccessfulRegister();
         // tries to create another account with same username
         // types "jeannie" in name text box
-        onView(withId(R.id.name)).perform(typeText("jeannie"), closeSoftKeyboard());
+        onView(withId(R.id.accountUserName)).perform(typeText("jeannie"), closeSoftKeyboard());
         // types "jean@gmail.com" in email text box
         onView(withId(R.id.email)).perform(typeText("jean@gmail.com"), closeSoftKeyboard());
         // types "jeanuser" in username text box

@@ -33,7 +33,7 @@
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
                 <EditText
-                    android:id="@+id/name"
+                    android:id="@+id/accountUserName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"

@@ -326,7 +326,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         mapLayout, false);
 
                 // get user inputs from dialog box
-                EditText shelterNameText = addShelter.findViewById(R.id.name);
+                EditText shelterNameText = addShelter.findViewById(R.id.accountUserName);
                 EditText longitudeText = addShelter.findViewById(R.id.longitude);
                 EditText latitudeText = addShelter.findViewById(R.id.latitude);
                 EditText addressText = addShelter.findViewById(R.id.address);

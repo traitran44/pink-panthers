@@ -37,7 +37,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        username = findViewById(R.id.name);
+        username = findViewById(R.id.accountUserName);
         password = findViewById(R.id.password);
 
         // set up Cancel button
@@ -65,10 +65,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             account = db.getAccountByUsername(user);
             txtView.setText("");
             String blocked = "blocked";
+            String ban="banned";
             String correctPass = account.getPassword();
             String accountState = account.getAccountState();
             if (correctPass.equals(pass)
-                    && !accountState.equals(blocked)) { // correct password
+                    && !accountState.equals(blocked)
+                    && !accountState.equals(ban)) { // correct password
                 Context context = getApplicationContext();
                 SharedPreferences preferences = context.getSharedPreferences(
                         "com.example.sp.LoginPrefs", MODE_PRIVATE);
@@ -97,6 +99,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 startActivity(homePageIntent);
             } else { // incorrect password
                 loginTrial++;
+                checkLogInBan();
                 checkLoginTrial();
 
             }
@@ -104,6 +107,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             // User doesn't exist
             loginTrial++;
             checkLoginTrial();
+            checkLogInBan();
 
         }
     }
@@ -159,4 +163,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
         }
     }
-}
+
+
+//check if the account is banned or not
+    private void checkLogInBan() {
+        Button loginButton = findViewById(R.id.login_button);
+        String ban = "banned";
+        if (account != null) {
+            String accountState = account.getAccountState();
+            if (accountState.equals(ban)) {
+                txtView.setText("Your account has been banned, please contact admin");
+                loginButton.setVisibility(View.INVISIBLE);
+            } else {loginButton.setVisibility(View.INVISIBLE);}
+
+    }
+}}

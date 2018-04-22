@@ -72,6 +72,29 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         }
     }
 
+
+
+
+//    /**
+//     * stores and recycles views as they are scrolled off screen
+//     */
+//    public class ViewHolderAccount extends RecyclerView.ViewHolder implements View.OnClickListener {
+//        final TextView myTextViewAccount;
+//
+//        ViewHolderAccount(View itemView) {
+//            super(itemView);
+//            myTextViewAccount = itemView.findViewById(R.id.tvShelterName);
+//            itemView.setOnClickListener(this);
+//        }
+//
+//        @Override
+//        public void onClick(View view) {
+//            if (mClickListener != null) {
+//                mClickListener.onItemClick(view, getAdapterPosition());
+//            }
+//        }
+//    }
+
     /**
      * convenience method for getting data at click position
      *

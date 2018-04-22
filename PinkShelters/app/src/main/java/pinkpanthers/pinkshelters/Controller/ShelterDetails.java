@@ -127,7 +127,7 @@ public class ShelterDetails extends AppCompatActivity {
      * @param s the selected shelter
      */
     private void updateView(Shelter s) {
-        TextView name = findViewById(R.id.name);
+        TextView name = findViewById(R.id.accountUserName);
         String forName = "Name: " + s.getShelterName();
         name.setText(forName);
 
