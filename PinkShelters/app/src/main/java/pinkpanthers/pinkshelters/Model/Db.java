@@ -91,7 +91,7 @@ public class Db implements DBI {
         String sql = "INSERT INTO accounts " +
                 "(`type`, `username`, `password`, `name`, `email`, `account_state`, `shelter_id`)" +
                 " VALUES " +
-                "(?, ?, ?, ?, ?, 'active', 0)";
+                "(?, ?, ?, ?, ?, 'not_verified', 0)";
 
         int id;
         try {
@@ -126,13 +126,13 @@ public class Db implements DBI {
         Account newUser;
         switch (type) {
             case "Homeless":
-                newUser = new Homeless(username, password, name, "active", email, id);
+                newUser = new Homeless(username, password, name, "not_verified", email, id);
                 break;
             case "Shelter Volunteer":
-                newUser = new Volunteer(username, password, name, "active", email, id);
+                newUser = new Volunteer(username, password, name, "not_verified", email, id);
                 break;
             case "Admin":
-                newUser = new Admin(username, password, name, "active", email, id);
+                newUser = new Admin(username, password, name, "not_verified", email, id);
                 break;
             default:
                 throw new RuntimeException("You have attempted to " +

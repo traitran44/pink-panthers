@@ -5,12 +5,19 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.io.BufferedInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 
@@ -132,12 +139,16 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
         Boolean missingAnything = noName && noEmail && noPass && noUsername && noType;
         if (missingAnything) {
+
             try {
+
                 db.createAccount(isValidType,
                         isValidUsername,
                         isValidPassword,
                         isValidName,
                         isValidEmail);
+
+                sendEmail(isValidEmail);
                 Intent loginPageIntent = new Intent(this, LoginActivity.class);
                 startActivity(loginPageIntent);
             } catch (UniqueKeyError e) {
@@ -145,8 +156,47 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                 duplicate.setVisibility(View.VISIBLE);
             }
         }
-
     }
+
+    private static String readStream(InputStream is) {
+        try {
+            ByteArrayOutputStream bo = new ByteArrayOutputStream();
+            int i = is.read();
+            while(i != -1) {
+                bo.write(i);
+                i = is.read();
+            }
+            return bo.toString();
+        } catch (IOException e) {
+            return "";
+        }
+    }
+    private static void sendEmail(String email) {
+        Log.i("Send email", "send email right heree");
+        try {
+            URL url = new URL("http://54.255.176.28:5000/user/"+email);
+            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            try {
+                Log.d("",
+                        "fetching url0");
+                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+                Log.d("",
+                        "fetching url1");
+                readStream(in);
+                Log.d("",
+                        "fetching url2");
+            } catch (Exception e) {
+                Log.d("", e.getMessage()
+                );
+            }
+            finally {
+                urlConnection.disconnect();
+            }
+        } catch (Exception e){
+
+        }
+    }
+
 
     /**
      * Direct user to Welcome Page

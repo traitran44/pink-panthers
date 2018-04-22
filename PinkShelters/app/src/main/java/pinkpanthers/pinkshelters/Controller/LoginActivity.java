@@ -68,7 +68,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             String correctPass = account.getPassword();
             String accountState = account.getAccountState();
             if (correctPass.equals(pass)
-                    && !accountState.equals(blocked)) { // correct password
+                    && !accountState.equals(blocked) && !accountState.equals("not_verified")) { // correct password
                 Context context = getApplicationContext();
                 SharedPreferences preferences = context.getSharedPreferences(
                         "com.example.sp.LoginPrefs", MODE_PRIVATE);
@@ -128,7 +128,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         String blocked = "blocked";
         if (account != null) {
             String accountState = account.getAccountState();
-            if (accountState.equals(blocked)) {
+            if (accountState.equals("not_verified")) {
+                txtView.setText("Your account has not been verified. Please click on the registration linkgit");
+                loginButton.setVisibility(View.INVISIBLE);
+            }
+            else if (accountState.equals(blocked)) {
                 txtView.setText("Your account has been disable, please contact admin");
                 loginButton.setVisibility(View.INVISIBLE);
             } else if (loginTrial < 3) {
