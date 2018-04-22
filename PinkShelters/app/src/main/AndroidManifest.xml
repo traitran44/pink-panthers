@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--suppress CheckTagEmptyBody -->
+<?xml version="1.0" encoding="utf-8"?><!-- suppress CheckTagEmptyBody -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="pinkpanthers.pinkshelters">
@@ -34,9 +33,9 @@
          location permissions for the 'MyLocation' functionality.
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
-    <!--suppress CheckTagEmptyBody -->
+    <!-- suppress CheckTagEmptyBody -->
     <application
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
@@ -44,15 +43,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:ignore="AllowBackup,GoogleAppIndexingWarning"
-        >
-        <activity android:name=".Controller.LoginActivity"
+        tools:ignore="AllowBackup,GoogleAppIndexingWarning">
+        <activity
+            android:name=".Controller.LoginActivity"
             tools:ignore="InnerclassSeparator" />
-        <activity android:name=".Controller.HomePageActivity"
+        <activity
+            android:name=".Controller.HomePageActivity"
             tools:ignore="InnerclassSeparator" />
-        <activity android:name=".Controller.ListOfSheltersActivity"
+        <activity
+            android:name=".Controller.ListOfSheltersActivity"
             tools:ignore="InnerclassSeparator" />
-        <activity android:name=".Controller.WelcomePageActivity"
+        <activity
+            android:name=".Controller.WelcomePageActivity"
             tools:ignore="InnerclassSeparator">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -64,17 +66,20 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".Controller.AllHomelessActivity"></activity>
+        <activity android:name=".Controller.AllHomelessActivity" />
         <activity
             android:name=".Controller.Registration"
             android:label="@string/title_activity_registration"
             android:theme="@style/AppTheme.NoActionBar"
             tools:ignore="InnerclassSeparator" />
-        <activity android:name=".Controller.ShelterDetails"
+        <activity
+            android:name=".Controller.ShelterDetails"
             tools:ignore="InnerclassSeparator" />
-        <activity android:name=".Controller.SearchActivity"
+        <activity
+            android:name=".Controller.SearchActivity"
             tools:ignore="InnerclassSeparator" />
-        <activity android:name=".Controller.UserInfoActivity"
+        <activity
+            android:name=".Controller.UserInfoActivity"
             android:theme="@style/AppTheme.NoActionBar"
             tools:ignore="InnerclassSeparator" />
         <!--
@@ -90,11 +95,23 @@
         <activity
             android:name=".Controller.MapsActivity"
             android:label="@string/title_activity_maps"
-            tools:ignore="InnerclassSeparator"></activity>
+            tools:ignore="InnerclassSeparator" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCNq1KU1_wsjzLrepXNqnOOij7UTGYsFb4" />
+        <activity android:name=".Controller.AccountListActivity">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Controller.AccountDetailsActivity">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
 
     </application>
 

@@ -93,7 +93,7 @@ public abstract class Account {
     /**
      * set account state to blocked or active
      *
-     * @param accountState blocked or active
+     * accountState blocked or active or not_verified or banned or unbanned
      */
     public void setAccountState(String accountState) {
         this.accountState = accountState;

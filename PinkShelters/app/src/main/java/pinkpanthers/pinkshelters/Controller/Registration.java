@@ -48,7 +48,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         userTypes.setAdapter(adapter);
 
         //grabbing user inputs: name, email, username, password
-        name = findViewById(R.id.name);
+        name = findViewById(R.id.accountUserName);
         email = findViewById(R.id.email);
         username = findViewById(R.id.username);
         password = findViewById(R.id.pw);

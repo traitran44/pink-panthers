@@ -253,7 +253,7 @@ public class UserInfoActivity extends AppCompatActivity implements
         });
 
         //Grab name and user type to show in homepage
-        TextView name = findViewById(R.id.name);
+        TextView name = findViewById(R.id.accountUserName);
         TextView email = findViewById(R.id.email);
 
         // Display name and email

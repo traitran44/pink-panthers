@@ -37,7 +37,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        username = findViewById(R.id.name);
+        username = findViewById(R.id.accountUserName);
         password = findViewById(R.id.password);
 
         // set up Cancel button
@@ -65,10 +65,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             account = db.getAccountByUsername(user);
             txtView.setText("");
             String blocked = "blocked";
+            String ban= "banned";
             String correctPass = account.getPassword();
             String accountState = account.getAccountState();
             if (correctPass.equals(pass)
-                    && !accountState.equals(blocked)) { // correct password
+                    && !accountState.equals(blocked)
+                    && !accountState.equals(ban)) { // correct password
                 Context context = getApplicationContext();
                 SharedPreferences preferences = context.getSharedPreferences(
                         "com.example.sp.LoginPrefs", MODE_PRIVATE);
@@ -128,7 +130,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         String blocked = "blocked";
         if (account != null) {
             String accountState = account.getAccountState();
-            if (accountState.equals(blocked)) {
+            if (accountState.equals("banned")){
+                txtView.setText("Your account has been banned, please contact admin");
+                loginButton.setVisibility(View.INVISIBLE);
+            } else if (accountState.equals(blocked)) {
                 txtView.setText("Your account has been disable, please contact admin");
                 loginButton.setVisibility(View.INVISIBLE);
             } else if (loginTrial < 3) {
@@ -159,4 +164,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
         }
     }
+
+
+
 }

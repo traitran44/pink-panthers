@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import pinkpanthers.pinkshelters.Model.Account;
+import pinkpanthers.pinkshelters.Model.Admin;
 import pinkpanthers.pinkshelters.Model.DBI;
 import pinkpanthers.pinkshelters.Model.Db;
 import pinkpanthers.pinkshelters.Model.Homeless;
@@ -48,6 +49,17 @@ public class HomePageActivity extends AppCompatActivity {
         Intent shelterListIntent = new Intent(this, ListOfSheltersActivity.class);
         shelterListIntent.putExtra("username", username);
         startActivity(shelterListIntent);
+    }
+
+    /**
+     * Direct admin to the page that list all the account
+     *
+     * @param v View
+     */
+    public void accountListButton(View v) { //View Shelter button
+        Intent accountListIntent = new Intent(this, AccountListActivity.class);
+        accountListIntent.putExtra("username", username);
+        startActivity(accountListIntent);
     }
 
     /**
@@ -119,6 +131,14 @@ public class HomePageActivity extends AppCompatActivity {
             Button infoButton = findViewById(R.id.myInfo_btn);
             infoButton.setVisibility(View.INVISIBLE);
         }
+
+        if (user instanceof Admin) {
+            Button viewAccountButton=findViewById(R.id.accountList_btn);
+            viewAccountButton.setVisibility(View.VISIBLE);
+        } else {
+            Button viewAccountButton=findViewById(R.id.accountList_btn);
+            viewAccountButton.setVisibility(View.INVISIBLE);
+    }
 
     }
 
