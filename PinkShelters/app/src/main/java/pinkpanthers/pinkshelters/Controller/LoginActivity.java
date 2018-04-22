@@ -130,7 +130,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         String blocked = "blocked";
         if (account != null) {
             String accountState = account.getAccountState();
-            if (accountState.equals("banned")){
+            if (accountState.equals(blocked)){
                 txtView.setText("Your account has been banned, please contact admin");
                 loginButton.setVisibility(View.INVISIBLE);
             } else if (accountState.equals(blocked)) {
