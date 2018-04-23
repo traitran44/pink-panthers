@@ -125,13 +125,13 @@ public class Db implements DBI {
         // and retrieving the row id
         switch (type) {
             case "Homeless":
-                newUser = new Homeless(username, password, name, "not_verified", email, id);
+                new Homeless(username, password, name, "not_verified", email, id);
                 break;
             case "Shelter Volunteer":
-                newUser = new Volunteer(username, password, name, "not_verified", email, id);
+                new Volunteer(username, password, name, "not_verified", email, id);
                 break;
             case "Admin":
-                newUser = new Admin(username, password, name, "not_verified", email, id);
+                new Admin(username, password, name, "not_verified", email, id);
                 break;
             default:
                 throw new RuntimeException("You have attempted to " +
