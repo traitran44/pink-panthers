@@ -99,7 +99,7 @@ public class AccountDetailsActivity extends AppCompatActivity {
 
     private void setAccountStateText() {
         txtView = findViewById(R.id.banNotification_text);
-        String blcoked = "blocked";
+        String blocked = "blocked";
         Log.d("tate", a.getAccountState());
         String accountState = a.getAccountState();
         if (accountState.equals(new String("blocked"))) {
@@ -111,8 +111,10 @@ public class AccountDetailsActivity extends AppCompatActivity {
     }
 
          private void setBanButton() {
+             String accountState = a.getAccountState();
+
              Button testButton = findViewById(R.id.ban_btn);
-             if (!(a instanceof Homeless)) {
+             if (!(a instanceof Homeless) || accountState.equals(new String("blocked"))) {
                  testButton.setVisibility(View.VISIBLE);}
                      else {
                  Homeless hobo= (Homeless) a;
