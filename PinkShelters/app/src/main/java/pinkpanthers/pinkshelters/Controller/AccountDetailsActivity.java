@@ -1,6 +1,7 @@
 package pinkpanthers.pinkshelters.Controller;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -8,11 +9,15 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import pinkpanthers.pinkshelters.Model.Account;
 import pinkpanthers.pinkshelters.Model.DBI;
 import pinkpanthers.pinkshelters.Model.Db;
+import pinkpanthers.pinkshelters.Model.Homeless;
 import pinkpanthers.pinkshelters.Model.NoSuchUserException;
+import pinkpanthers.pinkshelters.Model.Shelter;
 import pinkpanthers.pinkshelters.R;
 import android.util.Log;
 
@@ -22,7 +27,6 @@ public class AccountDetailsActivity extends AppCompatActivity {
     private DBI db;
     private Account a;
     private TextView txtView;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +49,10 @@ public class AccountDetailsActivity extends AppCompatActivity {
         }
     }
 
+
+
+
+
     /**
      * specific details about a account
      *
@@ -52,6 +60,8 @@ public class AccountDetailsActivity extends AppCompatActivity {
      */
 
     private void updateView(Account a) {
+        Button testButton = findViewById(R.id.ban_btn);
+
         TextView username = findViewById(R.id.accountUserName);
         String forUserName = "Account User Name: " + a.getUsername();
         username.setText(forUserName);
@@ -77,7 +87,15 @@ public class AccountDetailsActivity extends AppCompatActivity {
         userId.setText(forUserId);
 
         setAccountStateText();
-    }
+        setBanButton();
+
+        if (accountState.equals(new String("blocked")) ) {
+            testButton.setText("Unban");
+        } else {
+                testButton.setText("Ban");
+            }
+            }
+
 
     private void setAccountStateText() {
         txtView = findViewById(R.id.banNotification_text);
@@ -92,40 +110,48 @@ public class AccountDetailsActivity extends AppCompatActivity {
         }
     }
 
-    public void banAccountButton(View view) {
-        Button testButton = findViewById(R.id.ban_btn);
-        testButton.setText("Ban");
-        String accountState = a.getAccountState();
-        String blocked = "blocked";
-        testButton.setOnClickListener(new View.OnClickListener() {
-            @Override
+         private void setBanButton() {
+             Button testButton = findViewById(R.id.ban_btn);
+             if (!(a instanceof Homeless)) {
+                 testButton.setVisibility(View.VISIBLE);}
+                     else {
+                 Homeless hobo= (Homeless) a;
+                 List<String> homelessRestrictions = hobo.getRestrictionsMatch();
+                 if (homelessRestrictions != null && homelessRestrictions.isEmpty())
+                     testButton.setVisibility(View.INVISIBLE);
+                 testButton.setVisibility(View.INVISIBLE);
+             }}
+
+
+
+
+
             public void onClick(View v) {
+            Button testButton = findViewById(R.id.ban_btn);
+            String accountState = a.getAccountState();
+            String blocked = "blocked";
                 if (accountState.equals(blocked) ){
                     testButton.setText("Unban");
-                    TextView accountState = findViewById(R.id.accountState);
+                    TextView accountState1 = findViewById(R.id.accountState);
                     String block="active";
                     a.setAccountState(block);
                     String forAccountState = "Account State: " + a.getAccountState();
-                    accountState.setText(forAccountState);
+                    accountState1.setText(forAccountState);
                 } else {
-                    String blocked = "blocked";
                     a.setAccountState(blocked);
                     testButton.setText("Ban");
-                    TextView accountState = findViewById(R.id.accountState);
+                    TextView accountState2 = findViewById(R.id.accountState);
                     String forAccountState = "Account State: " + a.getAccountState();
-                    accountState.setText(forAccountState );
+                    accountState2.setText(forAccountState );
                 }
                 try {
                     db.updateAccount(a);
-                              } catch (SQLException e) {
-                               throw new RuntimeException("Failed to update account " +
-                                       e.toString());
-                           } catch (NoSuchUserException e) { // this shouldn't happen
-                              txtView.setText("Your account doesn't exist");
-                               }
+                } catch (SQLException e) {
+                    throw new RuntimeException("Failed to update account " +
+                            e.toString());
+                } catch (NoSuchUserException e) { // this shouldn't happen
+                    txtView.setText("Your account doesn't exist");
+                }
                 finish();
                 startActivity(getIntent());
-            }});}}
-
-
-
+            }}
