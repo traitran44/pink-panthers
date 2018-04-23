@@ -87,7 +87,7 @@ public class AccountDetailsActivity extends AppCompatActivity {
         userId.setText(forUserId);
 
         setAccountStateText();
-        setBanButton();
+        //setBanButton();
 
         if (accountState.equals(new String("blocked")) ) {
             testButton.setText("Unban");
@@ -109,19 +109,19 @@ public class AccountDetailsActivity extends AppCompatActivity {
         }
     }
 
-         private void setBanButton() {
-             String accountState = a.getAccountState();
-
-             Button testButton = findViewById(R.id.ban_btn);
-             if (!(a instanceof Homeless) || accountState.equals(new String("blocked"))) {
-                 testButton.setVisibility(View.VISIBLE);}
-                     else {
-                 Homeless hobo= (Homeless) a;
-                 List<String> homelessRestrictions = hobo.getRestrictionsMatch();
-                 if (homelessRestrictions != null && homelessRestrictions.isEmpty())
-                     testButton.setVisibility(View.INVISIBLE);
-                     testButton.setVisibility(View.INVISIBLE);
-             }}
+//         private void setBanButton() {
+//             String accountState = a.getAccountState();
+//
+//             Button testButton = findViewById(R.id.ban_btn);
+//             if (!(a instanceof Homeless) || accountState.equals(new String("blocked"))) {
+//                 testButton.setVisibility(View.VISIBLE);}
+//                     else {
+//                 Homeless hobo= (Homeless) a;
+//                 List<String> homelessRestrictions = hobo.getRestrictionsMatch();
+//                 if (homelessRestrictions != null && homelessRestrictions.isEmpty())
+//                     testButton.setVisibility(View.INVISIBLE);
+//                     testButton.setVisibility(View.INVISIBLE);
+//             }}
 
 
 
