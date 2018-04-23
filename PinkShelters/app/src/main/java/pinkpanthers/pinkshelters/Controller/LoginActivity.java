@@ -65,12 +65,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             account = db.getAccountByUsername(user);
             txtView.setText("");
             String blocked = "blocked";
-            String ban= "banned";
             String correctPass = account.getPassword();
             String accountState = account.getAccountState();
             if (correctPass.equals(pass)
-                    && !accountState.equals(blocked)
-                    && !accountState.equals(ban)) { // correct password
+                    && !accountState.equals(blocked)){ // correct password
                 Context context = getApplicationContext();
                 SharedPreferences preferences = context.getSharedPreferences(
                         "com.example.sp.LoginPrefs", MODE_PRIVATE);

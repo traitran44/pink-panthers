@@ -63,7 +63,7 @@ public class AccountListActivity extends AppCompatActivity implements
         Intent detailAccount = new Intent(this, AccountDetailsActivity.class);
         Account acc =allAccountList.get(position);
         detailAccount.putExtra("accUserName", acc.getUsername());
-        Log.d("this is the account", acc.getUsername().toString());
+        Log.d("this is the account", acc.getAccountState().toString());
         startActivity(detailAccount);
     }
 
