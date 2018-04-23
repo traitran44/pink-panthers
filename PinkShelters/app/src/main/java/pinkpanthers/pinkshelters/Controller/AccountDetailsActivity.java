@@ -100,7 +100,6 @@ public class AccountDetailsActivity extends AppCompatActivity {
     private void setAccountStateText() {
         txtView = findViewById(R.id.banNotification_text);
         String blocked = "blocked";
-        Log.d("tate", a.getAccountState());
         String accountState = a.getAccountState();
         if (accountState.equals(new String("blocked"))) {
             txtView.setText("This account has been banned");
@@ -121,7 +120,7 @@ public class AccountDetailsActivity extends AppCompatActivity {
                  List<String> homelessRestrictions = hobo.getRestrictionsMatch();
                  if (homelessRestrictions != null && homelessRestrictions.isEmpty())
                      testButton.setVisibility(View.INVISIBLE);
-                 testButton.setVisibility(View.INVISIBLE);
+                     testButton.setVisibility(View.INVISIBLE);
              }}
 
 
@@ -137,6 +136,8 @@ public class AccountDetailsActivity extends AppCompatActivity {
                     TextView accountState1 = findViewById(R.id.accountState);
                     String block="active";
                     a.setAccountState(block);
+                    txtView.setText("You have un-banned this account successfully");
+                    txtView.setVisibility(View.VISIBLE);
                     String forAccountState = "Account State: " + a.getAccountState();
                     accountState1.setText(forAccountState);
                 } else {
@@ -145,6 +146,8 @@ public class AccountDetailsActivity extends AppCompatActivity {
                     TextView accountState2 = findViewById(R.id.accountState);
                     String forAccountState = "Account State: " + a.getAccountState();
                     accountState2.setText(forAccountState );
+                    txtView.setText("You have banned this account successfully");
+                    txtView.setVisibility(View.VISIBLE);
                 }
                 try {
                     db.updateAccount(a);
