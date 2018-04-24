@@ -11,11 +11,11 @@ public interface DBI {
      * createAccount a new account/assignment
      *
      */
-    void createAccount(String type,
-                       String username,
-                       String password,
-                       String name,
-                       String email) throws UniqueKeyError;
+    Account createAccount(String type,
+                          String username,
+                          String password,
+                          String name,
+                          String email) throws UniqueKeyError;
 
     /**
      * to retrieve an account by its username (unique)
@@ -136,4 +136,6 @@ public interface DBI {
      *                             got updated in the database
      */
     void updateShelter(Shelter shelter) throws SQLException, NoSuchUserException;
+
+    void logAction(Account account, String action);
 }

@@ -21,6 +21,7 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 
+import pinkpanthers.pinkshelters.Model.Account;
 import pinkpanthers.pinkshelters.Model.DBI;
 import pinkpanthers.pinkshelters.Model.Db;
 import pinkpanthers.pinkshelters.Model.UniqueKeyError;
@@ -143,12 +144,14 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
             try {
 
                 db.createAccount(isValidType,
+                Account newAccount = db.createAccount(isValidType,
                         isValidUsername,
                         isValidPassword,
                         isValidName,
                         isValidEmail);
 
                 sendEmail(isValidEmail);
+                db.logAction(newAccount, "account_created");
                 Intent loginPageIntent = new Intent(this, LoginActivity.class);
                 startActivity(loginPageIntent);
             } catch (UniqueKeyError e) {
