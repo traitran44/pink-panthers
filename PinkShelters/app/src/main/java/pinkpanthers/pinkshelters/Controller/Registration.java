@@ -143,7 +143,6 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
             try {
 
-                db.createAccount(isValidType,
                 Account newAccount = db.createAccount(isValidType,
                         isValidUsername,
                         isValidPassword,
