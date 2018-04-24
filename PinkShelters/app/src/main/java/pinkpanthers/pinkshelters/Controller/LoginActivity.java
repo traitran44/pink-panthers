@@ -92,6 +92,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 //                Db.activeAccount = account;
 
+                db.logAction(account, "Logged in");
+
                 Intent homePageIntent = new Intent(this, HomePageActivity.class);
                 homePageIntent.putExtra("username", user);
                 startActivity(homePageIntent);

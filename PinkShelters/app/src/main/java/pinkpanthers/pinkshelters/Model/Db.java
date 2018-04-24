@@ -26,7 +26,8 @@ public class Db implements DBI {
      * In the event of a connection error
      * it will retry 10 times and blow up
      * the application after that.
-     *  @param username Database username
+     *
+     * @param username Database username
      * @param password Database password
      */
     public Db(String username, String password) {
@@ -57,6 +58,7 @@ public class Db implements DBI {
 
     /**
      * to log error
+     *
      * @param e the error
      * @return the text of error
      */
@@ -67,11 +69,11 @@ public class Db implements DBI {
     }
 
     @Override
-    public void createAccount(String type,
-                              String username,
-                              String password,
-                              String name,
-                              String email) throws UniqueKeyError {
+    public Account createAccount(String type,
+                                 String username,
+                                 String password,
+                                 String name,
+                                 String email) throws UniqueKeyError {
         // These are the only valid options.
         // Program should blow up in the event that a developer
         // accidentally changes these strings. For developers only not for users.
@@ -123,21 +125,23 @@ public class Db implements DBI {
 
         // Create Java object after inserting into database
         // and retrieving the row id
+        Account account;
         switch (type) {
             case "Homeless":
-                new Homeless(username, password, name, "active", email, id);
+                account = new Homeless(username, password, name, "active", email, id);
                 break;
             case "Shelter Volunteer":
-                new Volunteer(username, password, name, "active", email, id);
+                account = new Volunteer(username, password, name, "active", email, id);
                 break;
             case "Admin":
-                new Admin(username, password, name, "active", email, id);
+                account = new Admin(username, password, name, "active", email, id);
                 break;
             default:
                 throw new RuntimeException("You have attempted to " +
                         "createAccount an invalid user type. " +
                         "This should not be possible if the UI is designed correctly.");
         }
+        return account;
     }
 
     @Override
@@ -489,7 +493,7 @@ public class Db implements DBI {
 
     @Override
     public void updateShelterOccupancy(int shelterId, int occupancy) throws SQLException,
-                                                                        NoSuchUserException {
+            NoSuchUserException {
         String sql = "UPDATE shelters " +
                 "SET occupancy = ? " +
                 "WHERE id = ?";
@@ -523,7 +527,7 @@ public class Db implements DBI {
 
     @TargetApi(Build.VERSION_CODES.O)
     @Override
-    public void updateAccount (Account user) throws SQLException, NoSuchUserException {
+    public void updateAccount(Account user) throws SQLException, NoSuchUserException {
         String sql = "UPDATE accounts " +
                 "SET password = ?, " +
                 "name = ?, " +
@@ -576,7 +580,7 @@ public class Db implements DBI {
     }
 
     @Override
-    public void deleteAccount (String username) throws SQLException, NoSuchUserException {
+    public void deleteAccount(String username) throws SQLException, NoSuchUserException {
         String sql = "DELETE FROM accounts WHERE username = ?";
         PreparedStatement deleteAccount = null;
         try {
@@ -604,7 +608,7 @@ public class Db implements DBI {
     }
 
     @Override
-    public void updateShelter(Shelter shelter) throws SQLException, NoSuchUserException{
+    public void updateShelter(Shelter shelter) throws SQLException, NoSuchUserException {
         String sql = "UPDATE shelters " +
                 "SET rating = ? " +
                 "WHERE id = ?";
@@ -633,6 +637,37 @@ public class Db implements DBI {
                 updatedOccupancy.close();
             }
             conn.setAutoCommit(true);
+        }
+    }
+
+    public void logAction(Account account, String action) {
+        String sql = "INSERT INTO audit_log " +
+                " (`account_id`, `action`) " +
+                " VALUES " +
+                " (?, ?) ";
+
+        PreparedStatement logItem = null;
+        try {
+            conn.setAutoCommit(false);
+            logItem = conn.prepareStatement(sql);
+            logItem.setInt(1, account.getUserId());
+            logItem.setString(2, action);
+            logItem.executeUpdate();
+            logItem.close();
+            conn.commit();
+        } catch (SQLException e) {
+            logSqlException(e);
+            throw new RuntimeException("Failed to log action: " +
+                    e.toString()); // so we can log sql message too
+        } finally {
+            if (logItem != null) {
+                try {
+                    logItem.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException("Failed to close prepared statement for log item: " +
+                            e.toString()); // so we can log sql message too
+                }
+            }
         }
     }
 }
