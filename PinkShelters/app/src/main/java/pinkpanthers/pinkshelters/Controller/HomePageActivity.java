@@ -62,6 +62,12 @@ public class HomePageActivity extends AppCompatActivity {
         startActivity(accountListIntent);
     }
 
+//    public void accountListButton(View v) { //View Shelter button
+//        Intent accountListIntent = new Intent(this, MainActivity.class);
+//        accountListIntent.putExtra("username", username);
+//        startActivity(accountListIntent);
+//    }
+
     /**
      * Direct user to the Info Page
      *

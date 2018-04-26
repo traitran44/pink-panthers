@@ -10,7 +10,7 @@ public class Admin extends Account {
      * @param username     username of account
      * @param password     password of account
      * @param name         name of owner of account
-     * @param accountState blocked or active
+     * @param accountState blocked or active or not_verified
      * @param email        email address of account
      * @param userId       unique user identification in database
      */

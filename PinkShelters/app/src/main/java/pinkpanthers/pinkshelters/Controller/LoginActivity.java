@@ -37,7 +37,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        username = findViewById(R.id.accountUserName);
+        username = findViewById(R.id.name);
         password = findViewById(R.id.password);
 
         // set up Cancel button
@@ -65,12 +65,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             account = db.getAccountByUsername(user);
             txtView.setText("");
             String blocked = "blocked";
-            String ban= "banned";
             String correctPass = account.getPassword();
             String accountState = account.getAccountState();
             if (correctPass.equals(pass)
-                    && !accountState.equals(blocked)
-                    && !accountState.equals(ban)) { // correct password
+                    && !accountState.equals(blocked) && !accountState.equals("not_verified")) { // correct password
                 Context context = getApplicationContext();
                 SharedPreferences preferences = context.getSharedPreferences(
                         "com.example.sp.LoginPrefs", MODE_PRIVATE);
@@ -93,6 +91,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 // logged in for quick access to current user
 
 //                Db.activeAccount = account;
+
+                db.logAction(account, "Logged in");
 
                 Intent homePageIntent = new Intent(this, HomePageActivity.class);
                 homePageIntent.putExtra("username", user);
@@ -130,10 +130,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         String blocked = "blocked";
         if (account != null) {
             String accountState = account.getAccountState();
-            if (accountState.equals("banned")){
-                txtView.setText("Your account has been banned, please contact admin");
+            if (accountState.equals("not_verified")) {
+                txtView.setText("Your account has not been verified. Please click on the registration linkgit");
                 loginButton.setVisibility(View.INVISIBLE);
-            } else if (accountState.equals(blocked)) {
+            }
+            else if (accountState.equals(blocked)) {
                 txtView.setText("Your account has been disable, please contact admin");
                 loginButton.setVisibility(View.INVISIBLE);
             } else if (loginTrial < 3) {
@@ -164,7 +165,4 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
         }
     }
-
-
-
 }

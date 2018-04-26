@@ -240,7 +240,6 @@ public class ShelterDetails extends AppCompatActivity {
 
                         //pass in account object to update account
                         db.updateAccount(a);
-
                         // refresh page to update vacancy TextView
                         finish();
                         startActivity(getIntent());
